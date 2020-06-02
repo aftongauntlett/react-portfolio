@@ -3,6 +3,7 @@ import Home from "./components/views/Home";
 import Aboutme from "./components/views/Aboutme";
 import Portfolio from "./components/views/Portfolio";
 import Contact from "./components/views/Contact";
+import Footer from "./components/shared/Footer";
 
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -29,6 +30,7 @@ export default function App() {
           </Route>
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 }
