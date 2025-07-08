@@ -4,8 +4,10 @@ export default function Home() {
   return (
     <main className="flex flex-col lg:flex-row min-h-screen">
       {/* Sidebar */}
-      <aside className="lg:sticky top-0 lg:h-screen lg:w-1/3 bg-[var(--color-background)] text-[var(--color-text)] p-8">
-        <h1 className="text-3xl font-bold">Afton Gauntlett</h1>
+      <aside className="lg:sticky top-0 lg:h-screen lg:w-1/3  p-8">
+        <h1 className="text-3xl font-bold border-2 border-green-300 border-solid">
+          Afton Gauntlett
+        </h1>
         <p className="text-muted mt-2">Front-End Engineer</p>
         <nav className="mt-8 space-y-4 text-sm">
           <a href="#about" className="block hover:underline">

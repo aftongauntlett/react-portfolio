@@ -1,3 +1,4 @@
+import "./index.css";
 import AppRouter from "./router";
 
 export default function App() {
