@@ -1,0 +1,19 @@
+/* light mode base */
+:root {
+  --color-background: hsl(0, 0%, 100%);
+  --color-text: hsl(0, 0%, 10%);
+  --color-muted: hsl(0, 0%, 60%);
+  --color-primary: hsl(180, 90%, 40%);
+  --color-line: hsl(0, 0%, 90%);
+  --color-secondary: hsl(240, 50%, 60%);
+}
+
+/* dark mode base */
+html.dark {
+  --color-background: hsl(0, 0%, 8%);
+  --color-text: hsl(0, 0%, 100%);
+  --color-muted: hsl(0, 0%, 50%);
+  --color-primary: hsl(180, 90%, 60%);
+  --color-line: hsl(0, 0%, 20%);
+  --color-secondary: hsl(240, 50%, 70%);
+}

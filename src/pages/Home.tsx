@@ -1,14 +1,18 @@
 import Hero from "@/components/sections/Hero";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Home() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <main className="flex flex-col lg:flex-row min-h-screen">
       {/* Sidebar */}
-      <aside className="lg:sticky top-0 lg:h-screen lg:w-1/3  p-8">
-        <h1 className="text-3xl font-bold border-2 border-green-300 border-solid">
-          Afton Gauntlett
-        </h1>
-        <p className="text-muted mt-2">Front-End Engineer</p>
+      <aside className="lg:sticky top-0 lg:h-screen lg:w-1/3 p-8 border-r border-[var(--color-line)]">
+        <h1 className="text-3xl font-bold">Afton Gauntlett</h1>
+        <p className="mt-2 text-sm text-[var(--color-muted)]">
+          Front-End Engineer
+        </p>
+
         <nav className="mt-8 space-y-4 text-sm">
           <a href="#about" className="block hover:underline">
             About
@@ -20,6 +24,14 @@ export default function Home() {
             Contact
           </a>
         </nav>
+
+        <button
+          onClick={toggleTheme}
+          className="mt-8 px-4 py-2 rounded border border-[var(--color-line)] text-sm hover:bg-[var(--color-line)] transition"
+          aria-label="Toggle dark mode"
+        >
+          {theme === "dark" ? "🌞 Light Mode" : "🌚 Dark Mode"}
+        </button>
       </aside>
 
       {/* Main content */}
