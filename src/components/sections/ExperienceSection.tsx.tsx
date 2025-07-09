@@ -1,8 +1,11 @@
+import { jobs } from "@/data/Jobs";
+import Timeline from "../timeline/Timeline";
+
 export default function ExperienceSection() {
   return (
-    <section id="experience">
-      <h2 className="text-xl font-semibold">Experience</h2>
-      <p className="text-muted mt-2">My job history and roles — coming soon.</p>
+    <section id="experience" className="p-8">
+      <h2 className="text-2xl font-semibold mb-8">Experience</h2>
+      <Timeline items={jobs} />
     </section>
   );
 }

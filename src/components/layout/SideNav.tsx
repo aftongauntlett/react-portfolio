@@ -4,8 +4,7 @@ export default function SideNav() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <aside className="flex flex-col justify-between lg:sticky top-0 lg:h-screen lg:w-1/4 p-8 border-r border-[var(--color-line)]">
-      {" "}
+    <aside className="hidden lg:sticky lg:block top-0 lg:h-screen lg:w-1/4 p-8 border-r border-[var(--color-line)] flex flex-col justify-between">
       <div>
         <h1 className="text-3xl font-bold">Afton Gauntlett</h1>
         <p className="mt-2 text-sm text-[var(--color-muted)]">
