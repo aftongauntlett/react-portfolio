@@ -1,13 +1,13 @@
 import Layout from "@/components/layout/Layout";
 import Hero from "@/components/sections/Hero";
-import AboutSection from "@/components/sections/AboutSection";
+import ExperienceSection from "@/components/sections/ExperienceSection.tsx";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 
 export default function Home() {
   return (
     <Layout>
       <Hero />
-      <AboutSection />
+      <ExperienceSection />
       <ProjectsSection />
 
       <section id="contact">

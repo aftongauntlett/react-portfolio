@@ -27,7 +27,7 @@ export default function SideNav() {
         className="mt-8 px-4 py-2 rounded border border-[var(--color-line)] text-sm hover:bg-[var(--color-line)] transition"
         aria-label="Toggle dark mode"
       >
-        {theme === "dark" ? "🌞 Light Mode" : "🌚 Dark Mode"}
+        {theme === "dark" ? "Light Mode" : "Dark Mode"}
       </button>
     </aside>
   );
