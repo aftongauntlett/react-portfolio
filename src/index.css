@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@fontsource/inter/variable.css";
+@import "@fontsource/montserrat/variable.css";
+
+:root {
+  --font-body: "InterVariable", sans-serif;
+  --font-heading: "MontserratVariable", sans-serif;
+}
+
 html,
 body {
   margin: 0;
