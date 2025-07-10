@@ -1,7 +1,6 @@
 export default function ContactSection() {
   return (
     <div className="space-y-6 max-w-xl">
-      <h2 className="text-3xl font-bold">Get in Touch</h2>
       <p className="text-[var(--color-muted)]">
         Whether you want to chat about a project, collaboration, or just say hi
         — my inbox is always open. I’ll try to respond as soon as I can!

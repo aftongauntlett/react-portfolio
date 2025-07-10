@@ -22,7 +22,6 @@ const projects = [
 export default function ProjectsSection() {
   return (
     <div className="space-y-6">
-      <h2 className="text-3xl font-bold">Projects</h2>
       <div className="space-y-8">
         {projects.map(({ title, description, link }) => (
           <div

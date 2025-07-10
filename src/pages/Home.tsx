@@ -1,40 +1,28 @@
 import Layout from "@/components/layout/Layout";
 import HeroSection from "@/components/sections/HeroSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
-import ExperienceSection from "@/components/sections/ExperienceSection.tsx";
-import FadeInSection from "@/components/shared/FadeInSection";
+import PageSection from "@/components/layout/PageSection";
 
 export default function Home() {
   return (
     <Layout>
-      <section id="about" data-section="about" className="min-h-screen">
-        <FadeInSection>
-          <HeroSection />
-        </FadeInSection>
-      </section>
+      <PageSection id="about" title="Hello.">
+        <HeroSection />
+      </PageSection>
 
-      <section
-        id="experience"
-        data-section="experience"
-        className="min-h-screen"
-      >
-        <FadeInSection>
-          <ExperienceSection />
-        </FadeInSection>
-      </section>
+      <PageSection id="experience" title="Experience">
+        <ExperienceSection />
+      </PageSection>
 
-      <section id="projects" data-section="projects" className="min-h-screen">
-        <FadeInSection>
-          <ProjectsSection />
-        </FadeInSection>
-      </section>
+      <PageSection id="projects" title="Projects">
+        <ProjectsSection />
+      </PageSection>
 
-      <section id="contact" data-section="contact" className="min-h-screen">
-        <FadeInSection>
-          <ContactSection />
-        </FadeInSection>
-      </section>
+      <PageSection id="contact" title="Get in Touch">
+        <ContactSection />
+      </PageSection>
     </Layout>
   );
 }

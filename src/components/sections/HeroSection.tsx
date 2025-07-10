@@ -1,10 +1,7 @@
-import PaintSplashText from "../shared/PaintSplashEffect";
-
 export default function Hero() {
   return (
     <section id="about" className="py-24 lg:py-32 text-[var(--color-text)]">
       <div className="max-w-3xl">
-        <PaintSplashText tag="h2">Hello.</PaintSplashText>
         <p className="mt-4 text-lg text-[var(--color-muted)] max-w-prose leading-relaxed">
           I’m a front-end developer who builds interfaces that don’t make people
           angry. I care about accessible layouts, clean architecture, and little
