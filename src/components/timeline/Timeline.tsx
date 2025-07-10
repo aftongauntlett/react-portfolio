@@ -1,5 +1,5 @@
 import TimelineItem from "./TimelineItem";
-import type { Job } from "@/data/Jobs";
+import type { Job } from "@/data/jobTimeline";
 
 type TimelineProps = {
   items: Job[];

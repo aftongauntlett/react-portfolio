@@ -1,4 +1,4 @@
-import { jobs } from "@/data/Jobs";
+import { jobs } from "@/data/jobTimeline";
 import Timeline from "../timeline/Timeline";
 
 export default function ExperienceSection() {
