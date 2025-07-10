@@ -4,7 +4,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
 }
 
 html,
@@ -23,8 +22,16 @@ body {
   line-height: 1.2;
 }
 
-section {
-  scroll-snap-align: start;
+.subtitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2vw, 1.125rem);
+  line-height: 1.2;
+}
+
+.navitem {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.2;
 }
 
 .transition-theme {

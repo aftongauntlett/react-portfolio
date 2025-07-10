@@ -46,3 +46,26 @@ html.dark {
     transparent 40%
   );
 }
+
+.nav-link {
+  position: relative;
+  padding-left: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 3px;
+  background-color: var(--color-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover::before,
+.nav-link[aria-current="true"]::before {
+  opacity: 1;
+}
