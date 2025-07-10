@@ -6,6 +6,8 @@
   --color-primary: hsl(180, 90%, 40%);
   --color-line: hsl(0, 0%, 90%);
   --color-secondary: hsl(240, 50%, 60%);
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
 }
 
 /* dark mode base */
