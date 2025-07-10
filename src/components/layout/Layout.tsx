@@ -9,7 +9,9 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <main className="flex flex-col lg:flex-row min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
-      <SideNav />
+      <aside className="hidden lg:block">
+        <SideNav />
+      </aside>
       <div className="flex-1 p-6 sm:p-8 space-y-32">
         {children}
         <Footer />
