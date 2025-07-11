@@ -1,23 +1,30 @@
 import type { ReactNode } from "react";
 import PaintSplashText from "../shared/PaintSplashEffect";
 import FadeInSection from "../shared/FadeInSection";
+import clsx from "clsx";
 
 type Props = {
   id: string;
   title: string;
   children: ReactNode;
+  className?: string;
 };
 
-export default function PageSection({ id, title, children }: Props) {
+export default function PageSection({ id, title, children, className }: Props) {
   return (
     <section
       id={id}
       data-section={id}
-      className="min-h-screen px-6 sm:px-8 py-20 flex flex-col items-start justify-center max-w-5xl mx-auto"
+      className={clsx(
+        "min-h-screen px-6 sm:px-8 lg:pl-16 py-20 flex flex-col items-start max-w-4xl mx-auto",
+        className
+      )}
     >
       <FadeInSection>
-        <PaintSplashText tag="h2">{title}</PaintSplashText>
-        <div className="mt-10 w-full">{children}</div>
+        <div className="w-full space-y-8">
+          <PaintSplashText tag="h2">{title}</PaintSplashText>
+          {children}
+        </div>
       </FadeInSection>
     </section>
   );

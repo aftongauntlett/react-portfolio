@@ -1,10 +1,81 @@
-import { jobs } from "@/data/jobTimeline";
-import Timeline from "../timeline/Timeline";
+"use client";
 
-export default function ExperienceSection() {
+import { useState, type JSX } from "react";
+import NewJobEntry from "@/components/experience/NewJobEntry";
+import NextRoleSlot from "@/components/experience/NextRoleSlot";
+import { jobs, type Job } from "@/data/jobTimeline";
+import TimelineItem from "../experience/TimelineItem";
+
+/** Renders the interactive career timeline with optional new job entry */
+export default function ExperienceSection(): JSX.Element {
+  const [currentJob, setCurrentJob] = useState<Job | null>(null);
+
+  const entries = [
+    ...(currentJob
+      ? [
+          {
+            id: "new-role",
+            title: currentJob.title,
+            company: currentJob.company,
+            dates: currentJob.dates,
+            isFirst: true, // this should always be first
+            isActive: true,
+            content: <NewJobEntry job={currentJob} />,
+          },
+        ]
+      : []),
+    ...jobs.map((job, idx) => ({
+      id: `${job.company}-${idx}`,
+      title: job.title,
+      company: job.company,
+      dates: job.dates,
+      isFirst: !currentJob && idx === 0,
+      isActive: false,
+      content: (
+        <ul className="list-none space-y-2 mt-4" role="list">
+          {job.description.map((line, j) => (
+            <li
+              key={j}
+              className="text-[var(--color-text)] text-base leading-snug"
+            >
+              {line}
+            </li>
+          ))}
+        </ul>
+      ),
+    })),
+  ];
+
   return (
-    <section id="experience" className="p-8">
-      <Timeline items={jobs} />
-    </section>
+    <div className="timeline-vertical space-y-12 transition-all duration-500">
+      {!currentJob && (
+        <TimelineItem
+          id="next-role"
+          title="What's my next role?"
+          company="To Be Determined"
+          dates="Coming Soon"
+          isFirst={true}
+          isActive={false}
+        >
+          <NextRoleSlot onNewJob={setCurrentJob} />
+        </TimelineItem>
+      )}
+
+      {entries.map(
+        ({ id, title, company, dates, isFirst, isActive, content }) => (
+          <TimelineItem
+            key={id}
+            id={id}
+            title={title}
+            company={company}
+            dates={dates}
+            isFirst={isFirst}
+            isActive={isActive}
+          >
+            {content}
+          </TimelineItem>
+        )
+      )}
+    </div>
   );
 }

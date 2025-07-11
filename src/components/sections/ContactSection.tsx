@@ -1,52 +1,61 @@
+const fields = [
+  {
+    id: "name",
+    label: "Name",
+    type: "text",
+  },
+  {
+    id: "email",
+    label: "Email",
+    type: "email",
+  },
+  {
+    id: "message",
+    label: "Message",
+    type: "textarea",
+    rows: 4,
+  },
+];
+
 export default function ContactSection() {
   return (
-    <div className="space-y-6 max-w-xl">
+    <>
       <p className="text-[var(--color-muted)]">
         Whether you want to chat about a project, collaboration, or just say hi
         — my inbox is always open. I’ll try to respond as soon as I can!
       </p>
 
-      <form className="space-y-4">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium">
-            Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
-          />
-        </div>
+      <form className="space-y-4 subtitle">
+        {fields.map(({ id, label, type, rows }) => (
+          <div key={id}>
+            <label htmlFor={id} className="block text-sm font-medium mb-2">
+              {label}
+            </label>
+            {type === "textarea" ? (
+              <textarea
+                id={id}
+                rows={rows}
+                className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
+              />
+            ) : (
+              <input
+                id={id}
+                type={type}
+                className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
+              />
+            )}
+          </div>
+        ))}
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
-          />
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="navitem px-4 py-2 border rounded text-[var(--color-primary)] border-[var(--color-primary)] hover:bg-[var(--color-secondary)] transition"
+          >
+            Send Message
+          </button>
         </div>
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium">
-            Message
-          </label>
-          <textarea
-            id="message"
-            rows={4}
-            className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="px-4 py-2 border rounded border-[var(--color-line)] hover:bg-[var(--color-line)] transition"
-        >
-          Send Message
-        </button>
       </form>
-    </div>
+    </>
   );
 }

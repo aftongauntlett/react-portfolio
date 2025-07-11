@@ -8,7 +8,7 @@ export default function SideNav() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <aside className="lg:sticky top-0 lg:h-screen w-full lg:w-[320px] px-6 py-8 border-r border-[var(--color-line)] flex flex-col justify-between">
+    <aside className="lg:sticky top-0 lg:h-screen w-full lg:w-[320px] px-6 py-10 flex flex-col justify-between">
       <div>
         <h1 className="subtitle">Afton Gauntlett</h1>
         <p className="mt-1 mb-3 text-sm text-[var(--color-muted)]">

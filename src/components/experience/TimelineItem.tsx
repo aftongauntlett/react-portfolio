@@ -1,20 +1,20 @@
 // src/components/experience/TimelineItem.tsx
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { type ReactNode } from "react";
 
-type TimelineItemProps = {
+export type TimelineItemProps = {
   id: string;
   title: string;
-  company: string;
-  dates: string;
+  company?: string;
+  dates?: string;
   isFirst?: boolean;
   isActive?: boolean;
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 /**
- * TimelineItem renders a single job entry with animations, title, dates, and description.
+ * Renders a single job entry with animated dot, heading, and description.
+ * Visually aligned and accessible.
  */
 export default function TimelineItem({
   id,
@@ -28,7 +28,7 @@ export default function TimelineItem({
   return (
     <motion.article
       key={id}
-      className={clsx("timeline-item group", {
+      className={clsx("timeline-item group relative pl-12", {
         "first:mt-0": isFirst,
       })}
       initial={{ opacity: 0, y: isActive ? -10 : 10 }}
@@ -39,9 +39,10 @@ export default function TimelineItem({
       aria-labelledby={`${id}-heading`}
       aria-describedby={`${id}-date ${id}-desc`}
     >
+      {/* Timeline Dot */}
       <span
         className={clsx(
-          "timeline-dot transition-colors timeline-dot-glow",
+          "timeline-dot transition-all timeline-dot-glow absolute left-0 top-[1.25rem] translate-y-[-50%]",
           isFirst && !isActive
             ? "bg-[var(--color-primary)]"
             : isActive
@@ -51,20 +52,26 @@ export default function TimelineItem({
         aria-hidden="true"
       />
 
+      {/* Title */}
       <h3
         id={`${id}-heading`}
         className="timeline-title group-hover:text-[var(--color-primary)]"
       >
-        {title} <span className="font-normal">@ {company}</span>
+        {title}
+        {company && <span className="font-normal"> @ {company}</span>}
       </h3>
 
-      <time
-        id={`${id}-date`}
-        className="timeline-date block text-sm text-[var(--color-muted)] mt-1"
-      >
-        {dates}
-      </time>
+      {/* Dates */}
+      {dates && (
+        <time
+          id={`${id}-date`}
+          className="timeline-date mt-1 block text-sm text-[var(--color-muted)]"
+        >
+          {dates}
+        </time>
+      )}
 
+      {/* Description */}
       <div id={`${id}-desc`} className="mt-4 space-y-2">
         {children}
       </div>

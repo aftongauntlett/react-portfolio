@@ -8,7 +8,11 @@ import PageSection from "@/components/layout/PageSection";
 export default function Home() {
   return (
     <Layout>
-      <PageSection id="about" title="Hello.">
+      <PageSection
+        id="about"
+        title="Hello."
+        className="pt-24 lg:pt-32 justify-start"
+      >
         <HeroSection />
       </PageSection>
 

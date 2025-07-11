@@ -21,24 +21,19 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <div className="space-y-6">
-      <div className="space-y-8">
-        {projects.map(({ title, description, link }) => (
-          <div
-            key={title}
-            className="border-l-4 pl-4 border-[var(--color-line)]"
+    <>
+      {projects.map(({ title, description, link }) => (
+        <div key={title} className="border-l-4 pl-4 border-[var(--color-line)]">
+          <h3 className="text-xl font-semibold">{title}</h3>
+          <p className="text-[var(--color-muted)] mt-1">{description}</p>
+          <a
+            href={link}
+            className="inline-block mt-2 text-sm text-[var(--color-primary)] hover:underline"
           >
-            <h3 className="text-xl font-semibold">{title}</h3>
-            <p className="text-[var(--color-muted)] mt-1">{description}</p>
-            <a
-              href={link}
-              className="inline-block mt-2 text-sm text-[var(--color-primary)] hover:underline"
-            >
-              View project →
-            </a>
-          </div>
-        ))}
-      </div>
-    </div>
+            View project →
+          </a>
+        </div>
+      ))}
+    </>
   );
 }
