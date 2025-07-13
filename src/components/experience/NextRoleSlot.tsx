@@ -40,7 +40,7 @@ export default function NextRoleSlot({
     <AnimatePresence mode="wait" initial={false}>
       {formStage === "teaser" && (
         <motion.div
-          className="mt-2 cursor-pointer text-[var(--color-primary-lighter)] hover:opacity-90"
+          className="mt-2 inline-block cursor-pointer rounded border border-transparent px-3 py-1 text-[var(--color-primary)] transition-all duration-300 hover:border-[var(--color-primary-light)] hover:shadow-[0_0_0.4rem_var(--color-primary-light)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
           role="button"
           tabIndex={0}
           onClick={() => setFormStage("form")}
@@ -51,7 +51,9 @@ export default function NextRoleSlot({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}
         >
-          <span className="italic">Click here to propose my next role</span>
+          <span className="italic transition-transform duration-300 group-hover:scale-105 group-hover:font-semibold">
+            What's my next role?
+          </span>
         </motion.div>
       )}
 
@@ -61,7 +63,7 @@ export default function NextRoleSlot({
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
-          className="mt-2 w-full max-w-md space-y-4 rounded-lg bg-[var(--color-line)]/10 p-4"
+          className="w-full space-y-4 rounded-lg bg-[var(--color-line)]/10"
         >
           <form
             onSubmit={(e: FormEvent) => {
@@ -71,7 +73,7 @@ export default function NextRoleSlot({
             className="space-y-4"
           >
             <label className="block text-sm font-medium text-[var(--color-text)]">
-              Company Name
+              What's the name of your company?
               <input
                 type="text"
                 value={company}
@@ -82,7 +84,7 @@ export default function NextRoleSlot({
             </label>
 
             <label className="block text-sm font-medium text-[var(--color-text)]">
-              Job Title
+              And what would my job title be?
               <input
                 type="text"
                 value={title}

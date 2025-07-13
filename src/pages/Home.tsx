@@ -8,11 +8,7 @@ import ExperienceSection from "@/components/sections/ExperienceSection";
 export default function Home() {
   return (
     <Layout>
-      <PageSection
-        id="about"
-        title="Hello."
-        className="pt-24 lg:pt-32 justify-start"
-      >
+      <PageSection id="about" className="pt-24 lg:pt-32 justify-start">
         <HeroSection />
       </PageSection>
 

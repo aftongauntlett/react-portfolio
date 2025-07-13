@@ -104,7 +104,7 @@ export default function TimelineItem({
                 isDimmed && "text-muted"
               )}
             >
-              {!isFirst && (
+              {!isQuestion && (
                 <span
                   className={clsx(
                     "inline-block w-4 text-[var(--color-muted)] transition-colors duration-300",
@@ -114,7 +114,7 @@ export default function TimelineItem({
                   –
                 </span>
               )}
-              <div className="text-body w-full">{child}</div>
+              <div className="w-full">{child}</div>
             </div>
           ))}
         </div>

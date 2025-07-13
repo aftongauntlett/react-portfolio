@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useTheme } from "@/hooks/useTheme";
-import { navItems } from "./navItems";
+import { navItems } from "../../types/navItems";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { GithubIcon, LinkedinIcon, Sun, Moon } from "lucide-react";
 export default function SideNav() {
@@ -8,13 +8,21 @@ export default function SideNav() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <aside className="lg:sticky top-0 lg:h-screen w-full lg:w-[320px] px-6 py-10 flex flex-col justify-between">
+    <aside
+      role="complementary"
+      aria-labelledby="sidebar-title"
+      className="lg:sticky top-0 lg:h-screen w-full lg:w-[270px] px-6 py-10 flex flex-col justify-between"
+    >
       <div>
-        <h1 className="subtitle">Afton Gauntlett</h1>
-        <p className="mt-1 mb-3 text-sm text-[var(--color-muted)]">
+        <h1 id="sidebar-title" className="subtitle">
+          Afton Gauntlett
+        </h1>
+        <p className="mt-0.5 mb-3 text-sm text-[var(--color-muted)] leading-tight">
           Front-End Engineer
         </p>
-        <hr className="border-[var(--color-line)]" />
+        <div className="pr-6">
+          <hr className="border-[var(--color-line)]" />
+        </div>
         <nav className="mt-10 space-y-5 navitem" aria-label="Main navigation">
           {navItems.map(({ id, label }) => (
             <a
@@ -34,44 +42,48 @@ export default function SideNav() {
       </div>
 
       <div className="flex flex-col gap-6">
-        <div className="border-t border-[var(--color-line)] pt-6 flex gap-4">
-          <a
-            href="https://github.com/aftongauntlett"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="hover:text-[var(--color-primary)] transition"
-          >
-            <GithubIcon size={20} />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/aftongauntlett/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="hover:text-[var(--color-primary)] transition"
-          >
-            <LinkedinIcon size={20} />
-          </a>
-        </div>
+        <hr className="border-[var(--color-line)]" />
 
-        <button
-          onClick={toggleTheme}
-          className="w-fit text-sm border border-[var(--color-line)] px-3 py-1.5 rounded hover:bg-[var(--color-line)] transition flex items-center gap-2"
-          aria-label="Toggle dark mode"
-        >
-          {theme === "dark" ? (
-            <>
-              <Sun size={16} />
-              Light
-            </>
-          ) : (
-            <>
-              <Moon size={16} />
-              Dark
-            </>
-          )}
-        </button>
+        <div className="w-full flex items-center justify-between">
+          {/* Left: Socials */}
+          <div className="flex gap-4">
+            <a
+              href="https://github.com/aftongauntlett"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="hover:text-[var(--color-primary)] transition"
+            >
+              <GithubIcon size={20} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/aftongauntlett/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="hover:text-[var(--color-primary)] transition"
+            >
+              <LinkedinIcon size={20} />
+            </a>
+          </div>
+
+          {/* Right: Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="text-sm border border-[var(--color-line)] px-3 py-1.5 rounded hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition flex items-center gap-2"
+            aria-label="Toggle dark mode"
+          >
+            {theme === "dark" ? (
+              <>
+                <Sun size={16} />
+              </>
+            ) : (
+              <>
+                <Moon size={16} />
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </aside>
   );

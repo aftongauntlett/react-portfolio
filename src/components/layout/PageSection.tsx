@@ -5,7 +5,7 @@ import clsx from "clsx";
 
 type Props = {
   id: string;
-  title: string;
+  title?: string;
   children: ReactNode;
   className?: string;
 };
@@ -22,7 +22,7 @@ export default function PageSection({ id, title, children, className }: Props) {
     >
       <FadeInSection>
         <div className="w-full space-y-8">
-          <PaintSplashText tag="h2">{title}</PaintSplashText>
+          {title && <PaintSplashText tag="h2">{title}</PaintSplashText>}
           {children}
         </div>
       </FadeInSection>

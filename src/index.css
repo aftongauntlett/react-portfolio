@@ -8,20 +8,28 @@ html {
 
 html,
 body {
-  margin: 0;
-  padding: 0;
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
 }
 
 /* === TYPOGRAPHY === */
 .title {
-  font-family: var(--font-title-light); /* Will override in dark mode */
+  font-family: var(--font-title);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.subtitle {
+  font-family: var(--font-heading); /* Montserrat */
+  font-size: 1.25rem;
+  line-height: 1.3;
+  text-transform: capitalize;
 }
 
 html.dark .title {
@@ -34,18 +42,6 @@ html.dark .title {
 
 html.dark .font-title {
   font-family: var(--font-title-dark);
-}
-
-.subtitle {
-  font-family: var(--font-heading); /* Montserrat */
-  font-size: clamp(1.125rem, 1.5vw, 1.4rem);
-  line-height: 1.3;
-}
-
-.text-body {
-  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
-  line-height: 1.75;
-  font-weight: 400;
 }
 
 .text-muted {
@@ -91,6 +87,10 @@ html.dark .button-text {
 
 .timeline-item:hover .timeline-dot {
   @apply bg-[var(--color-primary)] shadow-[0_0_6px_var(--color-primary)];
+}
+
+.timeline-dot-bg {
+  @apply w-5 h-5 rounded-full flex bg-[var(--color-background)];
 }
 
 .timeline-icon {

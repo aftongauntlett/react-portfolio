@@ -10,10 +10,10 @@ export default function NewJobEntry({ job }: { job: Job }): JSX.Element | null {
   if (nonEmptyLines.length === 0) return null;
 
   return (
-    <ul className="list-none space-y-2 mt-4 pl-6" role="list">
+    <ul className="list-none" role="list">
       {nonEmptyLines.map((line, idx) => (
-        <li key={idx} className="text-body pl-2">
-          {line}
+        <li key={idx} className="flex items-start gap-2">
+          <span>{line}</span>
         </li>
       ))}
     </ul>
