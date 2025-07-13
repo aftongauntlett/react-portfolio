@@ -1,5 +1,8 @@
-import "@fontsource/inter"; // ✅ loads default 400 + fallback weights
+import "@fontsource/inter";
 import "@fontsource/montserrat";
+import "@fontsource/orbitron";
+import "@fontsource/outfit";
+
 import "./theme.css";
 import "./index.css";
 
