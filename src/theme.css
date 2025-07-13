@@ -3,8 +3,19 @@
   --font-heading: "Montserrat", sans-serif;
   --font-body: "Inter", sans-serif;
 
-  /* === COLOR VARIABLES (light mode: Portal inspired) === */
+  /* === COLOR VARIABLES — LIGHT MODE (Portal inspired) === */
   --font-title-light: "Outfit", sans-serif;
+
+  --color-background: hsl(210, 50%, 98%);
+  --color-text: hsl(215, 15%, 15%); /* Soft near-black */
+  --color-muted: hsl(215, 10%, 55%); /* Muted gray-blue */
+  --color-primary: hsl(198, 100%, 50%); /* Cyan */
+  --color-primary-lighter: hsl(204, 61%, 60%);
+  --color-secondary: hsl(24, 100%, 50%); /* Orange */
+  --color-line: hsl(210, 20%, 90%); /* Light gray line */
+
+  /* === OPTIONAL: TEST COLORS (hex reference for VSCode color picker) === */
+  /*
   --color-background: #fafbfd;
   --color-text: #1c1c1c;
   --color-muted: #787878;
@@ -12,11 +23,23 @@
   --color-primary-lighter: #51aedd;
   --color-secondary: #ff6600;
   --color-line: #e1e4e8;
+  */
 }
 
-/* === COLOR VARIABLES (dark mode: Half-Life inspired) === */
+/* === COLOR VARIABLES — DARK MODE (Half-Life inspired) === */
 html.dark {
   --font-title-dark: "Orbitron", sans-serif;
+
+  --color-background: hsl(0, 0%, 5%);
+  --color-text: hsl(215, 15%, 85%); /* Soft off-white */
+  --color-muted: hsl(215, 10%, 65%);
+  --color-primary: hsl(28, 100%, 48%); /* Deep orange */
+  --color-primary-lighter: hsl(33, 74%, 63%);
+  --color-secondary: hsl(142, 17%, 37%); /* Deep sage green */
+  --color-line: hsl(0, 0%, 16%); /* Medium gray line */
+
+  /* === OPTIONAL: TEST COLORS (hex reference for VSCode color picker) === */
+  /*
   --color-background: #0e0e0e;
   --color-text: #f2f2f2;
   --color-muted: #a8a8a8;
@@ -24,4 +47,5 @@ html.dark {
   --color-primary-lighter: #dd964f;
   --color-secondary: #4e6e58;
   --color-line: #2a2a2a;
+  */
 }

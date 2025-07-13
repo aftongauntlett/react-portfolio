@@ -10,7 +10,7 @@ export default function NextRoleSlot({
 }: {
   onNewJob: (job: Job) => void;
 }): JSX.Element {
-  const [stage, setStage] = useState<"teaser" | "form">("teaser");
+  const [formStage, setFormStage] = useState<"teaser" | "form">("teaser");
   const [company, setCompany] = useState("");
   const [title, setTitle] = useState("");
 
@@ -21,27 +21,31 @@ export default function NextRoleSlot({
       day: "numeric",
       year: "numeric",
     });
-    const dates = `Available: ${formatted}`;
+
     onNewJob({
       title,
       company,
-      dates,
+      dates: `Available: ${formatted}`,
       description: [
-        `We both agree, I would make a great ${title} at ${company}. Let’s chat!`,
+        `We both agree – I would make a great ${title} at ${company}. Let’s chat!`,
       ],
     });
+
+    setFormStage("teaser"); // reset back to teaser
+    setCompany("");
+    setTitle("");
   };
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {stage === "teaser" && (
+      {formStage === "teaser" && (
         <motion.div
-          className="cursor-pointer text-[var(--color-primary-lighter)] hover:opacity-90"
+          className="mt-2 cursor-pointer text-[var(--color-primary-lighter)] hover:opacity-90"
           role="button"
           tabIndex={0}
-          onClick={() => setStage("form")}
+          onClick={() => setFormStage("form")}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") setStage("form");
+            if (e.key === "Enter" || e.key === " ") setFormStage("form");
           }}
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
@@ -51,50 +55,54 @@ export default function NextRoleSlot({
         </motion.div>
       )}
 
-      {stage === "form" && (
-        <motion.form
+      {formStage === "form" && (
+        <motion.div
           key="form"
-          className="space-y-4 bg-[var(--color-line)]/10 p-4 rounded-lg"
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
-          onSubmit={(e: FormEvent) => {
-            e.preventDefault();
-            if (company.trim() && title.trim()) handleSubmit();
-          }}
+          className="mt-2 w-full max-w-md space-y-4 rounded-lg bg-[var(--color-line)]/10 p-4"
         >
-          <label className="block text-[var(--color-text)] text-sm font-medium">
-            Company Name
-            <input
-              type="text"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              placeholder="e.g. Acme Inc"
-              className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            />
-          </label>
+          <form
+            onSubmit={(e: FormEvent) => {
+              e.preventDefault();
+              if (company.trim() && title.trim()) handleSubmit();
+            }}
+            className="space-y-4"
+          >
+            <label className="block text-sm font-medium text-[var(--color-text)]">
+              Company Name
+              <input
+                type="text"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                placeholder="e.g. Acme Inc"
+                className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+              />
+            </label>
 
-          <label className="block text-[var(--color-text)] text-sm font-medium">
-            Job Title
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g. Front-End Engineer"
-              className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
-            />
-          </label>
+            <label className="block text-sm font-medium text-[var(--color-text)]">
+              Job Title
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="e.g. Front-End Engineer"
+                className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+              />
+            </label>
 
-          <div className="flex justify-end pt-2">
-            <button
-              type="submit"
-              disabled={!company.trim() || !title.trim()}
-              className="px-4 py-2 uppercase button-text border border-[var(--color-primary)] text-[var(--color-primary)] transition-all duration-200 hover:shadow-[0_0_6px_var(--color-primary)] focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              Submit
-            </button>
-          </div>
-        </motion.form>
+            <div className="flex justify-end pt-2">
+              <button
+                type="submit"
+                disabled={!company.trim() || !title.trim()}
+                className="px-4 py-2 uppercase button-text border border-[var(--color-primary)] text-[var(--color-primary)] transition-all duration-200 hover:shadow-[0_0_6px_var(--color-primary)] focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </motion.div>
       )}
     </AnimatePresence>
   );

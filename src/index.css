@@ -13,6 +13,8 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 /* === TYPOGRAPHY === */
@@ -41,10 +43,9 @@ html.dark .font-title {
 }
 
 .text-body {
-  font-family: var(--font-body); /* Inter */
-  font-size: clamp(1rem, 2vw, 1.125rem);
-  line-height: 1.6;
-  color: var(--color-text-muted);
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  line-height: 1.75;
+  font-weight: 400;
 }
 
 .text-muted {

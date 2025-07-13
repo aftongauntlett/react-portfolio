@@ -36,15 +36,17 @@ export default function ExperienceSection(): JSX.Element {
 
   return (
     <div className="relative">
-      <div className="absolute left-[1.125rem] top-[6px] bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
+      {!currentJob && (
+        <div className="absolute left-[1.125rem] top-[6px] bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
+      )}{" "}
       <div className="timeline-vertical space-y-12 transition-all duration-500">
         {!currentJob && (
           <TimelineItem
             id="next-role"
             title="What's my next role?"
-            company="To Be Determined"
-            dates="Coming Soon"
-            isFirst={true}
+            company=""
+            dates="TBD"
+            isFirst={!currentJob}
             isHovered={hoveredId === "next-role"}
             isDimmed={hoveredId !== null && hoveredId !== "next-role"}
             onHover={setHoveredId}
