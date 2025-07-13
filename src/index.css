@@ -29,6 +29,7 @@ html.dark .title {
 .font-title {
   font-family: var(--font-title-light);
 }
+
 html.dark .font-title {
   font-family: var(--font-title-dark);
 }
@@ -84,15 +85,38 @@ html.dark .button-text {
 
 /* === TIMELINE === */
 .timeline-dot {
-  @apply w-3 h-3 rounded-full bg-[var(--color-primary)] flex;
+  @apply w-3 h-3 rounded-full flex transition-all duration-300 bg-[var(--color-line)];
 }
 
-.timeline-dot-bg {
-  @apply w-5 h-5 rounded-full bg-[var(--color-background)] flex items-center justify-center;
+.timeline-item:hover .timeline-dot {
+  @apply bg-[var(--color-primary)] shadow-[0_0_6px_var(--color-primary)];
 }
 
 .timeline-icon {
   @apply w-5 h-5 text-[var(--color-primary)] animate-pulse;
+}
+
+.timeline-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.timeline-list li {
+  position: relative;
+  padding-left: 1.25rem; /* spacing from bullet to text */
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.timeline-list li::before {
+  content: "–"; /* en-dash */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-primary);
+  font-weight: normal;
 }
 
 /* === PAINT SPLASH === */

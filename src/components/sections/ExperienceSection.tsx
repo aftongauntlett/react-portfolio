@@ -9,6 +9,7 @@ import TimelineItem from "../experience/TimelineItem";
 /** Renders the interactive career timeline with optional new job entry */
 export default function ExperienceSection(): JSX.Element {
   const [currentJob, setCurrentJob] = useState<Job | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const entries = [
     ...(currentJob
@@ -18,8 +19,7 @@ export default function ExperienceSection(): JSX.Element {
             title: currentJob.title,
             company: currentJob.company,
             dates: currentJob.dates,
-            isFirst: true, // this should always be first
-            isActive: true,
+            isFirst: true,
             content: <NewJobEntry job={currentJob} />,
           },
         ]
@@ -30,23 +30,14 @@ export default function ExperienceSection(): JSX.Element {
       company: job.company,
       dates: job.dates,
       isFirst: !currentJob && idx === 0,
-      isActive: !currentJob && idx === 0,
-      content: (
-        <ul className="list-none space-y-2 mt-4" role="list">
-          {job.description.map((line, j) => (
-            <li key={j} className="text-body">
-              {line}
-            </li>
-          ))}
-        </ul>
-      ),
+      content: job.description.map((line, j) => <span key={j}>{line}</span>),
     })),
   ];
 
   return (
     <div className="relative">
-      <div className="absolute left-[1.125rem] top-0 bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
-      <div className="timeline-vertical space-y-12 transition-all duration-500 group">
+      <div className="absolute left-[1.125rem] top-[6px] bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
+      <div className="timeline-vertical space-y-12 transition-all duration-500">
         {!currentJob && (
           <TimelineItem
             id="next-role"
@@ -54,26 +45,28 @@ export default function ExperienceSection(): JSX.Element {
             company="To Be Determined"
             dates="Coming Soon"
             isFirst={true}
-            isActive={false}
+            isHovered={hoveredId === "next-role"}
+            isDimmed={hoveredId !== null && hoveredId !== "next-role"}
+            onHover={setHoveredId}
           >
             <NextRoleSlot onNewJob={setCurrentJob} />
           </TimelineItem>
         )}
-        {entries.map(
-          ({ id, title, company, dates, isFirst, isActive, content }) => (
-            <TimelineItem
-              key={id}
-              id={id}
-              title={title}
-              company={company}
-              dates={dates}
-              isFirst={isFirst}
-              isActive={isActive}
-            >
-              {content}
-            </TimelineItem>
-          )
-        )}
+        {entries.map(({ id, title, company, dates, isFirst, content }) => (
+          <TimelineItem
+            key={id}
+            id={id}
+            title={title}
+            company={company}
+            dates={dates}
+            isFirst={isFirst}
+            isHovered={hoveredId === id}
+            isDimmed={hoveredId !== null && hoveredId !== id}
+            onHover={setHoveredId}
+          >
+            {content}
+          </TimelineItem>
+        ))}
       </div>
     </div>
   );

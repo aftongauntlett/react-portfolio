@@ -7,8 +7,9 @@
   --font-title-light: "Outfit", sans-serif;
   --color-background: #fafbfd;
   --color-text: #1c1c1c;
-  --color-muted: #999999;
+  --color-muted: #787878;
   --color-primary: #00aaff;
+  --color-primary-lighter: #51aedd;
   --color-secondary: #ff6600;
   --color-line: #e1e4e8;
 }
@@ -20,6 +21,7 @@ html.dark {
   --color-text: #f2f2f2;
   --color-muted: #a8a8a8;
   --color-primary: #f07900;
+  --color-primary-lighter: #dd964f;
   --color-secondary: #4e6e58;
   --color-line: #2a2a2a;
 }

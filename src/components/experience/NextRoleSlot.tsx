@@ -36,7 +36,7 @@ export default function NextRoleSlot({
     <AnimatePresence mode="wait" initial={false}>
       {stage === "teaser" && (
         <motion.div
-          className="cursor-pointer text-[var(--color-primary)] hover:opacity-90"
+          className="cursor-pointer text-[var(--color-primary-lighter)] hover:opacity-90"
           role="button"
           tabIndex={0}
           onClick={() => setStage("form")}
