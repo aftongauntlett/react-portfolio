@@ -86,8 +86,12 @@ export default function NextRoleSlot({
           </label>
 
           <div className="flex justify-end pt-2">
-            <button type="submit" disabled={!company.trim() || !title.trim()}>
-              Button
+            <button
+              type="submit"
+              disabled={!company.trim() || !title.trim()}
+              className="px-4 py-2 uppercase button-text border border-[var(--color-primary)] text-[var(--color-primary)] transition-all duration-200 hover:shadow-[0_0_6px_var(--color-primary)] focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Submit
             </button>
           </div>
         </motion.form>

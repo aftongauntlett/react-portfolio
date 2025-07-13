@@ -30,7 +30,7 @@ export default function ExperienceSection(): JSX.Element {
       company: job.company,
       dates: job.dates,
       isFirst: !currentJob && idx === 0,
-      isActive: false,
+      isActive: !currentJob && idx === 0,
       content: (
         <ul className="list-none space-y-2 mt-4" role="list">
           {job.description.map((line, j) => (
@@ -46,7 +46,7 @@ export default function ExperienceSection(): JSX.Element {
   return (
     <div className="relative">
       <div className="absolute left-[1.125rem] top-0 bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
-      <div className="timeline-vertical space-y-12 transition-all duration-500">
+      <div className="timeline-vertical space-y-12 transition-all duration-500 group">
         {!currentJob && (
           <TimelineItem
             id="next-role"

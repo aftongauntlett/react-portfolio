@@ -14,7 +14,7 @@ export type TimelineItemProps = {
 
 /**
  * TimelineItem renders a single experience entry in a vertical timeline.
- * Uses CSS Grid to align the marker and content cleanly without manual offsets.
+ * Adds focus/hover interactivity to highlight one entry while fading others.
  */
 export default function TimelineItem({
   id,
@@ -25,22 +25,16 @@ export default function TimelineItem({
   isActive = false,
   children,
 }: TimelineItemProps) {
-  const isQuestion = title.toLocaleLowerCase() === "what's my next role?";
-
-  const marker = isQuestion ? (
-    <div className="timeline-dot-bg">
-      <HelpCircle className="timeline-icon" strokeWidth={2} />
-    </div>
-  ) : (
-    <span className="timeline-dot" />
-  );
+  const isQuestion = title.toLowerCase() === "what's my next role?";
 
   return (
     <motion.article
-      key={id}
-      className={clsx("group grid grid-cols-[2rem_1fr] gap-x-6 relative", {
-        "first:mt-0": isFirst,
-      })}
+      className={clsx(
+        "group grid grid-cols-[2rem_1fr] gap-x-6 relative rounded-lg transition-all duration-300",
+        {
+          "first:mt-0": isFirst,
+        }
+      )}
       initial={{ opacity: 0, y: isActive ? -10 : 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -49,27 +43,24 @@ export default function TimelineItem({
       aria-labelledby={`${id}-heading`}
       aria-describedby={`${id}-date ${id}-desc`}
     >
-      {/* Marker Column */}
       <div className="relative flex justify-center">
-        <div className="ms-1">{marker}</div>
+        <div className="ms-1">
+          {isQuestion ? (
+            <div className="timeline-dot-bg">
+              <HelpCircle className="timeline-icon" strokeWidth={2} />
+            </div>
+          ) : (
+            <span className="timeline-dot" />
+          )}
+        </div>
       </div>
 
-      {/* Content Column */}
-      <div>
-        <h3
-          id={`${id}-heading`}
-          className="subtitle group-hover:text-[var(--color-primary)]"
-        >
+      <div className="transition-all duration-300 text-muted group-hover:text-muted hover:text-[var(--color-text)]">
+        <h3 id={`${id}-heading`} className="subtitle">
           {title}
           {company && <span className="font-normal"> @ {company}</span>}
         </h3>
-
-        {dates && (
-          <time id={`${id}-date`} className="muted">
-            {dates}
-          </time>
-        )}
-
+        {dates && <time id={`${id}-date`}>{dates}</time>}
         <div id={`${id}-desc`} className="mt-4 space-y-2">
           {children}
         </div>
