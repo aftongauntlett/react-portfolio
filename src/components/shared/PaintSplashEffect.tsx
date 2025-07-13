@@ -11,11 +11,12 @@ type AllowedTags = keyof JSX.IntrinsicElements;
 export default function PaintSplashText({
   children,
   tag = "span",
+  className = "",
 }: {
   children: string;
   tag?: AllowedTags;
+  className?: string;
 }) {
-  // Use a generic ref to target any HTML element
   const ref = useRef<HTMLElement>(null);
 
   /**
@@ -34,14 +35,26 @@ export default function PaintSplashText({
     el.style.setProperty("--my", `${y}%`);
   };
 
-  // Dynamically render the specified tag (e.g., h1, span, div)
+  /**
+   * Optional: Resets the CSS variables on mouse leave
+   * Prevents the last splash position from persisting.
+   */
+  const handleMouseLeave = () => {
+    const el = ref.current;
+    if (!el) return;
+
+    el.style.removeProperty("--mx");
+    el.style.removeProperty("--my");
+  };
+
   const Tag = tag as ElementType;
 
   return (
     <Tag
       ref={ref}
       onMouseMove={handleMouseMove}
-      className="paint-splash font-heading text-4xl font-bold leading-tight tracking-tight"
+      onMouseLeave={handleMouseLeave}
+      className={`paint-splash font-heading text-4xl font-bold leading-tight tracking-tight ${className}`}
       data-splash={children}
     >
       {children}

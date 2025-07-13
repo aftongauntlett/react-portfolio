@@ -1,6 +1,6 @@
-// src/components/experience/TimelineItem.tsx
 import { motion } from "framer-motion";
 import clsx from "clsx";
+import { HelpCircle } from "lucide-react";
 
 export type TimelineItemProps = {
   id: string;
@@ -13,8 +13,8 @@ export type TimelineItemProps = {
 };
 
 /**
- * Renders a single job entry with animated dot, heading, and description.
- * Visually aligned and accessible.
+ * TimelineItem renders a single experience entry in a vertical timeline.
+ * Uses CSS Grid to align the marker and content cleanly without manual offsets.
  */
 export default function TimelineItem({
   id,
@@ -25,10 +25,20 @@ export default function TimelineItem({
   isActive = false,
   children,
 }: TimelineItemProps) {
+  const isQuestion = title.toLocaleLowerCase() === "what's my next role?";
+
+  const marker = isQuestion ? (
+    <div className="timeline-dot-bg">
+      <HelpCircle className="timeline-icon" strokeWidth={2} />
+    </div>
+  ) : (
+    <span className="timeline-dot" />
+  );
+
   return (
     <motion.article
       key={id}
-      className={clsx("timeline-item group relative pl-12", {
+      className={clsx("group grid grid-cols-[2rem_1fr] gap-x-6 relative", {
         "first:mt-0": isFirst,
       })}
       initial={{ opacity: 0, y: isActive ? -10 : 10 }}
@@ -39,41 +49,30 @@ export default function TimelineItem({
       aria-labelledby={`${id}-heading`}
       aria-describedby={`${id}-date ${id}-desc`}
     >
-      {/* Timeline Dot */}
-      <span
-        className={clsx(
-          "timeline-dot transition-all timeline-dot-glow absolute left-0 top-[1.25rem] translate-y-[-50%]",
-          isFirst && !isActive
-            ? "bg-[var(--color-primary)]"
-            : isActive
-            ? "bg-[var(--color-primary)] animate-pulse"
-            : "bg-gray-300 group-hover:bg-[var(--color-primary)]"
-        )}
-        aria-hidden="true"
-      />
+      {/* Marker Column */}
+      <div className="relative flex justify-center">
+        <div className="ms-1">{marker}</div>
+      </div>
 
-      {/* Title */}
-      <h3
-        id={`${id}-heading`}
-        className="timeline-title group-hover:text-[var(--color-primary)]"
-      >
-        {title}
-        {company && <span className="font-normal"> @ {company}</span>}
-      </h3>
-
-      {/* Dates */}
-      {dates && (
-        <time
-          id={`${id}-date`}
-          className="timeline-date mt-1 block text-sm text-[var(--color-muted)]"
+      {/* Content Column */}
+      <div>
+        <h3
+          id={`${id}-heading`}
+          className="subtitle group-hover:text-[var(--color-primary)]"
         >
-          {dates}
-        </time>
-      )}
+          {title}
+          {company && <span className="font-normal"> @ {company}</span>}
+        </h3>
 
-      {/* Description */}
-      <div id={`${id}-desc`} className="mt-4 space-y-2">
-        {children}
+        {dates && (
+          <time id={`${id}-date`} className="muted">
+            {dates}
+          </time>
+        )}
+
+        <div id={`${id}-desc`} className="mt-4 space-y-2">
+          {children}
+        </div>
       </div>
     </motion.article>
   );

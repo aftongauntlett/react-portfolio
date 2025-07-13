@@ -34,10 +34,7 @@ export default function ExperienceSection(): JSX.Element {
       content: (
         <ul className="list-none space-y-2 mt-4" role="list">
           {job.description.map((line, j) => (
-            <li
-              key={j}
-              className="text-[var(--color-text)] text-base leading-snug"
-            >
+            <li key={j} className="text-body">
               {line}
             </li>
           ))}
@@ -47,35 +44,37 @@ export default function ExperienceSection(): JSX.Element {
   ];
 
   return (
-    <div className="timeline-vertical space-y-12 transition-all duration-500">
-      {!currentJob && (
-        <TimelineItem
-          id="next-role"
-          title="What's my next role?"
-          company="To Be Determined"
-          dates="Coming Soon"
-          isFirst={true}
-          isActive={false}
-        >
-          <NextRoleSlot onNewJob={setCurrentJob} />
-        </TimelineItem>
-      )}
-
-      {entries.map(
-        ({ id, title, company, dates, isFirst, isActive, content }) => (
+    <div className="relative">
+      <div className="absolute left-[1.125rem] top-0 bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
+      <div className="timeline-vertical space-y-12 transition-all duration-500">
+        {!currentJob && (
           <TimelineItem
-            key={id}
-            id={id}
-            title={title}
-            company={company}
-            dates={dates}
-            isFirst={isFirst}
-            isActive={isActive}
+            id="next-role"
+            title="What's my next role?"
+            company="To Be Determined"
+            dates="Coming Soon"
+            isFirst={true}
+            isActive={false}
           >
-            {content}
+            <NextRoleSlot onNewJob={setCurrentJob} />
           </TimelineItem>
-        )
-      )}
+        )}
+        {entries.map(
+          ({ id, title, company, dates, isFirst, isActive, content }) => (
+            <TimelineItem
+              key={id}
+              id={id}
+              title={title}
+              company={company}
+              dates={dates}
+              isFirst={isFirst}
+              isActive={isActive}
+            >
+              {content}
+            </TimelineItem>
+          )
+        )}
+      </div>
     </div>
   );
 }

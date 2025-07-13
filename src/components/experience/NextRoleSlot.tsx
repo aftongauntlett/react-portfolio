@@ -36,7 +36,6 @@ export default function NextRoleSlot({
     <AnimatePresence mode="wait" initial={false}>
       {stage === "teaser" && (
         <motion.div
-          key="teaser"
           className="cursor-pointer text-[var(--color-primary)] hover:opacity-90"
           role="button"
           tabIndex={0}
@@ -48,7 +47,6 @@ export default function NextRoleSlot({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -4 }}
         >
-          <span className="inline-block animate-pulse mr-2">🟢</span>
           <span className="italic">Click here to propose my next role</span>
         </motion.div>
       )}
