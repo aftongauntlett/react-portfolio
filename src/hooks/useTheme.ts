@@ -16,9 +16,12 @@ export function useTheme() {
     return "light"; // Fallback for SSR or non-browser env
   });
 
-  // Apply theme to <html> and persist preference
+  // Apply theme class and fonts
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    const root = document.documentElement;
+    const isDark = theme === "dark";
+
+    root.classList.toggle("dark", isDark);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
