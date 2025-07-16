@@ -125,6 +125,7 @@ html.dark .button-text {
   position: relative;
   display: inline-block;
   color: currentColor;
+  cursor: default;
 }
 
 .paint-splash::after {
