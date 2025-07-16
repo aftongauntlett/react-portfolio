@@ -1,3 +1,5 @@
+import Button from "../shared/Button";
+
 const fields = [
   {
     id: "name",
@@ -48,12 +50,7 @@ export default function ContactSection() {
         ))}
 
         <div className="flex justify-end">
-          <button
-            type="submit"
-            className="navitem px-4 py-2 border rounded text-[var(--color-primary)] border-[var(--color-primary)] hover:bg-[var(--color-secondary)] transition"
-          >
-            Send Message
-          </button>
+          <Button type="submit">Send Message</Button>
         </div>
       </form>
     </>

@@ -3,6 +3,7 @@
 import { useState, type FormEvent, type JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Job } from "@/data/jobTimeline";
+import Button from "../shared/Button";
 
 /** Interactive form for proposing a custom new job entry */
 export default function NextRoleSlot({
@@ -39,22 +40,19 @@ export default function NextRoleSlot({
   return (
     <AnimatePresence mode="wait" initial={false}>
       {formStage === "teaser" && (
-        <motion.div
-          className="mt-2 inline-block cursor-pointer rounded border border-transparent px-3 py-1 text-[var(--color-primary)] transition-all duration-300 hover:border-[var(--color-primary-light)] hover:shadow-[0_0_0.4rem_var(--color-primary-light)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-          role="button"
-          tabIndex={0}
-          onClick={() => setFormStage("form")}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") setFormStage("form");
+        <Button
+          asDiv
+          onDivClick={() => setFormStage("form")}
+          motionProps={{
+            initial: { opacity: 0, y: -4 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -4 },
           }}
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -4 }}
         >
           <span className="italic transition-transform duration-300 group-hover:scale-105 group-hover:font-semibold">
             What's my next role?
           </span>
-        </motion.div>
+        </Button>
       )}
 
       {formStage === "form" && (
@@ -95,13 +93,9 @@ export default function NextRoleSlot({
             </label>
 
             <div className="flex justify-end pt-2">
-              <button
-                type="submit"
-                disabled={!company.trim() || !title.trim()}
-                className="px-4 py-2 uppercase button-text border border-[var(--color-primary)] text-[var(--color-primary)] transition-all duration-200 hover:shadow-[0_0_6px_var(--color-primary)] focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
-              >
+              <Button type="submit" disabled={!company.trim() || !title.trim()}>
                 Submit
-              </button>
+              </Button>
             </div>
           </form>
         </motion.div>

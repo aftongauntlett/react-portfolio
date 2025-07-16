@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/Layout";
-import HeroSection from "@/components/sections/HeroSection";
+import AboutSection from "@/components/sections/AboutSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import PageSection from "@/components/layout/PageSection";
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <Layout>
       <PageSection id="about" className="pt-24 lg:pt-32 justify-start">
-        <HeroSection />
+        <AboutSection />
       </PageSection>
 
       <PageSection id="experience" title="Experience">

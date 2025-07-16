@@ -3,6 +3,8 @@ import { useTheme } from "@/hooks/useTheme";
 import { navItems } from "../../types/navItems";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { GithubIcon, LinkedinIcon, Sun, Moon } from "lucide-react";
+import Button from "../shared/Button";
+
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
@@ -68,21 +70,11 @@ export default function SideNav() {
           </div>
 
           {/* Right: Theme toggle */}
-          <button
+          <Button
             onClick={toggleTheme}
-            className="text-sm border border-[var(--color-line)] px-3 py-1.5 rounded hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition flex items-center gap-2"
+            icon={theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
             aria-label="Toggle dark mode"
-          >
-            {theme === "dark" ? (
-              <>
-                <Sun size={16} />
-              </>
-            ) : (
-              <>
-                <Moon size={16} />
-              </>
-            )}
-          </button>
+          />
         </div>
       </div>
     </aside>
