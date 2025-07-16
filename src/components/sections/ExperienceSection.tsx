@@ -1,13 +1,11 @@
-"use client";
-
-import { useState, type JSX } from "react";
+import { useState } from "react";
 import NewJobEntry from "@/components/experience/NewJobEntry";
 import NextRoleSlot from "@/components/experience/NextRoleSlot";
 import { jobs, type Job } from "@/data/jobTimeline";
-import TimelineItem from "../experience/TimelineItem";
+import TimelineItem from "@/components/experience/TimelineItem";
 
 /** Renders the interactive career timeline with optional new job entry */
-export default function ExperienceSection(): JSX.Element {
+export default function ExperienceSection() {
   const [currentJob, setCurrentJob] = useState<Job | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
@@ -30,7 +28,13 @@ export default function ExperienceSection(): JSX.Element {
       company: job.company,
       dates: job.dates,
       isFirst: !currentJob && idx === 0,
-      content: job.description.map((line, j) => <span key={j}>{line}</span>),
+      content: (
+        <ul className="timeline-list">
+          {job.description.map((line, j) => (
+            <li key={j}>{line}</li>
+          ))}
+        </ul>
+      ),
     })),
   ];
 
@@ -38,7 +42,7 @@ export default function ExperienceSection(): JSX.Element {
     <div className="relative">
       {!currentJob && (
         <div className="absolute left-[1.125rem] top-[6px] bottom-0 w-px bg-[var(--color-line)] z-[-1]" />
-      )}{" "}
+      )}
       <div className="timeline-vertical space-y-12 transition-all duration-500">
         {!currentJob && (
           <TimelineItem
@@ -46,7 +50,7 @@ export default function ExperienceSection(): JSX.Element {
             title="What's my next role?"
             company=""
             dates="TBD"
-            isFirst={!currentJob}
+            isFirst
             isHovered={hoveredId === "next-role"}
             isDimmed={hoveredId !== null && hoveredId !== "next-role"}
             onHover={setHoveredId}

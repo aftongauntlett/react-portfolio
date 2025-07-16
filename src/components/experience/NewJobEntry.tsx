@@ -1,20 +1,16 @@
-"use client";
-
 import type { Job } from "@/data/jobTimeline";
-import { type JSX } from "react";
 
 /** Renders a single-line description for a dynamic job entry */
-export default function NewJobEntry({ job }: { job: Job }): JSX.Element | null {
+export default function NewJobEntry({ job }: { job: Job }) {
+  // Filter out any empty lines for clean rendering
   const nonEmptyLines = job.description.filter((line) => line.trim() !== "");
 
   if (nonEmptyLines.length === 0) return null;
 
   return (
-    <ul className="list-none" role="list">
+    <ul className="timeline-list">
       {nonEmptyLines.map((line, idx) => (
-        <li key={idx} className="flex items-start gap-2">
-          <span>{line}</span>
-        </li>
+        <li key={idx}>{line}</li>
       ))}
     </ul>
   );

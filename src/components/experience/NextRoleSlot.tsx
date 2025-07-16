@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, type FormEvent, type JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Job } from "@/data/jobTimeline";

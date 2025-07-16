@@ -85,7 +85,8 @@ html.dark .button-text {
   @apply w-3 h-3 rounded-full flex transition-all duration-300 bg-[var(--color-line)];
 }
 
-.timeline-item:hover .timeline-dot {
+.timeline-item:hover .timeline-dot,
+.timeline-item:focus-within .timeline-dot {
   @apply bg-[var(--color-primary)] shadow-[0_0_6px_var(--color-primary)];
 }
 
@@ -105,19 +106,25 @@ html.dark .button-text {
 
 .timeline-list li {
   position: relative;
-  padding-left: 1.25rem; /* spacing from bullet to text */
+  padding-left: 1.25rem;
   font-size: clamp(1rem, 2vw, 1.125rem);
   line-height: 1.6;
   color: var(--color-text-muted);
 }
 
 .timeline-list li::before {
-  content: "–"; /* en-dash */
+  content: "–";
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--color-primary);
+  color: var(--color-muted);
   font-weight: normal;
+  transition: color 0.3s;
+}
+
+.timeline-item:hover .timeline-list li::before,
+.timeline-item:focus-within .timeline-list li::before {
+  color: var(--color-primary);
 }
 
 /* === PAINT SPLASH === */

@@ -47,7 +47,7 @@ export default function TimelineItem({
       aria-labelledby={`${id}-heading`}
       aria-describedby={`${id}-date ${id}-desc`}
     >
-      <div className="relative flex items-start justify-center pt-1 w-100">
+      <div className="relative flex items-start justify-center pt-1 w-full">
         <div className="ms-1">
           {isQuestion ? (
             <div className="timeline-dot-bg">
@@ -97,26 +97,7 @@ export default function TimelineItem({
           </time>
         )}
         <div id={`${id}-desc`} className="mt-4 space-y-2">
-          {React.Children.map(children, (child) => (
-            <div
-              className={clsx(
-                "flex items-start gap-2 transition-colors duration-300",
-                isDimmed && "text-muted"
-              )}
-            >
-              {!isQuestion && (
-                <span
-                  className={clsx(
-                    "inline-block w-4 text-[var(--color-muted)] transition-colors duration-300",
-                    isHovered && "text-[var(--color-primary)]"
-                  )}
-                >
-                  –
-                </span>
-              )}
-              <div className="w-full">{child}</div>
-            </div>
-          ))}
+          {children}
         </div>
       </div>
     </motion.article>
