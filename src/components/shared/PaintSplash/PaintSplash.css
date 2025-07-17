@@ -1,0 +1,30 @@
+/* === PAINT SPLASH STYLE === */
+.paint-splash {
+  position: relative;
+  display: inline-block;
+  color: currentColor;
+  cursor: default;
+}
+
+.paint-splash::after {
+  content: attr(data-splash);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.paint-splash:hover::after,
+.paint-splash:focus::after {
+  opacity: 1;
+  background-image: radial-gradient(
+    circle at var(--mx) var(--my),
+    var(--color-primary) 0%,
+    var(--color-primary) 15%,
+    transparent 40%
+  );
+}

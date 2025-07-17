@@ -1,7 +1,7 @@
 import { useState, type FormEvent, type JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Job } from "@/data/jobTimeline";
-import Button from "../shared/Button";
+import Button from "../shared/Button/Button";
 
 /** Interactive form for proposing a custom new job entry */
 export default function NextRoleSlot({

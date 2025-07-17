@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import PaintSplashText from "../shared/PaintSplashEffect";
-import FadeInSection from "../shared/FadeInSection";
 import clsx from "clsx";
+import FadeInSection from "../shared/FadeInSection";
+import PaintSplashText from "../shared/PaintSplash/PaintSplashEffect";
 
 type Props = {
   id: string;

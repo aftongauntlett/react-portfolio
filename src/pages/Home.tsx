@@ -1,9 +1,9 @@
 import Layout from "@/components/layout/Layout";
-import AboutSection from "@/components/sections/AboutSection";
-import ProjectsSection from "@/components/sections/ProjectsSection";
-import ContactSection from "@/components/sections/ContactSection";
 import PageSection from "@/components/layout/PageSection";
-import ExperienceSection from "@/components/sections/ExperienceSection";
+import AboutSection from "@/components/sections/About/AboutSection";
+import ContactSection from "@/components/sections/Contact/ContactSection";
+import ExperienceSection from "@/components/sections/Experience/ExperienceSection";
+import ProjectsSection from "@/components/sections/Project/ProjectsSection";
 
 export default function Home() {
   return (

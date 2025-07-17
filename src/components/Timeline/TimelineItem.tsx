@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import { HelpCircle } from "lucide-react";
 import React from "react";
+import "./Timeline.css";
 
 export type TimelineItemProps = {
   id: string;

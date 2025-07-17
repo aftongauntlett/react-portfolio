@@ -1,4 +1,4 @@
-import Button from "../shared/Button";
+import Button from "@/components/shared/Button/Button";
 
 const fields = [
   {

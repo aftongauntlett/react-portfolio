@@ -1,10 +1,10 @@
 "use client";
 
 import { Mail } from "lucide-react";
-import Button from "@/components/shared/Button";
-import PaintSplashText from "../shared/PaintSplashEffect";
+import Button from "@/components/shared/Button/Button";
 import { useTheme } from "@/hooks/useTheme";
 import type { JSX } from "react";
+import PaintSplashText from "@/components/shared/PaintSplash/PaintSplashEffect";
 
 const aboutParagraphs = [
   "I'm a front-end developer with a strong focus on building creative, scalable, and user-centered web applications. With over five years of experience, I've contributed to large-scale redesigns, led the adoption of modern frameworks like React and Vue, and championed clean, maintainable code through component architecture, design systems, and cross-functional collaboration.",
@@ -41,7 +41,9 @@ export default function AboutSection(): JSX.Element | null {
 
       {/* CTA button */}
       <div className="flex justify-end">
-        <Button href="#contact" icon={<Mail />} children="Let’s Chat!" />{" "}
+        <Button href="#contact" icon={<Mail />}>
+          Let’s Chat!
+        </Button>
       </div>
     </section>
   );

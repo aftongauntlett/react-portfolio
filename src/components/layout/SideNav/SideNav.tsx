@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import { useTheme } from "@/hooks/useTheme";
-import { navItems } from "../../types/navItems";
+import { navItems } from "../../../types/navItems";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { GithubIcon, LinkedinIcon, Sun, Moon } from "lucide-react";
-import Button from "../shared/Button";
+import Button from "../../shared/Button/Button";
+import "./SideNav.css";
 
 export default function SideNav() {
   const activeSection = useActiveSection();

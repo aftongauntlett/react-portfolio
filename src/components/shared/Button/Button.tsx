@@ -1,5 +1,3 @@
-"use client";
-
 import {
   type ReactNode,
   type ButtonHTMLAttributes,
@@ -7,6 +5,7 @@ import {
 } from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import clsx from "clsx";
+import "./Button.css";
 
 // Shared props for all versions
 type BaseProps = {
@@ -16,6 +15,7 @@ type BaseProps = {
   asDiv?: boolean;
   onDivClick?: () => void;
   motionProps?: HTMLMotionProps<"div">;
+  variant?: "primary" | "secondary" | "link";
 };
 
 // 1. Button variant (no href)
@@ -42,20 +42,24 @@ export default function Button(props: ButtonProps) {
     onDivClick,
     motionProps,
     href,
+    variant = "primary",
     ...rest
   } = props;
 
-  const sharedClass = clsx(
-    "inline-flex items-center justify-center gap-2 rounded border border-[var(--color-text)] px-4 py-2 text-[var(--color-text)] transition-all duration-300",
-    "hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:shadow-[0_0_6px_var(--color-primary)]",
-    "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed",
+  const rootClass = clsx(
+    "btn-root",
+    {
+      "btn-primary": variant === "primary",
+      "btn-secondary": variant === "secondary",
+      "btn-link": variant === "link",
+    },
     className
   );
 
   if (asDiv) {
     return (
       <motion.div
-        className={sharedClass}
+        className={rootClass}
         role="button"
         tabIndex={0}
         onClick={onDivClick}
@@ -74,7 +78,7 @@ export default function Button(props: ButtonProps) {
     const anchorProps = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
 
     return (
-      <a href={href} className={sharedClass} {...anchorProps}>
+      <a href={href} className={rootClass} {...anchorProps}>
         {icon && <span>{icon}</span>}
         {children && <span>{children}</span>}
       </a>
@@ -84,7 +88,7 @@ export default function Button(props: ButtonProps) {
   const buttonProps = rest as ButtonHTMLAttributes<HTMLButtonElement>;
 
   return (
-    <button className={sharedClass} {...buttonProps}>
+    <button className={rootClass} {...buttonProps}>
       {icon && <span>{icon}</span>}
       {children && <span>{children}</span>}
     </button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import NewJobEntry from "@/components/experience/NewJobEntry";
 import NextRoleSlot from "@/components/experience/NextRoleSlot";
 import { jobs, type Job } from "@/data/jobTimeline";
-import TimelineItem from "@/components/experience/TimelineItem";
+import TimelineItem from "@/components/Timeline/TimelineItem";
 
 /** Renders the interactive career timeline with optional new job entry */
 export default function ExperienceSection() {
