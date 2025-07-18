@@ -8,10 +8,9 @@ import ProjectsSection from "@/components/sections/Project/ProjectsSection";
 export default function Home() {
   return (
     <Layout>
-      <PageSection id="about" className="pt-24 lg:pt-32 justify-start">
+      <PageSection id="about">
         <AboutSection />
       </PageSection>
-
       <PageSection id="experience" title="Experience">
         <ExperienceSection />
       </PageSection>

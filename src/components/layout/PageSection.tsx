@@ -15,10 +15,7 @@ export default function PageSection({ id, title, children, className }: Props) {
     <section
       id={id}
       data-section={id}
-      className={clsx(
-        "min-h-screen px-6 sm:px-8 lg:pl-16 py-20 flex flex-col items-start max-w-4xl mx-auto cursor-default",
-        className
-      )}
+      className={clsx("section-content", className)}
     >
       <FadeInSection>
         <div className="w-full space-y-8">

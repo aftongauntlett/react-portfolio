@@ -2,12 +2,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/shared/Button/Button";
 import "./Projects.css";
+import clsx from "clsx";
 
 const projects = [
   {
-    title: "Portfolio Website",
-    description:
-      "My personal site built with React, Vite, and Tailwind. Includes a custom theme, animations, and project showcase.",
+    title: "Programming Tutorial",
+    description: "TBD...",
     tech: ["React", "Vite", "TailwindCSS"],
     image: "https://placehold.co/480x270/222/fff?text=Project+Screenshot",
     link: "#",
@@ -49,9 +49,10 @@ export default function ProjectsSection() {
                 transition: { type: "spring", stiffness: 260, damping: 20 },
               },
             }}
-            className={`group flex flex-col rounded-2xl relative transition p-6 overflow-hidden project-card-custom
-              ${!isActive ? "opacity-60 grayscale" : ""}
-            `}
+            className={clsx(
+              "group flex flex-col rounded-2xl relative transition p-6 overflow-hidden project-card-custom h-full justify-between gap-3",
+              !isActive && "opacity-60 grayscale"
+            )}
             onMouseEnter={() => setHovered(title)}
             onMouseLeave={() => setHovered(null)}
             tabIndex={0}
@@ -91,33 +92,31 @@ export default function ProjectsSection() {
             </AnimatePresence>
 
             {/* Project Image */}
-            <div className="aspect-video w-full mb-4 rounded-lg overflow-hidden bg-[var(--color-line)] flex items-center justify-center relative z-10">
+            <div className="aspect-video w-full mb-4 rounded-lg overflow-hidden bg-[var(--color-dark)] flex items-center justify-center relative z-10">
               <img src={image} alt="" className="object-cover w-full h-full" />
             </div>
 
             {/* Content */}
-            <div className="flex flex-col gap-3 relative z-10">
-              <h3 className="subtitle transition-colors duration-300 group-hover:text-[var(--color-primary)]">
-                {title}
-              </h3>
-              <p className="text-muted">{description}</p>
-              <div className="flex flex-wrap gap-2 mt-1">
-                {tech.map((t) => (
-                  <span key={t} className="project-chip">
-                    {t}
-                  </span>
-                ))}
+            <div className="flex flex-col flex-1 justify-between relative gap-3 z-10">
+              <div className="flex flex-col gap-3">
+                <h3 className="subtitle transition-colors duration-300 group-hover:text-[var(--color-primary)]">
+                  {title}
+                </h3>
+                <p className="text-muted">{description}</p>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {tech.map((t) => (
+                    <span key={t} className="project-chip">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div className="flex gap-5 mt-4">
                 <Button href={link} variant="link">
                   View Repo
                 </Button>
                 {demo && (
-                  <Button
-                    href={demo}
-                    variant="link"
-                    className="text-[var(--color-secondary)]"
-                  >
+                  <Button href={demo} variant="link">
                     Live Demo
                   </Button>
                 )}

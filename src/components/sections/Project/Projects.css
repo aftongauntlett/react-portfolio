@@ -25,11 +25,7 @@
   font-size: 0.87rem;
   padding: 0.12em 0.95em;
   border-radius: 999px;
-  background: color-mix(
-    in srgb,
-    var(--color-primary) 7%,
-    var(--color-line) 93%
-  );
+  background: var(--color-dark);
   color: var(--color-text);
   font-family: var(--font-title-light), monospace;
   cursor: default;

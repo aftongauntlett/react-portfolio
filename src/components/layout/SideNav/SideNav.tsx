@@ -14,7 +14,7 @@ export default function SideNav() {
     <aside
       role="complementary"
       aria-labelledby="sidebar-title"
-      className="lg:sticky top-0 lg:h-screen w-full lg:w-[270px] px-6 py-10 flex flex-col justify-between"
+      className="lg:sticky top-0 lg:h-screen w-full lg:w-[320px] pt-16 px-6 py-10 flex flex-col justify-between"
     >
       <div>
         <h1 id="sidebar-title" className="subtitle">
