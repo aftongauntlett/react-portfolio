@@ -7,6 +7,9 @@ import { motion, type HTMLMotionProps } from "framer-motion";
 import clsx from "clsx";
 import "./Button.css";
 
+// Supported variants
+type ButtonVariant = "primary" | "secondary" | "link";
+
 // Shared props for all versions
 type BaseProps = {
   children?: ReactNode;
@@ -15,23 +18,23 @@ type BaseProps = {
   asDiv?: boolean;
   onDivClick?: () => void;
   motionProps?: HTMLMotionProps<"div">;
-  variant?: "primary" | "secondary" | "link";
+  variant?: ButtonVariant;
 };
 
-// 1. Button variant (no href)
-type ButtonVariant = BaseProps &
+// Button variant (no href)
+type ButtonOnly = BaseProps &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
     href?: undefined;
   };
 
-// 2. Anchor variant (uses href)
-type AnchorVariant = BaseProps &
+// Anchor variant (uses href)
+type AnchorOnly = BaseProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "children" | "type"> & {
     href: string;
   };
 
-// Union type of both variants
-type ButtonProps = ButtonVariant | AnchorVariant;
+// Union of both variants
+type ButtonProps = ButtonOnly | AnchorOnly;
 
 export default function Button(props: ButtonProps) {
   const {
@@ -69,28 +72,26 @@ export default function Button(props: ButtonProps) {
         {...(motionProps ?? {})}
       >
         {icon && <span>{icon}</span>}
-        {children && <span>{children}</span>}
+        {children}
       </motion.div>
     );
   }
 
   if (href) {
     const anchorProps = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
-
     return (
       <a href={href} className={rootClass} {...anchorProps}>
         {icon && <span>{icon}</span>}
-        {children && <span>{children}</span>}
+        {children}
       </a>
     );
   }
 
   const buttonProps = rest as ButtonHTMLAttributes<HTMLButtonElement>;
-
   return (
     <button className={rootClass} {...buttonProps}>
       {icon && <span>{icon}</span>}
-      {children && <span>{children}</span>}
+      {children}
     </button>
   );
 }

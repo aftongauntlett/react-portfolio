@@ -2,12 +2,14 @@
   /* === SHARED FONT VARIABLES === */
   --font-heading: "Montserrat", sans-serif;
   --font-body: "Inter", sans-serif;
+  --color-dark: hsla(0, 0%, 27%, 0.832);
 
   /* === COLOR VARIABLES — LIGHT MODE (Portal inspired) === */
   --font-title-light: "Outfit", sans-serif;
 
   --color-background: hsl(210, 25%, 95%);
   --color-text: hsl(215, 15%, 15%);
+
   --color-muted: hsl(215, 10%, 55%);
   --color-primary: hsl(198, 100%, 45%);
   --color-secondary: hsl(24, 100%, 50%);
@@ -18,8 +20,10 @@
 html.dark {
   --font-title-dark: "Orbitron", sans-serif;
 
-  --color-background: hsl(0, 0%, 5%);
-  --color-text: hsl(215, 15%, 85%);
+  --color-background: hsl(0, 0%, 8%);
+  --color-dark: hsla(0, 0%, 27%, 0.832);
+  --color-text: hsl(214, 10%, 74%);
+  --color-text-bold: hsl(210, 17%, 95%);
   --color-muted: hsl(220, 4%, 61%);
   --color-primary: hsl(28, 100%, 48%);
   --color-secondary: hsl(142, 17%, 37%);

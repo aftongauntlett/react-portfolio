@@ -1,8 +1,25 @@
-import "@fontsource/inter";
-import "@fontsource/montserrat";
-import "@fontsource/orbitron";
-import "@fontsource/outfit";
+// INTER
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
 
+// MONTSERRAT
+import "@fontsource/montserrat/400.css";
+import "@fontsource/montserrat/500.css";
+import "@fontsource/montserrat/700.css";
+
+// ORBITRON
+import "@fontsource/orbitron/400.css";
+import "@fontsource/orbitron/500.css";
+import "@fontsource/orbitron/700.css";
+
+// OUTFIT
+import "@fontsource/outfit/400.css";
+import "@fontsource/outfit/500.css";
+import "@fontsource/outfit/700.css";
+
+// GLOBAL STYLES
 import "./theme.css";
 import "./index.css";
 

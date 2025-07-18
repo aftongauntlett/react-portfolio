@@ -8,6 +8,9 @@ html {
 
 html,
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body);
@@ -54,4 +57,9 @@ html.dark .font-title {
 
 html.dark .button-text {
   font-family: var(--font-title-dark);
+}
+
+/* === LAYOUT STYLE === */
+.section-content {
+  @apply px-6 sm:px-8 lg:pl-[56px] max-w-4xl mx-auto w-full;
 }

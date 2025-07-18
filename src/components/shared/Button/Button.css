@@ -1,4 +1,4 @@
-/* ==== Base button styles ==== */
+/* ==== BUTTON STYLES ==== */
 .btn-root {
   display: inline-flex;
   align-items: center;
@@ -30,14 +30,14 @@
 
 /* ==== Primary ==== */
 .btn-primary {
-  background: var(--color-primary);
-  color: #fff;
+  background: transparent;
+  color: var(--color-primary);
   border-color: var(--color-primary);
 }
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  background: transparent;
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
   box-shadow: 0 0 6px var(--color-primary);
 }
 
@@ -59,7 +59,6 @@
   background: transparent;
   border: none;
   box-shadow: none;
-  color: var(--color-primary);
   padding: 0;
   font-weight: 500;
   font-size: 1rem;
@@ -67,6 +66,7 @@
   text-decoration: none;
   transition: color 0.25s cubic-bezier(0.7, 0.3, 0.3, 1);
   outline: none;
+  color: var(--color-primary);
 }
 
 /* Animated underline for link variant */
@@ -78,14 +78,14 @@
   bottom: -2px;
   width: 0;
   height: 2px;
-  background: var(--color-primary);
+  background: currentColor;
   border-radius: 2px;
   transition: width 0.3s cubic-bezier(0.7, 0.3, 0.3, 1);
 }
 
 .btn-link:hover,
 .btn-link:focus {
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 .btn-link:hover::after,
