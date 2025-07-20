@@ -1,69 +1,108 @@
-# React + TypeScript + Vite
+# React Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/aftongauntlett/react-portfolio)](https://github.com/aftongauntlett/react-portfolio/commits)  
+![React](https://img.shields.io/badge/React-2023C8?style=flat&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 
-Currently, two official plugins are available:
+My personal developer portfolio, built with React 19, Vite, Tailwind CSS, and a fluid, themeable design system. This site is designed to showcase my frontend skills, project work, and design sensibility, with a focus on accessibility, clean code, and real-world UI architecture.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **React 19** with functional components, hooks, and idiomatic project structure
+- **Vite** for lightning-fast dev builds and instant HMR
+- **Tailwind CSS v3.4** for atomic styling, fluid `clamp()` typography, and utility-first layouts
+- **Custom Theming** via CSS variables (no Tailwind color utilities) with dark/light mode support
+- **Reusable Components**: Button, Section, ProjectCard, SideNav, and more
+- **Framer Motion** for subtle, modern animations
+- **Lucide React Icons** for scalable, accessible icons
+- **File-based Routing** using react-router-dom
+- **Accessible Design** with semantic HTML and keyboard-friendly navigation
+- **Mobile-First Layout** with smooth transitions and responsive spacing
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Clone the Repo
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- git clone https://github.com/aftongauntlett/react-portfolio.git
+- cd react-portfolio
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install Dependencies
+
+```
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Run the Dev Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+npm run dev
+```
+
+### 4. Open Browser
+
+- Open http://localhost:5173 to view the site locally.
+
+## Folder Structure (Relevant Parts)
+
+src/  
+ components/  
+ layout/  
+ Layout.tsx  
+ PageSection.tsx  
+ SideNav/  
+ shared/  
+ Button/  
+ PaintSplash/  
+ ...  
+ pages/  
+ Home.tsx  
+ About.tsx  
+ Projects.tsx  
+ Contact.tsx  
+ styles/  
+ theme.css  
+ index.css  
+ App.tsx  
+ main.tsx
+
+## Scripts
+
+- npm run dev — Start local development server
+- npm run build — Build for production
+- npm run preview — Preview the production build locally
+- npm run lint — Run ESLint on all source files
+
+## Tech Stack
+
+- React 19
+- Vite 7
+- Tailwind CSS 3.4.3
+- TypeScript 5.8
+- Framer Motion 12
+- Lucide React Icons
+- @fontsource (Inter, Montserrat, Orbitron, Outfit)
+- react-router-dom 7.6
+
+## Theming Approach
+
+This portfolio uses CSS variables for all colors and theme toggling. All color references use the `[var(--color-...)]` format, with a single source of truth in `theme.css` for easy updates and theming. No Tailwind color utilities are used for theme colors - just CSS custom properties.
+
+## Accessibility & UX
+
+- All components use semantic HTML and are keyboard accessible
+- Dark and light modes are supported, with accessible color contrast
+- Responsive design is fully fluid—no fixed pixel values for typography or spacing
+
+## License
+
+MIT License
+
+Copyright (c) 2025 Afton Gauntlett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
