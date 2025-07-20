@@ -14,11 +14,9 @@ export default function Home() {
       <PageSection id="experience" title="Experience">
         <ExperienceSection />
       </PageSection>
-
       <PageSection id="projects" title="Projects">
         <ProjectsSection />
       </PageSection>
-
       <PageSection id="contact" title="Get in Touch">
         <ContactSection />
       </PageSection>

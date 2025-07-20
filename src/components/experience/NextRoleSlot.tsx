@@ -47,7 +47,7 @@ export default function NextRoleSlot({
             exit: { opacity: 0, y: -4 },
           }}
         >
-          <span className="italic transition-transform duration-300 group-hover:scale-105 group-hover:font-semibold">
+          <span className="italic group-hover:scale-105 group-hover:font-semibold">
             What's my next role?
           </span>
         </Button>

@@ -42,8 +42,6 @@ export default function TimelineItem({
       onMouseLeave={() => onHover(null)}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.2 }}
       tabIndex={0}
       aria-labelledby={`${id}-heading`}
       aria-describedby={`${id}-date ${id}-desc`}
@@ -68,22 +66,19 @@ export default function TimelineItem({
 
       <div
         className={clsx(
-          "transition-all duration-300 rounded-md hover:bg-[var(--color-line)]/10",
+          "rounded-md hover:bg-[var(--color-line)]/10",
           isDimmed && "text-muted"
         )}
       >
         <h3
           id={`${id}-heading`}
-          className={clsx(
-            "subtitle transition-colors duration-300 font-normal",
-            isHovered && "font-bold"
-          )}
+          className={clsx("subtitle font-normal", isHovered && "font-bold")}
         >
           {title}
           {company && (
             <span
               className={clsx(
-                "font-normal transition-colors duration-300",
+                "font-normal",
                 isHovered && "text-[var(--color-primary)]"
               )}
             >

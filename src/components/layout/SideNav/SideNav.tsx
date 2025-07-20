@@ -17,10 +17,10 @@ export default function SideNav() {
       className="lg:sticky top-0 lg:h-screen w-full lg:w-[320px] pt-16 px-6 py-10 flex flex-col justify-between"
     >
       <div>
-        <h1 id="sidebar-title" className="subtitle">
+        <h1 id="sidebar-title" className="sidenav-name title">
           Afton Gauntlett
         </h1>
-        <p className="mt-0.5 mb-3 text-sm text-[var(--color-muted)] leading-tight">
+        <p className="mt-0.5 mb-3 text-sm text-[var(--color-muted)] leading-tight sidenav-title">
           Front-End Engineer
         </p>
         <div className="pr-6">
@@ -60,7 +60,7 @@ export default function SideNav() {
               <GithubIcon size={20} />
             </a>
             <a
-              href="https://www.linkedin.com/in/aftongauntlett/"
+              href="https://www.linkedin.com/in/afton-gauntlett/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"

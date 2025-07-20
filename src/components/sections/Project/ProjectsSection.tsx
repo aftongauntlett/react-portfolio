@@ -102,7 +102,7 @@ export default function ProjectsSection() {
                 <h3 className="subtitle transition-colors duration-300 group-hover:text-[var(--color-primary)]">
                   {title}
                 </h3>
-                <p className="text-muted">{description}</p>
+                <p>{description}</p>
                 <div className="flex flex-wrap gap-2 mt-1">
                   {tech.map((t) => (
                     <span key={t} className="project-chip">

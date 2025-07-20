@@ -1,13 +1,15 @@
-"use client";
-
 import { Mail } from "lucide-react";
 import Button from "@/components/shared/Button/Button";
 import PaintSplashText from "@/components/shared/PaintSplash/PaintSplashEffect";
 
 const aboutParagraphs = [
-  "I'm a front-end developer with a strong focus on building creative, scalable, and user-centered web applications. With over five years of experience, I've contributed to large-scale redesigns, led the adoption of modern frameworks like React and Vue, and championed clean, maintainable code through component architecture, design systems, and cross-functional collaboration.",
-  "My background in both {development} and {design} allows me to bridge the gap between {usability} and {implementation}. I'm driven by {thoughtful problem-solving}, {mentorship} (valuable in both directions, no matter how senior you are!), and a deep respect for {clean UI} and {inclusive experiences}. I thrive in team environments where {curiosity}, {empathy}, and {technical excellence} are equally valued.",
-  "I didn't take a conventional path into tech – I {left high school early} and carved out a life through {adaptability}, {persistence}, and a refusal to let circumstances define my potential. Every twist in my journey shaped the developer I am today: someone who {leads with empathy}, {speaks up} when it counts, and stays grounded in {purpose} and {principle}. Whether I'm advocating for my team, {untangling legacy code}, or helping a city fix a flawed parking policy (true story), I bring the same mindset: {listen carefully}, act with {intention}, and don't settle for “good enough.”",
+  "I’m a frontend developer with 5+ years of experience building accessible interfaces and scalable design systems using {React}, {TypeScript}, and modern frameworks. I’ve led large-scale migrations, worked closely with designers and engineers, and helped establish frontend architecture that balances usability, maintainability, and performance.",
+
+  "I specialize in simplifying complex systems, improving developer workflows, and designing reusable components that scale across teams. I care about visual polish, accessibility, and writing code that’s easy to build on long-term. I’m often the person who brings order to messy frontends and helps set patterns that others can follow!",
+
+  "Recently, I helped lead a full frontend rebuild of a major government platform at {Booz Allen Hamilton}, supported the launch of a new intelligence product, built a custom LLM chatbot interface using {Claude Sonnet} ({React} + {Python}) and set up {VSCode} scripts for team-wide use with {Continue}, collaborated on a dataset sharing platform similar to {Kaggle}, and volunteered with a retro tech non-profit to build a tech museum website using {Eleventy (11ty)}, producing pure {HTML} and {CSS} that renders on {Pentium 90 hardware} with {Netscape Navigator 4.0}. Each of these projects demonstrates my ability to deliver accessible, high-performance solutions under unique technical and organizational constraints.",
+
+  "Currently exploring frontend roles in commercial, mission-driven, or product-focused teams.",
 ];
 
 function markBold(str: string) {
@@ -15,7 +17,10 @@ function markBold(str: string) {
   return parts.map((part, i) => {
     if (part.startsWith("{") && part.endsWith("}")) {
       return (
-        <span key={i} className="font-medium text-[var(--color-text-bold)]">
+        <span
+          key={i}
+          className="font-medium text-[var(--color-primary-lighter)]"
+        >
           {part.slice(1, -1)}
         </span>
       );
@@ -33,7 +38,7 @@ export default function AboutSection() {
     >
       <h1 id="about-title" className="mb-8">
         <PaintSplashText tag="span" className="title block">
-          Welcome.
+          Afton Gauntlett
         </PaintSplashText>
       </h1>
 

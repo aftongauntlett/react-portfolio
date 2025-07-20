@@ -2,30 +2,26 @@
   /* === SHARED FONT VARIABLES === */
   --font-heading: "Montserrat", sans-serif;
   --font-body: "Inter", sans-serif;
-  --color-dark: hsla(0, 0%, 27%, 0.832);
 
-  /* === COLOR VARIABLES — LIGHT MODE (Portal inspired) === */
-  --font-title-light: "Outfit", sans-serif;
-
-  --color-background: hsl(210, 25%, 95%);
+  /* === LIGHT MODE (Portal inspired) === */
+  --color-dark: hsl(195, 10%, 77%);
+  --color-background: hsl(210, 31%, 95%);
   --color-text: hsl(215, 15%, 15%);
-
-  --color-muted: hsl(215, 10%, 55%);
+  --color-muted: hsl(216, 8%, 38%);
   --color-primary: hsl(198, 100%, 45%);
+  --color-primary-lighter: hsl(198, 74%, 37%);
   --color-secondary: hsl(24, 100%, 50%);
   --color-line: hsl(203, 7%, 79%);
 }
 
-/* === COLOR VARIABLES — DARK MODE (Half-Life inspired) === */
+/* === DARK MODE (Half-Life inspired) === */
 html.dark {
-  --font-title-dark: "Orbitron", sans-serif;
-
   --color-background: hsl(0, 0%, 8%);
   --color-dark: hsla(0, 0%, 27%, 0.832);
-  --color-text: hsl(214, 10%, 74%);
-  --color-text-bold: hsl(210, 17%, 95%);
+  --color-text: hsl(210, 19%, 88%);
   --color-muted: hsl(220, 4%, 61%);
   --color-primary: hsl(28, 100%, 48%);
+  --color-primary-lighter: hsl(28, 76%, 63%);
   --color-secondary: hsl(142, 17%, 37%);
   --color-line: hsl(0, 0%, 47%);
 }

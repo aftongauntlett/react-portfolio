@@ -9,16 +9,6 @@ import "@fontsource/montserrat/400.css";
 import "@fontsource/montserrat/500.css";
 import "@fontsource/montserrat/700.css";
 
-// ORBITRON
-import "@fontsource/orbitron/400.css";
-import "@fontsource/orbitron/500.css";
-import "@fontsource/orbitron/700.css";
-
-// OUTFIT
-import "@fontsource/outfit/400.css";
-import "@fontsource/outfit/500.css";
-import "@fontsource/outfit/700.css";
-
 // GLOBAL STYLES
 import "./theme.css";
 import "./index.css";
