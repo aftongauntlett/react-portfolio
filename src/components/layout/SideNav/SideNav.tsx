@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import { useTheme } from "@/hooks/useTheme";
-import { navItems } from "../../../types/navItems";
-import { useActiveSection } from "@/hooks/useActiveSection";
-import { GithubIcon, LinkedinIcon, Sun, Moon } from "lucide-react";
-import Button from "../../shared/Button/Button";
-import "./SideNav.css";
+import clsx from 'clsx';
+import { useTheme } from '@/hooks/useTheme';
+import { navItems } from '../../../types/navItems';
+import { useActiveSection } from '@/hooks/useActiveSection';
+import { GithubIcon, LinkedinIcon, Sun, Moon } from 'lucide-react';
+import Button from '../../shared/Button/Button';
+import './SideNav.css';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
@@ -29,11 +29,10 @@ export default function SideNav() {
             <a
               key={id}
               href={`#${id}`}
-              aria-current={activeSection === id ? "true" : undefined}
+              aria-current={activeSection === id ? 'true' : undefined}
               className={clsx(
-                "nav-link block text-base hover:text-[var(--color-primary)]",
-                activeSection === id &&
-                  "text-[var(--color-primary)] font-semibold"
+                'nav-link block text-base hover:text-[var(--color-primary)]',
+                activeSection === id && 'text-[var(--color-primary)] font-semibold',
               )}
             >
               {label}
@@ -71,7 +70,7 @@ export default function SideNav() {
           {/* Right: Theme toggle */}
           <Button
             onClick={toggleTheme}
-            icon={theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            icon={theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
             aria-label="Toggle dark mode"
           />
         </div>

@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import { HelpCircle } from "lucide-react";
-import React from "react";
-import "./Timeline.css";
+import { motion } from 'framer-motion';
+import clsx from 'clsx';
+import { HelpCircle } from 'lucide-react';
+import React from 'react';
+import './Timeline.css';
 
 export type TimelineItemProps = {
   id: string;
@@ -32,11 +32,11 @@ export default function TimelineItem({
   return (
     <motion.article
       className={clsx(
-        "timeline-item grid grid-cols-[2rem_1fr] gap-x-8 items-start relative rounded-lg transition-all duration-300",
+        'timeline-item grid grid-cols-[2rem_1fr] gap-x-8 items-start relative rounded-lg transition-all duration-300',
         {
-          "first:mt-0": isFirst,
-          "opacity-50": isDimmed,
-        }
+          'first:mt-0': isFirst,
+          'opacity-50': isDimmed,
+        },
       )}
       onMouseEnter={() => onHover(id)}
       onMouseLeave={() => onHover(null)}
@@ -54,35 +54,21 @@ export default function TimelineItem({
             </div>
           ) : (
             <span
-              className={clsx("timeline-dot", {
-                "bg-[var(--color-primary)] shadow-[0_0_4px_var(--color-primary)]":
-                  isHovered,
-                "bg-[var(--color-line)]": !isHovered,
+              className={clsx('timeline-dot', {
+                'bg-[var(--color-primary)] shadow-[0_0_4px_var(--color-primary)]': isHovered,
+                'bg-[var(--color-line)]': !isHovered,
               })}
             />
           )}
         </div>
       </div>
 
-      <div
-        className={clsx(
-          "rounded-md hover:bg-[var(--color-line)]/10",
-          isDimmed && "text-muted"
-        )}
-      >
-        <h3
-          id={`${id}-heading`}
-          className={clsx("subtitle font-normal", isHovered && "font-bold")}
-        >
+      <div className={clsx('rounded-md hover:bg-[var(--color-line)]/10', isDimmed && 'text-muted')}>
+        <h3 id={`${id}-heading`} className={clsx('subtitle font-normal', isHovered && 'font-bold')}>
           {title}
           {company && (
-            <span
-              className={clsx(
-                "font-normal",
-                isHovered && "text-[var(--color-primary)]"
-              )}
-            >
-              {" "}
+            <span className={clsx('font-normal', isHovered && 'text-[var(--color-primary)]')}>
+              {' '}
               @ {company}
             </span>
           )}

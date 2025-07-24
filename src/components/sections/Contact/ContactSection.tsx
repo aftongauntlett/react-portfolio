@@ -1,20 +1,20 @@
-import Button from "@/components/shared/Button/Button";
+import Button from '@/components/shared/Button/Button';
 
 const fields = [
   {
-    id: "name",
-    label: "Name",
-    type: "text",
+    id: 'name',
+    label: 'Name',
+    type: 'text',
   },
   {
-    id: "email",
-    label: "Email",
-    type: "email",
+    id: 'email',
+    label: 'Email',
+    type: 'email',
   },
   {
-    id: "message",
-    label: "Message",
-    type: "textarea",
+    id: 'message',
+    label: 'Message',
+    type: 'textarea',
     rows: 4,
   },
 ];
@@ -23,8 +23,8 @@ export default function ContactSection() {
   return (
     <>
       <p className="text-[var(--color-muted)]">
-        Whether you want to chat about a project, collaboration, or just say hi
-        — my inbox is always open. I’ll try to respond as soon as I can!
+        Whether you want to chat about a project, collaboration, or just say hi — my inbox is always
+        open. I’ll try to respond as soon as I can!
       </p>
 
       <form className="space-y-4">
@@ -33,7 +33,7 @@ export default function ContactSection() {
             <label htmlFor={id} className="block mb-2">
               {label}
             </label>
-            {type === "textarea" ? (
+            {type === 'textarea' ? (
               <textarea
                 id={id}
                 rows={rows}

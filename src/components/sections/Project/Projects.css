@@ -10,7 +10,7 @@
 
 /* Animated left border on hover/focus only */
 .project-row::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;

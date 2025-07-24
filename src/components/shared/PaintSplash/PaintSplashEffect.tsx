@@ -1,6 +1,6 @@
-import { useRef } from "react";
-import type { MouseEvent, ElementType, JSX } from "react";
-import "./PaintSplash.css";
+import { useRef } from 'react';
+import type { MouseEvent, ElementType, JSX } from 'react';
+import './PaintSplash.css';
 
 // Only allow valid HTML elements (not SVG)
 type AllowedTags = keyof JSX.IntrinsicElements;
@@ -11,8 +11,8 @@ type AllowedTags = keyof JSX.IntrinsicElements;
  */
 export default function PaintSplashText({
   children,
-  tag = "span",
-  className = "",
+  tag = 'span',
+  className = '',
 }: {
   children: string;
   tag?: AllowedTags;
@@ -32,8 +32,8 @@ export default function PaintSplashText({
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-    el.style.setProperty("--mx", `${x}%`);
-    el.style.setProperty("--my", `${y}%`);
+    el.style.setProperty('--mx', `${x}%`);
+    el.style.setProperty('--my', `${y}%`);
   };
 
   /**
@@ -44,8 +44,8 @@ export default function PaintSplashText({
     const el = ref.current;
     if (!el) return;
 
-    el.style.removeProperty("--mx");
-    el.style.removeProperty("--my");
+    el.style.removeProperty('--mx');
+    el.style.removeProperty('--my');
   };
 
   const Tag = tag as ElementType;

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import clsx from "clsx";
+import { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export default function FadeInSection({ children, className }: Props) {
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (ref.current) observer.observe(ref.current);
@@ -26,9 +26,9 @@ export default function FadeInSection({ children, className }: Props) {
     <div
       ref={ref}
       className={clsx(
-        "transition-opacity duration-700 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-        className
+        'transition-opacity duration-700 ease-out',
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
+        className,
       )}
     >
       {children}

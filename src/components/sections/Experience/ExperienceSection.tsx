@@ -1,8 +1,8 @@
-import { useState } from "react";
-import NewJobEntry from "@/components/experience/NewJobEntry";
-import NextRoleSlot from "@/components/experience/NextRoleSlot";
-import { jobs, type Job } from "@/data/jobTimeline";
-import TimelineItem from "@/components/Timeline/TimelineItem";
+import { useState } from 'react';
+import NewJobEntry from '@/components/experience/NewJobEntry';
+import NextRoleSlot from '@/components/experience/NextRoleSlot';
+import { jobs, type Job } from '@/data/jobTimeline';
+import TimelineItem from '@/components/Timeline/TimelineItem';
 
 /** Renders the interactive career timeline with optional new job entry */
 export default function ExperienceSection() {
@@ -13,7 +13,7 @@ export default function ExperienceSection() {
     ...(currentJob
       ? [
           {
-            id: "new-role",
+            id: 'new-role',
             title: currentJob.title,
             company: currentJob.company,
             dates: currentJob.dates,
@@ -51,8 +51,8 @@ export default function ExperienceSection() {
             company=""
             dates="TBD"
             isFirst
-            isHovered={hoveredId === "next-role"}
-            isDimmed={hoveredId !== null && hoveredId !== "next-role"}
+            isHovered={hoveredId === 'next-role'}
+            isDimmed={hoveredId !== null && hoveredId !== 'next-role'}
             onHover={setHoveredId}
           >
             <NextRoleSlot onNewJob={setCurrentJob} />

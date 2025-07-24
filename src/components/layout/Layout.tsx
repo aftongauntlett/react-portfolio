@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import SideNav from "./SideNav/SideNav";
-import Footer from "../shared/Footer";
+import type { ReactNode } from 'react';
+import SideNav from './SideNav/SideNav';
+import Footer from '../shared/Footer';
 
 type LayoutProps = {
   children: ReactNode;

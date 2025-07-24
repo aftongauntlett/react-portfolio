@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import Button from "@/components/shared/Button/Button";
-import "./projects.css";
-import { projects } from "@/data/projectItem";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import clsx from 'clsx';
+import Button from '@/components/shared/Button/Button';
+import './projects.css';
+import { projects } from '@/data/projectItem';
 
 export default function ProjectsSection() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -17,7 +17,7 @@ export default function ProjectsSection() {
           <motion.div
             key={title}
             tabIndex={0}
-            className={clsx("project-row", isDimmed && "opacity-50")}
+            className={clsx('project-row', isDimmed && 'opacity-50')}
             onMouseEnter={() => setHoveredIdx(idx)}
             onMouseLeave={() => setHoveredIdx(null)}
             initial={{ opacity: 0, y: 12 }}
@@ -32,10 +32,7 @@ export default function ProjectsSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="secondary"
-                  className={clsx(
-                    "transition-colors min-w-[112px]",
-                    isHovered && "btn-primary"
-                  )}
+                  className={clsx('transition-colors min-w-[112px]', isHovered && 'btn-primary')}
                 >
                   View Repo
                 </Button>
@@ -46,10 +43,7 @@ export default function ProjectsSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="secondary"
-                  className={clsx(
-                    "transition-colors min-w-[112px]",
-                    isHovered && "btn-primary"
-                  )}
+                  className={clsx('transition-colors min-w-[112px]', isHovered && 'btn-primary')}
                 >
                   Live Demo
                 </Button>
@@ -59,23 +53,20 @@ export default function ProjectsSection() {
             <div className="flex-1 min-w-0 pr-2">
               <h3
                 className={clsx(
-                  "subtitle font-normal text-[var(--color-text-muted)] transition-colors",
-                  isHovered && "text-[var(--color-primary)]"
+                  'subtitle font-normal text-[var(--color-text-muted)] transition-colors',
+                  isHovered && 'text-[var(--color-primary)]',
                 )}
               >
                 {title}
               </h3>
-              <div className="mt-1 text-body text-[var(--color-text-muted)]">
-                {description}
-              </div>
+              <div className="mt-1 text-body text-[var(--color-text-muted)]">{description}</div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {tech.map((t) => (
                   <motion.span
                     key={t}
                     className={clsx(
-                      "project-chip",
-                      isHovered &&
-                        "border-[var(--color-primary)] text-[var(--color-primary)]"
+                      'project-chip',
+                      isHovered && 'border-[var(--color-primary)] text-[var(--color-primary)]',
                     )}
                     transition={{ duration: 0.18 }}
                   >

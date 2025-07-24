@@ -1,46 +1,40 @@
-import { useState, type FormEvent, type JSX } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import type { Job } from "@/data/jobTimeline";
-import Button from "../shared/Button/Button";
+import { useState, type FormEvent, type JSX } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { Job } from '@/data/jobTimeline';
+import Button from '../shared/Button/Button';
 
 /** Interactive form for proposing a custom new job entry */
-export default function NextRoleSlot({
-  onNewJob,
-}: {
-  onNewJob: (job: Job) => void;
-}): JSX.Element {
-  const [formStage, setFormStage] = useState<"teaser" | "form">("teaser");
-  const [company, setCompany] = useState("");
-  const [title, setTitle] = useState("");
+export default function NextRoleSlot({ onNewJob }: { onNewJob: (job: Job) => void }): JSX.Element {
+  const [formStage, setFormStage] = useState<'teaser' | 'form'>('teaser');
+  const [company, setCompany] = useState('');
+  const [title, setTitle] = useState('');
 
   const handleSubmit = (): void => {
     const now = new Date();
-    const formatted = now.toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
+    const formatted = now.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
     });
 
     onNewJob({
       title,
       company,
       dates: `Available: ${formatted}`,
-      description: [
-        `We both agree – I would make a great ${title} at ${company}. Let’s chat!`,
-      ],
+      description: [`We both agree – I would make a great ${title} at ${company}. Let’s chat!`],
     });
 
-    setFormStage("teaser"); // reset back to teaser
-    setCompany("");
-    setTitle("");
+    setFormStage('teaser'); // reset back to teaser
+    setCompany('');
+    setTitle('');
   };
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {formStage === "teaser" && (
+      {formStage === 'teaser' && (
         <Button
           asDiv
-          onDivClick={() => setFormStage("form")}
+          onDivClick={() => setFormStage('form')}
           motionProps={{
             initial: { opacity: 0, y: -4 },
             animate: { opacity: 1, y: 0 },
@@ -53,7 +47,7 @@ export default function NextRoleSlot({
         </Button>
       )}
 
-      {formStage === "form" && (
+      {formStage === 'form' && (
         <motion.div
           key="form"
           initial={{ opacity: 0, y: -6 }}

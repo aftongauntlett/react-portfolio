@@ -18,7 +18,7 @@
 }
 
 .btn-root:disabled,
-.btn-root[aria-disabled="true"] {
+.btn-root[aria-disabled='true'] {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -70,7 +70,7 @@
 
 /* Animated underline for link variant */
 .btn-link::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   left: 0;
