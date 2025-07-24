@@ -9,11 +9,21 @@ export const jobs: Job[] = [
   {
     title: "Lead Engineer",
     company: "Booz Allen Hamilton",
-    dates: "03/2022 – 05/2025",
+    dates: "03/2023 – 05/2025",
     description: [
-      "Led frontend rebuild of a large-scale intelligence platform, migrating from Angular to modular React with TypeScript and Hooks.",
-      "Designed and implemented scalable UI architecture with reusable component patterns and accessibility from the start.",
-      "Collaborated across teams to enforce frontend standards, improve developer experience, and support long-term maintainability.",
+      "Championed modern frontend practices as lead engineer across 7 React apps, standardizing shared components and themes for a unified user experience.",
+      "Led the design and rollout of a guided, stepper-style data portal, facilitating stakeholder alignment and outperforming competing internal concepts.",
+      "Automated onboarding and workflow with a custom, secure LLM-powered chatbot, improving developer ramp-up using air-gapped VSCode scripting.",
+    ],
+  },
+  {
+    title: "Software Engineer",
+    company: "Booz Allen Hamilton",
+    dates: "03/2022 – 03/2023",
+    description: [
+      "Led the full revamp of a core government platform, driving the shift from Angular/Node to React with TypeScript for cleaner code and future-proof features.",
+      "Introduced a suite of modern developer tools—Prettier, Husky, ESLint, and TanStack Query—to enforce code standards and optimize daily workflow.",
+      "Authored comprehensive onboarding guides and accessibility docs, making it easier for new hires to get up to speed while embedding WCAG/508 compliance.",
     ],
   },
   {
@@ -21,9 +31,9 @@ export const jobs: Job[] = [
     company: "Gauntlet Designs",
     dates: "07/2020 – 01/2025",
     description: [
-      "Designed and built accessible, responsive frontends using Vue.js and Next.js, handling UX strategy, branding, and architecture.",
-      "Created reusable UI systems and modern workflows with Vercel and Firebase CI/CD pipelines.",
-      "Managed full project delivery — client comms, mockups, development, deployment, and ongoing support.",
+      "Delivered custom web platforms for clients ranging from small businesses to major restaurant groups, handling every phase from requirements through long-term support.",
+      "Built and maintained a robust employee portal and fundraising scheduler for Potomac Dining, ensuring five years of smooth operation and seamless legacy data migration.",
+      "Standardized modern frontends using React, Next.js, and Vue, launching fast, accessible sites on platforms like Firebase and Vercel.",
     ],
   },
   {
@@ -31,9 +41,9 @@ export const jobs: Job[] = [
     company: "IronClad",
     dates: "01/2022 – 03/2022",
     description: [
-      "Contributed to early development of a new intelligence platform, supporting stack evaluation and environment setup.",
-      "Helped establish React front-end architecture and created foundational Figma wireframes.",
-      "Developed reusable UI components with a focus on scale and consistency.",
+      "Evaluated and recommended frontend frameworks to help shape the next generation of scalable web apps for DIA.",
+      "Designed and delivered detailed Figma wireframes, laying the foundation for modern, accessible UI architecture.",
+      "Authored documentation and design standards that set clear expectations for accessibility, usability, and consistency across teams.",
     ],
   },
   {
@@ -41,9 +51,9 @@ export const jobs: Job[] = [
     company: "Global Dimensions",
     dates: "08/2021 – 01/2022",
     description: [
-      "Built accessible, interactive front-end interfaces for geospatial analysis apps using Vue.js and Vuetify.",
-      "Developed responsive layouts, animations, and map-based components in collaboration with designers and engineers.",
-      "Ensured compliance with Section 508 and WCAG standards across all front-end work.",
+      "Facilitated alignment between design and development, translating vision into practical, developer-friendly guidelines.",
+      "Drove accessibility improvements by partnering with design and compliance experts, delivering interfaces ready for 508/WCAG audits.",
+      "Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.",
     ],
   },
 ];

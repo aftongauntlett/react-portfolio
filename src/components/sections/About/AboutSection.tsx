@@ -3,13 +3,13 @@ import Button from "@/components/shared/Button/Button";
 import PaintSplashText from "@/components/shared/PaintSplash/PaintSplashEffect";
 
 const aboutParagraphs = [
-  "I’m a frontend developer with 5+ years of experience building accessible interfaces and scalable design systems using {React}, {TypeScript}, and modern frameworks. I’ve led large-scale migrations, worked closely with designers and engineers, and helped establish frontend architecture that balances usability, maintainability, and performance.",
+  "Hi, I’m Afton. I am a {senior frontend engineer} with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I’ve led frontend architecture at companies ranging from a {Fortune 500} firm like {Booz Allen Hamilton} to small businesses generating {$300M+} annually.",
 
-  "I specialize in simplifying complex systems, improving developer workflows, and designing reusable components that scale across teams. I care about visual polish, accessibility, and writing code that’s easy to build on long-term. I’m often the person who brings order to messy frontends and helps set patterns that others can follow!",
+  "As the founder of {Gauntlet Designs}, I built custom platforms from the ground up. This included a complete overhaul of an internal app for the 6th-largest {Applebee’s franchisee}, which still serves thousands of employees and fundraisers across multiple states.",
 
-  "Recently, I helped lead a full frontend rebuild of a major government platform at {Booz Allen Hamilton}, supported the launch of a new intelligence product, built a custom LLM chatbot interface using {Claude Sonnet} ({React} + {Python}) and set up {VSCode} scripts for team-wide use with {Continue}, collaborated on a dataset sharing platform similar to {Kaggle}, and volunteered with a retro tech non-profit to build a tech museum website using {Eleventy (11ty)}, producing pure {HTML} and {CSS} that renders on {Pentium 90 hardware} with {Netscape Navigator 4.0}. Each of these projects demonstrates my ability to deliver accessible, high-performance solutions under unique technical and organizational constraints.",
+  "At {Booz Allen}, I led the frontend strategy for 7 React apps, introduced multi-theme systems and reusable component libraries, and built a secure, {LLM-powered} onboarding chatbot using {Claude Sonnet} and custom {VSCode} tooling. I also migrated legacy codebases from {Angular} to modular {React}, integrated collaborative tools like {Figma} and {TanStack Query}, and advocated for {accessibility} and code maintainability across multiple teams.",
 
-  "Currently exploring frontend roles in commercial, mission-driven, or product-focused teams.",
+  "Outside of my professional work, I’m creating a retro-tech museum {website} for a non-profit using pure {HTML}/{CSS}. This project is designed specifically to run smoothly on vintage hardware ({Pentium 90}) and classic browsers ({Netscape Navigator 4.0}). I enjoy quirky constraints, clean code, and bringing good ideas to life on-screen!",
 ];
 
 function markBold(str: string) {
@@ -54,7 +54,7 @@ export default function AboutSection() {
       {/* CTA button */}
       <div className="flex justify-end">
         <Button href="#contact" icon={<Mail />}>
-          Let’s Chat!
+          Contact Me
         </Button>
       </div>
     </section>

@@ -3,32 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "@/components/shared/Button/Button";
 import "./Projects.css";
 import clsx from "clsx";
-
-const projects = [
-  {
-    title: "Programming Tutorial",
-    description: "TBD...",
-    tech: ["React", "Vite", "TailwindCSS"],
-    image: "https://placehold.co/480x270/222/fff?text=Project+Screenshot",
-    link: "#",
-    demo: "#",
-  },
-  {
-    title: "Guess-the-Glass App",
-    description:
-      "Wine tasting game powered by a public dataset and custom scoring logic. Built with Next.js and TypeScript.",
-    tech: ["Next.js", "TypeScript", "Public API"],
-    image: "https://placehold.co/480x270/333/eee?text=Project+Screenshot",
-    link: "#",
-    demo: "#",
-  },
-];
+import { projects } from "@/data/projectItem"; // <-- Don't forget this!
 
 export default function ProjectsSection() {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {projects.map(({ title, description, tech, image, link, demo }) => {
         const isActive = hovered === title || hovered === null;
         return (
