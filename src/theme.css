@@ -20,8 +20,8 @@ html.dark {
   --color-dark: hsla(0, 0%, 27%, 0.832);
   --color-text: hsl(210, 19%, 88%);
   --color-muted: hsl(220, 4%, 61%);
-  --color-primary: hsl(28, 100%, 48%);
-  --color-primary-lighter: hsl(28, 76%, 63%);
-  --color-secondary: hsl(142, 17%, 37%);
-  --color-line: hsl(0, 0%, 47%);
+  --color-primary: hsl(188, 40%, 51%);
+  --color-primary-lighter: hsl(193, 63%, 69%);
+  --color-secondary: hsl(193, 93%, 51%);
+  --color-line: hsla(194, 64%, 73%, 0.459);
 }

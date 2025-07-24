@@ -1,42 +1,44 @@
-/* ==== PROJECT STYLES ==== */
-
-.project-card-custom {
-  border: none;
-  background: var(--color-background);
+/* DRY hover logic for project row */
+.project-row {
+  @apply relative flex flex-row-reverse items-center gap-6 py-8 pl-4 transition-all duration-300 cursor-pointer;
 }
 
-.project-card-custom:focus-within,
-.project-card-custom:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--color-primary);
+.project-row:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-.project-card-custom > .bg-\[var\(--color-primary\)\] {
+/* Animated left border on hover/focus only */
+.project-row::before {
+  content: "";
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
+  bottom: 0;
   width: 4px;
-  border-radius: 3px;
-  z-index: 15;
+  background: var(--color-primary);
+  transform: scaleY(0);
+  transition: transform 0.3s;
+  transform-origin: top;
 }
 
+.project-row:hover::before,
+.project-row:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.project-row:hover .btn-outline,
+.project-row:focus-visible .btn-outline {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+/* Chips: DRY muted and hover styles */
 .project-chip {
-  font-size: 0.87rem;
-  padding: 0.12em 0.95em;
-  border-radius: 999px;
-  background: var(--color-dark);
-  cursor: default;
-}
-.group:hover .project-chip,
-.group:focus .project-chip {
-  background: color-mix(
-    in srgb,
-    var(--color-primary) 15%,
-    var(--color-line) 85%
-  );
-  color: var(--color-text);
+  @apply px-3 py-1 border text-xs font-medium rounded-none bg-transparent border-[var(--color-line)] text-[var(--color-text-muted)] transition-colors;
 }
 
-.opacity-60 {
-  filter: grayscale(0.2) opacity(0.6) brightness(0.93);
+.project-row:hover .project-chip,
+.project-row:focus-visible .project-chip {
+  @apply border-[var(--color-primary)] text-[var(--color-primary)];
 }

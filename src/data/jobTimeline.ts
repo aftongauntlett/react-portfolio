@@ -47,7 +47,7 @@ export const jobs: Job[] = [
     ],
   },
   {
-    title: "Front-End Developer",
+    title: "Frontend Developer",
     company: "Global Dimensions",
     dates: "08/2021 – 01/2022",
     description: [

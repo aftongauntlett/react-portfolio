@@ -85,7 +85,7 @@ export default function NextRoleSlot({
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Front-End Engineer"
+                placeholder="e.g. Frontend Engineer"
                 className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </label>

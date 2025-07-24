@@ -14,15 +14,13 @@ export default function SideNav() {
     <aside
       role="complementary"
       aria-labelledby="sidebar-title"
-      className="lg:sticky top-0 lg:h-screen w-full lg:w-[320px] pt-16 px-6 py-10 flex flex-col justify-between"
+      className="lg:sticky top-0 lg:h-screen w-full lg:w-[280px] pt-16 px-6 py-10 flex flex-col justify-between"
     >
       <div>
         <h1 id="sidebar-title" className="sidenav-name title">
           Afton Gauntlett
         </h1>
-        <p className="mt-0.5 mb-3 text-sm text-[var(--color-muted)] leading-tight sidenav-title">
-          Front-End Engineer
-        </p>
+        <p className="mt-0.5 mb-3 sidenav-title">Frontend Engineer</p>
         <div className="pr-6">
           <hr className="border-[var(--color-line)]" />
         </div>

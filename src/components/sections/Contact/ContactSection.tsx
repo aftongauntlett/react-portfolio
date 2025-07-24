@@ -27,23 +27,23 @@ export default function ContactSection() {
         — my inbox is always open. I’ll try to respond as soon as I can!
       </p>
 
-      <form className="space-y-4 subtitle">
+      <form className="space-y-4">
         {fields.map(({ id, label, type, rows }) => (
           <div key={id}>
-            <label htmlFor={id} className="block text-sm font-medium mb-2">
+            <label htmlFor={id} className="block mb-2">
               {label}
             </label>
             {type === "textarea" ? (
               <textarea
                 id={id}
                 rows={rows}
-                className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
+                className="w-full border border-[var(--color-line)] bg-red-200 p-2 rounded"
               />
             ) : (
               <input
                 id={id}
                 type={type}
-                className="w-full border border-[var(--color-line)] bg-transparent p-2 rounded"
+                className="w-full border border-[var(--color-line)] bg-green-300 p-2 rounded"
               />
             )}
           </div>
