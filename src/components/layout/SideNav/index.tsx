@@ -59,7 +59,7 @@ export default function SideNav() {
 
         <div className="flex items-center justify-between">
           {/* Socials */}
-          <div className="flex gap-4" role="list" aria-label="Social media links">
+          <div className="flex gap-4" aria-label="Social media links">
             <a
               href="https://github.com/aftongauntlett"
               target="_blank"
