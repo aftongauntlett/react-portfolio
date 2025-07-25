@@ -165,8 +165,6 @@ src/
 
 All colors use CSS custom properties (`var(--color-*)`) for consistent theming:
 
-- Light mode: Portal-inspired blue and orange palette
-- Dark mode: Half-Life inspired cyan and red palette
 - No hardcoded Tailwind colors for theme elements
 
 ### Typography

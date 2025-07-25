@@ -18,6 +18,16 @@ html {
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  /* Prevent white flash on load */
+  background-color: hsl(210, 31%, 95%); /* Light mode default */
+}
+
+html.dark {
+  background-color: hsl(0, 0%, 8%); /* Dark mode override */
+}
+
 html,
 body {
   -webkit-font-smoothing: antialiased;

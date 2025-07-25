@@ -11,7 +11,7 @@ export default function SideNav() {
 
   return (
     <header
-      className="lg:sticky top-0 lg:h-screen w-full lg:w-72 pt-16 px-6 py-10 flex flex-col justify-between"
+      className="hidden lg:flex lg:sticky top-0 lg:h-screen w-full lg:w-72 pt-16 px-6 py-10 flex-col justify-between"
       role="banner"
     >
       <div>
