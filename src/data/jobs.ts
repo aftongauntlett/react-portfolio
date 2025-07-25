@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react';
+
 export type Job = {
   title: string;
   company: string;
   dates: string;
-  description: string[];
+  description: ReactNode[];
 };
 
 export const jobs: Job[] = [

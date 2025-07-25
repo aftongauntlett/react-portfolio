@@ -1,8 +1,6 @@
 import { useRef } from 'react';
 import type { MouseEvent, ElementType, JSX } from 'react';
-import './PaintSplash.css';
 
-// Only allow valid HTML elements (not SVG)
 type AllowedTags = keyof JSX.IntrinsicElements;
 
 /**

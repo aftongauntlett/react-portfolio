@@ -1,6 +1,6 @@
 import { Mail } from 'lucide-react';
-import Button from '@/components/shared/Button/Button';
-import PaintSplashText from '@/components/shared/PaintSplash/PaintSplashEffect';
+import Button from '@/components/shared/Button';
+import PaintSplashText from '@/components/shared/PaintSplashEffect';
 
 const aboutParagraphs = [
   'I’m {Afton} - a senior frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I’ve led frontend architecture at companies ranging from a Fortune 500 firm like {Booz Allen Hamilton} to small businesses generating $300M+ annually.',
@@ -27,7 +27,7 @@ export default function AboutSection() {
     <section
       id="about"
       aria-labelledby="about-title"
-      className="pt-5 space-y-6 text-[var(--color-text)]"
+      className="pt-12 space-y-6 text-[var(--color-text)]"
     >
       <h1 id="about-title" className="mb-6">
         <PaintSplashText tag="span" className="title block">

@@ -20,6 +20,24 @@ body {
   padding: 0;
 }
 
+/* target Chrome, Edge, Safari */
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  /* reset browser’s default box shadow */
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset !important;
+  /* ensure text color stays your theme’s */
+  -webkit-text-fill-color: var(--color-text) !important;
+  /* optional: transition so it doesn’t snap */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Firefox */
+input:-moz-autofill,
+textarea:-moz-autofill {
+  box-shadow: 0 0 0px 1000px var(--color-background) inset;
+  color: var(--color-text);
+}
+
 /* === TYPOGRAPHY === */
 .title {
   font-family: var(--font-heading);
@@ -43,4 +61,35 @@ body {
 /* === LAYOUT STYLE === */
 .section-content {
   @apply px-6 sm:px-8 lg:pl-[56px] max-w-4xl mx-auto w-full;
+}
+
+/* === PAINT SPLASH STYLE === */
+.paint-splash {
+  position: relative;
+  display: inline-block;
+  color: currentColor;
+  cursor: default;
+}
+
+.paint-splash::after {
+  content: attr(data-splash);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.paint-splash:hover::after,
+.paint-splash:focus::after {
+  opacity: 1;
+  background-image: radial-gradient(
+    circle at var(--mx) var(--my),
+    var(--color-primary) 0%,
+    var(--color-primary) 15%,
+    transparent 40%
+  );
 }

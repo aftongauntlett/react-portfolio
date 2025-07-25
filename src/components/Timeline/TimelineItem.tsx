@@ -1,87 +1,93 @@
-import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import { HelpCircle } from 'lucide-react';
-import React from 'react';
-import './Timeline.css';
-
-export type TimelineItemProps = {
-  id: string;
+import MotionSection from '@/components/shared/MotionSection';
+export interface TimelineItemProps {
+  idx: number;
   title: string;
   company?: string;
   dates?: string;
   isFirst?: boolean;
-  isHovered?: boolean;
-  isDimmed?: boolean;
-  onHover: (id: string | null) => void;
-  children: React.ReactNode;
-};
+  isActive?: boolean;
+  isHovered: boolean;
+  isDimmed: boolean;
+  onHover: () => void;
+  onLeave: () => void;
+  children?: ReactNode;
+}
 
 export default function TimelineItem({
-  id,
   title,
   company,
   dates,
   isFirst = false,
-  isHovered = false,
-  isDimmed = false,
+  isActive = false,
+  isHovered,
+  isDimmed,
   onHover,
+  onLeave,
   children,
 }: TimelineItemProps) {
-  const isQuestion = title.toLowerCase() === "what's my next role?";
+  const shouldDim = !isActive && isDimmed;
 
   return (
-    <motion.article
-      className={clsx(
-        'timeline-item grid grid-cols-[2rem_1fr] gap-x-8 items-start relative rounded-lg transition-all duration-300',
-        {
-          'first:mt-0': isFirst,
-          'opacity-50': isDimmed,
-        },
-      )}
-      onMouseEnter={() => onHover(id)}
-      onMouseLeave={() => onHover(null)}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+    <MotionSection
       tabIndex={0}
-      aria-labelledby={`${id}-heading`}
-      aria-describedby={`${id}-date ${id}-desc`}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      className={clsx(
+        'group grid grid-cols-[2.5rem_1fr] gap-x-4 items-start transition-all duration-300',
+        !isFirst && 'mt-4',
+        shouldDim && '!opacity-50',
+        isActive && 'bg-[var(--color-primary)]/10',
+        'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+      )}
     >
-      <div className="relative flex items-start justify-center pt-1 w-full">
-        <div className="ms-1">
-          {isQuestion ? (
-            <div className="timeline-dot-bg">
-              <HelpCircle className="timeline-icon" strokeWidth={2} />
-            </div>
-          ) : (
-            <span
-              className={clsx('timeline-dot', {
-                'bg-[var(--color-primary)] shadow-[0_0_4px_var(--color-primary)]': isHovered,
-                'bg-[var(--color-line)]': !isHovered,
-              })}
+      <div className="relative flex justify-center pt-1">
+        {title.toLowerCase().includes('next role') ? (
+          <div className="absolute -inset-1 rounded-full bg-[var(--color-background)] flex items-center justify-center">
+            <HelpCircle
+              className="w-5 h-5 text-[var(--color-primary)] animate-pulse"
+              strokeWidth={2}
             />
-          )}
-        </div>
+          </div>
+        ) : (
+          <span
+            className={clsx(
+              'block w-3 h-3 rounded-full bg-[var(--color-line)] transition-colors',
+              isActive || isHovered
+                ? 'bg-[var(--color-secondary)] shadow-[0_0_6px_var(--color-secondary)]'
+                : '',
+            )}
+          />
+        )}
       </div>
-
-      <div className={clsx('rounded-md hover:bg-[var(--color-line)]/10', isDimmed && 'text-muted')}>
-        <h3 id={`${id}-heading`} className={clsx('subtitle font-normal', isHovered && 'font-bold')}>
-          {title}
-          {company && (
-            <span className={clsx('font-normal', isHovered && 'text-[var(--color-primary)]')}>
-              {' '}
-              @ {company}
-            </span>
-          )}
+      <div className="px-2">
+        <h3 className="subtitle flex items-baseline gap-1">
+          <span
+            className={clsx(
+              'transition-all',
+              isActive || isHovered ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]',
+            )}
+          >
+            {title}
+          </span>
+          {company && <span className="text-[var(--color-text)]">&nbsp;@ {company}</span>}
         </h3>
         {dates && (
-          <time id={`${id}-date`} className="text-muted">
+          <time
+            className="
+          block text-sm mb-2 
+          text-[var(--color-muted)]
+          transition-colors
+          group-hover:text-[var(--color-secondary)]
+        "
+          >
             {dates}
           </time>
         )}
-        <div id={`${id}-desc`} className="mt-4 space-y-2">
-          {children}
-        </div>
+        {children}
       </div>
-    </motion.article>
+    </MotionSection>
   );
 }

@@ -1,15 +1,19 @@
-import { useState, type FormEvent, type JSX } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Job } from '@/data/jobTimeline';
-import Button from '../shared/Button/Button';
+import Button from '@/components/shared/Button';
+import { useState, type FC, type FormEvent } from 'react';
+import type { Job } from '@/data/jobs';
+import { BulletList, BulletItem } from '@/components/shared/BulletList';
 
-/** Interactive form for proposing a custom new job entry */
-export default function NextRoleSlot({ onNewJob }: { onNewJob: (job: Job) => void }): JSX.Element {
-  const [formStage, setFormStage] = useState<'teaser' | 'form'>('teaser');
+interface NextRoleSlotProps {
+  onNewJob: (job: Job) => void;
+}
+
+const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
+  const [stage, setStage] = useState<'teaser' | 'form'>('teaser');
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
 
-  const handleSubmit = (): void => {
+  const handleNewJob = () => {
     const now = new Date();
     const formatted = now.toLocaleDateString('en-US', {
       month: 'long',
@@ -21,46 +25,53 @@ export default function NextRoleSlot({ onNewJob }: { onNewJob: (job: Job) => voi
       title,
       company,
       dates: `Available: ${formatted}`,
-      description: [`We both agree – I would make a great ${title} at ${company}. Let’s chat!`],
+      description: [
+        <>
+          Imagine me as your next <span className="text-[var(--color-primary)]">{title}</span> at{' '}
+          <span className="text-[var(--color-primary)]">{company}</span> - ready to sprinkle some
+          magic on your UI!
+        </>,
+      ],
     });
 
-    setFormStage('teaser'); // reset back to teaser
+    // reset
     setCompany('');
     setTitle('');
+    setStage('teaser');
   };
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      {formStage === 'teaser' && (
-        <Button
-          asDiv
-          onDivClick={() => setFormStage('form')}
-          motionProps={{
-            initial: { opacity: 0, y: -4 },
-            animate: { opacity: 1, y: 0 },
-            exit: { opacity: 0, y: -4 },
-          }}
-        >
-          <span className="italic group-hover:scale-105 group-hover:font-semibold">
-            What's my next role?
-          </span>
-        </Button>
-      )}
-
-      {formStage === 'form' && (
+      {stage === 'teaser' ? (
+        <div className="group">
+          <BulletList>
+            <BulletItem>
+              I am seeking my next opportunity—what role at your company do you think I would bring
+              value to?
+            </BulletItem>
+          </BulletList>
+          <div className="py-3 flex justify-end">
+            <Button asDiv onDivClick={() => setStage('form')}>
+              Let me know
+            </Button>
+          </div>
+        </div>
+      ) : (
+        // form: company & title inputs
         <motion.div
           key="form"
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          className="w-full space-y-4 rounded-lg bg-[var(--color-line)]/10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
+          className="w-full space-y-4 rounded-lg bg-[var(--color-line)]/10 p-4"
         >
           <form
+            className="space-y-4"
             onSubmit={(e: FormEvent) => {
               e.preventDefault();
-              if (company.trim() && title.trim()) handleSubmit();
+              if (company.trim() && title.trim()) handleNewJob();
             }}
-            className="space-y-4"
           >
             <label className="block text-sm font-medium text-[var(--color-text)]">
               What's the name of your company?
@@ -94,4 +105,6 @@ export default function NextRoleSlot({ onNewJob }: { onNewJob: (job: Job) => voi
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default NextRoleSlot;

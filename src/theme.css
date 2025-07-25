@@ -22,6 +22,6 @@ html.dark {
   --color-muted: hsl(220, 4%, 61%);
   --color-primary: hsl(188, 40%, 51%);
   --color-primary-lighter: hsl(193, 63%, 69%);
-  --color-secondary: hsl(193, 93%, 51%);
+  --color-secondary: hsl(10, 53%, 63%);
   --color-line: hsla(194, 64%, 73%, 0.459);
 }

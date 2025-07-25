@@ -10,7 +10,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: 'My Portfolio',
-    description: 'TBD...',
+    description:
+      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error in, fugit fuga blanditiis, soluta ipsum quasi porro suscipit sunt sit voluptatem qui iusto commodi maxime, saepe rerum eaque harum necessitatibus?',
     tech: ['React', 'TypeScript', 'Tailwind CSS'],
     image: 'https://placehold.co/480x270/222/fff?text=Project+Screenshot',
     link: '#',
@@ -18,7 +19,8 @@ export const projects: Project[] = [
   },
   {
     title: 'React Programming Tutorial',
-    description: 'TBD...',
+    description:
+      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error in, fugit fuga blanditiis, soluta ipsum quasi porro suscipit sunt sit voluptatem qui iusto commodi maxime, saepe rerum eaque harum necessitatibus?',
     tech: ['React', 'Vite', 'TailwindCSS'],
     image: 'https://placehold.co/480x270/222/fff?text=Project+Screenshot',
     link: '#',
@@ -27,7 +29,7 @@ export const projects: Project[] = [
   {
     title: 'Guess-the-Glass',
     description:
-      'Wine tasting game powered by a public dataset and custom scoring logic. Built with Next.js and TypeScript.',
+      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error in, fugit fuga blanditiis, soluta ipsum quasi porro suscipit sunt sit voluptatem qui iusto commodi maxime, saepe rerum eaque harum necessitatibus?',
     tech: ['Next.js', 'TypeScript', 'Public API'],
     image: 'https://placehold.co/480x270/333/eee?text=Project+Screenshot',
     link: '#',
@@ -35,7 +37,8 @@ export const projects: Project[] = [
   },
   {
     title: 'Bloop Museum',
-    description: 'TBD...',
+    description:
+      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error in, fugit fuga blanditiis, soluta ipsum quasi porro suscipit sunt sit voluptatem qui iusto commodi maxime, saepe rerum eaque harum necessitatibus?',
     tech: ['HTML', 'CSS', '11ty'],
     image: 'https://placehold.co/480x270/222/fff?text=Project+Screenshot',
     link: '#',
