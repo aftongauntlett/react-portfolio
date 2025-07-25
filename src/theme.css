@@ -3,7 +3,7 @@
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* === LIGHT MODE (Portal inspired) === */
+  /* === LIGHT MODE === */
   --color-dark: hsl(195, 10%, 77%);
   --color-background: hsl(210, 31%, 95%);
   --color-text: hsl(215, 15%, 15%);
@@ -14,7 +14,7 @@
   --color-line: hsl(203, 7%, 79%);
 }
 
-/* === DARK MODE (Half-Life inspired) === */
+/* === DARK MODE === */
 html.dark {
   --color-background: hsl(0, 0%, 8%);
   --color-dark: hsla(0, 0%, 27%, 0.832);

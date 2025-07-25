@@ -6,6 +6,28 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Prevent white flash on load */
+  background-color: hsl(210, 31%, 95%); /* Light mode default */
+}
+
+html.dark {
+  background-color: hsl(0, 0%, 8%); /* Dark mode override */
+}
+
 html,
 body {
   -webkit-font-smoothing: antialiased;
@@ -20,14 +42,44 @@ body {
   padding: 0;
 }
 
+/* Screen reader only utility class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Focus styles for better accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* target Chrome, Edge, Safari */
 input:-webkit-autofill,
 textarea:-webkit-autofill {
-  /* reset browser’s default box shadow */
+  /* reset browser's default box shadow */
   -webkit-box-shadow: 0 0 0px 1000px var(--color-background) inset !important;
-  /* ensure text color stays your theme’s */
+  /* ensure text color stays your theme's */
   -webkit-text-fill-color: var(--color-text) !important;
-  /* optional: transition so it doesn’t snap */
+  /* optional: transition so it doesn't snap */
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -52,6 +104,11 @@ textarea:-moz-autofill {
   line-height: 1.3;
   text-transform: capitalize;
   font-weight: 600;
+}
+
+.text-body {
+  font-size: clamp(0.875rem, 1.75vw, 1rem);
+  line-height: 1.7;
 }
 
 .text-muted {
