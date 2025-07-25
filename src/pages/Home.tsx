@@ -4,12 +4,16 @@ import AboutSection from '@/components/sections/About';
 import ContactSection from '@/components/sections/Contact';
 import ExperienceSection from '@/components/sections/Experience';
 import ProjectsSection from '@/components/sections/Projects';
+import SkillsSection from '@/components/sections/Skills';
 
 export default function Home() {
   return (
     <Layout>
       <PageSection id="about">
         <AboutSection />
+      </PageSection>
+      <PageSection id="skills" title="Technical Skills">
+        <SkillsSection />
       </PageSection>
       <PageSection id="experience" title="Experience">
         <ExperienceSection />
