@@ -32,32 +32,59 @@ export default function SkillsSection() {
             {label}
           </h3>
 
-          {/* Skills with Separators */}
-          <div className="flex flex-wrap items-center gap-2 text-sm">
-            {categorySkills.map((skill, index) => (
-              <span key={skill.name} className="flex items-center">
-                <span
-                  className={clsx(
-                    'font-medium text-[var(--color-text)]',
-                    'transition-colors duration-300',
-                    'group-hover:text-[var(--color-text)]',
-                  )}
-                >
-                  {skill.name}
-                </span>
-                {index < categorySkills.length - 1 && (
+          {/* Skills - Responsive Layout */}
+          <div className="text-sm">
+            {/* Desktop: Horizontal with bullet separators */}
+            <div className="hidden md:flex flex-wrap items-center gap-2">
+              {categorySkills.map((skill, index) => (
+                <span key={skill.name} className="flex items-center">
                   <span
                     className={clsx(
-                      'mx-2 text-[var(--color-muted)]',
+                      'font-medium text-[var(--color-text)]',
                       'transition-colors duration-300',
-                      'group-hover:text-[var(--color-secondary)]',
+                      'group-hover:text-[var(--color-text)]',
                     )}
                   >
-                    •
+                    {skill.name}
                   </span>
-                )}
-              </span>
-            ))}
+                  {index < categorySkills.length - 1 && (
+                    <span
+                      className={clsx(
+                        'mx-2 text-[var(--color-muted)]',
+                        'transition-colors duration-300',
+                        'group-hover:text-[var(--color-secondary)]',
+                      )}
+                    >
+                      •
+                    </span>
+                  )}
+                </span>
+              ))}
+            </div>
+
+            {/* Mobile: Vertical list with dashes */}
+            <div className="md:hidden space-y-2">
+              {categorySkills.map((skill) => (
+                <div key={skill.name} className="flex items-center gap-3">
+                  <span
+                    className={clsx(
+                      'w-2 h-0.5 bg-[var(--color-muted)]',
+                      'transition-colors duration-300',
+                      'group-hover:bg-[var(--color-secondary)]',
+                    )}
+                  />
+                  <span
+                    className={clsx(
+                      'font-medium text-[var(--color-text)]',
+                      'transition-colors duration-300',
+                      'group-hover:text-[var(--color-text)]',
+                    )}
+                  >
+                    {skill.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       ))}
