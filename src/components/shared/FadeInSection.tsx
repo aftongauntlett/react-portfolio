@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import clsx from 'clsx';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 

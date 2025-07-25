@@ -3,10 +3,12 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 
 type Theme = 'light' | 'dark';
 
-const ThemeContext = createContext<{
+interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
-}>({ theme: 'light', toggleTheme: () => {} });
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
@@ -27,7 +29,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useTheme() {
-  return useContext(ThemeContext);
+export function useTheme(): ThemeContextType {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
 }
