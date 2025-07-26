@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 import SideNav from '../SideNav';
 import MobileHeader from '../MobileHeader';
 import Footer from '../../shared/Footer';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 type LayoutProps = {
   children: ReactNode;
@@ -20,6 +22,8 @@ export default function Layout({ children }: LayoutProps) {
             role="main"
             aria-label="Main content"
           >
+            <Analytics />
+            <SpeedInsights />
             {children}
             <Footer />
           </main>
