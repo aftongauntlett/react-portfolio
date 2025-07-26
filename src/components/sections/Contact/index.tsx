@@ -48,7 +48,7 @@ export default function ContactSection() {
     setStatus({ type: 'loading', message: 'Sending message...' });
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://formspree.io/f/mpwldyrq', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,27 +56,22 @@ export default function ContactSection() {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
-
       if (response.ok) {
         setStatus({
           type: 'success',
-          message: result.message || 'Message sent successfully!',
+          message: "Message sent successfully! I'll get back to you soon.",
         });
 
         // Clear form on success
         setFormData({ name: '', email: '', message: '' });
       } else {
-        setStatus({
-          type: 'error',
-          message: result.error || 'Failed to send message. Please try again.',
-        });
+        throw new Error('Failed to send message');
       }
     } catch (error) {
       console.error('Form submission error:', error);
       setStatus({
         type: 'error',
-        message: 'Network error. Please check your connection and try again.',
+        message: 'Failed to send message. Please try again or email me directly.',
       });
     }
   };
