@@ -17,6 +17,7 @@ A modern, accessible portfolio showcasing frontend engineering expertise. Built 
 - **Responsive Design**: Mobile-first approach with fluid typography using `clamp()`
 - **Smooth Animations**: Subtle Framer Motion effects with `prefers-reduced-motion` support
 - **Paint Splash Effects**: Interactive hover states with CSS custom properties
+- **Working Contact Form**: SendGrid-powered email functionality with rate limiting
 
 ### **Performance**
 
@@ -57,11 +58,32 @@ cd react-portfolio
 # Install dependencies
 npm install
 
+# Set up environment variables (see Environment Setup below)
+cp .env.example .env
+
 # Start development server
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) to view the portfolio.
+
+## Environment Setup
+
+The contact form requires SendGrid configuration. Create a `.env` file in the root directory:
+
+```bash
+# SendGrid Configuration
+SENDGRID_API_KEY=your_sendgrid_api_key_here
+CONTACT_FROM_EMAIL=noreply@yourdomain.com
+CONTACT_TO_EMAIL=your-email@yourdomain.com
+```
+
+### SendGrid Setup Steps:
+
+1. **Create SendGrid Account**: Sign up at [sendgrid.com](https://sendgrid.com)
+2. **Get API Key**: Go to Settings → API Keys → Create API Key
+3. **Verify Sender**: Add and verify your sender email address
+4. **Configure Environment**: Add the variables to your hosting platform (Vercel, Netlify, etc.)
 
 ## Project Structure
 
