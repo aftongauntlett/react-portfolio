@@ -39,13 +39,12 @@ export default function SkillsSection() {
             {label}
           </h3>
 
-          <div className="text-sm" role="list" aria-label={`${label} skills`}>
-            <div className="hidden md:flex flex-wrap items-center gap-2">
+          <div className="text-sm">
+            <ul className="hidden md:flex flex-wrap items-center gap-2" aria-label={`${label} skills`}>
               {categorySkills.map((skill, index) => (
-                <span key={skill.name} className="flex items-center">
+                <li key={skill.name} className="flex items-center">
                   <span
                     tabIndex={0}
-                    role="listitem"
                     aria-label={`${skill.name} skill`}
                     className={clsx(
                       'font-medium text-[var(--color-text)]',
@@ -68,13 +67,13 @@ export default function SkillsSection() {
                       •
                     </span>
                   )}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
 
-            <div className="md:hidden space-y-2" role="list" aria-label={`${label} skills`}>
+            <ul className="md:hidden space-y-2" aria-label={`${label} skills`}>
               {categorySkills.map((skill) => (
-                <div key={skill.name} className="flex items-center gap-3" role="listitem">
+                <li key={skill.name} className="flex items-center gap-3">
                   <span
                     className={clsx(
                       'w-2 h-0.5 bg-[var(--color-muted)]',
@@ -95,9 +94,9 @@ export default function SkillsSection() {
                   >
                     {skill.name}
                   </span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       ))}
