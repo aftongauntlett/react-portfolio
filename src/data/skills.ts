@@ -21,6 +21,7 @@ export const skills: Skill[] = [
   { name: 'Python', category: 'backend' },
   { name: 'TanStack Query', category: 'backend' },
   { name: 'Swagger', category: 'backend' },
+  { name: 'Security+ Certified', category: 'backend' },
   { name: 'Jest', category: 'backend' },
 
   // Development & Design Tools
