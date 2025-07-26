@@ -1,4 +1,4 @@
-import { ArrowUp } from 'lucide-react';
+import { HiArrowUp } from 'react-icons/hi2';
 
 export default function Footer() {
   return (
@@ -13,7 +13,7 @@ export default function Footer() {
           className="hover:text-[var(--color-primary)] transition flex items-center gap-1"
           aria-label="Scroll to top"
         >
-          <ArrowUp size={16} /> Top
+          <HiArrowUp size={16} /> Top
         </a>
       </div>
     </footer>

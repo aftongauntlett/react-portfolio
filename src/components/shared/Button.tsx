@@ -44,15 +44,15 @@ export default function Button(props: ButtonProps) {
   const variants = {
     primary:
       'border border-[var(--color-primary)] text-[var(--color-primary)] ' +
-      'hover:bg-[var(--color-primary)] hover:text-white hover:shadow-[0_0_6px_var(--color-primary)] ' +
-      'focus-visible:bg-[var(--color-primary)] focus-visible:text-white',
+      'hover:bg-[var(--color-primary)] hover:!text-white hover:shadow-[0_0_6px_var(--color-primary)] ' +
+      'focus-visible:bg-[var(--color-primary)] focus-visible:!text-white',
     secondary:
       'border border-[var(--color-secondary)] text-[var(--color-secondary)] ' +
-      'hover:bg-[var(--color-secondary)] hover:text-white hover:shadow-[0_0_6px_var(--color-secondary)] ' +
-      'focus-visible:bg-[var(--color-secondary)] focus-visible:text-white',
+      'hover:bg-[var(--color-secondary)] hover:!text-white hover:shadow-[0_0_6px_var(--color-secondary)] ' +
+      'focus-visible:bg-[var(--color-secondary)] focus-visible:!text-white',
     link:
-      'bg-transparent text-[var(--color-primary)] hover:underline ' +
-      'focus-visible:underline focus-visible:outline-offset-4',
+      'bg-transparent text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:underline ' +
+      'focus-visible:text-[var(--color-primary)] focus-visible:underline focus-visible:outline-offset-4',
   };
 
   const rootClass = clsx(base, variants[variant], className);

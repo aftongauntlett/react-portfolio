@@ -31,8 +31,8 @@ export default function ProjectsSection() {
           >
             {title}
           </h3>
-          <div className="text-body text-[var(--color-text-muted)] mt-4 mb-2">{description}</div>
-          <ul className="flex items-center space-x-2 text-[var(--color-text-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200">
+          <div className="text-body text-[var(--color-muted)] mt-4 mb-2">{description}</div>
+          <ul className="flex items-center space-x-2 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200">
             {tech.map((t, i) => (
               <li key={t} className="flex items-center">
                 {i > 0 && <span className="mx-1 select-none">·</span>}

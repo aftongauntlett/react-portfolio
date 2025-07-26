@@ -4,24 +4,27 @@
   --font-body: 'Inter', sans-serif;
 
   /* === LIGHT MODE === */
-  --color-dark: hsl(195, 10%, 77%);
-  --color-background: hsl(210, 31%, 95%);
-  --color-text: hsl(215, 15%, 15%);
-  --color-muted: hsl(216, 8%, 38%);
-  --color-primary: hsl(198, 100%, 45%);
-  --color-primary-lighter: hsl(198, 74%, 37%);
-  --color-secondary: hsl(24, 100%, 50%);
-  --color-line: hsl(203, 7%, 79%);
+  /* Calming sage & lavender palette with warm cream background */
+  --color-dark: hsl(45, 15%, 72%);
+  --color-background: hsl(45, 25%, 96%); /* Warm cream white */
+  --color-text: hsl(25, 12%, 16%); /* Slightly darker warm charcoal for better contrast */
+  --color-muted: hsl(35, 8%, 48%); /* Slightly darker muted taupe */
+  --color-primary: hsl(188, 29%, 49%); /* Consistent across modes */
+  --color-primary-lighter: hsl(173, 30%, 47%); /* Consistent across modes */
+  --color-secondary: hsl(20, 49%, 48%); /* Consistent across modes */
+  --color-line: hsl(45, 20%, 88%);
 }
 
 /* === DARK MODE === */
 html.dark {
-  --color-background: hsl(0, 0%, 8%);
-  --color-dark: hsla(0, 0%, 27%, 0.832);
-  --color-text: hsl(210, 19%, 88%);
-  --color-muted: hsl(220, 4%, 61%);
-  --color-primary: hsl(188, 40%, 51%);
-  --color-primary-lighter: hsl(193, 63%, 69%);
-  --color-secondary: hsl(10, 53%, 63%);
-  --color-line: hsla(194, 64%, 73%, 0.459);
+  /* Moody dark theme with same accent colors */
+  --color-background: hsl(220, 18%, 8%); /* Deep charcoal with blue undertone */
+  --color-dark: hsla(35, 12%, 28%, 0.85);
+  --color-text: hsl(45, 15%, 88%); /* Warm off-white */
+  --color-muted: hsl(35, 10%, 65%);
+  /* Same colors as light mode for consistency */
+  --color-primary: hsl(188, 29%, 49%); /* Consistent across modes */
+  --color-primary-lighter: hsl(173, 30%, 47%); /* Consistent across modes */
+  --color-secondary: hsl(20, 49%, 48%); /* Consistent across modes */
+  --color-line: hsla(188, 29%, 49%, 0.25); /* Using primary color for consistency */
 }

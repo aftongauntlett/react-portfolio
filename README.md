@@ -145,7 +145,7 @@ src/
 ### Routing & Icons
 
 - **[React Router 7](https://reactrouter.com/)** - Client-side routing
-- **[Lucide React](https://lucide.dev/)** - Beautiful, customizable icons
+- **[React Icons](https://react-icons.github.io/react-icons/)** - Popular icon library with multiple icon sets
 
 ### Testing & Quality
 

@@ -21,11 +21,11 @@ html {
 html {
   scroll-behavior: smooth;
   /* Prevent white flash on load */
-  background-color: hsl(210, 31%, 95%); /* Light mode default */
+  background-color: hsl(45, 25%, 96%); /* Warm cream background */
 }
 
 html.dark {
-  background-color: hsl(0, 0%, 8%); /* Dark mode override */
+  background-color: hsl(220, 18%, 8%); /* Deep charcoal with blue undertone */
 }
 
 html,

@@ -1,4 +1,4 @@
-import { Mail } from 'lucide-react';
+import { HiMail } from 'react-icons/hi';
 import Button from '@/components/shared/Button';
 import PaintSplashText from '@/components/shared/PaintSplashEffect';
 
@@ -46,7 +46,7 @@ export default function AboutSection() {
 
       {/* CTA button */}
       <div className="flex justify-end">
-        <Button href="#contact" icon={<Mail />}>
+        <Button href="#contact" icon={<HiMail />}>
           Contact Me
         </Button>
       </div>

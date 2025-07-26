@@ -1,5 +1,5 @@
 import { useTheme } from '@/hooks/useTheme';
-import { Sun, Moon } from 'lucide-react';
+import { HiSun, HiMoon } from 'react-icons/hi2';
 import Button from '@/components/shared/Button';
 
 export default function MobileHeader() {
@@ -16,7 +16,7 @@ export default function MobileHeader() {
       {/* Theme toggle */}
       <Button
         onClick={toggleTheme}
-        icon={theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+        icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         variant="link"
       />

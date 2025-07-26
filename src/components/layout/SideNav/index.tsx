@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import { useTheme } from '@/hooks/useTheme';
 import { navItems } from '../../../constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { GithubIcon, LinkedinIcon, Sun, Moon } from 'lucide-react';
+import { HiSun, HiMoon } from 'react-icons/hi2';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Button from '@/components/shared/Button';
 
 export default function SideNav() {
@@ -36,13 +37,15 @@ export default function SideNav() {
                 href={`#${id}`}
                 aria-current={isActive ? 'page' : undefined}
                 className={clsx(
-                  'relative group block pl-4 text-base transition-colors',
+                  'relative group block pl-4 text-base transition-all duration-200',
                   // ::before indicator
                   'before:content-[""] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
-                  'before:opacity-0 before:transition-opacity before:duration-300',
+                  'before:opacity-0 before:transition-all before:duration-200',
                   'hover:text-[var(--color-primary)] hover:before:opacity-100',
                   'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-                  isActive && 'text-[var(--color-primary)] before:opacity-100 font-semibold',
+                  isActive
+                    ? '!text-[var(--color-primary)] before:!opacity-100 font-semibold'
+                    : 'text-[var(--color-text)]',
                 )}
               >
                 {label}
@@ -65,25 +68,25 @@ export default function SideNav() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit GitHub profile (opens in new tab)"
-              className="transition-colors hover:text-[var(--color-primary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
+              className="text-[var(--color-muted)] hover:!text-[var(--color-primary)] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
             >
-              <GithubIcon size={20} aria-hidden="true" />
+              <FaGithub size={20} aria-hidden="true" />
             </a>
             <a
               href="https://www.linkedin.com/in/afton-gauntlett/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn profile (opens in new tab)"
-              className="transition-colors hover:text-[var(--color-primary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
+              className="text-[var(--color-muted)] hover:!text-[var(--color-primary)] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
             >
-              <LinkedinIcon size={20} aria-hidden="true" />
+              <FaLinkedin size={20} aria-hidden="true" />
             </a>
           </div>
 
           {/* Theme toggle */}
           <Button
             onClick={toggleTheme}
-            icon={theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             variant="link"
           />

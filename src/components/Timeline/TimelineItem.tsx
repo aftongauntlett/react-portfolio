@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
-import { HelpCircle } from 'lucide-react';
+import { HiQuestionMarkCircle } from 'react-icons/hi2';
 import MotionSection from '@/components/shared/MotionSection';
 export interface TimelineItemProps {
   idx: number;
@@ -46,10 +46,7 @@ export default function TimelineItem({
       <div className="relative flex justify-center pt-1">
         {title.toLowerCase().includes('next role') ? (
           <div className="absolute -inset-1 rounded-full bg-[var(--color-background)] flex items-center justify-center">
-            <HelpCircle
-              className="w-5 h-5 text-[var(--color-primary)] animate-pulse"
-              strokeWidth={2}
-            />
+            <HiQuestionMarkCircle className="w-5 h-5 text-[var(--color-primary)] animate-pulse" />
           </div>
         ) : (
           <span
