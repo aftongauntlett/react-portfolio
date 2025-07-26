@@ -32,7 +32,6 @@ export default function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  // Common styles with improved focus states
   const base = clsx(
     'inline-flex items-center justify-center gap-2 rounded-md px-4 py-2',
     'font-medium text-base transition-all duration-300',
@@ -40,7 +39,6 @@ export default function Button(props: ButtonProps) {
     'disabled:opacity-40 disabled:cursor-not-allowed',
   );
 
-  // Variant styles
   const variants = {
     primary:
       'border border-[var(--color-primary)] text-[var(--color-primary)] ' +

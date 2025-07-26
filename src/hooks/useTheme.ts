@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 export function useTheme() {
-  // Initialize theme: use saved preference or system default
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme');
@@ -14,7 +13,6 @@ export function useTheme() {
     return 'light'; // Fallback for SSR or non-browser env
   });
 
-  // Apply theme class and fonts
   useEffect(() => {
     const root = document.documentElement;
     const isDark = theme === 'dark';
@@ -23,12 +21,10 @@ export function useTheme() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Optional: Add transition class after initial render
   useEffect(() => {
     document.documentElement.classList.add('transition-theme');
   }, []);
 
-  // Toggle between light and dark
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };

@@ -35,7 +35,6 @@ export default function AboutSection() {
         </PaintSplashText>
       </h1>
 
-      {/* Main text content */}
       <div className="space-y-6 max-w-3xl pb-6">
         {aboutParagraphs.map((text, idx) => (
           <p key={idx} className="text-body">
@@ -44,7 +43,6 @@ export default function AboutSection() {
         ))}
       </div>
 
-      {/* CTA button */}
       <div className="flex justify-end">
         <Button href="#contact" icon={<HiMail />}>
           Contact Me

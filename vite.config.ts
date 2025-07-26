@@ -8,7 +8,6 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    // Bundle analyzer - generates stats.html when building
     visualizer({
       filename: 'dist/stats.html',
       open: true,
@@ -18,7 +17,7 @@ export default defineConfig({
   ],
   server: {
     watch: {
-      usePolling: true, // helps with Fast Refresh issues
+      usePolling: true,
     },
   },
   resolve: {
@@ -27,7 +26,7 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: true, // Enable source maps for debugging
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {

@@ -34,7 +34,6 @@ const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
       ],
     });
 
-    // reset
     setCompany('');
     setTitle('');
     setStage('teaser');
@@ -57,7 +56,6 @@ const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
           </div>
         </div>
       ) : (
-        // form: company & title inputs
         <motion.div
           key="form"
           initial={{ opacity: 0 }}

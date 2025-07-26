@@ -41,7 +41,6 @@ export default function ProjectsSection() {
             ))}
           </ul>
           <div className="flex gap-3 justify-end mt-4">
-            {/* Repository Link */}
             {link && link !== '#' ? (
               <Button href={link}>View Repo</Button>
             ) : link === '#' ? (
@@ -50,7 +49,6 @@ export default function ProjectsSection() {
               </Button>
             ) : null}
 
-            {/* Live Demo Link */}
             {demo && demo !== '#' && (
               <Button variant="secondary" href={demo}>
                 View Live

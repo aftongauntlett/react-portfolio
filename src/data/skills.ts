@@ -4,7 +4,6 @@ export interface Skill {
 }
 
 export const skills: Skill[] = [
-  // Frontend & UI Development
   { name: 'React.js', category: 'frontend' },
   { name: 'Next.js', category: 'frontend' },
   { name: 'TypeScript', category: 'frontend' },
@@ -14,7 +13,6 @@ export const skills: Skill[] = [
   { name: 'Responsive Design', category: 'frontend' },
   { name: 'Accessibility (WCAG/508)', category: 'frontend' },
 
-  // Backend & Data
   { name: 'REST APIs', category: 'backend' },
   { name: 'GraphQL', category: 'backend' },
   { name: 'PostgreSQL', category: 'backend' },
@@ -24,7 +22,6 @@ export const skills: Skill[] = [
   { name: 'Security+ Certified', category: 'backend' },
   { name: 'Jest', category: 'backend' },
 
-  // Development & Design Tools
   { name: 'Git', category: 'tools' },
   { name: 'Docker', category: 'tools' },
   { name: 'Storybook', category: 'tools' },

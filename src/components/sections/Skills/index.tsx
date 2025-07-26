@@ -27,14 +27,11 @@ export default function SkillsSection() {
             isDimmed(categoryIdx) && '!opacity-50',
           )}
         >
-          {/* Category Header */}
           <h3 className="subtitle text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors mb-4">
             {label}
           </h3>
 
-          {/* Skills - Responsive Layout */}
           <div className="text-sm">
-            {/* Desktop: Horizontal with bullet separators */}
             <div className="hidden md:flex flex-wrap items-center gap-2">
               {categorySkills.map((skill, index) => (
                 <span key={skill.name} className="flex items-center">
@@ -62,7 +59,6 @@ export default function SkillsSection() {
               ))}
             </div>
 
-            {/* Mobile: Vertical list with dashes */}
             <div className="md:hidden space-y-2">
               {categorySkills.map((skill) => (
                 <div key={skill.name} className="flex items-center gap-3">

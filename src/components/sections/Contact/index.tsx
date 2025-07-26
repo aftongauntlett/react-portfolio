@@ -62,7 +62,6 @@ export default function ContactSection() {
           message: "Message sent successfully! I'll get back to you soon.",
         });
 
-        // Clear form on success
         setFormData({ name: '', email: '', message: '' });
       } else {
         throw new Error('Failed to send message');
@@ -86,7 +85,6 @@ export default function ContactSection() {
       </p>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Name */}
         <div className="space-y-1">
           <label htmlFor="name" className="block text-sm font-medium text-[var(--color-text)]">
             Name
@@ -104,7 +102,6 @@ export default function ContactSection() {
           />
         </div>
 
-        {/* Email */}
         <div className="space-y-1">
           <label htmlFor="email" className="block text-sm font-medium text-[var(--color-text)]">
             Email
@@ -122,7 +119,6 @@ export default function ContactSection() {
           />
         </div>
 
-        {/* Message */}
         <div className="space-y-1">
           <label htmlFor="message" className="block text-sm font-medium text-[var(--color-text)]">
             Message
@@ -140,7 +136,6 @@ export default function ContactSection() {
           />
         </div>
 
-        {/* Status Message */}
         {status.message && (
           <div
             className={`p-3 rounded-md text-sm ${
@@ -157,7 +152,6 @@ export default function ContactSection() {
           </div>
         )}
 
-        {/* Submit */}
         <div className="flex justify-end pt-2">
           <Button
             type="submit"

@@ -16,18 +16,15 @@ export default function SideNav() {
       role="banner"
     >
       <div>
-        {/* Name */}
         <h1 className="text-2xl font-medium leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
         </h1>
-        {/* Title */}
         <p className="mt-1 mb-3 text-lg leading-[1.3] capitalize text-[var(--color-muted)]">
           Frontend Engineer
         </p>
 
         <hr className="border-[var(--color-line)] mb-10" aria-hidden="true" />
 
-        {/* Nav */}
         <nav aria-label="Main navigation" className="space-y-5">
           {navItems.map(({ id, label }) => {
             const isActive = activeSection === id;
@@ -55,13 +52,11 @@ export default function SideNav() {
         </nav>
       </div>
 
-      {/* Bottom controls */}
       <div className="flex flex-col gap-6">
         <Button href="https://aftongauntlett.github.io/resume/">View Resume</Button>
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
         <div className="flex items-center justify-between">
-          {/* Socials */}
           <div className="flex gap-4" aria-label="Social media links">
             <a
               href="https://github.com/aftongauntlett"
@@ -83,7 +78,6 @@ export default function SideNav() {
             </a>
           </div>
 
-          {/* Theme toggle */}
           <Button
             onClick={toggleTheme}
             icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}

@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// Mock IntersectionObserver
 class MockIntersectionObserver implements IntersectionObserver {
   readonly root: Element | null = null;
   readonly rootMargin: string = '';
@@ -10,7 +9,6 @@ class MockIntersectionObserver implements IntersectionObserver {
   constructor(
     callback: (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => void,
   ) {
-    // Store callback if needed for future use
     void callback;
   }
 
@@ -33,7 +31,6 @@ class MockIntersectionObserver implements IntersectionObserver {
 
 globalThis.IntersectionObserver = MockIntersectionObserver;
 
-// Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
