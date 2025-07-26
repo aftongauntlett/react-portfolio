@@ -157,12 +157,22 @@ Sent from your portfolio contact form
 
     // Handle specific SendGrid errors
     if (error && typeof error === 'object' && 'response' in error) {
-      const sgError = error as { response?: { body?: unknown } };
-      console.error('SendGrid API error:', sgError.response?.body);
+      const sgError = error as { response?: { body?: unknown; status?: number } };
+      console.error('SendGrid API error details:', {
+        status: sgError.response?.status,
+        body: sgError.response?.body
+      });
+      
+      // Return more specific error for debugging
+      return res.status(500).json({
+        error: 'SendGrid API error',
+        debug: process.env.NODE_ENV === 'development' ? sgError.response?.body : undefined
+      });
     }
 
     return res.status(500).json({
       error: 'Failed to send message. Please try again later.',
+      debug: process.env.NODE_ENV === 'development' ? error : undefined
     });
   }
 }
