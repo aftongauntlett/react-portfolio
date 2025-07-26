@@ -12,9 +12,6 @@ export default function ProjectsSection() {
       {projects.map(({ title, description, tech, link, demo }, idx) => (
         <MotionSection
           key={title}
-          tabIndex={0}
-          role="listitem"
-          aria-labelledby={`project-title-${idx}`}
           onMouseEnter={() => setHovered(idx)}
           onMouseLeave={clearHovered}
           className={clsx(
@@ -22,21 +19,37 @@ export default function ProjectsSection() {
             'border-l-4 border-transparent transition-colors duration-300 ease-in-out',
             'hover:border-[var(--color-primary)]',
             isDimmed(idx) && '!opacity-50 transition-opacity duration-300 ease-in-out',
-            'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
           )}
+          role="listitem"
+          aria-labelledby={`project-title-${idx}`}
         >
           <h3
             id={`project-title-${idx}`}
+            tabIndex={0}
             className={clsx(
               'subtitle text-[var(--color-text-muted)]',
               'group-hover:text-[var(--color-primary)] transition-colors',
+              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
+              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
             )}
           >
             {title}
           </h3>
-          <div className="text-body text-[var(--color-muted)] mt-4 mb-2">{description}</div>
+          <div
+            tabIndex={0}
+            aria-label={`Project description: ${description}`}
+            role="text"
+            className={clsx(
+              'text-body text-[var(--color-muted)] mt-4 mb-2',
+              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
+              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
+            )}
+          >
+            {description}
+          </div>
           <ul
-            className="flex items-center space-x-2 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200"
+            tabIndex={0}
+            className="flex items-center space-x-2 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1"
             role="list"
             aria-label="Technologies used"
           >
