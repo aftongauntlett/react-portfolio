@@ -12,6 +12,7 @@ export const skills: Skill[] = [
   { name: 'HTML5/CSS3', category: 'frontend' },
   { name: 'Responsive Design', category: 'frontend' },
   { name: 'Accessibility (WCAG/508)', category: 'frontend' },
+  { name: 'Screen Reader Testing (JAWS)', category: 'frontend' },
 
   { name: 'REST APIs', category: 'backend' },
   { name: 'GraphQL', category: 'backend' },

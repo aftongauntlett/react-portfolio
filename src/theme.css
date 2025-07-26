@@ -9,9 +9,9 @@
   --color-background: hsl(45, 25%, 96%); /* Warm cream white */
   --color-text: hsl(25, 12%, 16%); /* Slightly darker warm charcoal for better contrast */
   --color-muted: hsl(35, 8%, 48%); /* Slightly darker muted taupe */
-  --color-primary: hsl(188, 29%, 49%); /* Consistent across modes */
-  --color-primary-lighter: hsl(173, 30%, 47%); /* Consistent across modes */
-  --color-secondary: hsl(20, 49%, 48%); /* Consistent across modes */
+  --color-primary: #1f2937; /* Tailwind gray-800 - guaranteed WCAG AA compliant */
+  --color-primary-lighter: #374151; /* Tailwind gray-700 - guaranteed WCAG AA compliant */
+  --color-secondary: #7c2d12; /* Tailwind orange-800 - guaranteed WCAG AA compliant */
   --color-line: hsl(45, 20%, 88%);
 }
 
@@ -22,9 +22,8 @@ html.dark {
   --color-dark: hsla(35, 12%, 28%, 0.85);
   --color-text: hsl(45, 15%, 88%); /* Warm off-white */
   --color-muted: hsl(35, 10%, 65%);
-  /* Same colors as light mode for consistency */
-  --color-primary: hsl(188, 29%, 49%); /* Consistent across modes */
-  --color-primary-lighter: hsl(173, 30%, 47%); /* Consistent across modes */
-  --color-secondary: hsl(20, 49%, 48%); /* Consistent across modes */
+  --color-primary: hsl(188, 29%, 49%); /* Original lighter color for dark mode */
+  --color-primary-lighter: hsl(173, 30%, 47%); /* Original lighter color for dark mode */
+  --color-secondary: hsl(20, 49%, 48%); /* Original lighter color for dark mode */
   --color-line: hsla(188, 29%, 49%, 0.25); /* Using primary color for consistency */
 }

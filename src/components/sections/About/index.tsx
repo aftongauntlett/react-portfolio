@@ -13,7 +13,7 @@ function markBold(str: string) {
   return parts.map((part, i) => {
     if (part.startsWith('{') && part.endsWith('}')) {
       return (
-        <span key={i} className="font-medium text-[var(--color-primary-lighter)]">
+        <span key={i} className="font-medium text-[var(--color-primary)]">
           {part.slice(1, -1)}
         </span>
       );

@@ -8,11 +8,13 @@ export default function ProjectsSection() {
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="list" aria-label="Portfolio projects">
       {projects.map(({ title, description, tech, link, demo }, idx) => (
         <MotionSection
           key={title}
           tabIndex={0}
+          role="listitem"
+          aria-labelledby={`project-title-${idx}`}
           onMouseEnter={() => setHovered(idx)}
           onMouseLeave={clearHovered}
           className={clsx(
@@ -24,6 +26,7 @@ export default function ProjectsSection() {
           )}
         >
           <h3
+            id={`project-title-${idx}`}
             className={clsx(
               'subtitle text-[var(--color-text-muted)]',
               'group-hover:text-[var(--color-primary)] transition-colors',
@@ -32,25 +35,35 @@ export default function ProjectsSection() {
             {title}
           </h3>
           <div className="text-body text-[var(--color-muted)] mt-4 mb-2">{description}</div>
-          <ul className="flex items-center space-x-2 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200">
+          <ul
+            className="flex items-center space-x-2 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200"
+            role="list"
+            aria-label="Technologies used"
+          >
             {tech.map((t, i) => (
-              <li key={t} className="flex items-center">
-                {i > 0 && <span className="mx-1 select-none">·</span>}
+              <li key={t} className="flex items-center" role="listitem">
+                {i > 0 && (
+                  <span className="mx-1 select-none" aria-hidden="true">
+                    ·
+                  </span>
+                )}
                 <span>{t}</span>
               </li>
             ))}
           </ul>
-          <div className="flex gap-3 justify-end mt-4">
+          <div className="flex gap-3 justify-end mt-4" role="group" aria-label="Project links">
             {link && link !== '#' ? (
-              <Button href={link}>View Repo</Button>
+              <Button href={link} aria-label={`View ${title} source code on GitHub`}>
+                View Repo
+              </Button>
             ) : link === '#' ? (
-              <Button disabled variant="secondary">
+              <Button disabled variant="secondary" aria-label="Source code not publicly available">
                 Private Repo
               </Button>
             ) : null}
 
             {demo && demo !== '#' && (
-              <Button variant="secondary" href={demo}>
+              <Button variant="secondary" href={demo} aria-label={`View live demo of ${title}`}>
                 View Live
               </Button>
             )}
