@@ -1,15 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.aftongauntlett.com"
-        }
-      ],
-      "destination": "https://aftongauntlett.com/$1",
-      "permanent": true
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
