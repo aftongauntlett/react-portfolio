@@ -34,9 +34,13 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
           ui: ['framer-motion'],
+          icons: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
         },
       },
     },
+  },
+  optimizeDeps: {
+    include: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
   },
   test: {
     globals: true,

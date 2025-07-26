@@ -1,6 +1,11 @@
 import './index.css';
 import AppRouter from './router';
+import ErrorBoundary from './components/shared/ErrorBoundary';
 
 export default function App() {
-  return <AppRouter />;
+  return (
+    <ErrorBoundary>
+      <AppRouter />
+    </ErrorBoundary>
+  );
 }
