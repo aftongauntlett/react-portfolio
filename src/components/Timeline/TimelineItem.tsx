@@ -58,8 +58,8 @@ export default function TimelineItem({
             className={clsx(
               'block w-3 h-3 rounded-full transition-colors',
               isActive || isHovered
-                ? 'bg-[var(--color-secondary)] border-[var(--color-secondary)] shadow-[0_0_6px_var(--color-secondary)]'
-                : 'bg-[var(--color-line)] border-[var(--color-line)]',
+                ? 'bg-[var(--color-secondary)] border-2 border-[var(--color-secondary)] shadow-[0_0_6px_var(--color-secondary)]'
+                : 'bg-[var(--color-line)] border-2 border-[var(--color-line)]',
             )}
           />
         )}
