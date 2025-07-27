@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:analyze": "npm run build && open dist/stats.html",
+    "build:analyze": "ANALYZE=true npm run build && open dist/stats.html",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -24,8 +24,6 @@
     "health:check": "npm run type-check && npm run lint && npm run test:run && npm run build && npm run security:audit"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.2.6",
-    "@fontsource/montserrat": "^5.2.6",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",

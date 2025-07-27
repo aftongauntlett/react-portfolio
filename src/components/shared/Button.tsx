@@ -1,5 +1,9 @@
-import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import {
+  type ReactNode,
+  type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
+  type KeyboardEvent,
+} from 'react';
 import clsx from 'clsx';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'filled' | 'link';
@@ -10,7 +14,6 @@ interface BaseProps {
   className?: string;
   asDiv?: boolean;
   onDivClick?: () => void;
-  motionProps?: HTMLMotionProps<'div'>;
   href?: string;
   variant?: ButtonVariant;
 }
@@ -26,7 +29,6 @@ export default function Button(props: ButtonProps) {
     className,
     asDiv,
     onDivClick,
-    motionProps,
     href,
     variant = 'primary',
     ...rest
@@ -61,22 +63,21 @@ export default function Button(props: ButtonProps) {
 
   if (asDiv) {
     return (
-      <motion.div
+      <div
         className={rootClass}
         role="button"
         tabIndex={0}
         onClick={onDivClick}
-        onKeyDown={(e) => {
+        onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
           if ((e.key === 'Enter' || e.key === ' ') && onDivClick) {
             e.preventDefault();
             onDivClick();
           }
         }}
-        {...motionProps}
       >
         {icon && <span aria-hidden="true">{icon}</span>}
         {children}
-      </motion.div>
+      </div>
     );
   }
 

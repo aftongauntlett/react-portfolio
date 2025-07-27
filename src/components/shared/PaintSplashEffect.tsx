@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useCallback } from 'react';
 import type { MouseEvent, ElementType, JSX } from 'react';
 
 type AllowedTags = keyof JSX.IntrinsicElements;
@@ -22,7 +22,7 @@ export default function PaintSplashText({
    * Handles mouse movement to update CSS variables (--mx, --my)
    * These control the position of the splash effect.
    */
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     const el = ref.current;
     if (!el) return;
 
@@ -32,19 +32,19 @@ export default function PaintSplashText({
 
     el.style.setProperty('--mx', `${x}%`);
     el.style.setProperty('--my', `${y}%`);
-  };
+  }, []);
 
   /**
-   * Optional: Resets the CSS variables on mouse leave
+   * Resets the CSS variables on mouse leave
    * Prevents the last splash position from persisting.
    */
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     const el = ref.current;
     if (!el) return;
 
     el.style.removeProperty('--mx');
     el.style.removeProperty('--my');
-  };
+  }, []);
 
   const Tag = tag as ElementType;
 

@@ -1,6 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/shared/Button';
-import { useState, type FC, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import type { Job } from '@/data/jobs';
 import { BulletList, BulletItem } from '@/components/shared/BulletList';
 
@@ -8,7 +7,7 @@ interface NextRoleSlotProps {
   onNewJob: (job: Job) => void;
 }
 
-const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
+export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
   const [stage, setStage] = useState<'teaser' | 'form'>('teaser');
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
@@ -40,7 +39,7 @@ const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
   };
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <>
       {stage === 'teaser' ? (
         <div className="group">
           <BulletList>
@@ -56,14 +55,7 @@ const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
           </div>
         </div>
       ) : (
-        <motion.div
-          key="form"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22 }}
-          className="w-full space-y-4 rounded-lg bg-[var(--color-line)]/10 p-4"
-        >
+        <div className="w-full space-y-4 rounded-lg bg-[var(--color-line)]/10 p-4">
           <form
             className="space-y-4"
             onSubmit={(e: FormEvent) => {
@@ -99,10 +91,8 @@ const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
               </Button>
             </div>
           </form>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
-};
-
-export default NextRoleSlot;
+}

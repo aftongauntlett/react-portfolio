@@ -56,10 +56,10 @@ export default function TimelineItem({
         ) : (
           <span
             className={clsx(
-              'block w-3 h-3 rounded-full bg-[var(--color-line)] transition-colors',
+              'block w-3 h-3 rounded-full transition-colors',
               isActive || isHovered
-                ? 'bg-[var(--color-secondary)] shadow-[0_0_6px_var(--color-secondary)]'
-                : '',
+                ? 'bg-[var(--color-secondary)] border-2 border-[var(--color-secondary)] shadow-[0_0_6px_var(--color-secondary)]'
+                : 'bg-[var(--color-line)] border-2 border-[var(--color-line)]',
             )}
           />
         )}

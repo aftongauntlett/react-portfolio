@@ -8,12 +8,16 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    visualizer({
-      filename: 'dist/stats.html',
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-    }),
+    ...(process.env.ANALYZE
+      ? [
+          visualizer({
+            filename: 'dist/stats.html',
+            open: true,
+            gzipSize: true,
+            brotliSize: true,
+          }),
+        ]
+      : []),
   ],
   server: {
     watch: {
@@ -32,11 +36,13 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['framer-motion'],
+          motion: ['framer-motion'],
           icons: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
         },
       },
     },
+    chunkSizeWarningLimit: 1000,
+    minify: 'esbuild',
   },
   optimizeDeps: {
     include: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
