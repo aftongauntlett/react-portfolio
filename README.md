@@ -7,7 +7,7 @@
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 
-**🏆 Lighthouse Scores:**
+**Lighthouse Scores:**
 ![Performance](https://img.shields.io/badge/Performance-97%25-brightgreen?style=flat&logo=lighthouse)
 ![Accessibility](https://img.shields.io/badge/Accessibility-100%25-brightgreen?style=flat&logo=lighthouse)
 ![Best Practices](https://img.shields.io/badge/Best_Practices-96%25-brightgreen?style=flat&logo=lighthouse)
@@ -15,7 +15,7 @@
 
 A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
 
-**🏆 Lighthouse Perfect Scores:** 97% Performance • 100% Accessibility • 96% Best Practices • 92% SEO
+**Lighthouse Perfect Scores:** 97% Performance • 100% Accessibility • 96% Best Practices • 92% SEO
 
 ## Features
 
