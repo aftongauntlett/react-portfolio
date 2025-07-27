@@ -1,0 +1,31 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'monthly' # Less frequent to reduce noise
+      day: 'monday'
+      time: '09:00'
+    open-pull-requests-limit: 3 # Fewer PRs at once
+    reviewers:
+      - 'aftongauntlett'
+    assignees:
+      - 'aftongauntlett'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    # Only patch updates for production deps (safest)
+    groups:
+      development-dependencies:
+        dependency-type: 'development'
+        update-types:
+          - 'patch' # Only patch updates for dev deps
+      production-dependencies:
+        dependency-type: 'production'
+        update-types:
+          - 'patch' # Only patch updates for prod deps
+    # Ignore major version updates (prevent breaking changes)
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']

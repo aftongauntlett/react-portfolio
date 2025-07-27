@@ -18,7 +18,11 @@
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
     "clean": "rm -rf dist node_modules/.vite",
-    "a11y:check": "axe http://localhost:5173 --exit"
+    "a11y:check": "axe http://localhost:5173 --exit",
+    "security:audit": "npm audit",
+    "security:fix": "npm audit fix",
+    "deps:check": "npm outdated",
+    "health:check": "npm run type-check && npm run lint && npm run test:run && npm run build && npm run security:audit"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.6",

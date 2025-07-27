@@ -71,12 +71,44 @@ src/
 ## Scripts
 
 ```bash
+# Development
 npm run dev          # Development server
 npm run build        # Production build
-npm run test         # Run tests
-npm run lint         # Code linting
 npm run preview      # Preview build locally
+
+# Testing & Quality
+npm run test         # Run tests
+npm run test:coverage # Test coverage report
+npm run lint         # Code linting
+npm run type-check   # TypeScript validation
+
+# Accessibility & Security
+npm run a11y:check   # Accessibility testing
+npm run security:audit # Security vulnerability check
+npm run deps:check   # Check outdated dependencies
+npm run health:check # Full project health validation
 ```
+
+## Maintenance & Monitoring
+
+### **Automated Maintenance**
+
+- **GitHub Dependabot**: Monthly patch-only dependency updates
+- **CI/CD Pipeline**: Automated testing on all PRs
+- **Security Monitoring**: npm audit integration
+- **Only safe updates**: Major version updates require manual review
+
+### **Analytics & Performance**
+
+- **Vercel Analytics**: User behavior tracking
+- **Speed Insights**: Core Web Vitals monitoring
+- **Bundle Analysis**: Performance optimization tools
+
+### **Long-term Care**
+
+1. **Monthly**: Review and merge Dependabot PRs
+2. **Quarterly**: Manual major version updates if needed
+3. **As needed**: Security patches (automated alerts)
 
 ## Architecture
 
