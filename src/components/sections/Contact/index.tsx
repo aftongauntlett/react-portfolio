@@ -156,6 +156,7 @@ export default function ContactSection() {
           <Button
             type="submit"
             disabled={isLoading}
+            variant="primary"
             className={isLoading ? 'opacity-50 cursor-not-allowed' : ''}
           >
             {isLoading ? 'Sending...' : 'Send Message'}

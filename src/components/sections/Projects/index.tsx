@@ -56,7 +56,7 @@ export default function ProjectsSection() {
             ))}
           </div>
           <div
-            className="flex flex-col sm:flex-row gap-3 justify-end mt-4"
+            className="flex flex-wrap gap-3 justify-end mt-6"
             role="group"
             aria-label="Project links"
           >

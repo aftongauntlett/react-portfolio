@@ -40,7 +40,7 @@ export default function AboutSection() {
       </div>
 
       <div className="flex justify-end">
-        <Button href="#contact" icon={<HiMail />}>
+        <Button href="#contact" icon={<HiMail />} variant="primary">
           Contact Me
         </Button>
       </div>

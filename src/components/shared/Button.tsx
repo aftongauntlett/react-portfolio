@@ -2,7 +2,7 @@ import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'reac
 import { motion, type HTMLMotionProps } from 'framer-motion';
 import clsx from 'clsx';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'link';
+export type ButtonVariant = 'primary' | 'secondary' | 'filled' | 'link';
 
 interface BaseProps {
   children?: ReactNode;
@@ -42,12 +42,16 @@ export default function Button(props: ButtonProps) {
   const variants = {
     primary:
       'border border-[var(--color-primary)] text-[var(--color-primary)] ' +
-      'hover:bg-[var(--color-primary)] hover:!text-white hover:shadow-[0_0_6px_var(--color-primary)] ' +
+      'hover:bg-[var(--color-primary)] hover:!text-white hover:shadow-[0_0_8px_var(--color-primary)]/30 ' +
       'focus-visible:bg-[var(--color-primary)] focus-visible:!text-white',
     secondary:
       'border border-[var(--color-secondary)] text-[var(--color-secondary)] ' +
-      'hover:bg-[var(--color-secondary)] hover:!text-white hover:shadow-[0_0_6px_var(--color-secondary)] ' +
+      'hover:bg-[var(--color-secondary)] hover:!text-white hover:shadow-[0_0_8px_var(--color-secondary)]/30 ' +
       'focus-visible:bg-[var(--color-secondary)] focus-visible:!text-white',
+    filled:
+      'border border-[var(--color-primary)] bg-[var(--color-primary)] text-white ' +
+      'hover:shadow-[0_0_12px_var(--color-primary)]/40 hover:scale-[1.02] ' +
+      'focus-visible:shadow-[0_0_12px_var(--color-primary)]/40',
     link:
       'bg-transparent text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:underline ' +
       'focus-visible:text-[var(--color-primary)] focus-visible:underline focus-visible:outline-offset-4',
