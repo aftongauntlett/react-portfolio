@@ -79,10 +79,28 @@ export default function ContactSection() {
 
   return (
     <div className="space-y-6">
-      <p className="text-[var(--color-muted)]">
-        Whether you want to chat about a job opening, a project, collaboration, or just say hi - my
-        inbox is always open. I'll try to respond as soon as I can!
-      </p>
+      <div className="space-y-4">
+        <p className="text-[var(--color-muted)]">
+          Whether you want to chat about a job opening, a project, collaboration, or just say hi -
+          my inbox is always open. I'll try to respond as soon as I can!
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
+          <div className="text-left">
+            <h3 className="font-medium text-[var(--color-text)] mb-2">Email</h3>
+            <a
+              href="mailto:hello@aftongauntlett.com"
+              className="text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-all duration-200 text-sm border-b border-transparent hover:border-[var(--color-secondary)] pb-0.5"
+            >
+              hello@aftongauntlett.com
+            </a>
+          </div>
+          <div className="text-left">
+            <h3 className="font-medium text-[var(--color-text)] mb-2">Location</h3>
+            <span className="text-[var(--color-muted)] text-sm">Ashburn, VA</span>
+          </div>
+        </div>
+      </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-1">

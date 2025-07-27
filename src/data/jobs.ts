@@ -40,8 +40,8 @@ export const jobs: Job[] = [
   },
   {
     title: 'UI Developer',
-    company: 'IronClad',
-    dates: '01/2022 – 03/2022',
+    company: 'IronClad Technology Services',
+    dates: '12/2021 – 03/2022',
     description: [
       'Evaluated and recommended frontend frameworks to help shape the next generation of scalable web apps for DIA.',
       'Designed and delivered detailed Figma wireframes, laying the foundation for modern, accessible UI architecture.',
@@ -51,11 +51,21 @@ export const jobs: Job[] = [
   {
     title: 'Frontend Developer',
     company: 'Global Dimensions',
-    dates: '08/2021 – 01/2022',
+    dates: '08/2021 – 12/2021',
     description: [
       'Facilitated alignment between design and development, translating vision into practical, developer-friendly guidelines.',
       'Drove accessibility improvements by partnering with design and compliance experts, delivering interfaces ready for 508/WCAG audits.',
       'Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.',
+    ],
+  },
+  {
+    title: 'Technical Operations Manager',
+    company: 'MAGFest',
+    dates: '01/2010 – 01/2020',
+    description: [
+      'Led a 200+ person tech operations team for a 20,000+ attendee gaming and music festival, managing logistics, infrastructure, and volunteer coordination.',
+      'Contributed to open-source projects Tuber and Ubersystem, collaborating with developers from Valve, GitHub, and Microsoft to build event management platforms.',
+      'Developed logistics and event management software used by fandom events nationwide, improving operational efficiency and attendee experience.',
     ],
   },
 ];

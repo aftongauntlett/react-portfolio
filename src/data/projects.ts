@@ -11,11 +11,20 @@ export const projects: Project[] = [
   {
     title: 'React Portfolio Website',
     description:
-      'Modern React 19 portfolio showcasing responsive design, TypeScript integration, and advanced animations. Features custom theme system, mobile-first approach, and interactive Skills section with hover group effects. Built with Vite, Tailwind CSS, and modern React patterns.',
-    tech: ['React 19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Performance Optimization'],
+      'Built a fully accessible, custom-themed portfolio and reusable component library using React 19, Vite, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and modern development practices with comprehensive testing.',
+    tech: ['React 19', 'Vite', 'TypeScript', 'Tailwind CSS'],
     image: 'https://placehold.co/480x270/222/fff?text=Portfolio+Screenshot',
     link: 'https://github.com/aftongauntlett/react-portfolio',
-    // No demo - they're already viewing it live!
+    // Current live site
+  },
+  {
+    title: 'React Tutorial Project',
+    description:
+      'Currently building an interactive, story-driven coding platform inspired by Portal, Half-Life, and The Stanley Parable. Features modular full-stack architecture, adaptive tutorials, and immersive narrative elements. Public alpha launches Summer 2025.',
+    tech: ['React', 'Vite', 'TypeScript', 'Tailwind CSS'],
+    image: 'https://placehold.co/480x270/10b981/fff?text=Tutorial+Platform',
+    link: 'https://github.com/aftongauntlett/react-tutorial',
+    // No demo yet - will add when deployed
   },
   {
     title: 'Potomac Dining Corporate Website',
@@ -25,14 +34,5 @@ export const projects: Project[] = [
     image: 'https://placehold.co/480x270/2563eb/fff?text=Potomac+Dining',
     link: '#', // Private repo
     demo: 'https://potomacdining.com/',
-  },
-  {
-    title: 'Interactive Code Tutorial Platform',
-    description:
-      'Stanley Parable/Portal and Half-Life-inspired learning platform teaching programming concepts through narrative-driven scenarios. Features terminal simulation, typewriter effects, responsive settings system, and Express/MySQL backend. Currently expanding with additional scenarios and deployment optimization.',
-    tech: ['React', 'TypeScript', 'Express', 'MySQL', 'Docker', 'Custom Animations'],
-    image: 'https://placehold.co/480x270/10b981/fff?text=Tutorial+Platform',
-    link: 'https://github.com/aftongauntlett/react-tutorial',
-    // No demo yet - will add when deployed
   },
 ];

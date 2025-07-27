@@ -12,7 +12,7 @@ export const skills: Skill[] = [
   { name: 'HTML5/CSS3', category: 'frontend' },
   { name: 'Responsive Design', category: 'frontend' },
   { name: 'Accessibility (WCAG/508)', category: 'frontend' },
-  { name: 'Screen Reader Testing (JAWS)', category: 'frontend' },
+  { name: 'Design Systems', category: 'frontend' },
 
   { name: 'REST APIs', category: 'backend' },
   { name: 'GraphQL', category: 'backend' },
@@ -20,8 +20,8 @@ export const skills: Skill[] = [
   { name: 'Python', category: 'backend' },
   { name: 'TanStack Query', category: 'backend' },
   { name: 'Swagger', category: 'backend' },
-  { name: 'Security+ Certified', category: 'backend' },
   { name: 'Jest', category: 'backend' },
+  { name: 'JSdoc', category: 'backend' },
 
   { name: 'Git', category: 'tools' },
   { name: 'Docker', category: 'tools' },
@@ -30,7 +30,7 @@ export const skills: Skill[] = [
   { name: 'Adobe XD', category: 'tools' },
   { name: 'GSAP', category: 'tools' },
   { name: 'Framer', category: 'tools' },
-  { name: 'Design Systems', category: 'tools' },
+  { name: 'Agile', category: 'tools' },
 ];
 
 export const skillCategories = {
