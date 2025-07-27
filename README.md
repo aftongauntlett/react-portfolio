@@ -65,7 +65,7 @@ src/
 
 **Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion  
 **Build:** Vite 7 with bundle analysis and code splitting  
-**Testing:** Vitest, React Testing Library, Axe accessibility  
+**Testing:** Vitest, React Testing Library  
 **Quality:** ESLint, Prettier, comprehensive TypeScript coverage
 
 ## Scripts
@@ -82,8 +82,7 @@ npm run test:coverage # Test coverage report
 npm run lint         # Code linting
 npm run type-check   # TypeScript validation
 
-# Accessibility & Security
-npm run a11y:check   # Accessibility testing
+# Security & Monitoring
 npm run security:audit # Security vulnerability check
 npm run deps:check   # Check outdated dependencies
 npm run health:check # Full project health validation

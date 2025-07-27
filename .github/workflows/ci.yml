@@ -33,10 +33,3 @@ jobs:
 
       - name: Build project
         run: npm run build
-
-      - name: Run accessibility check (if dev server available)
-        run: |
-          npm run dev &
-          sleep 10
-          npm run a11y:check || true  # Don't fail on a11y issues, just report
-          kill %1
