@@ -9,7 +9,7 @@ export interface HoverGroupState {
 }
 
 /**
- * Manages a single “hovered index” for lists of items,
+ * Manages a single "hovered index" for lists of items,
  * and tells you whether each item should be dimmed.
  */
 export function useHoverGroup(): HoverGroupState {

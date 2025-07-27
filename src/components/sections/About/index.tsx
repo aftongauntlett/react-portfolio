@@ -24,18 +24,14 @@ function markBold(str: string) {
 
 export default function AboutSection() {
   return (
-    <section
-      id="about"
-      aria-labelledby="about-title"
-      className="pt-12 space-y-6 text-[var(--color-text)]"
-    >
+    <div aria-labelledby="about-title" className="pt-8 lg:pt-12 space-y-6 text-[var(--color-text)]">
       <h1 id="about-title" className="mb-6">
         <PaintSplashText tag="span" className="title block">
           Hello.
         </PaintSplashText>
       </h1>
 
-      <div className="space-y-6 max-w-3xl pb-6">
+      <div className="space-y-4 sm:space-y-6 max-w-3xl pb-4 sm:pb-6">
         {aboutParagraphs.map((text, idx) => (
           <p key={idx} className="text-body">
             {markBold(text)}
@@ -48,6 +44,6 @@ export default function AboutSection() {
           Contact Me
         </Button>
       </div>
-    </section>
+    </div>
   );
 }

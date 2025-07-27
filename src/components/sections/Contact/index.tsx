@@ -78,7 +78,7 @@ export default function ContactSection() {
   const isLoading = status.type === 'loading';
 
   return (
-    <section id="contact" className="space-y-6">
+    <div className="space-y-6">
       <p className="text-[var(--color-muted)]">
         Whether you want to chat about a job opening, a project, collaboration, or just say hi - my
         inbox is always open. I'll try to respond as soon as I can!
@@ -162,6 +162,6 @@ export default function ContactSection() {
           </Button>
         </div>
       </form>
-    </section>
+    </div>
   );
 }

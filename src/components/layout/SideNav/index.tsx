@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@/hooks/useTheme';
 import { navItems } from '../../../constants/navigation';
@@ -28,10 +29,25 @@ export default function SideNav() {
         <nav aria-label="Main navigation" className="space-y-5">
           {navItems.map(({ id, label }) => {
             const isActive = activeSection === id;
+
+            const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+              e.preventDefault();
+              const element = document.getElementById(id);
+              if (element) {
+                const offset = 80; // Offset for better positioning
+                const elementPosition = element.offsetTop - offset;
+                window.scrollTo({
+                  top: elementPosition,
+                  behavior: 'smooth',
+                });
+              }
+            };
+
             return (
               <a
                 key={id}
                 href={`#${id}`}
+                onClick={handleClick}
                 aria-current={isActive ? 'page' : undefined}
                 className={clsx(
                   'relative group block pl-4 text-base transition-all duration-200',

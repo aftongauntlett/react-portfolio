@@ -36,17 +36,22 @@ export default function TimelineItem({
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       className={clsx(
-        'group grid grid-cols-[2.5rem_1fr] gap-x-4 items-start transition-all duration-300',
+        'group transition-all duration-300',
+        // Desktop: timeline grid layout
+        'md:grid md:grid-cols-[2.5rem_1fr] md:gap-x-4 md:items-start',
+        // Mobile: simple stack layout without timeline
+        'block space-y-2',
         !isFirst && 'mt-4',
         shouldDim && '!opacity-50',
         isActive && 'bg-[var(--color-primary)]/10',
         'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
       )}
     >
-      <div className="relative flex justify-center pt-1">
+      {/* Timeline dot - only show on desktop */}
+      <div className="relative hidden md:flex justify-center items-start pt-2">
         {title.toLowerCase().includes('next role') ? (
-          <div className="absolute -inset-1 rounded-full bg-[var(--color-background)] flex items-center justify-center">
-            <HiQuestionMarkCircle className="w-5 h-5 text-[var(--color-primary)] animate-pulse" />
+          <div className="w-5 h-5 rounded-full bg-[var(--color-background)] flex items-center justify-center border-2 border-[var(--color-primary)]">
+            <HiQuestionMarkCircle className="w-4 h-4 text-[var(--color-primary)] animate-pulse" />
           </div>
         ) : (
           <span
@@ -59,8 +64,9 @@ export default function TimelineItem({
           />
         )}
       </div>
-      <div className="px-2">
-        <h3 className="subtitle flex items-baseline gap-1">
+      {/* Content area */}
+      <div className="md:px-2">
+        <h3 className="subtitle flex flex-col sm:flex-row sm:items-baseline sm:gap-1">
           <span
             className={clsx(
               'transition-all',
@@ -69,7 +75,9 @@ export default function TimelineItem({
           >
             {title}
           </span>
-          {company && <span className="text-[var(--color-text)]">&nbsp;@ {company}</span>}
+          {company && (
+            <span className="text-[var(--color-text)] text-base sm:text-lg">&nbsp;@ {company}</span>
+          )}
         </h3>
         {dates && (
           <time

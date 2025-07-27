@@ -7,7 +7,7 @@ export default function MobileHeader() {
 
   return (
     <header
-      className="lg:hidden flex items-center justify-between px-6 py-4 bg-[var(--color-background)] border-b border-[var(--color-line)]"
+      className="lg:hidden flex items-center justify-between px-4 sm:px-6 py-4 bg-[var(--color-background)] border-b border-[var(--color-line)]"
       role="banner"
     >
       <h1 className="text-xl font-medium text-[var(--color-text)]">Afton Gauntlett</h1>

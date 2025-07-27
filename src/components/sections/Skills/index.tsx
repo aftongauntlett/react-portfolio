@@ -23,7 +23,7 @@ export default function SkillsSection() {
           onMouseEnter={() => setHovered(categoryIdx)}
           onMouseLeave={clearHovered}
           className={clsx(
-            'group p-6 rounded-lg border border-[var(--color-line)]',
+            'group p-4 md:p-6 rounded-lg border border-[var(--color-line)]',
             'transition-all duration-300',
             'hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/5',
             'hover:shadow-lg hover:shadow-[var(--color-primary)]/10',
@@ -40,7 +40,10 @@ export default function SkillsSection() {
           </h3>
 
           <div className="text-sm">
-            <ul className="hidden md:flex flex-wrap items-center gap-2" aria-label={`${label} skills`}>
+            <ul
+              className="hidden md:flex flex-wrap items-center gap-2"
+              aria-label={`${label} skills`}
+            >
               {categorySkills.map((skill, index) => (
                 <li key={skill.name} className="flex items-center">
                   <span

@@ -33,8 +33,8 @@ export default function Button(props: ButtonProps) {
   } = props;
 
   const base = clsx(
-    'inline-flex items-center justify-center gap-2 rounded-md px-4 py-2',
-    'font-medium text-base transition-all duration-300',
+    'inline-flex items-center justify-center gap-2 rounded-md px-3 sm:px-4 py-2',
+    'font-medium text-sm sm:text-base transition-all duration-300 shrink-0',
     'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
     'disabled:opacity-40 disabled:cursor-not-allowed',
   );

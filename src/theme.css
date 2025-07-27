@@ -1,29 +1,24 @@
 :root {
-  /* === SHARED FONT VARIABLES === */
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* === LIGHT MODE === */
-  /* Calming sage & lavender palette with warm cream background */
   --color-dark: hsl(45, 15%, 72%);
-  --color-background: hsl(45, 25%, 96%); /* Warm cream white */
-  --color-text: hsl(25, 12%, 16%); /* Slightly darker warm charcoal for better contrast */
-  --color-muted: hsl(35, 8%, 48%); /* Slightly darker muted taupe */
-  --color-primary: hsl(173, 30%, 47%); /* Sage green - balanced readability */
-  --color-primary-lighter: hsl(188, 29%, 49%); /* Dusty teal - harmonious */
-  --color-secondary: hsl(270, 25%, 55%); /* Muted lavender - cohesive accent */
+  --color-background: hsl(45, 25%, 96%);
+  --color-text: hsl(25, 20%, 12%);
+  --color-muted: hsl(35, 25%, 20%);
+  --color-primary: hsl(173, 60%, 20%);
+  --color-primary-lighter: hsl(188, 55%, 25%);
+  --color-secondary: hsl(270, 55%, 30%);
   --color-line: hsl(45, 20%, 88%);
 }
 
-/* === DARK MODE === */
 html.dark {
-  /* Moody dark theme with same accent colors */
-  --color-background: hsl(220, 18%, 8%); /* Deep charcoal with blue undertone */
+  --color-background: hsl(220, 18%, 8%);
   --color-dark: hsla(35, 12%, 28%, 0.85);
-  --color-text: hsl(45, 15%, 88%); /* Warm off-white */
+  --color-text: hsl(45, 15%, 88%);
   --color-muted: hsl(35, 10%, 65%);
-  --color-primary: hsl(188, 29%, 49%); /* Original lighter color for dark mode */
-  --color-primary-lighter: hsl(173, 30%, 47%); /* Original lighter color for dark mode */
-  --color-secondary: hsl(20, 49%, 48%); /* Original lighter color for dark mode */
-  --color-line: hsla(188, 29%, 49%, 0.25); /* Using primary color for consistency */
+  --color-primary: hsl(188, 29%, 49%);
+  --color-primary-lighter: hsl(173, 30%, 47%);
+  --color-secondary: hsl(20, 49%, 48%);
+  --color-line: hsla(188, 29%, 49%, 0.25);
 }
