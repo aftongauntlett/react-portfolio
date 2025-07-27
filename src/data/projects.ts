@@ -12,7 +12,7 @@ export const projects: Project[] = [
     title: 'React Portfolio Website',
     description:
       'Modern React 19 portfolio showcasing responsive design, TypeScript integration, and advanced animations. Features custom theme system, mobile-first approach, and interactive Skills section with hover group effects. Built with Vite, Tailwind CSS, and modern React patterns.',
-    tech: ['React 19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Framer Motion'],
+    tech: ['React 19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Performance Optimization'],
     image: 'https://placehold.co/480x270/222/fff?text=Portfolio+Screenshot',
     link: 'https://github.com/aftongauntlett/react-portfolio',
     // No demo - they're already viewing it live!

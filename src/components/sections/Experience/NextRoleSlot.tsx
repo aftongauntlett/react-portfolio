@@ -1,5 +1,5 @@
 import Button from '@/components/shared/Button';
-import { useState, type FC, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import type { Job } from '@/data/jobs';
 import { BulletList, BulletItem } from '@/components/shared/BulletList';
 
@@ -7,7 +7,7 @@ interface NextRoleSlotProps {
   onNewJob: (job: Job) => void;
 }
 
-const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
+export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
   const [stage, setStage] = useState<'teaser' | 'form'>('teaser');
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
@@ -95,6 +95,4 @@ const NextRoleSlot: FC<NextRoleSlotProps> = ({ onNewJob }) => {
       )}
     </>
   );
-};
-
-export default NextRoleSlot;
+}

@@ -2,23 +2,19 @@
   --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-dark: hsl(45, 15%, 72%);
   --color-background: hsl(45, 25%, 96%);
   --color-text: hsl(25, 20%, 12%);
   --color-muted: hsl(35, 25%, 20%);
   --color-primary: hsl(173, 60%, 20%);
-  --color-primary-lighter: hsl(188, 55%, 25%);
   --color-secondary: hsl(270, 55%, 30%);
   --color-line: hsl(45, 20%, 88%);
 }
 
 html.dark {
   --color-background: hsl(220, 18%, 8%);
-  --color-dark: hsla(35, 12%, 28%, 0.85);
   --color-text: hsl(45, 15%, 88%);
   --color-muted: hsl(35, 10%, 65%);
   --color-primary: hsl(188, 29%, 49%);
-  --color-primary-lighter: hsl(173, 30%, 47%);
   --color-secondary: hsl(20, 49%, 48%);
   --color-line: hsla(188, 29%, 49%, 0.25);
 }
