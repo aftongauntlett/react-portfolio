@@ -2,12 +2,12 @@
   --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-background: hsl(45, 25%, 96%);
-  --color-text: hsl(25, 20%, 12%);
-  --color-muted: hsl(35, 25%, 20%);
-  --color-primary: hsl(173, 60%, 20%);
-  --color-secondary: hsl(270, 55%, 30%);
-  --color-line: hsl(45, 20%, 88%);
+  --color-background: hsl(220, 20%, 98%);
+  --color-text: hsl(220, 25%, 10%);
+  --color-muted: hsl(220, 15%, 35%);
+  --color-primary: hsl(173, 60%, 25%);
+  --color-secondary: hsl(270, 55%, 35%);
+  --color-line: hsl(220, 15%, 90%);
 }
 
 html.dark {

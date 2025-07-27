@@ -8,14 +8,14 @@
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 
 **Lighthouse Scores:**
-![Performance](https://img.shields.io/badge/Performance-99%25-brightgreen?style=flat&logo=lighthouse)
-![Accessibility](https://img.shields.io/badge/Accessibility-100%25-brightgreen?style=flat&logo=lighthouse)
+![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen?style=flat&logo=lighthouse)
+![Accessibility](https://img.shields.io/badge/Accessibility-99%25-brightgreen?style=flat&logo=lighthouse)
 ![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
 ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
 A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
 
-**Lighthouse Perfect Scores:** 99% Performance • 100% Accessibility • 100% Best Practices • 100% SEO
+**Lighthouse Perfect Scores:** 100% Performance • 99% Accessibility • 100% Best Practices • 100% SEO
 
 ## Features
 

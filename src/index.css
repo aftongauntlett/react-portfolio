@@ -4,7 +4,7 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: hsl(45, 25%, 96%);
+  background-color: var(--color-background);
   scroll-padding-top: 2rem;
 }
 
@@ -16,7 +16,7 @@ html {
 }
 
 html.dark {
-  background-color: hsl(220, 18%, 8%);
+  background-color: var(--color-background);
 }
 
 @media (prefers-reduced-motion: reduce) {
