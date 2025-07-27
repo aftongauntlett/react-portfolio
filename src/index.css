@@ -8,6 +8,13 @@ html {
   scroll-padding-top: 2rem;
 }
 
+/* Only prevent horizontal scroll on mobile to avoid breaking sticky positioning */
+@media (max-width: 1023px) {
+  html {
+    overflow-x: hidden;
+  }
+}
+
 html.dark {
   background-color: hsl(220, 18%, 8%);
 }
@@ -35,10 +42,27 @@ body {
   line-height: 1.75;
   margin: 0;
   padding: 0;
+  /* Prevent hyphenation/word breaking */
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+}
+
+/* Only prevent horizontal scroll on mobile to avoid breaking sticky positioning */
+@media (max-width: 1023px) {
+  body {
+    overflow-x: hidden;
+  }
 }
 
 * {
   box-sizing: border-box;
+  /* Prevent hyphenation/word breaking globally */
+  word-break: normal;
+  hyphens: none;
 }
 
 * {
@@ -106,7 +130,7 @@ textarea:-moz-autofill {
   line-height: 1.7;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  hyphens: auto;
+  hyphens: none;
 }
 
 .text-muted {
@@ -117,9 +141,18 @@ textarea:-moz-autofill {
   @apply px-4 sm:px-6 md:px-8 lg:pl-[56px] max-w-4xl mx-auto w-full;
 }
 
+/* Ensure sticky navigation works properly */
 @media (min-width: 1024px) {
   .lg\:sticky {
     position: sticky !important;
+  }
+
+  /* Dedicated class for sticky sidebar container */
+  .sticky-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
   }
 }
 

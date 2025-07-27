@@ -12,10 +12,7 @@ export default function SideNav() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header
-      className="hidden lg:flex lg:sticky top-0 lg:h-screen w-full lg:w-72 pt-16 px-6 py-10 flex-col justify-between"
-      role="banner"
-    >
+    <div className="flex flex-col justify-between h-full pt-16 px-6 py-10">
       <div>
         <h1 className="text-2xl font-medium leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
@@ -102,6 +99,6 @@ export default function SideNav() {
           />
         </div>
       </div>
-    </header>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 :root {
-  --font-heading: 'Montserrat', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
   --color-dark: hsl(45, 15%, 72%);
   --color-background: hsl(45, 25%, 96%);

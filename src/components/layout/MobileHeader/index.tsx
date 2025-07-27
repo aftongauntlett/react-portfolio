@@ -11,7 +11,6 @@ export default function MobileHeader() {
       role="banner"
     >
       <h1 className="text-xl font-medium text-[var(--color-text)]">Afton Gauntlett</h1>
-
       <Button
         onClick={toggleTheme}
         icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}

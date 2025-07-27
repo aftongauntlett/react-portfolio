@@ -1,21 +1,20 @@
-import { motion, type HTMLMotionProps } from 'framer-motion';
 import type { ReactNode } from 'react';
+import clsx from 'clsx';
 
-export type MotionSectionProps = HTMLMotionProps<'div'> & {
+export type MotionSectionProps = {
   children: ReactNode;
+  className?: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  role?: string;
+  'aria-labelledby'?: string;
+  tabIndex?: number;
 };
 
-export default function MotionSection({ children, ...props }: MotionSectionProps) {
-  const defaults = {
-    initial: { opacity: 0 },
-    whileInView: { opacity: 1 },
-    transition: { duration: 0.22 },
-    viewport: { once: true, amount: 0.2 },
-  };
-
+export default function MotionSection({ children, className, ...props }: MotionSectionProps) {
   return (
-    <motion.div {...defaults} {...props}>
+    <div className={clsx('opacity-100', className)} {...props}>
       {children}
-    </motion.div>
+    </div>
   );
 }

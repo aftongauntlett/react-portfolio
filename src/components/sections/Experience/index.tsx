@@ -50,7 +50,10 @@ export default function ExperienceSection() {
   return (
     <div className="relative">
       {/* Timeline line - only show on desktop */}
-      <div className="absolute left-5 top-[6px] bottom-0 w-px bg-[var(--color-line)] z-[-1] hidden md:block" />
+      <div
+        className="absolute left-5 top-7 bottom-0 w-px bg-[var(--color-line)] hidden md:block"
+        style={{ zIndex: 1 }}
+      />
       <div className="space-y-8 md:space-y-12">
         {entries.map(({ idx, title, company, dates, isFirst, isActive, content }) => (
           <TimelineItem
