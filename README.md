@@ -8,14 +8,14 @@
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 
 **Lighthouse Scores:**
-![Performance](https://img.shields.io/badge/Performance-97%25-brightgreen?style=flat&logo=lighthouse)
+![Performance](https://img.shields.io/badge/Performance-99%25-brightgreen?style=flat&logo=lighthouse)
 ![Accessibility](https://img.shields.io/badge/Accessibility-100%25-brightgreen?style=flat&logo=lighthouse)
-![Best Practices](https://img.shields.io/badge/Best_Practices-96%25-brightgreen?style=flat&logo=lighthouse)
-![SEO](https://img.shields.io/badge/SEO-92%25-brightgreen?style=flat&logo=lighthouse)
+![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
+![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
 A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
 
-**Lighthouse Perfect Scores:** 97% Performance • 100% Accessibility • 96% Best Practices • 92% SEO
+**Lighthouse Perfect Scores:** 99% Performance • 100% Accessibility • 100% Best Practices • 100% SEO
 
 ## Features
 
@@ -57,10 +57,10 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 
 **Exceptional optimization delivering top-tier user experience:**
 
-- **97% Performance Score**: Faster than 97% of websites tested
+- **99% Performance Score**: Faster than 99% of websites tested
 - **100% Accessibility**: WCAG AA compliant, full keyboard navigation
-- **96% Best Practices**: Modern web standards and security
-- **92% SEO**: Optimized for search engines and social sharing
+- **100% Best Practices**: Modern web standards and security
+- **100% SEO**: Optimized for search engines and social sharing
 
 ### **Technical Optimizations:**
 
