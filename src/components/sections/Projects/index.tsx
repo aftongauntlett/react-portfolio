@@ -54,7 +54,18 @@ export default function ProjectsSection() {
           >
             {description}
           </div>
-          <div className={clsx('flex flex-wrap gap-2 text-sm', TEXT_MUTED_HOVER, TRANSITION_FAST)}>
+          <div
+            className={clsx(
+              'flex flex-wrap gap-2 text-sm',
+              TEXT_MUTED_HOVER,
+              TRANSITION_FAST,
+              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
+              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
+            )}
+            role="group"
+            aria-label={`Technologies used in ${title}`}
+            tabIndex={0}
+          >
             {tech.map((t, i) => (
               <span key={t} className="shrink-0 break-words">
                 {i > 0 && <span className="mx-1 text-[var(--color-muted)]">·</span>}

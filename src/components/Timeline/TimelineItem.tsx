@@ -71,7 +71,12 @@ export default function TimelineItem({
             className={clsx(
               'transition-all',
               isActive || isHovered ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]',
+              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
+              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
             )}
+            tabIndex={0}
+            role="heading"
+            aria-level={3}
           >
             {title}
           </span>
@@ -80,7 +85,14 @@ export default function TimelineItem({
           )}
         </h3>
         {dates && (
-          <time className="block text-sm mb-3 text-[var(--color-muted)] transition-colors group-hover:text-[var(--color-secondary)]">
+          <time
+            className={clsx(
+              'block text-sm mb-3 text-[var(--color-muted)] transition-colors group-hover:text-[var(--color-secondary)]',
+              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
+              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
+            )}
+            tabIndex={0}
+          >
             {dates}
           </time>
         )}

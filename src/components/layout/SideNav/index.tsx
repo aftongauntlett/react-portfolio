@@ -73,12 +73,13 @@ export default function SideNav() {
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
         <div className="flex items-center justify-between">
-          <div className="flex gap-4" aria-label="Social media links">
+          <div className="flex gap-4" role="list" aria-label="Social media links">
             <a
               href="https://github.com/aftongauntlett"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit GitHub profile (opens in new tab)"
+              role="listitem"
               className={clsx(
                 'text-[var(--color-muted)] hover:!text-[var(--color-primary)]',
                 TRANSITION_FAST,
@@ -92,6 +93,7 @@ export default function SideNav() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn profile (opens in new tab)"
+              role="listitem"
               className={clsx(
                 'text-[var(--color-muted)] hover:!text-[var(--color-primary)]',
                 TRANSITION_FAST,

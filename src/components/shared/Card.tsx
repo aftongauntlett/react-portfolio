@@ -1,11 +1,10 @@
 import clsx from 'clsx';
 import type { ReactNode } from 'react';
 import {
-  TITLE_CLASSES,
-  TEXT_SM_MEDIUM_CLASSES,
+  CARD_BASE_CLASSES,
+  TITLE_HOVER_CLASSES,
+  DATE_CLASSES,
   TEXT_SM_CLASSES,
-  TEXT_PRIMARY_HOVER,
-  TEXT_MUTED_HOVER,
 } from '@/constants/styles';
 
 interface CardProps {
@@ -46,18 +45,24 @@ export default function Card({
         target: '_blank',
         rel: 'noopener noreferrer',
         'aria-label': `View ${title} (opens in new tab)`,
+        tabIndex: 0,
       }
-    : {};
+    : {
+        tabIndex: 0,
+        role: 'article',
+        'aria-label': `${title} - ${subtitle}`,
+      };
 
   return (
     <CardComponent
       className={clsx(
-        'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-background)]',
-        'hover:border-[var(--color-primary)]/30 transition-all duration-300',
-        'group',
-        link && 'cursor-pointer', // Only show pointer cursor when there's a link
+        CARD_BASE_CLASSES,
+        link && 'cursor-pointer',
         isDimmed && 'opacity-50',
         isHovered && 'z-10',
+        // Add focus styles for keyboard navigation
+        'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+        'focus-visible:shadow-lg focus-visible:shadow-[var(--color-primary)]/20',
         className,
       )}
       onMouseEnter={onMouseEnter}
@@ -67,10 +72,8 @@ export default function Card({
       <div className="flex flex-col justify-between h-full">
         <div>
           <div className="flex justify-between items-start mb-1">
-            <h4 className={clsx(TITLE_CLASSES, TEXT_PRIMARY_HOVER)}>{title}</h4>
-            <span className={clsx(TEXT_SM_MEDIUM_CLASSES, TEXT_MUTED_HOVER, 'ml-2 shrink-0')}>
-              {date}
-            </span>
+            <h4 className={TITLE_HOVER_CLASSES}>{title}</h4>
+            <span className={DATE_CLASSES}>{date}</span>
           </div>
 
           {badge && (

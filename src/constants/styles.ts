@@ -6,9 +6,9 @@ export const TRANSITION_ALL = 'transition-all duration-300';
 export const TRANSITION_FAST = 'transition-colors duration-200';
 
 // Text Style Classes
-export const TITLE_CLASSES = `subtitle ${TRANSITION_COLORS}`;
-export const TEXT_SM_CLASSES = `text-sm ${TRANSITION_COLORS}`;
-export const TEXT_SM_MEDIUM_CLASSES = `text-sm font-medium ${TRANSITION_COLORS}`;
+export const TITLE_CLASSES = 'subtitle transition-colors duration-300';
+export const TEXT_SM_CLASSES = 'text-sm transition-colors duration-300';
+export const TEXT_SM_MEDIUM_CLASSES = 'text-sm font-medium transition-colors duration-300';
 
 // Common Color Patterns
 export const TEXT_PRIMARY_HOVER =
@@ -19,6 +19,14 @@ export const TEXT_MUTED_HOVER =
 // Card & Container Classes
 export const CARD_BASE = 'group p-3 rounded-lg cursor-pointer';
 export const CARD_HOVER_BG = 'hover:bg-[var(--color-bg-secondary)]';
+
+// Pre-computed Card Classes for Performance
+export const CARD_BASE_CLASSES =
+  'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-background)] hover:border-[var(--color-primary)]/30 transition-all duration-300 group';
+export const TITLE_HOVER_CLASSES =
+  'subtitle transition-colors duration-300 text-[var(--color-text)] group-hover:text-[var(--color-primary)]';
+export const DATE_CLASSES =
+  'text-sm font-medium transition-colors duration-300 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] ml-2 shrink-0';
 
 // Hover Effect Classes
 export const HOVER_OPACITY = 'opacity-50';
