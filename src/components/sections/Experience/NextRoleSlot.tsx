@@ -26,9 +26,9 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
       dates: `Available: ${formatted}`,
       description: [
         <>
-          Imagine me as your next <span className="text-[var(--color-primary)]">{title}</span> at{' '}
-          <span className="text-[var(--color-primary)]">{company}</span> - ready to sprinkle some
-          magic on your UI!
+          <span className="text-[var(--color-primary)]">{title}</span> at{' '}
+          <span className="text-[var(--color-primary)]">{company}</span> - has a nice ring to it!
+          Let's chat
         </>,
       ],
     });
@@ -44,8 +44,8 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
         <div className="group">
           <BulletList>
             <BulletItem>
-              I am seeking my next opportunity—what role at your company do you think I would bring
-              value to?
+              I am currently open to new opportunities - what role at your company do you think I
+              could bring value to?
             </BulletItem>
           </BulletList>
           <div className="py-3 flex justify-end">
@@ -85,7 +85,7 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
               />
             </label>
 
-            <div className="flex justify-end pt-2">
+            <div className="flex justify-end pt-3">
               <Button type="submit" disabled={!company.trim() || !title.trim()}>
                 Submit
               </Button>

@@ -13,9 +13,10 @@ export interface HoverGroupState {
  * and tells you whether each item should be dimmed.
  */
 export function useHoverGroup(): HoverGroupState {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [hovered, setHoveredState] = useState<number | null>(null);
 
-  const clearHovered = useCallback(() => setHovered(null), []);
+  const setHovered = useCallback((idx: number) => setHoveredState(idx), []);
+  const clearHovered = useCallback(() => setHoveredState(null), []);
   const isHovered = useCallback((idx: number) => hovered === idx, [hovered]);
   const isDimmed = useCallback((idx: number) => hovered !== null && hovered !== idx, [hovered]);
 

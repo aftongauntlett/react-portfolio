@@ -3,6 +3,12 @@ import MotionSection from '@/components/shared/MotionSection';
 import Button from '@/components/shared/Button';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { projects } from '@/data/projects';
+import {
+  TRANSITION_COLORS,
+  TRANSITION_FAST,
+  TEXT_PRIMARY_HOVER,
+  TEXT_MUTED_HOVER,
+} from '@/constants/styles';
 
 export default function ProjectsSection() {
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
@@ -16,8 +22,9 @@ export default function ProjectsSection() {
           onMouseLeave={clearHovered}
           className={clsx(
             'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md',
-            'border-l-4 border-transparent transition-colors duration-300 ease-in-out',
-            'hover:border-[var(--color-primary)]',
+            'border-l-4 border-transparent',
+            TRANSITION_COLORS,
+            'ease-in-out hover:border-[var(--color-primary)]',
             isDimmed(idx) && '!opacity-50 transition-opacity duration-300 ease-in-out',
           )}
           role="listitem"
@@ -27,8 +34,8 @@ export default function ProjectsSection() {
             id={`project-title-${idx}`}
             tabIndex={0}
             className={clsx(
-              'subtitle text-[var(--color-text-muted)]',
-              'group-hover:text-[var(--color-primary)] transition-colors',
+              'text-lg font-semibold',
+              TEXT_PRIMARY_HOVER,
               'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
               'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
             )}
@@ -40,14 +47,14 @@ export default function ProjectsSection() {
             aria-label={`Project description: ${description}`}
             role="text"
             className={clsx(
-              'text-body text-[var(--color-muted)] mt-4 mb-2',
+              'text-body text-[var(--color-muted)] mt-3 mb-3',
               'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
               'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
             )}
           >
             {description}
           </div>
-          <div className="flex flex-wrap gap-2 text-sm text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] transition-colors duration-200">
+          <div className={clsx('flex flex-wrap gap-2 text-sm', TEXT_MUTED_HOVER, TRANSITION_FAST)}>
             {tech.map((t, i) => (
               <span key={t} className="shrink-0 break-words">
                 {i > 0 && <span className="mx-1 text-[var(--color-muted)]">·</span>}
@@ -56,7 +63,7 @@ export default function ProjectsSection() {
             ))}
           </div>
           <div
-            className="flex flex-wrap gap-3 justify-end mt-6"
+            className="flex flex-wrap gap-3 justify-end mt-4"
             role="group"
             aria-label="Project links"
           >

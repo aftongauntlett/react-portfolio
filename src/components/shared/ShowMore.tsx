@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { HiChevronDown } from 'react-icons/hi2';
+import { TRANSITION_FAST } from '@/constants/styles';
 import clsx from 'clsx';
 
 interface ShowMoreProps {
@@ -41,7 +42,7 @@ export default function ShowMore({
         className={clsx(
           'flex items-center gap-2 text-sm',
           'text-[var(--color-primary)] hover:text-[var(--color-secondary)]',
-          'transition-colors duration-200',
+          TRANSITION_FAST,
           'focus:outline-none focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
           'group',
         )}

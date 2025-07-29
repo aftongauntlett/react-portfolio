@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { HiChevronDown } from 'react-icons/hi2';
+import { TRANSITION_FAST } from '@/constants/styles';
 import clsx from 'clsx';
 
 interface AccordionProps {
@@ -12,13 +13,13 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-[var(--color-line)] last:border-b-0">
+    <div>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
           'w-full text-left py-4 flex items-center justify-between',
           'text-[var(--color-text)] hover:text-[var(--color-primary)]',
-          'transition-colors duration-200',
+          TRANSITION_FAST,
           'focus:outline-none focus:text-[var(--color-primary)]',
           'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
           'group',
@@ -42,7 +43,7 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
           isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0',
         )}
       >
-        <div className="pb-6">{children}</div>
+        <div className="pb-4">{children}</div>
       </div>
     </div>
   );

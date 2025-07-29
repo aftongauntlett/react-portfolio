@@ -54,7 +54,7 @@ export default function ExperienceSection() {
         className="absolute left-5 top-7 bottom-0 w-px bg-[var(--color-line)] hidden md:block"
         style={{ zIndex: 1 }}
       />
-      <div className="space-y-8 md:space-y-12">
+      <div className="space-y-6 md:space-y-8">
         {entries.map(({ idx, title, company, dates, isFirst, isActive, content }) => (
           <TimelineItem
             key={`${title}-${idx}`}

@@ -6,6 +6,7 @@ import { useActiveSection } from '@/hooks/useActiveSection';
 import { HiSun, HiMoon } from 'react-icons/hi2';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Button from '@/components/shared/Button';
+import { TRANSITION_FAST } from '@/constants/styles';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
@@ -17,13 +18,14 @@ export default function SideNav() {
         <h1 className="text-2xl font-medium leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
         </h1>
-        <p className="mt-1 mb-3 text-lg leading-[1.3] capitalize text-[var(--color-muted)]">
-          Frontend Engineer
-        </p>
+        <div className="space-y-3">
+          <p className="text-lg leading-[1.3] capitalize text-[var(--color-muted)]">
+            Frontend Engineer
+          </p>
+          <hr className="border-[var(--color-line)]" aria-hidden="true" />
+        </div>
 
-        <hr className="border-[var(--color-line)] mb-10" aria-hidden="true" />
-
-        <nav aria-label="Main navigation" className="space-y-5">
+        <nav aria-label="Main navigation" className="mt-8 space-y-5">
           {navItems.map(({ id, label }) => {
             const isActive = activeSection === id;
 
@@ -47,7 +49,8 @@ export default function SideNav() {
                 onClick={handleClick}
                 aria-current={isActive ? 'page' : undefined}
                 className={clsx(
-                  'relative group block pl-4 text-base transition-all duration-200',
+                  'relative group block pl-4 text-base',
+                  TRANSITION_FAST,
                   // ::before indicator
                   'before:content-[""] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
                   'before:opacity-0 before:transition-all before:duration-200',
@@ -76,7 +79,11 @@ export default function SideNav() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit GitHub profile (opens in new tab)"
-              className="text-[var(--color-muted)] hover:!text-[var(--color-primary)] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
+              className={clsx(
+                'text-[var(--color-muted)] hover:!text-[var(--color-primary)]',
+                TRANSITION_FAST,
+                'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+              )}
             >
               <FaGithub size={20} aria-hidden="true" />
             </a>
@@ -85,7 +92,11 @@ export default function SideNav() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn profile (opens in new tab)"
-              className="text-[var(--color-muted)] hover:!text-[var(--color-primary)] transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
+              className={clsx(
+                'text-[var(--color-muted)] hover:!text-[var(--color-primary)]',
+                TRANSITION_FAST,
+                'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+              )}
             >
               <FaLinkedin size={20} aria-hidden="true" />
             </a>

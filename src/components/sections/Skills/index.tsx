@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import MotionSection from '@/components/shared/MotionSection';
 import { skills, skillCategories } from '@/data/skills';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
+import { TRANSITION_COLORS, TRANSITION_ALL, TEXT_PRIMARY_HOVER } from '@/constants/styles';
 
 export default function SkillsSection() {
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
@@ -24,7 +25,7 @@ export default function SkillsSection() {
           onMouseLeave={clearHovered}
           className={clsx(
             'group p-4 md:p-6 rounded-lg border border-[var(--color-line)]',
-            'transition-all duration-300',
+            TRANSITION_ALL,
             'hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)]/5',
             'hover:shadow-lg hover:shadow-[var(--color-primary)]/10',
             'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
@@ -34,7 +35,7 @@ export default function SkillsSection() {
         >
           <h3
             id={`skills-category-${categoryIdx}`}
-            className="subtitle text-[var(--color-text)] group-hover:text-[var(--color-primary)] transition-colors mb-4"
+            className={clsx('text-lg font-semibold mb-4', TEXT_PRIMARY_HOVER)}
           >
             {label}
           </h3>
@@ -51,7 +52,7 @@ export default function SkillsSection() {
                     aria-label={`${skill.name} skill`}
                     className={clsx(
                       'font-medium text-[var(--color-text)]',
-                      'transition-colors duration-300',
+                      TRANSITION_COLORS,
                       'group-hover:text-[var(--color-text)]',
                       'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
                       'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
@@ -63,7 +64,7 @@ export default function SkillsSection() {
                     <span
                       className={clsx(
                         'mx-2 text-[var(--color-muted)]',
-                        'transition-colors duration-300',
+                        TRANSITION_COLORS,
                         'group-hover:text-[var(--color-secondary)]',
                       )}
                     >
@@ -80,7 +81,7 @@ export default function SkillsSection() {
                   <span
                     className={clsx(
                       'w-2 h-0.5 bg-[var(--color-muted)]',
-                      'transition-colors duration-300',
+                      TRANSITION_COLORS,
                       'group-hover:bg-[var(--color-secondary)]',
                     )}
                   />
@@ -89,7 +90,7 @@ export default function SkillsSection() {
                     aria-label={`${skill.name} skill`}
                     className={clsx(
                       'font-medium text-[var(--color-text)]',
-                      'transition-colors duration-300',
+                      TRANSITION_COLORS,
                       'group-hover:text-[var(--color-text)]',
                       'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
                       'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
