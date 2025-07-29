@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import MotionSection from '@/components/shared/MotionSection';
 import Button from '@/components/shared/Button';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
@@ -13,19 +14,71 @@ import {
 export default function ProjectsSection() {
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
 
+  const handleInteraction = (idx: number) => {
+    // On touch devices, toggle the hover state instead of just setting it
+    // This prevents the "stuck dimmed" issue on mobile
+    if ('ontouchstart' in window) {
+      setHovered(idx);
+      // Auto-clear after 3 seconds on touch devices
+      setTimeout(() => clearHovered(), 3000);
+    } else {
+      setHovered(idx);
+    }
+  };
+
+  const projectVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut' as const, // Consistent with rest of app
+      },
+    },
+  };
+
   return (
-    <div className="space-y-6" role="list" aria-label="Portfolio projects">
+    <motion.div
+      className="space-y-6"
+      role="list"
+      aria-label="Portfolio projects"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{
+        once: true,
+        margin: '-100px',
+        amount: 0.1, // Performance optimization
+      }}
+      // Performance optimization
+      style={{ willChange: 'auto' }}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.08, // Slightly faster for better perceived performance
+          },
+        },
+      }}
+    >
       {projects.map(({ title, description, tech, link, demo }, idx) => (
         <MotionSection
           key={title}
-          onMouseEnter={() => setHovered(idx)}
-          onMouseLeave={clearHovered}
+          variants={projectVariants}
+          onMouseEnter={() => !('ontouchstart' in window) && setHovered(idx)}
+          onMouseLeave={() => !('ontouchstart' in window) && clearHovered()}
+          onClick={() => 'ontouchstart' in window && handleInteraction(idx)}
           className={clsx(
             'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md',
-            'border-l-4 border-transparent',
+            // Left border only on desktop
+            'md:border-l-4 md:border-transparent',
             TRANSITION_COLORS,
-            'ease-in-out hover:border-[var(--color-primary)]',
-            isDimmed(idx) && '!opacity-50 transition-opacity duration-300 ease-in-out',
+            'ease-in-out md:hover:border-[var(--color-primary)]',
+            // Only apply dimming on hover-capable devices
+            isDimmed(idx) &&
+              'opacity-50 [@media(hover:none)]:!opacity-100 transition-opacity duration-300 ease-in-out',
+            // Add subtle touch feedback for mobile
+            'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
           )}
           role="listitem"
           aria-labelledby={`project-title-${idx}`}
@@ -34,7 +87,7 @@ export default function ProjectsSection() {
             id={`project-title-${idx}`}
             tabIndex={0}
             className={clsx(
-              'text-lg font-semibold',
+              'subtitle', // Using the same class as timeline items
               TEXT_PRIMARY_HOVER,
               'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
               'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
@@ -96,6 +149,6 @@ export default function ProjectsSection() {
           </div>
         </MotionSection>
       ))}
-    </div>
+    </motion.div>
   );
 }

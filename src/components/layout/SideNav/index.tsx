@@ -1,5 +1,6 @@
 import type { MouseEvent } from 'react';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import { navItems } from '../../../constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
@@ -13,8 +14,27 @@ export default function SideNav() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="flex flex-col justify-between h-full pt-16 px-6 py-10">
-      <div>
+    <motion.div
+      className="flex flex-col justify-between h-full pt-16 px-6 py-10"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{
+        opacity: 1,
+        x: 0,
+        transition: {
+          duration: 0.6,
+          ease: 'easeOut',
+          staggerChildren: 0.1,
+        },
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.5, delay: 0.2 },
+        }}
+      >
         <h1 className="text-2xl font-medium leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
         </h1>
@@ -66,9 +86,17 @@ export default function SideNav() {
             );
           })}
         </nav>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col gap-6">
+      <motion.div
+        className="flex flex-col gap-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.5, delay: 0.4 },
+        }}
+      >
         <Button href="https://aftongauntlett.github.io/resume/">View Resume</Button>
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
@@ -111,7 +139,7 @@ export default function SideNav() {
             variant="link"
           />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

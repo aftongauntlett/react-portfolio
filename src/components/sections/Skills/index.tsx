@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import MotionSection from '@/components/shared/MotionSection';
 import { skills, skillCategories } from '@/data/skills';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
@@ -13,11 +14,38 @@ export default function SkillsSection() {
     skills: skills.filter((skill) => skill.category === key),
   }));
 
+  const skillVariants = {
+    hidden: { opacity: 0, y: 20 }, // Change from scale to consistent y movement
+    visible: {
+      opacity: 1,
+      y: 0, // Single smooth animation
+      transition: {
+        duration: 0.5,
+        ease: 'easeOut' as const,
+      },
+    },
+  };
   return (
-    <MotionSection className="space-y-6" role="list" aria-label="Technical skills by category">
+    <motion.div
+      className="space-y-6"
+      role="list"
+      aria-label="Technical skills by category"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.1,
+          },
+        },
+      }}
+    >
       {skillsByCategory.map(({ key, label, skills: categorySkills }, categoryIdx) => (
-        <div
+        <MotionSection
           key={key}
+          variants={skillVariants}
           tabIndex={0}
           role="listitem"
           aria-labelledby={`skills-category-${categoryIdx}`}
@@ -102,8 +130,8 @@ export default function SkillsSection() {
               ))}
             </ul>
           </div>
-        </div>
+        </MotionSection>
       ))}
-    </MotionSection>
+    </motion.div>
   );
 }

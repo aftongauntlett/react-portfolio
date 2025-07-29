@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import { HiQuestionMarkCircle } from 'react-icons/hi2';
-import MotionSection from '@/components/shared/MotionSection';
 export interface TimelineItemProps {
   idx: number;
   title: string;
@@ -13,6 +12,7 @@ export interface TimelineItemProps {
   isDimmed: boolean;
   onHover: () => void;
   onLeave: () => void;
+  onInteraction?: () => void;
   children?: ReactNode;
 }
 
@@ -26,15 +26,17 @@ export default function TimelineItem({
   isDimmed,
   onHover,
   onLeave,
+  onInteraction,
   children,
 }: TimelineItemProps) {
   const shouldDim = !isActive && isDimmed;
 
   return (
-    <MotionSection
+    <div
       tabIndex={0}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      onMouseEnter={() => !('ontouchstart' in window) && onHover()}
+      onMouseLeave={() => !('ontouchstart' in window) && onLeave()}
+      onClick={() => 'ontouchstart' in window && onInteraction?.()}
       className={clsx(
         'group transition-all duration-300',
         // Desktop: timeline grid layout
@@ -42,9 +44,12 @@ export default function TimelineItem({
         // Mobile: simple stack layout without timeline
         'block space-y-2',
         !isFirst && 'mt-3',
-        shouldDim && '!opacity-50',
+        // Only apply dimming on hover-capable devices
+        shouldDim && 'opacity-50 [@media(hover:none)]:!opacity-100',
         isActive && 'bg-[var(--color-primary)]/10',
         'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+        // Add subtle touch feedback for mobile
+        'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
       )}
     >
       {/* Timeline dot - only show on desktop */}
@@ -98,6 +103,6 @@ export default function TimelineItem({
         )}
         {children}
       </div>
-    </MotionSection>
+    </div>
   );
 }

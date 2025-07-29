@@ -5,10 +5,22 @@ import NewJobEntry from './NewJobEntry';
 import NextRoleSlot from './NextRoleSlot';
 import TimelineItem from '@/components/Timeline/TimelineItem';
 import { BulletItem, BulletList } from '@/components/shared/BulletList';
+import MotionSection from '@/components/shared/MotionSection';
 
 export default function ExperienceSection() {
   const [currentJob, setCurrentJob] = useState<Job | null>(null);
   const { setHovered, clearHovered, isHovered, isDimmed } = useHoverGroup();
+
+  const handleInteraction = (idx: number) => {
+    // On touch devices, toggle the hover state instead of just setting it
+    if ('ontouchstart' in window) {
+      setHovered(idx);
+      // Auto-clear after 3 seconds on touch devices
+      setTimeout(() => clearHovered(), 3000);
+    } else {
+      setHovered(idx);
+    }
+  };
 
   const entries = [
     currentJob
@@ -54,7 +66,7 @@ export default function ExperienceSection() {
         className="absolute left-5 top-7 bottom-0 w-px bg-[var(--color-line)] hidden md:block"
         style={{ zIndex: 1 }}
       />
-      <div className="space-y-6 md:space-y-8">
+      <MotionSection className="space-y-6 md:space-y-8">
         {entries.map(({ idx, title, company, dates, isFirst, isActive, content }) => (
           <TimelineItem
             key={`${title}-${idx}`}
@@ -68,11 +80,12 @@ export default function ExperienceSection() {
             isDimmed={isDimmed(idx)}
             onHover={() => setHovered(idx)}
             onLeave={clearHovered}
+            onInteraction={() => handleInteraction(idx)}
           >
             {content}
           </TimelineItem>
         ))}
-      </div>
+      </MotionSection>
     </div>
   );
 }

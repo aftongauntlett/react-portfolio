@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { motion } from 'framer-motion';
 import Button from '@/components/shared/Button';
+import MotionSection from '@/components/shared/MotionSection';
 
 const textInputClass = `
   mt-1 block w-full rounded-md
@@ -78,104 +80,145 @@ export default function ContactSection() {
   const isLoading = status.type === 'loading';
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-4">
-        <p className="text-[var(--color-muted)]">
-          Whether you want to chat about a job opening, a project, collaboration, or just say hi -
-          my inbox is always open. I'll try to respond as soon as I can!
-        </p>
+    <motion.div
+      className="space-y-6"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-50px' }}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.2,
+          },
+        },
+      }}
+    >
+      <MotionSection
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 0.5,
+              ease: 'easeOut' as const,
+            },
+          },
+        }}
+      >
+        <div className="space-y-4">
+          <p className="text-[var(--color-muted)]">
+            Whether you want to chat about a job opening, a project, collaboration, or just say hi -
+            my inbox is always open. I'll try to respond as soon as I can!
+          </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">
-          <div className="text-left text-[var(--color-primary)] ">
-            <a
-              href="mailto:hello@aftongauntlett.com"
-              className="transition-all duration-200 text-sm border-b border-transparent hover:border-[var(--color-secondary)] pb-0.5"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">
+            <div className="text-left text-[var(--color-primary)] ">
+              <a
+                href="mailto:hello@aftongauntlett.com"
+                className="transition-all duration-200 text-sm border-b border-transparent hover:border-[var(--color-secondary)] pb-0.5"
+              >
+                hello@aftongauntlett.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </MotionSection>
+
+      <MotionSection
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+              duration: 0.5,
+              ease: 'easeOut' as const,
+            },
+          },
+        }}
+      >
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="space-y-1">
+            <label htmlFor="name" className="block text-sm font-medium text-[var(--color-text)]">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleInputChange}
+              disabled={isLoading}
+              placeholder="Your name"
+              className={textInputClass}
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label htmlFor="email" className="block text-sm font-medium text-[var(--color-text)]">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleInputChange}
+              disabled={isLoading}
+              placeholder="you@example.com"
+              className={textInputClass}
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label htmlFor="message" className="block text-sm font-medium text-[var(--color-text)]">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={5}
+              required
+              value={formData.message}
+              onChange={handleInputChange}
+              disabled={isLoading}
+              placeholder="How can I help?"
+              className={textInputClass}
+            />
+          </div>
+
+          {status.message && (
+            <div
+              className={`p-3 rounded-md text-sm ${
+                status.type === 'success'
+                  ? 'bg-green-50 text-green-800 border border-green-200'
+                  : status.type === 'error'
+                    ? 'bg-red-50 text-red-800 border border-red-200'
+                    : 'bg-blue-50 text-blue-800 border border-blue-200'
+              }`}
+              role={status.type === 'error' ? 'alert' : 'status'}
+              aria-live="polite"
             >
-              hello@aftongauntlett.com
-            </a>
+              {status.message}
+            </div>
+          )}
+
+          <div className="flex justify-end pt-3">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              variant="primary"
+              className={isLoading ? 'opacity-50 cursor-not-allowed' : ''}
+            >
+              {isLoading ? 'Sending...' : 'Send Message'}
+            </Button>
           </div>
-        </div>
-      </div>
-
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        <div className="space-y-1">
-          <label htmlFor="name" className="block text-sm font-medium text-[var(--color-text)]">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            value={formData.name}
-            onChange={handleInputChange}
-            disabled={isLoading}
-            placeholder="Your name"
-            className={textInputClass}
-          />
-        </div>
-
-        <div className="space-y-1">
-          <label htmlFor="email" className="block text-sm font-medium text-[var(--color-text)]">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            value={formData.email}
-            onChange={handleInputChange}
-            disabled={isLoading}
-            placeholder="you@example.com"
-            className={textInputClass}
-          />
-        </div>
-
-        <div className="space-y-1">
-          <label htmlFor="message" className="block text-sm font-medium text-[var(--color-text)]">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows={5}
-            required
-            value={formData.message}
-            onChange={handleInputChange}
-            disabled={isLoading}
-            placeholder="How can I help?"
-            className={textInputClass}
-          />
-        </div>
-
-        {status.message && (
-          <div
-            className={`p-3 rounded-md text-sm ${
-              status.type === 'success'
-                ? 'bg-green-50 text-green-800 border border-green-200'
-                : status.type === 'error'
-                  ? 'bg-red-50 text-red-800 border border-red-200'
-                  : 'bg-blue-50 text-blue-800 border border-blue-200'
-            }`}
-            role={status.type === 'error' ? 'alert' : 'status'}
-            aria-live="polite"
-          >
-            {status.message}
-          </div>
-        )}
-
-        <div className="flex justify-end pt-3">
-          <Button
-            type="submit"
-            disabled={isLoading}
-            variant="primary"
-            className={isLoading ? 'opacity-50 cursor-not-allowed' : ''}
-          >
-            {isLoading ? 'Sending...' : 'Send Message'}
-          </Button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </MotionSection>
+    </motion.div>
   );
 }
