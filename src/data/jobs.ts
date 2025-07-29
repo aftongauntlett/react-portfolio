@@ -58,14 +58,4 @@ export const jobs: Job[] = [
       'Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.',
     ],
   },
-  {
-    title: 'Technical Operations Manager',
-    company: 'MAGFest',
-    dates: '01/2010 – 01/2020',
-    description: [
-      'Led a 200+ person tech operations team for a 20,000+ attendee gaming and music festival, managing logistics, infrastructure, and volunteer coordination.',
-      'Contributed to open-source projects Tuber and Ubersystem, collaborating with developers from Valve, GitHub, and Microsoft to build event management platforms.',
-      'Developed logistics and event management software used by fandom events nationwide, improving operational efficiency and attendee experience.',
-    ],
-  },
 ];

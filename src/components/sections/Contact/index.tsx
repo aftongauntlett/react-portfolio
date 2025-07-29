@@ -85,19 +85,14 @@ export default function ContactSection() {
           my inbox is always open. I'll try to respond as soon as I can!
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
-          <div className="text-left">
-            <h3 className="font-medium text-[var(--color-text)] mb-2">Email</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">
+          <div className="text-left text-[var(--color-primary)] ">
             <a
               href="mailto:hello@aftongauntlett.com"
-              className="text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-all duration-200 text-sm border-b border-transparent hover:border-[var(--color-secondary)] pb-0.5"
+              className="transition-all duration-200 text-sm border-b border-transparent hover:border-[var(--color-secondary)] pb-0.5"
             >
               hello@aftongauntlett.com
             </a>
-          </div>
-          <div className="text-left">
-            <h3 className="font-medium text-[var(--color-text)] mb-2">Location</h3>
-            <span className="text-[var(--color-muted)] text-sm">Ashburn, VA</span>
           </div>
         </div>
       </div>
@@ -170,7 +165,7 @@ export default function ContactSection() {
           </div>
         )}
 
-        <div className="flex justify-end pt-2">
+        <div className="flex justify-end pt-3">
           <Button
             type="submit"
             disabled={isLoading}
