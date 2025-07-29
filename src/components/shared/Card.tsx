@@ -87,8 +87,8 @@ export default function Card({
               TEXT_SM_CLASSES,
               'mb-2',
               subtitleColor === 'primary'
-                ? 'text-[var(--color-primary)] group-hover:text-[var(--color-body)]'
-                : 'text-[var(--color-muted)] group-hover:text-[var(--color-body)]',
+                ? 'text-[var(--color-primary)] group-hover:text-[var(--color-text)]'
+                : 'text-[var(--color-muted)] group-hover:text-[var(--color-text)]',
             )}
           >
             {subtitle}
