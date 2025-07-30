@@ -136,7 +136,7 @@ export default function ProjectsSection() {
                 View Repo
               </Button>
             ) : link === '#' ? (
-              <Button disabled variant="secondary" aria-label="Source code not publicly available">
+              <Button disabled variant="muted" aria-label="Source code not publicly available">
                 Private Repo
               </Button>
             ) : null}
