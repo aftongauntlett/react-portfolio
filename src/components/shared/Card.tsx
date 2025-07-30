@@ -77,7 +77,7 @@ export default function Card({
           </div>
 
           {badge && (
-            <span className="hidden sm:inline-block mb-2 px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+            <span className="hidden sm:inline-block mb-2 px-2 py-1 text-xs font-medium bg-green-300 text-green-800 rounded-full">
               {badge}
             </span>
           )}
