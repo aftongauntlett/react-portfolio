@@ -72,13 +72,13 @@ export default function SideNav() {
                   'relative group block pl-4 text-base',
                   TRANSITION_FAST,
                   // ::before indicator
-                  'before:content-[""] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
+                  'before:content-["" ] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
                   'before:opacity-0 before:transition-all before:duration-200',
-                  'hover:text-[var(--color-primary)] hover:before:opacity-100',
-                  'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
                   isActive
-                    ? '!text-[var(--color-primary)] before:!opacity-100 font-semibold'
-                    : 'text-[var(--color-text)]',
+                    ? 'text-[var(--color-primary)] before:opacity-100 font-semibold'
+                    : 'text-[var(--color-text)] before:opacity-0',
+                  'md:hover:text-[var(--color-primary)] md:hover:before:opacity-100',
+                  'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
                 )}
               >
                 {label}
@@ -109,7 +109,8 @@ export default function SideNav() {
               aria-label="Visit GitHub profile (opens in new tab)"
               role="listitem"
               className={clsx(
-                'text-[var(--color-muted)] hover:!text-[var(--color-primary)]',
+                'text-[var(--color-primary)]',
+                'md:hover:!text-[var(--color-primary)]',
                 TRANSITION_FAST,
                 'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
               )}
@@ -123,7 +124,8 @@ export default function SideNav() {
               aria-label="Visit LinkedIn profile (opens in new tab)"
               role="listitem"
               className={clsx(
-                'text-[var(--color-muted)] hover:!text-[var(--color-primary)]',
+                'text-[var(--color-primary)]',
+                'md:hover:!text-[var(--color-primary)]',
                 TRANSITION_FAST,
                 'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
               )}
