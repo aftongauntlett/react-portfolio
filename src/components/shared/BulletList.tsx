@@ -16,7 +16,7 @@ export const BulletItem = ({ children }: { children: ReactNode }) => (
     tabIndex={0}
     role="listitem"
   >
-    <span className="absolute left-0 text-[var(--color-muted)] transition-colors group-hover:text-[var(--color-secondary)]">
+    <span className="absolute left-0 text-[var(--color-secondary)] transition-colors md:group-hover:text-[var(--color-secondary)]">
       –
     </span>
     <span>{children}</span>

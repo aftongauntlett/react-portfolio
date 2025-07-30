@@ -3,9 +3,8 @@ import Card from '@/components/shared/Card';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { education } from '@/data/education';
 
-export default function Certifications() {
+export default function CertificationsAccordion() {
   const certHover = useHoverGroup();
-
   return (
     <Accordion title="Education & Certifications" defaultOpen={true}>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

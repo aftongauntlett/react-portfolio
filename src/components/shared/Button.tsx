@@ -6,7 +6,7 @@ import {
 } from 'react';
 import clsx from 'clsx';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'filled' | 'link';
+export type ButtonVariant = 'primary' | 'secondary' | 'filled' | 'link' | 'muted';
 
 interface BaseProps {
   children?: ReactNode;
@@ -43,19 +43,25 @@ export default function Button(props: ButtonProps) {
 
   const variants = {
     primary:
-      'border border-[var(--color-primary)] text-[var(--color-primary)] ' +
+      'border border-[var(--color-primary)] text-[var(--color-primary)] bg-transparent shadow-none ' +
       'hover:bg-[var(--color-primary)] hover:!text-white hover:shadow-[0_0_8px_var(--color-primary)]/30 ' +
       'focus-visible:bg-[var(--color-primary)] focus-visible:!text-white',
     secondary:
-      'border border-[var(--color-secondary)] text-[var(--color-secondary)] ' +
+      'border border-[var(--color-secondary)] text-[var(--color-secondary)] bg-transparent shadow-none ' +
       'hover:bg-[var(--color-secondary)] hover:!text-white hover:shadow-[0_0_8px_var(--color-secondary)]/30 ' +
       'focus-visible:bg-[var(--color-secondary)] focus-visible:!text-white',
+    muted:
+      'border border-[var(--color-line)] text-[var(--color-muted)] bg-[var(--color-background)] ' +
+      'md:hover:bg-[var(--color-line)]/20 md:hover:text-[var(--color-text)] ' +
+      'focus-visible:bg-[var(--color-line)]/30',
     filled:
       'border border-[var(--color-primary)] bg-[var(--color-primary)] text-white ' +
-      'hover:shadow-[0_0_12px_var(--color-primary)]/40 hover:scale-[1.02] ' +
+      'shadow-[0_0_12px_var(--color-primary)]/40 scale-[1.02] ' +
+      'md:hover:shadow-[0_0_12px_var(--color-primary)]/40 md:hover:scale-[1.02] ' +
       'focus-visible:shadow-[0_0_12px_var(--color-primary)]/40',
     link:
-      'bg-transparent text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:underline ' +
+      'bg-transparent text-[var(--color-primary)] underline ' +
+      'md:hover:text-[var(--color-primary)] md:hover:underline ' +
       'focus-visible:text-[var(--color-primary)] focus-visible:underline focus-visible:outline-offset-4',
   };
 

@@ -92,7 +92,7 @@ export default function TimelineItem({
         {dates && (
           <time
             className={clsx(
-              'block text-sm mb-3 text-[var(--color-muted)] transition-colors group-hover:text-[var(--color-secondary)]',
+              'block text-sm mb-3 text-[var(--color-secondary)] transition-colors md:group-hover:text-[var(--color-secondary)]',
               'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
               'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
             )}

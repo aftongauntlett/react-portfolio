@@ -3,9 +3,8 @@ import Card from '@/components/shared/Card';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { awards } from '@/data/education';
 
-export default function Awards() {
+export default function AwardsAccordion() {
   const awardHover = useHoverGroup();
-
   return (
     <Accordion title="Awards & Recognition" defaultOpen={true}>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
