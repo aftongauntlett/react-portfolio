@@ -16,7 +16,8 @@ describe('Button Component', () => {
   it('applies primary variant by default', () => {
     render(<Button>Primary button</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('border-[var(--color-primary)]');
+    expect(button).toHaveClass('btn--solid');
+    expect(button).toHaveClass('btn--primary');
   });
 
   it('applies secondary variant when specified', () => {
@@ -26,6 +27,7 @@ describe('Button Component', () => {
       </Button>,
     );
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('border-[var(--color-secondary)]');
+    expect(button).toHaveClass('btn--solid');
+    expect(button).toHaveClass('btn--secondary');
   });
 });

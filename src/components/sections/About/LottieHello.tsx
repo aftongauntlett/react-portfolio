@@ -2,6 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
 import { useTheme } from '@/context/ThemeContext';
 
+// Type for Lottie animation data structure
+type LottieObject = {
+  [key: string]: unknown;
+  c?: {
+    k?: number[];
+  };
+};
+
 type LottieHelloProps = {
   className?: string;
   opacity?: number;
@@ -17,30 +25,35 @@ export default function LottieHello({
 }: LottieHelloProps) {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const { theme } = useTheme();
-  const [animationData, setAnimationData] = useState(null);
+  const [animationData, setAnimationData] = useState<LottieObject | null>(null);
 
   useEffect(() => {
     const createThemedAnimation = async () => {
-      // Import the base animation
-      const baseData = await import('../../../assets/galaxy.json');
+      try {
+        // Import the base animation
+        const baseData = await import('../../../assets/galaxy.json');
 
-      // Get current theme colors
-      const root = document.documentElement;
-      const primaryHsl = getComputedStyle(root).getPropertyValue('--color-primary').trim();
-      const planetHsl =
-        planetColor === 'secondary'
-          ? getComputedStyle(root).getPropertyValue('--color-secondary').trim()
-          : getComputedStyle(root).getPropertyValue('--color-muted').trim();
+        // Get current theme colors
+        const root = document.documentElement;
+        const primaryHsl = getComputedStyle(root).getPropertyValue('--color-primary').trim();
+        const planetHsl =
+          planetColor === 'secondary'
+            ? getComputedStyle(root).getPropertyValue('--color-secondary').trim()
+            : getComputedStyle(root).getPropertyValue('--color-muted').trim();
 
-      // Convert HSL to RGB arrays for Lottie
-      const primaryRgb = hslToRgbArray(primaryHsl);
-      const planetRgb = hslToRgbArray(planetHsl);
+        // Convert HSL to RGB arrays for Lottie
+        const primaryRgb = hslToRgbArray(primaryHsl);
+        const planetRgb = hslToRgbArray(planetHsl);
 
-      // Create themed animation data
-      const themedData = JSON.parse(JSON.stringify(baseData.default));
-      updateLottieColors(themedData, primaryRgb, planetRgb);
+        // Create themed animation data
+        const themedData = JSON.parse(JSON.stringify(baseData.default)) as LottieObject;
+        updateLottieColors(themedData, primaryRgb, planetRgb);
 
-      setAnimationData(themedData);
+        setAnimationData(themedData);
+      } catch (error) {
+        console.error('Failed to load Lottie animation:', error);
+        // Set a fallback or keep animationData as null
+      }
     };
 
     createThemedAnimation();
