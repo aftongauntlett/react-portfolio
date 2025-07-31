@@ -1,4 +1,4 @@
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 import { useState, type FormEvent } from 'react';
 import type { Job } from '@/data/jobs';
 import { BulletList, BulletItem } from '@/components/shared/BulletList';
@@ -49,7 +49,7 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
             </BulletItem>
           </BulletList>
           <div className="py-3 flex justify-end">
-            <Button asDiv onDivClick={() => setStage('form')}>
+            <Button onClick={() => setStage('form')} variant="outline" color="primary">
               Let me know
             </Button>
           </div>
@@ -86,7 +86,12 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
             </label>
 
             <div className="flex justify-end pt-3">
-              <Button type="submit" disabled={!company.trim() || !title.trim()}>
+              <Button
+                type="submit"
+                variant="solid"
+                color="primary"
+                disabled={!company.trim() || !title.trim()}
+              >
                 Submit
               </Button>
             </div>

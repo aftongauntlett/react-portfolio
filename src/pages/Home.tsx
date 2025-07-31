@@ -18,7 +18,7 @@ export default function Home() {
       <PageSection id="projects" title="Projects">
         <ProjectsSection />
       </PageSection>
-      <PageSection id="skills" title="Skills, Certs & Awards">
+      <PageSection id="skills" title="Skills & Tools">
         <SkillsSection />
       </PageSection>
       <PageSection id="contact" title="Get in Touch">

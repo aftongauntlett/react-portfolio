@@ -39,8 +39,8 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
 
       <div
         className={clsx(
-          'overflow-hidden transition-all duration-300 ease-in-out',
-          isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0',
+          'overflow-hidden transition-[max-height] duration-300 ease-in-out',
+          isOpen ? 'max-h-[2000px]' : 'max-h-0',
         )}
       >
         <div className="pb-4">{children}</div>

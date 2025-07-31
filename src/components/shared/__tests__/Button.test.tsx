@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 
 describe('Button Component', () => {
   it('renders children correctly', () => {
@@ -20,7 +20,11 @@ describe('Button Component', () => {
   });
 
   it('applies secondary variant when specified', () => {
-    render(<Button variant="secondary">Secondary button</Button>);
+    render(
+      <Button variant="solid" color="secondary">
+        Secondary button
+      </Button>,
+    );
     const button = screen.getByRole('button');
     expect(button).toHaveClass('border-[var(--color-secondary)]');
   });

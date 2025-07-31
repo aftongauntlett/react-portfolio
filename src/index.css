@@ -4,19 +4,14 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--color-background);
   scroll-padding-top: 2rem;
 }
 
-/* Only prevent horizontal scroll on mobile to avoid breaking sticky positioning */
 @media (max-width: 1023px) {
-  html {
+  html,
+  body {
     overflow-x: hidden;
   }
-}
-
-html.dark {
-  background-color: var(--color-background);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -35,7 +30,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -48,11 +42,11 @@ body {
   hyphens: none;
   -webkit-hyphens: none;
   -moz-hyphens: none;
-  -ms-hyphens: none;
 }
 
 /* Only prevent horizontal scroll on mobile to avoid breaking sticky positioning */
 @media (max-width: 1023px) {
+  html,
   body {
     overflow-x: hidden;
   }
@@ -111,17 +105,16 @@ textarea:-moz-autofill {
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.2;
-  text-transform: capitalize;
+  font-weight: 700;
 }
 
 .subtitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.25rem;
   line-height: 1.3;
-  text-transform: capitalize;
   font-weight: 600;
 }
 
@@ -157,10 +150,6 @@ textarea:-moz-autofill {
 }
 
 @media (max-width: 768px) {
-  body {
-    overflow-x: hidden;
-  }
-
   .section-content {
     max-width: calc(100vw - 2rem);
   }
@@ -212,4 +201,298 @@ textarea:-moz-autofill {
     var(--color-primary) 15%,
     transparent 40%
   );
+}
+
+/* Smooth Lottie Animation Styles */
+.lottie-smooth {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  animation: lottieFloat 20s ease-in-out infinite;
+}
+
+@keyframes lottieFloat {
+  0%,
+  100% {
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    transform: translateZ(0) scale(1.05);
+  }
+}
+
+.lottie-smooth svg {
+  shape-rendering: geometricPrecision;
+  vector-effect: non-scaling-stroke;
+}
+
+.lottie-smooth path,
+.lottie-smooth circle,
+.lottie-smooth ellipse {
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Hello text gradient animation using theme colors */
+.hello-gradient {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--color-primary-hsl)) 0%,
+    hsl(var(--color-secondary-hsl)) 50%,
+    hsl(var(--color-primary-hsl)) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: var(--font-body); /* Use consistent font */
+}
+
+/* Lottie theme integration */
+.lottie-themed svg path[stroke='#00DDB6'],
+.lottie-themed svg path[stroke='#00ddb6'] {
+  stroke: var(--color-primary) !important;
+}
+
+.lottie-themed svg path[fill='#ffffff'],
+.lottie-themed svg path[fill='#FFFFFF'] {
+  fill: var(--color-secondary) !important;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Modern Button Enhancements */
+button,
+a[role='button'],
+div[role='button'] {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  color: inherit; /* Ensure buttons inherit their own color, not global */
+}
+
+/* Disabled state for muted buttons */
+button:disabled,
+a[role='button']:disabled,
+div[role='button']:disabled {
+  cursor: not-allowed;
+}
+
+/* Smooth focus transitions */
+button:focus-visible,
+a[role='button']:focus-visible,
+div[role='button']:focus-visible {
+  transition: all 0.2s ease-out;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  button,
+  a[role='button'],
+  div[role='button'] {
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+
+  .btn::before {
+    transition: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* Button Variants */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded px-3 sm:px-4 py-2;
+  @apply font-medium text-sm sm:text-base transition-all duration-300 ease-out shrink-0;
+  @apply focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect for all buttons */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Remove shimmer effect from icon-only buttons and outline buttons */
+.btn--icon-only::before,
+.btn--outline::before {
+  display: none;
+}
+
+/* Icon-only button hover color changes */
+.btn--link.btn--icon-only.btn--primary:hover {
+  color: var(--color-secondary) !important;
+}
+
+.btn--link.btn--icon-only.btn--secondary:hover {
+  color: var(--color-primary) !important;
+}
+
+.btn--link.btn--icon-only.btn--muted:hover {
+  color: var(--color-secondary) !important;
+}
+
+/* Solid Variants */
+.btn--solid.btn--primary {
+  @apply bg-[var(--color-primary)] border border-[var(--color-primary)];
+  color: var(--color-background) !important;
+}
+
+.btn--solid.btn--primary:hover {
+  @apply bg-[var(--color-primary-darker)] border-[var(--color-primary-darker)];
+  color: var(--color-background) !important;
+}
+
+.btn--solid.btn--secondary {
+  @apply bg-[var(--color-secondary)] text-[var(--color-background)] border border-[var(--color-secondary)];
+  color: var(--color-background) !important;
+}
+
+.btn--solid.btn--secondary:hover {
+  background-color: var(--color-secondary-darker);
+  border-color: var(--color-secondary-darker);
+}
+
+.btn--solid.btn--muted {
+  background-color: var(--color-line);
+  @apply text-[var(--color-muted)] border;
+  border-color: var(--color-line);
+  opacity: 0.7;
+}
+
+.btn--solid.btn--muted:hover {
+  opacity: 0.5;
+}
+
+/* Outline Variants */
+.btn--outline {
+  @apply bg-transparent border border-[var(--color-line)];
+}
+
+.btn--outline.btn--primary {
+  @apply text-[var(--color-primary)] border-[var(--color-primary)];
+}
+
+.btn--outline.btn--primary:hover {
+  @apply bg-[var(--color-primary)];
+  /* Use background color for text - this gives us dark text on light primary, light text on dark primary */
+  color: var(--color-background) !important;
+}
+
+.btn--outline.btn--secondary {
+  @apply text-[var(--color-secondary)] border-[var(--color-secondary)];
+}
+
+.btn--outline.btn--secondary:hover {
+  @apply bg-[var(--color-secondary)];
+  /* Use text color for contrast against secondary background */
+  color: var(--color-text) !important;
+}
+
+.btn--outline.btn--muted {
+  @apply text-[var(--color-muted)] border-[var(--color-muted)];
+}
+
+.btn--outline.btn--muted:hover {
+  background-color: var(--color-line);
+  opacity: 0.3;
+}
+
+/* Link Variants */
+.btn--link {
+  @apply bg-transparent border-0 border-b border-transparent;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 0 !important;
+}
+
+.btn--link.btn--primary {
+  @apply text-[var(--color-primary)];
+}
+
+.btn--link.btn--primary:hover {
+  @apply border-[var(--color-primary)];
+  text-decoration: underline;
+}
+
+.btn--link.btn--secondary {
+  @apply text-[var(--color-secondary)];
+}
+
+.btn--link.btn--secondary:hover {
+  @apply border-[var(--color-secondary)];
+  text-decoration: underline;
+}
+
+.btn--link.btn--muted {
+  @apply text-[var(--color-muted)];
+}
+
+.btn--link.btn--muted:hover {
+  @apply border-[var(--color-muted)];
+  text-decoration: underline;
+}
+
+/* Remove underlines from icon-only link buttons */
+.btn--link.btn--icon-only:hover {
+  text-decoration: none;
+  border-bottom-color: transparent;
+}
+
+/* Text Color Overrides */
+.btn--text-dark {
+  color: var(
+    --color-background
+  ) !important; /* Dark text - uses background color (dark in light mode, light in dark mode) */
+}
+
+.btn--text-light {
+  color: var(
+    --color-text
+  ) !important; /* Light text - uses text color (light in light mode, dark in dark mode) */
+}
+
+/* Hover Text Color Overrides */
+.btn--hover-text-dark:hover {
+  color: var(--color-background) !important;
+}
+
+.btn--hover-text-light:hover {
+  color: var(--color-text) !important;
+}
+
+/* Disabled state */
+.btn--disabled {
+  @apply opacity-50 cursor-not-allowed;
+  pointer-events: auto !important;
+}
+
+/* Special handling for disabled muted buttons */
+.btn--solid.btn--muted:disabled,
+.btn--solid.btn--muted.btn--disabled {
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
 }

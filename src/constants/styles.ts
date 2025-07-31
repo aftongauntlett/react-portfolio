@@ -22,7 +22,7 @@ export const CARD_HOVER_BG = 'hover:bg-[var(--color-bg-secondary)]';
 
 // Pre-computed Card Classes for Performance
 export const CARD_BASE_CLASSES =
-  'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-background)] hover:border-[var(--color-primary)]/30 transition-all duration-300 group';
+  'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-all duration-300 group';
 export const TITLE_HOVER_CLASSES =
   'subtitle transition-colors duration-300 text-[var(--color-text)] group-hover:text-[var(--color-primary)]';
 export const DATE_CLASSES =

@@ -21,7 +21,7 @@ export default function SkillsSectionContent() {
           onMouseEnter={() => setHovered(categoryIdx)}
           onMouseLeave={clearHovered}
           className={clsx(
-            'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-background)] hover:border-[var(--color-primary)]/30 transition-all duration-300 group',
+            'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-all duration-300 group',
             isDimmed(categoryIdx) && '!opacity-50',
           )}
         >

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import MotionSection from '@/components/shared/MotionSection';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { projects } from '@/data/projects';
 import {
@@ -132,17 +132,32 @@ export default function ProjectsSection() {
             aria-label="Project links"
           >
             {link && link !== '#' ? (
-              <Button href={link} aria-label={`View ${title} source code on GitHub`}>
+              <Button
+                href={link}
+                variant="outline"
+                color="primary"
+                aria-label={`View ${title} source code on GitHub`}
+              >
                 View Repo
               </Button>
             ) : link === '#' ? (
-              <Button disabled variant="muted" aria-label="Source code not publicly available">
+              <Button
+                disabled
+                variant="outline"
+                color="muted"
+                aria-label="Source code not publicly available"
+              >
                 Private Repo
               </Button>
             ) : null}
 
             {demo && demo !== '#' && (
-              <Button variant="secondary" href={demo} aria-label={`View live demo of ${title}`}>
+              <Button
+                variant="solid"
+                color="secondary"
+                href={demo}
+                aria-label={`View live demo of ${title}`}
+              >
                 View Live
               </Button>
             )}

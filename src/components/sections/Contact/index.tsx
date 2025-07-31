@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
 
 const textInputClass = `
@@ -114,13 +114,15 @@ export default function ContactSection() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">
-            <div className="text-left text-[var(--color-primary)] ">
-              <a
+            <div className="text-left">
+              <Button
+                variant="link"
+                color="primary"
                 href="mailto:hello@aftongauntlett.com"
-                className="transition-all duration-200 text-sm border-b border-transparent hover:border-[var(--color-secondary)] pb-0.5"
+                className="text-sm pb-0.5"
               >
                 hello@aftongauntlett.com
-              </a>
+              </Button>
             </div>
           </div>
         </div>
@@ -211,8 +213,9 @@ export default function ContactSection() {
             <Button
               type="submit"
               disabled={isLoading}
-              variant="primary"
-              className={isLoading ? 'opacity-50 cursor-not-allowed' : ''}
+              variant="outline"
+              color="primary"
+              style={isLoading ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
             >
               {isLoading ? 'Sending...' : 'Send Message'}
             </Button>
