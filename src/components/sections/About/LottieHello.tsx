@@ -78,29 +78,28 @@ export default function LottieHello({
     return [hue2rgb(p, q, h + 1 / 3), hue2rgb(p, q, h), hue2rgb(p, q, h - 1 / 3), 1];
   };
 
-  const updateLottieColors = (data: unknown, primaryRgb: number[], planetRgb: number[]) => {
+  const updateLottieColors = (data: LottieObject, primaryRgb: number[], planetRgb: number[]) => {
     // Recursively update colors in the animation data
-    const updateColors = (obj: unknown): void => {
+    const updateColors = (obj: LottieObject): void => {
       if (Array.isArray(obj)) {
-        obj.forEach(updateColors);
+        obj.forEach((item) => updateColors(item as LottieObject));
       } else if (obj && typeof obj === 'object') {
-        const objRecord = obj as Record<string, unknown>;
-
         // Update stroke colors (orbital lines)
-        if (objRecord.c && typeof objRecord.c === 'object') {
-          const colorObj = objRecord.c as Record<string, unknown>;
-          if (Array.isArray(colorObj.k) && colorObj.k.length === 4) {
-            if (JSON.stringify(colorObj.k) === JSON.stringify([0, 0.8667, 0.702, 1])) {
-              colorObj.k = primaryRgb;
-            }
-            // Update planet fills (white dots)
-            if (JSON.stringify(colorObj.k) === JSON.stringify([1, 1, 1, 1])) {
-              colorObj.k = planetRgb;
-            }
+        if (obj.c && Array.isArray(obj.c.k) && obj.c.k.length === 4) {
+          if (JSON.stringify(obj.c.k) === JSON.stringify([0, 0.8667, 0.702, 1])) {
+            obj.c.k = primaryRgb;
+          }
+          // Update planet fills (white dots)
+          if (JSON.stringify(obj.c.k) === JSON.stringify([1, 1, 1, 1])) {
+            obj.c.k = planetRgb;
           }
         }
 
-        Object.values(objRecord).forEach(updateColors);
+        Object.values(obj).forEach((value) => {
+          if (typeof value === 'object') {
+            updateColors(value as LottieObject);
+          }
+        });
       }
     };
 
