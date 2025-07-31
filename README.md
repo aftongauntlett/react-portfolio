@@ -126,7 +126,7 @@ npm run health:check # Full project health validation
 
 ### **Automated Maintenance**
 
-- **GitHub Dependabot**: Monthly patch-only dependency updates
+- **GitHub Dependabot**: Monthly patch/minor dependency updates with smart grouping
 - **CI/CD Pipeline**: Automated testing on all PRs
 - **Security Monitoring**: npm audit integration
 - **Only safe updates**: Major version updates require manual review

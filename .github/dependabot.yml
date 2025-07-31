@@ -1,13 +1,13 @@
 version: 2
 updates:
-  # Enable version updates for npm
+  # Monthly updates for regular dependencies
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'monthly' # Less frequent to reduce noise
+      interval: 'monthly'
       day: 'monday'
       time: '09:00'
-    open-pull-requests-limit: 3 # Fewer PRs at once
+    open-pull-requests-limit: 3
     reviewers:
       - 'aftongauntlett'
     assignees:
@@ -15,17 +15,50 @@ updates:
     commit-message:
       prefix: 'chore'
       include: 'scope'
-    # Only patch updates for production deps (safest)
+    labels:
+      - 'dependencies'
+      - 'automated'
+    # Group related dependencies to reduce PR noise
     groups:
       development-dependencies:
-        dependency-type: 'development'
-        update-types:
-          - 'patch' # Only patch updates for dev deps
+        patterns:
+          - '@types/*'
+          - '@typescript-eslint/*'
+          - 'eslint*'
+          - 'vitest'
+          - 'vite*'
+          - '@vitejs/*'
+          - 'prettier'
+          - 'tailwindcss'
+          - 'postcss'
+          - 'autoprefixer'
+      react-ecosystem:
+        patterns:
+          - 'react*'
+          - '@testing-library/*'
+      build-tools:
+        patterns:
+          - 'typescript'
+          - 'rollup*'
       production-dependencies:
-        dependency-type: 'production'
-        update-types:
-          - 'patch' # Only patch updates for prod deps
-    # Ignore major version updates (prevent breaking changes)
+        patterns:
+          - '*'
+        exclude-patterns:
+          - '@types/*'
+          - '@typescript-eslint/*'
+          - 'eslint*'
+          - 'vitest'
+          - 'vite*'
+          - '@vitejs/*'
+          - 'prettier'
+          - 'tailwindcss'
+          - 'postcss'
+          - 'autoprefixer'
+          - 'react*'
+          - '@testing-library/*'
+          - 'typescript'
+          - 'rollup*'
+    # Only allow patch and minor updates (safer)
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-major']
