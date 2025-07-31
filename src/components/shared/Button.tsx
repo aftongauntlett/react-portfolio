@@ -43,7 +43,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     ...restProps
   } = props;
 
-  // Simple class generation - just variant + color
+  // Class generation includes variant, color, textColor, hoverTextColor, icon-only state, disabled state, and additional className
   const buttonClasses = [
     'btn',
     `btn--${variant}`,
