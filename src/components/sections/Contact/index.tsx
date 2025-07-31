@@ -6,11 +6,12 @@ import MotionSection from '@/components/shared/MotionSection';
 const textInputClass = `
   mt-1 block w-full rounded-md
   border border-[var(--color-line)]
-  bg-transparent px-3 py-2
+  px-3 py-2
   text-[var(--color-text)]
   placeholder-[var(--color-muted)]
   focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]
   disabled:opacity-50 disabled:cursor-not-allowed
+  bg-[var(--color-surface)]
 `;
 
 interface FormData {

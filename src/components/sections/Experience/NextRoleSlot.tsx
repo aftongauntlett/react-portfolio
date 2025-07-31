@@ -26,9 +26,25 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
       dates: `Available: ${formatted}`,
       description: [
         <>
-          <span className="text-[var(--color-primary)]">{title}</span> at{' '}
-          <span className="text-[var(--color-primary)]">{company}</span> - has a nice ring to it!
-          Let's chat
+          A <span className="text-[var(--color-primary)] capitalize font-semibold">{title}</span> at{' '}
+          <span className="text-[var(--color-primary)] capitalize font-semibold">{company}</span>? -
+          Now we're talking! I've spent years perfecting the art of building user experiences that
+          actually work, and I'm curious what challenges your team is solving. Let's turn this spark
+          of interest into something real.
+        </>,
+        <>
+          Find my contact information below
+          <Button
+            variant="link"
+            color="primary"
+            onClick={() => {
+              const contactSection = document.getElementById('contact');
+              contactSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            {' '}
+            (or jump there here)
+          </Button>
         </>,
       ],
     });

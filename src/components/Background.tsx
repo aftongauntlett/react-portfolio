@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
-const STAR_COUNT = 14;
+const STAR_COUNT = 18;
 
 function random(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -75,13 +76,14 @@ const Star = ({
   />
 );
 
-export default function StarryBackground({
-  color = 'rgba(255,255,255,0.48)',
-  shadowColor = 'rgba(255,255,255,0.18)',
-}: {
-  color?: string;
-  shadowColor?: string;
-} = {}) {
+export default function Background() {
+  const { theme } = useTheme();
+
+  // Only show stars in dark mode, no background in light mode
+  if (theme !== 'dark') {
+    return null;
+  }
+
   const stars = Array.from({ length: STAR_COUNT }).map((_, i) => {
     const angle = random(0, 2 * Math.PI);
     const distance = random(30, 70); // percent of viewport
@@ -98,25 +100,36 @@ export default function StarryBackground({
         dx={dx}
         dy={dy}
         twinkleDelay={random(0, 8)}
-        color={color}
-        shadowColor={shadowColor}
+        color="rgba(255,255,255,0.48)"
+        shadowColor="rgba(255,255,255,0.18)"
       />
     );
   });
 
   return (
-    <div
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 0,
-        pointerEvents: 'none',
-        overflow: 'hidden',
-        background: 'none',
-      }}
-    >
-      {stars}
-    </div>
+    <>
+      {/* Solid background for dark mode */}
+      <div
+        className="fixed top-0 left-0 w-full h-full pointer-events-none"
+        style={{
+          zIndex: -10,
+          backgroundColor: 'var(--color-background)',
+        }}
+      />
+      {/* Starry animation */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+          background: 'none',
+        }}
+      >
+        {stars}
+      </div>
+    </>
   );
 }

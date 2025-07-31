@@ -2,19 +2,15 @@
   --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-background: hsl(180, 3%, 94%);
-  --color-surface: hsl(210, 19%, 94%); /* Pure white for cards in light mode */
+  --color-background: hsl(20, 43%, 99%);
+  --color-surface: hsl(216, 45%, 98%); /* Pure white for cards in light mode */
   --color-text: hsl(222, 14%, 25%);
   --color-muted: hsl(220, 15%, 35%);
-  --color-primary: hsl(167, 10%, 46%);
-  --color-primary-darker: hsl(196, 10%, 62%);
-  --color-secondary: hsl(21, 33%, 55%);
-  --color-secondary-darker: hsl(10, 31%, 44%);
+  --color-primary: hsl(178, 12%, 52%);
+  --color-primary-darker: hsl(195, 9%, 44%);
+  --color-secondary: hsl(267, 15%, 46%);
+  --color-secondary-darker: hsl(263, 14%, 30%);
   --color-line: hsla(220, 7%, 84%, 0.865);
-
-  /* HSL values for gradients */
-  --color-primary-hsl: 173, 30%, 39%;
-  --color-secondary-hsl: 202, 45%, 25%;
 }
 
 html.dark {
@@ -27,8 +23,30 @@ html.dark {
   --color-secondary: hsl(20, 57%, 66%);
   --color-secondary-darker: hsl(20, 57%, 56%);
   --color-line: hsla(188, 29%, 49%, 0.25);
+}
 
-  /* HSL values for gradients */
-  --color-primary-hsl: 188, 43%, 58%;
-  --color-secondary-hsl: 20, 57%, 66%;
+/* Hello text gradient animation using theme colors */
+.hello-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-primary) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }

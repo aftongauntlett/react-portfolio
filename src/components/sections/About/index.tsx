@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTheme } from '@/context/ThemeContext';
 import LottieHello from './LottieHello';
 
 const aboutParagraphs = [
@@ -24,6 +25,7 @@ const renderHighlightedText = (text: string) => {
 
 export default function AboutSection() {
   const [planetColor] = useState<'secondary' | 'muted'>('secondary');
+  const { theme } = useTheme();
 
   // Memoize rendered paragraphs since they don't change
   const renderedParagraphs = useMemo(
@@ -40,8 +42,28 @@ export default function AboutSection() {
     <div className="w-full">
       {/* Hero Section with Lottie Animation - Responsive spacing */}
       <div className="relative flex justify-center items-center min-h-[50px] w-full my-16 md:my-32 lg:my-48">
+        {theme === 'light' && (
+          <>
+            {/* Twinkling Sparkles */}
+            <div className="absolute inset-0 flex justify-center items-center">
+              {[...Array(12)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-1 h-1 bg-white rounded-full opacity-0"
+                  style={{
+                    left: `${50 + Math.cos((i * 30 * Math.PI) / 180) * (120 + Math.random() * 60)}px`,
+                    top: `${50 + Math.sin((i * 30 * Math.PI) / 180) * (120 + Math.random() * 60)}px`,
+                    animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+                    animationDelay: `${Math.random() * 2}s`,
+                  }}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
         {/* Background Lottie Animation */}
-        <div className="absolute inset-0 flex justify-center items-center">
+        <div className="absolute inset-0 flex justify-center items-center z-10">
           <div className="w-48 h-48 md:w-80 md:h-80 lg:w-96 lg:h-96">
             <LottieHello
               opacity={0.15}
@@ -53,7 +75,7 @@ export default function AboutSection() {
         </div>
 
         {/* Foreground Hello Text */}
-        <div className="relative z-10 text-center">
+        <div className="relative z-20 text-center">
           <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold hello-gradient drop-shadow-2xl">
             Hello
           </h1>

@@ -236,22 +236,6 @@ textarea:-moz-autofill {
   stroke-linejoin: round;
 }
 
-/* Hello text gradient animation using theme colors */
-.hello-gradient {
-  background: linear-gradient(
-    135deg,
-    hsl(var(--color-primary-hsl)) 0%,
-    hsl(var(--color-secondary-hsl)) 50%,
-    hsl(var(--color-primary-hsl)) 100%
-  );
-  background-size: 300% 300%;
-  animation: gradientShift 8s ease-in-out infinite;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: var(--font-body); /* Use consistent font */
-}
-
 /* Lottie theme integration */
 .lottie-themed svg path[stroke='#00DDB6'],
 .lottie-themed svg path[stroke='#00ddb6'] {
@@ -261,16 +245,6 @@ textarea:-moz-autofill {
 .lottie-themed svg path[fill='#ffffff'],
 .lottie-themed svg path[fill='#FFFFFF'] {
   fill: var(--color-secondary) !important;
-}
-
-@keyframes gradientShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
 }
 
 /* Modern Button Enhancements */
@@ -321,7 +295,7 @@ div[role='button']:focus-visible {
   overflow: hidden;
 }
 
-/* Shimmer effect for all buttons */
+/* Shimmer effect for buttons (but not links) */
 .btn::before {
   content: '';
   position: absolute;
@@ -337,9 +311,8 @@ div[role='button']:focus-visible {
   left: 100%;
 }
 
-/* Remove shimmer effect from icon-only buttons and outline buttons */
-.btn--icon-only::before,
-.btn--outline::before {
+/* Remove shimmer effect from link buttons */
+.btn--link::before {
   display: none;
 }
 
@@ -435,7 +408,7 @@ div[role='button']:focus-visible {
 
 .btn--link.btn--primary:hover {
   @apply border-[var(--color-primary)];
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .btn--link.btn--secondary {
@@ -444,7 +417,7 @@ div[role='button']:focus-visible {
 
 .btn--link.btn--secondary:hover {
   @apply border-[var(--color-secondary)];
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .btn--link.btn--muted {
@@ -453,7 +426,7 @@ div[role='button']:focus-visible {
 
 .btn--link.btn--muted:hover {
   @apply border-[var(--color-muted)];
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Remove underlines from icon-only link buttons */

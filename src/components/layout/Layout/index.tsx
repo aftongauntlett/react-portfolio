@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import SideNav from '../SideNav';
 import MobileHeader from '../MobileHeader';
 import Footer from '../../shared/Footer';
-import Background from '../../backgrounds/Background';
+import Background from '../../Background';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 

@@ -7,8 +7,7 @@ import { useActiveSection } from '@/hooks/useActiveSection';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
-import { BsLightbulb, BsLightbulbFill } from 'react-icons/bs';
-
+import { HiSun, HiMoon } from 'react-icons/hi2';
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
@@ -39,7 +38,7 @@ export default function SideNav() {
           Afton Gauntlett
         </h1>
         <div className="space-y-3">
-          <p className="font-semibold leading-[1.3] capitalize text-[var(--color-primary)]">
+          <p className="font-semibold leading-[1.3] capitalize text-[var(--color-secondary)]">
             Senior Frontend Engineer & UI Specialist
           </p>
           <hr className="border-[var(--color-line)]" aria-hidden="true" />
@@ -126,7 +125,7 @@ export default function SideNav() {
 
           <Button
             onClick={toggleTheme}
-            icon={theme === 'dark' ? <BsLightbulb size={16} /> : <BsLightbulbFill size={16} />}
+            icon={theme === 'dark' ? <HiSun size={20} /> : <HiMoon size={18} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             variant="link"
             color="muted"
