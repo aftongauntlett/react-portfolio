@@ -38,7 +38,7 @@ export default function TimelineItem({
       onMouseLeave={() => !('ontouchstart' in window) && onLeave()}
       onClick={() => 'ontouchstart' in window && onInteraction?.()}
       className={clsx(
-        'group transition-all duration-300',
+        'group transition-opacity duration-300',
         // Desktop: timeline grid layout
         'md:grid md:grid-cols-[2.5rem_1fr] md:gap-x-4 md:items-start',
         // Mobile: simple stack layout without timeline
@@ -61,7 +61,7 @@ export default function TimelineItem({
         ) : (
           <span
             className={clsx(
-              'block w-3 h-3 rounded-full transition-all duration-300 relative z-10',
+              'block w-3 h-3 rounded-full transition-[transform,box-shadow,background-color] duration-300 relative z-10',
               isActive || isHovered
                 ? 'bg-[var(--color-secondary)] border-2 border-[var(--color-background)] shadow-[0_0_8px_var(--color-secondary)] scale-125'
                 : 'bg-[var(--color-line)] border-2 border-[var(--color-background)]',

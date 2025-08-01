@@ -1,6 +1,6 @@
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/context/ThemeContext';
 import { HiSun, HiMoon } from 'react-icons/hi2';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 
 export default function MobileHeader() {
   const { theme, toggleTheme } = useTheme();
@@ -16,6 +16,7 @@ export default function MobileHeader() {
         icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         variant="link"
+        color="muted"
       />
     </header>
   );

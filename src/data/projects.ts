@@ -11,8 +11,8 @@ export const projects: Project[] = [
   {
     title: 'React Portfolio Website',
     description:
-      'Built a fully accessible, custom-themed portfolio and reusable component library using React 19, Vite, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and modern development practices with comprehensive testing.',
-    tech: ['React 19', 'Vite', 'TypeScript', 'Tailwind CSS'],
+      'Built a fully accessible, custom-themed portfolio and reusable component library using React 19, Vite, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and modern development practices with comprehensive testing. Uses Claude Opus 4 and Sonnet 4 via GitHub Copilot Pro+ (2025 release) for deep code generation and debugging.',
+    tech: ['React 19', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     image: 'https://placehold.co/480x270/222/fff?text=Portfolio+Screenshot',
     link: 'https://github.com/aftongauntlett/react-portfolio',
     // Current live site

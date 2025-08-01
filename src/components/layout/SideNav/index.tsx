@@ -1,14 +1,13 @@
 import type { MouseEvent } from 'react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme } from '@/context/ThemeContext';
 import { navItems } from '../../../constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { HiSun, HiMoon } from 'react-icons/hi2';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
-
+import { HiSun, HiMoon } from 'react-icons/hi2';
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
@@ -35,12 +34,12 @@ export default function SideNav() {
           transition: { duration: 0.5, delay: 0.2 },
         }}
       >
-        <h1 className="text-2xl font-medium leading-[1.3] capitalize text-[var(--color-text)]">
+        <h1 className="text-xl font-bold leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
         </h1>
         <div className="space-y-3">
-          <p className="text-lg leading-[1.3] capitalize text-[var(--color-muted)]">
-            Frontend Engineer
+          <p className="font-semibold leading-[1.3] capitalize text-[var(--color-secondary)]">
+            Senior Frontend Engineer & UI Specialist
           </p>
           <hr className="border-[var(--color-line)]" aria-hidden="true" />
         </div>
@@ -97,48 +96,39 @@ export default function SideNav() {
           transition: { duration: 0.5, delay: 0.4 },
         }}
       >
-        <Button href="https://aftongauntlett.github.io/resume/">View Resume</Button>
+        <Button href="https://aftongauntlett.github.io/resume/" variant="outline" color="primary">
+          View Resume
+        </Button>
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
         <div className="flex items-center justify-between">
           <div className="flex gap-4" role="list" aria-label="Social media links">
-            <a
+            <Button
               href="https://github.com/aftongauntlett"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit GitHub profile (opens in new tab)"
-              role="listitem"
-              className={clsx(
-                'text-[var(--color-primary)]',
-                'md:hover:!text-[var(--color-primary)]',
-                TRANSITION_FAST,
-                'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-              )}
-            >
-              <FaGithub size={20} aria-hidden="true" />
-            </a>
-            <a
+              variant="link"
+              color="primary"
+              icon={<FaGithub size={20} />}
+            />
+            <Button
               href="https://www.linkedin.com/in/afton-gauntlett/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn profile (opens in new tab)"
-              role="listitem"
-              className={clsx(
-                'text-[var(--color-primary)]',
-                'md:hover:!text-[var(--color-primary)]',
-                TRANSITION_FAST,
-                'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-              )}
-            >
-              <FaLinkedin size={20} aria-hidden="true" />
-            </a>
+              variant="link"
+              color="primary"
+              icon={<FaLinkedin size={20} />}
+            />
           </div>
 
           <Button
             onClick={toggleTheme}
-            icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
+            icon={theme === 'dark' ? <HiSun size={20} /> : <HiMoon size={18} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             variant="link"
+            color="muted"
           />
         </div>
       </motion.div>

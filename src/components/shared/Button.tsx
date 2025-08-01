@@ -1,101 +1,74 @@
-import {
-  type ReactNode,
-  type AnchorHTMLAttributes,
-  type ButtonHTMLAttributes,
-  type KeyboardEvent,
-} from 'react';
-import clsx from 'clsx';
+import React from 'react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'filled' | 'link' | 'muted';
+type ButtonVariant = 'solid' | 'outline' | 'link';
+type ButtonColor = 'primary' | 'secondary' | 'muted';
+type TextColor = 'dark' | 'light';
 
-interface BaseProps {
-  children?: ReactNode;
-  icon?: ReactNode;
-  className?: string;
-  asDiv?: boolean;
-  onDivClick?: () => void;
-  href?: string;
+interface BaseButtonProps {
+  children?: React.ReactNode;
   variant?: ButtonVariant;
+  color?: ButtonColor;
+  textColor?: TextColor;
+  hoverTextColor?: TextColor;
+  icon?: React.ReactNode;
+  disabled?: boolean;
 }
 
-type ButtonProps =
-  | (BaseProps & AnchorHTMLAttributes<HTMLAnchorElement> & { href: string })
-  | (BaseProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined });
+interface ButtonAsButton
+  extends BaseButtonProps,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
+  href?: never;
+  target?: never;
+  rel?: never;
+}
 
-export default function Button(props: ButtonProps) {
+interface ButtonAsLink
+  extends BaseButtonProps,
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
+  href: string;
+}
+
+export type ButtonProps = ButtonAsButton | ButtonAsLink;
+
+export const Button: React.FC<ButtonProps> = (props) => {
   const {
     children,
+    variant = 'solid',
+    color = 'primary',
+    textColor,
+    hoverTextColor,
     icon,
+    disabled = false,
     className,
-    asDiv,
-    onDivClick,
-    href,
-    variant = 'primary',
-    ...rest
+    ...restProps
   } = props;
 
-  const base = clsx(
-    'inline-flex items-center justify-center gap-2 rounded-md px-3 sm:px-4 py-2',
-    'font-medium text-sm sm:text-base transition-all duration-300 shrink-0',
-    'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-    'disabled:opacity-40 disabled:cursor-not-allowed',
-  );
+  // Class generation includes variant, color, textColor, hoverTextColor, icon-only state, disabled state, and additional className
+  const buttonClasses = [
+    'btn',
+    `btn--${variant}`,
+    `btn--${color}`,
+    // Add text color class if specified
+    textColor && `btn--text-${textColor}`,
+    // Add hover text color class if specified
+    hoverTextColor && `btn--hover-text-${hoverTextColor}`,
+    // Add icon-only class when there's an icon but no children (text)
+    icon && !children && 'btn--icon-only',
+    disabled && 'btn--disabled',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  const variants = {
-    primary:
-      'border border-[var(--color-primary)] text-[var(--color-primary)] bg-transparent shadow-none ' +
-      'hover:bg-[var(--color-primary)] hover:!text-white hover:shadow-[0_0_8px_var(--color-primary)]/30 ' +
-      'focus-visible:bg-[var(--color-primary)] focus-visible:!text-white',
-    secondary:
-      'border border-[var(--color-secondary)] text-[var(--color-secondary)] bg-transparent shadow-none ' +
-      'hover:bg-[var(--color-secondary)] hover:!text-white hover:shadow-[0_0_8px_var(--color-secondary)]/30 ' +
-      'focus-visible:bg-[var(--color-secondary)] focus-visible:!text-white',
-    muted:
-      'border border-[var(--color-line)] text-[var(--color-muted)] bg-[var(--color-background)] ' +
-      'md:hover:bg-[var(--color-line)]/20 md:hover:text-[var(--color-text)] ' +
-      'focus-visible:bg-[var(--color-line)]/30',
-    filled:
-      'border border-[var(--color-primary)] bg-[var(--color-primary)] text-white ' +
-      'shadow-[0_0_12px_var(--color-primary)]/40 scale-[1.02] ' +
-      'md:hover:shadow-[0_0_12px_var(--color-primary)]/40 md:hover:scale-[1.02] ' +
-      'focus-visible:shadow-[0_0_12px_var(--color-primary)]/40',
-    link:
-      'bg-transparent text-[var(--color-primary)] underline ' +
-      'md:hover:text-[var(--color-primary)] md:hover:underline ' +
-      'focus-visible:text-[var(--color-primary)] focus-visible:underline focus-visible:outline-offset-4',
-  };
-
-  const rootClass = clsx(base, variants[variant], className);
-
-  if (asDiv) {
-    return (
-      <div
-        className={rootClass}
-        role="button"
-        tabIndex={0}
-        onClick={onDivClick}
-        onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
-          if ((e.key === 'Enter' || e.key === ' ') && onDivClick) {
-            e.preventDefault();
-            onDivClick();
-          }
-        }}
-      >
-        {icon && <span aria-hidden="true">{icon}</span>}
-        {children}
-      </div>
-    );
-  }
-
-  if (href) {
-    const isExternal = href.startsWith('http') || href.startsWith('//');
+  if ('href' in props && props.href && !disabled) {
+    const { href, target, rel, ...linkProps } = restProps as ButtonAsLink;
     return (
       <a
         href={href}
-        className={rootClass}
-        target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
-        {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
+        target={target || '_blank'}
+        rel={rel || 'noopener noreferrer'}
+        className={buttonClasses}
+        {...linkProps}
       >
         {icon && <span aria-hidden="true">{icon}</span>}
         {children}
@@ -103,10 +76,13 @@ export default function Button(props: ButtonProps) {
     );
   }
 
+  const buttonProps = restProps as ButtonAsButton;
   return (
-    <button className={rootClass} {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button className={buttonClasses} disabled={disabled} {...buttonProps}>
       {icon && <span aria-hidden="true">{icon}</span>}
       {children}
     </button>
   );
-}
+};
+
+export default Button;

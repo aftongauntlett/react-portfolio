@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
-import FadeInSection from '@/components/shared/FadeInSection';
+import MotionSection from '@/components/shared/MotionSection';
 import PaintSplashText from '@/components/shared/PaintSplashEffect';
 
 type Props = {
@@ -13,12 +13,12 @@ type Props = {
 export default function PageSection({ id, title, children, className }: Props) {
   return (
     <section id={id} data-section={id} className={clsx('section-content', className)}>
-      <FadeInSection>
+      <MotionSection>
         <div className="w-full space-y-6">
           {title && <PaintSplashText tag="h2">{title}</PaintSplashText>}
           {children}
         </div>
-      </FadeInSection>
+      </MotionSection>
     </section>
   );
 }

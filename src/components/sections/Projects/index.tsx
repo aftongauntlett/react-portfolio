@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import MotionSection from '@/components/shared/MotionSection';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared/Button';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { projects } from '@/data/projects';
 import {
   TRANSITION_COLORS,
+  TRANSITION_OPACITY,
   TRANSITION_FAST,
   TEXT_PRIMARY_HOVER,
   TEXT_MUTED_HOVER,
@@ -65,18 +66,18 @@ export default function ProjectsSection() {
         <MotionSection
           key={title}
           variants={projectVariants}
-          onMouseEnter={() => !('ontouchstart' in window) && setHovered(idx)}
-          onMouseLeave={() => !('ontouchstart' in window) && clearHovered()}
+          onMouseEnter={() => setHovered(idx)}
+          onMouseLeave={clearHovered}
           onClick={() => 'ontouchstart' in window && handleInteraction(idx)}
           className={clsx(
-            'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md',
+            'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md ',
             // Left border only on desktop
             'md:border-l-4 md:border-transparent',
             TRANSITION_COLORS,
+            TRANSITION_OPACITY,
             'ease-in-out md:hover:border-[var(--color-primary)]',
             // Only apply dimming on hover-capable devices
-            isDimmed(idx) &&
-              'opacity-50 [@media(hover:none)]:!opacity-100 transition-opacity duration-300 ease-in-out',
+            isDimmed(idx) && '!opacity-50',
             // Add subtle touch feedback for mobile
             'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
           )}
@@ -132,17 +133,32 @@ export default function ProjectsSection() {
             aria-label="Project links"
           >
             {link && link !== '#' ? (
-              <Button href={link} aria-label={`View ${title} source code on GitHub`}>
+              <Button
+                href={link}
+                variant="outline"
+                color="primary"
+                aria-label={`View ${title} source code on GitHub`}
+              >
                 View Repo
               </Button>
             ) : link === '#' ? (
-              <Button disabled variant="muted" aria-label="Source code not publicly available">
+              <Button
+                disabled
+                variant="outline"
+                color="muted"
+                aria-label="Source code not publicly available"
+              >
                 Private Repo
               </Button>
             ) : null}
 
             {demo && demo !== '#' && (
-              <Button variant="secondary" href={demo} aria-label={`View live demo of ${title}`}>
+              <Button
+                variant="solid"
+                color="secondary"
+                href={demo}
+                aria-label={`View live demo of ${title}`}
+              >
                 View Live
               </Button>
             )}

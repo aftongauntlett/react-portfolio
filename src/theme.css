@@ -1,20 +1,52 @@
 :root {
-  --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-background: hsl(180, 3%, 94%);
+  --color-background: hsl(20, 43%, 99%);
+  --color-surface: hsl(216, 45%, 98%); /* Pure white for cards in light mode */
   --color-text: hsl(222, 14%, 25%);
   --color-muted: hsl(220, 15%, 35%);
-  --color-primary: hsl(173, 30%, 39%);
-  --color-secondary: hsl(251, 11%, 47%);
+  --color-primary: hsl(178, 12%, 52%);
+  --color-primary-darker: hsl(195, 9%, 44%);
+  --color-secondary: hsl(267, 15%, 46%);
+  --color-secondary-darker: hsl(263, 14%, 30%);
   --color-line: hsla(220, 7%, 84%, 0.865);
 }
 
 html.dark {
   --color-background: hsl(220, 18%, 8%);
+  --color-surface: hsl(0, 3%, 7%); /* Slightly lighter than background for cards */
   --color-text: hsl(45, 15%, 88%);
   --color-muted: hsl(35, 10%, 65%);
-  --color-primary: hsl(188, 43%, 58%);
-  --color-secondary: hsl(20, 49%, 48%);
+  --color-primary: hsl(188, 36%, 63%);
+  --color-primary-darker: hsl(183, 20%, 65%);
+  --color-secondary: hsl(20, 57%, 66%);
+  --color-secondary-darker: hsl(20, 57%, 56%);
   --color-line: hsla(188, 29%, 49%, 0.25);
+}
+
+/* Hello text gradient animation using theme colors */
+.hello-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-primary) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }

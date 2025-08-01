@@ -6,6 +6,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript_5.8-3178C6?style=flat&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
+[![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
 
 **Lighthouse Scores:**
 ![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen?style=flat&logo=lighthouse)
@@ -21,19 +23,20 @@ A modern, high-performance portfolio showcasing frontend engineering expertise. 
 
 ### **Core**
 
-- **Dark/Light Mode**: System preference detection with manual toggle
-- **Responsive Design**: Mobile-first with fluid typography
-- **Smooth Animations**: Framer Motion with reduced-motion support
-- **Interactive Effects**: Custom paint splash hover states
+- **Dark/Light Mode**: System preference detection with manual toggle and animated theme switching
+- **Responsive Design**: Mobile-first with fluid typography and optimized layouts
+- **Smooth Animations**: Framer Motion with reduced-motion support and performance optimization
+- **Interactive Animations**: Custom Lottie animations with dynamic theme-aware color integration
+- **Interactive Effects**: Custom paint splash hover states and starry night background
 - **Working Contact Form**: Formspree integration with form validation
 
 ### **Developer Experience**
 
-- **Modern Stack**: React 19, TypeScript 5.8, Vite 7
-- **Code Quality**: ESLint, Prettier, comprehensive testing
+- **Modern Stack**: React 19, TypeScript 5.8, Vite 7, Lottie React
+- **Code Quality**: ESLint, Prettier, comprehensive testing with Vitest
 - **Performance**: Optimized font loading, code splitting, bundle analysis
-- **Accessibility**: WCAG AA compliant, full keyboard navigation
-- **Error Handling**: Production-ready error boundaries
+- **Accessibility**: WCAG AA compliant, full keyboard navigation, focus management
+- **Error Handling**: Production-ready error boundaries and graceful degradation
 
 ## Getting Started
 
@@ -75,24 +78,28 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 ```
 src/
 ├── components/
+│   ├── backgrounds/     # Animated background components (stars, geometric shapes)
 │   ├── layout/          # Layout components (Header, Nav, etc.)
 │   ├── sections/        # Page sections (About, Experience, Projects, Contact)
 │   ├── shared/          # Reusable components (Button, ErrorBoundary, etc.)
 │   └── Timeline/        # Timeline-specific components
 ├── hooks/               # Custom React hooks
-├── context/             # React context providers
+├── pages/               # Page components (Home)
+├── router/              # React Router setup and configuration
+├── context/             # React context providers (theme management)
 ├── data/                # Static data (jobs, projects, skills)
-├── constants/           # App constants
+├── constants/           # App constants and style utilities
+├── assets/              # Static assets (Lottie animations, images)
 └── test/                # Test configuration
 ```
 
 ## Tech Stack
 
-**Frontend:** React 19, TypeScript, Tailwind CSS, Minimal Framer Motion  
+**Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
 **Build:** Vite 7 with esbuild minification and optimized code splitting  
-**Testing:** Vitest, React Testing Library  
+**Testing:** Vitest, React Testing Library, TypeScript strict mode  
 **Quality:** ESLint, Prettier, comprehensive TypeScript coverage  
-**Performance:** Google Fonts optimization, strategic resource hints, 99% bundle reduction
+**Performance:** Google Fonts optimization, strategic resource hints, dynamic imports
 
 ## Scripts
 
@@ -119,7 +126,7 @@ npm run health:check # Full project health validation
 
 ### **Automated Maintenance**
 
-- **GitHub Dependabot**: Monthly patch-only dependency updates
+- **GitHub Dependabot**: Monthly patch/minor dependency updates with smart grouping
 - **CI/CD Pipeline**: Automated testing on all PRs
 - **Security Monitoring**: npm audit integration
 - **Only safe updates**: Major version updates require manual review
@@ -143,9 +150,13 @@ npm run health:check # Full project health validation
 ## Deployment
 
 **Live:** [aftongauntlett.com](https://aftongauntlett.com)  
-**Hosted on:** Vercel with automatic deployments from `main` branch
+**Hosted on:** Vercel with automatic deployments from `master` branch
 
 Ready for deployment to any static hosting platform (Vercel, Netlify, GitHub Pages).
+
+## Credits
+
+**Lottie Animation:** Solar system animation adapted from community resources, dynamically themed and optimized for performance.
 
 ## License
 
@@ -158,4 +169,4 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 ---
 
-**Built by [Afton Gauntlett](https://github.com/aftongauntlett)** • Senior Frontend Engineer
+Built with ♡ by [Afton Gauntlett](https://github.com/aftongauntlett) • Senior Frontend Engineer
