@@ -1,23 +1,25 @@
 # React Portfolio
 
-[![Commit Activity](https://img.shields.io/github/commit-activity/m/aftongauntlett/react-portfolio)](https://github.com/aftongauntlett/react-portfolio/commits)  
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/aftongauntlett/react-portfolio)](https://github.com/aftongauntlett/react-portfolio/commits)
+[![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
+
+**Tech Stack:**
+
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat&logo=vite&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript_5.8-3178C6?style=flat&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
-[![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
 
 **Lighthouse Scores:**
-![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen?style=flat&logo=lighthouse)
+
+![Performance](https://img.shields.io/badge/Performance-99%25-brightgreen?style=flat&logo=lighthouse)
 ![Accessibility](https://img.shields.io/badge/Accessibility-99%25-brightgreen?style=flat&logo=lighthouse)
 ![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
 ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
 A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
-
-**Lighthouse Perfect Scores:** 100% Performance • 99% Accessibility • 100% Best Practices • 100% SEO
 
 ## Features
 
@@ -61,14 +63,14 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 **Exceptional optimization delivering top-tier user experience:**
 
 - **99% Performance Score**: Faster than 99% of websites tested
-- **100% Accessibility**: WCAG AA compliant, full keyboard navigation
+- **99% Accessibility**: WCAG AA compliant, full keyboard navigation
 - **100% Best Practices**: Modern web standards and security
 - **100% SEO**: Optimized for search engines and social sharing
 
 ### **Technical Optimizations:**
 
 - **Font Loading**: Google Fonts with `display=swap` for zero layout shift
-- **Bundle Optimization**: 99% Framer Motion reduction (115kB → 0.8kB)
+- **Bundle Optimization**: Tree-shaking and selective imports for optimal bundle size
 - **Resource Hints**: Strategic preconnect and DNS prefetch
 - **Code Splitting**: Vendor, router, motion, and icons chunks
 - **Build Process**: esbuild minification with Vite 7
@@ -78,19 +80,19 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 ```
 src/
 ├── components/
-│   ├── backgrounds/     # Animated background components (stars, geometric shapes)
-│   ├── layout/          # Layout components (Header, Nav, etc.)
-│   ├── sections/        # Page sections (About, Experience, Projects, Contact)
-│   ├── shared/          # Reusable components (Button, ErrorBoundary, etc.)
-│   └── Timeline/        # Timeline-specific components
-├── hooks/               # Custom React hooks
-├── pages/               # Page components (Home)
-├── router/              # React Router setup and configuration
-├── context/             # React context providers (theme management)
-├── data/                # Static data (jobs, projects, skills)
-├── constants/           # App constants and style utilities
-├── assets/              # Static assets (Lottie animations, images)
-└── test/                # Test configuration
+│   ├── Background.tsx       # Animated background component
+│   ├── layout/              # Layout components (Header, Nav, etc.)
+│   ├── sections/            # Page sections (About, Experience, Projects, Contact)
+│   ├── shared/              # Reusable components (Button, ErrorBoundary, etc.)
+│   └── Timeline/            # Timeline-specific components
+├── hooks/                   # Custom React hooks
+├── pages/                   # Page components (Home)
+├── router/                  # React Router setup and configuration
+├── context/                 # React context providers (theme management)
+├── data/                    # Static data (jobs, projects, skills)
+├── constants/               # App constants and style utilities
+├── assets/                  # Static assets (Lottie animations, images)
+└── test/                    # Test configuration
 ```
 
 ## Tech Stack
