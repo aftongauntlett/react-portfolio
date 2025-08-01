@@ -216,7 +216,7 @@ export default function ContactSection() {
               disabled={isLoading}
               variant="outline"
               color="primary"
-              style={isLoading ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+              className={isLoading ? 'btn--loading' : ''}
             >
               {isLoading ? 'Sending...' : 'Send Message'}
             </Button>
