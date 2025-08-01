@@ -13,10 +13,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme') as Theme | null;
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return stored ?? (prefersDark ? 'dark' : 'light');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      return stored ?? (prefersLight ? 'light' : 'dark');
     }
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {

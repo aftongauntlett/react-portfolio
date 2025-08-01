@@ -5,7 +5,7 @@ import LottieHello from './LottieHello';
 const aboutParagraphs = [
   "I'm {Afton} - a senior frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I've led frontend architecture at companies ranging from Fortune 500 firms like {Booz Allen Hamilton} to small businesses generating {$300M+} annually.",
   "As the founder of {Gauntlet Designs}, I built custom platforms from the ground up. This included a complete overhaul of an internal app for the 6th-largest {Applebee's} franchisee, which still serves thousands of employees and fundraisers across multiple states.",
-  'At {Booz Allen}, I led the frontend efforts for 7 {React} apps, introduced multi-theme systems and reusable component libraries, migrated legacy codebases from {Angular/Node.js} to modular {React/Flask}, integrated collaborative tools like {Figma} and {TanStack Query}, and advocated for {accessibility} and code maintainability across multiple teams.',
+  'At {Booz Allen}, I led the frontend efforts for 7 {React} apps, introduced multi-theme systems and reusable component libraries, migrated legacy codebases from {Angular/Node.js} to modular {React/Flask}, integrated collaborative tools like {Figma} and {TanStack Query}, and advocated for {accessibility} and code maintainability across multiple teams in remote environments.',
 ];
 
 // Move outside component to prevent recreation on every render
