@@ -70,7 +70,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
         className={buttonClasses}
         {...linkProps}
       >
-        {icon}
+        {icon && <span aria-hidden="true">{icon}</span>}
         {children}
       </a>
     );
