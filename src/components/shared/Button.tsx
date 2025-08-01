@@ -79,7 +79,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
   const buttonProps = restProps as ButtonAsButton;
   return (
     <button className={buttonClasses} disabled={disabled} {...buttonProps}>
-      {icon}
+      {icon && <span aria-hidden="true">{icon}</span>}
       {children}
     </button>
   );
