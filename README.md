@@ -1,6 +1,9 @@
 # React Portfolio
 
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/aftongauntlett/react-portfolio)](https://github.com/aftongauntlett/react-portfolio/commits)
+![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
+
+</div>https://img.shields.io/github/commit-activity/m/aftongauntlett/react-portfolio)](https://github.com/aftongauntlett/react-portfolio/commits)
 [![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
 
 **Tech Stack:**
@@ -20,6 +23,20 @@
 ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
 A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
+
+### **[View Live Portfolio →](https://aftongauntlett.com)**
+
+## Preview
+
+### Light Mode
+
+![Portfolio Preview - Light Mode](./docs/light.png)
+
+### Dark Mode
+
+![Portfolio Preview - Dark Mode](./docs/dark.png)
+
+_Featuring responsive design, smooth animations, and seamless theme switching_
 
 ## Features
 
@@ -171,4 +188,4 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 ---
 
-Built with ♡ by [Afton Gauntlett](https://github.com/aftongauntlett) • Senior Frontend Engineer
+Built with ✨ by [Afton Gauntlett](https://github.com/aftongauntlett) • Senior Frontend Engineer
