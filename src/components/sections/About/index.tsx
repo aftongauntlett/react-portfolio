@@ -31,7 +31,7 @@ export default function AboutSection() {
   const renderedParagraphs = useMemo(
     () =>
       aboutParagraphs.map((paragraph, index) => (
-        <p key={index} className="text-body leading-relaxed text-center">
+        <p key={index} className="text-body leading-relaxed">
           {renderHighlightedText(paragraph)}
         </p>
       )),
