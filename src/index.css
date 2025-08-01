@@ -42,6 +42,7 @@ body {
   hyphens: none;
   -webkit-hyphens: none;
   -moz-hyphens: none;
+  -ms-hyphens: none;
 }
 
 /* Only prevent horizontal scroll on mobile to avoid breaking sticky positioning */
