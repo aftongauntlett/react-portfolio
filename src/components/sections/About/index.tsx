@@ -85,14 +85,6 @@ export default function AboutSection() {
       {/* Story Content Section */}
       <div className="mx-auto">
         <div className="space-y-6 mb-16">{renderedParagraphs}</div>
-
-        {/* Scroll Indicator */}
-        <div className="flex justify-center mt-8 mb-8">
-          <div className="flex flex-col items-center gap-2 text-[var(--color-secondary)]">
-            <span className="text-sm font-light">Explore my work</span>
-            <div className="w-px h-8 bg-gradient-to-b from-[var(--color-primary)] to-transparent"></div>
-          </div>
-        </div>
       </div>
     </div>
   );

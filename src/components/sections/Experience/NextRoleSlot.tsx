@@ -2,6 +2,7 @@ import { Button } from '@/components/shared/Button';
 import { useState, type FormEvent } from 'react';
 import type { Job } from '@/data/jobs';
 import { BulletList, BulletItem } from '@/components/shared/BulletList';
+import { useJobContact } from '@/context/JobContactContext';
 
 interface NextRoleSlotProps {
   onNewJob: (job: Job) => void;
@@ -11,6 +12,11 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
   const [stage, setStage] = useState<'teaser' | 'form'>('teaser');
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
+  const { setJobData } = useJobContact();
+
+  // Character limits
+  const MAX_COMPANY_LENGTH = 50;
+  const MAX_TITLE_LENGTH = 60;
 
   const handleNewJob = () => {
     const now = new Date();
@@ -38,6 +44,13 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
             variant="link"
             color="primary"
             onClick={() => {
+              // Set job data for prefilling the contact form
+              setJobData({
+                jobTitle: title,
+                company: company,
+              });
+
+              // Scroll to contact section
               const contactSection = document.getElementById('contact');
               contactSection?.scrollIntoView({ behavior: 'smooth' });
             }}
@@ -84,10 +97,22 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
               <input
                 type="text"
                 value={company}
-                onChange={(e) => setCompany(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= MAX_COMPANY_LENGTH) {
+                    setCompany(value);
+                  }
+                }}
                 placeholder="e.g. Acme Inc"
+                maxLength={MAX_COMPANY_LENGTH}
                 className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
+              <div className="flex justify-between mt-1">
+                <span className="text-xs text-[var(--color-muted)]">Company name (required)</span>
+                <span className="text-xs text-[var(--color-muted)]">
+                  {company.length}/{MAX_COMPANY_LENGTH}
+                </span>
+              </div>
             </label>
 
             <label className="block text-sm font-medium text-[var(--color-text)]">
@@ -95,10 +120,22 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
               <input
                 type="text"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= MAX_TITLE_LENGTH) {
+                    setTitle(value);
+                  }
+                }}
                 placeholder="e.g. Frontend Engineer"
+                maxLength={MAX_TITLE_LENGTH}
                 className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
+              <div className="flex justify-between mt-1">
+                <span className="text-xs text-[var(--color-muted)]">Job title (required)</span>
+                <span className="text-xs text-[var(--color-muted)]">
+                  {title.length}/{MAX_TITLE_LENGTH}
+                </span>
+              </div>
             </label>
 
             <div className="flex justify-end pt-3">
