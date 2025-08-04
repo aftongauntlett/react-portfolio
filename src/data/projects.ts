@@ -18,6 +18,15 @@ export const projects: Project[] = [
     // Current live site
   },
   {
+    title: 'Gauntlet Designs - Farewell Website',
+    description:
+      'Professional closure website for Gauntlet Designs business, originally built with Vue 2 and evolved through many iterations over several years. Final version rebuilt with Vue 3, Vite, and Tailwind CSS featuring modern composition API, dark/light theme system, and accessible design. Serves as a graceful farewell while promoting ongoing freelance services.',
+    tech: ['Vue 3', 'Vite', 'Tailwind CSS', 'CSS Custom Properties'],
+    image: 'https://placehold.co/480x270/4fc08d/fff?text=Gauntlet+Designs',
+    link: 'https://github.com/gauntletdesigns/gauntlet-designs-vue',
+    demo: 'https://gauntletdesigns.com/',
+  },
+  {
     title: 'React Tutorial Project',
     description:
       'Currently building an interactive, story-driven coding platform inspired by Portal, Half-Life, and The Stanley Parable. Features modular full-stack architecture, adaptive tutorials, and immersive narrative elements. Public alpha launches Summer 2025.',
