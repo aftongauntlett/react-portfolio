@@ -1,47 +1,64 @@
 export type Project = {
   title: string;
+  status: string;
   description: string;
   tech: string[];
-  image: string;
   link?: string;
   demo?: string;
 };
 
 export const projects: Project[] = [
   {
-    title: 'React Portfolio Website',
+    title: 'Personal Portfolio',
+    status: 'Production',
     description:
       'Built a fully accessible, custom-themed portfolio and reusable component library using React 19, Vite, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and modern development practices with comprehensive testing. Uses Claude Opus 4 and Sonnet 4 via GitHub Copilot Pro+ (2025 release) for deep code generation and debugging.',
     tech: ['React 19', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    image: 'https://placehold.co/480x270/222/fff?text=Portfolio+Screenshot',
     link: 'https://github.com/aftongauntlett/react-portfolio',
-    // Current live site
   },
   {
-    title: 'Gauntlet Designs - Farewell Website',
+    title: 'Gauntlet Designs',
+    status: 'Production',
     description:
       'Professional closure website for Gauntlet Designs business, originally built with Vue 2 and evolved through many iterations over several years. Final version rebuilt with Vue 3, Vite, and Tailwind CSS featuring modern composition API, dark/light theme system, and accessible design. Serves as a graceful farewell while promoting ongoing freelance services.',
-    tech: ['Vue 3', 'Vite', 'Tailwind CSS', 'CSS Custom Properties'],
-    image: 'https://placehold.co/480x270/4fc08d/fff?text=Gauntlet+Designs',
+    tech: ['Vue 3', 'Vite', 'TypeScript', 'Tailwind CSS', 'CSS Custom Properties', 'Vercel'],
     link: 'https://github.com/gauntletdesigns/gauntlet-designs-vue',
     demo: 'https://gauntletdesigns.com/',
   },
   {
-    title: 'React Tutorial Project',
+    title: 'Interactive Coding Platform',
+    status: 'Development',
     description:
-      'Currently building an interactive, story-driven coding platform inspired by Portal, Half-Life, and The Stanley Parable. Features modular full-stack architecture, adaptive tutorials, and immersive narrative elements. Public alpha launches Summer 2025.',
-    tech: ['React', 'Vite', 'TypeScript', 'Tailwind CSS'],
-    image: 'https://placehold.co/480x270/10b981/fff?text=Tutorial+Platform',
+      'Interactive, story-driven coding platform inspired by Portal, Half-Life, and The Stanley Parable. Features full-stack architecture with user authentication, progress tracking, and immersive narrative elements. Demonstrates containerized development and production-ready infrastructure.',
+    tech: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Express.js',
+      'MySQL',
+      'Docker',
+      'Node.js',
+    ],
     link: 'https://github.com/aftongauntlett/react-tutorial',
-    // No demo yet - will add when deployed
+    demo: 'https://react-tutorial-rho-seven.vercel.app/',
   },
   {
-    title: 'Potomac Dining Corporate Website',
+    title: 'Bloop Museum',
+    status: 'Development',
     description:
-      'Enterprise website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Features employee portal, career management system, multi-location directory, and contact forms. Handles high-traffic loads with robust performance optimization.',
-    tech: ['Vue.js', 'Firebase', 'Responsive Design', 'Corporate Branding'],
-    image: 'https://placehold.co/480x270/2563eb/fff?text=Potomac+Dining',
-    link: '#', // Private repo
+      'Client website for the Bloop Museum - an electronic entertainment museum dedicated to computers, games, media, and gadgets! Built with retro-inspired design optimized for vintage browsers including Netscape 4.0/Pentium 90 and ProtoWeb.org emulation.',
+    tech: ['Eleventy', 'JavaScript', 'HTML', 'CSS', 'Retro Design', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/bloop-demo',
+    demo: 'https://bloop-demo.vercel.app/',
+  },
+  {
+    title: 'Potomac Family Dining',
+    status: 'Production',
+    description:
+      'Enterprise client website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Built comprehensive web platform featuring employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic loads with robust performance optimization.',
+    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
+    link: '#',
     demo: 'https://potomacdining.com/',
   },
 ];

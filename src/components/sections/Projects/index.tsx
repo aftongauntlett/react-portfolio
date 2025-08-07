@@ -27,6 +27,28 @@ export default function ProjectsSection() {
     }
   };
 
+  const renderStatus = (status: string) => {
+    const isProduction = status === 'Production';
+
+    return (
+      <span
+        className={clsx(
+          'text-xs font-medium px-2 py-1 rounded border border-[var(--color-line)]',
+          isProduction
+            ? 'text-[var(--color-status-production)]'
+            : 'text-[var(--color-status-development)]',
+        )}
+        style={{
+          backgroundColor: isProduction
+            ? 'var(--color-status-production-bg)'
+            : 'var(--color-status-development-bg)',
+        }}
+      >
+        {status}
+      </span>
+    );
+  };
+
   const projectVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -62,7 +84,7 @@ export default function ProjectsSection() {
         },
       }}
     >
-      {projects.map(({ title, description, tech, link, demo }, idx) => (
+      {projects.map(({ title, status, description, tech, link, demo }, idx) => (
         <MotionSection
           key={title}
           variants={projectVariants}
@@ -92,9 +114,11 @@ export default function ProjectsSection() {
               TEXT_PRIMARY_HOVER,
               'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
               'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
+              'flex items-center gap-3 flex-wrap',
             )}
           >
             {title}
+            {renderStatus(status)}
           </h3>
           <div
             tabIndex={0}
@@ -110,7 +134,7 @@ export default function ProjectsSection() {
           </div>
           <div
             className={clsx(
-              'flex flex-wrap gap-2 text-sm',
+              'flex flex-wrap gap-2 text-sm mb-4',
               TEXT_MUTED_HOVER,
               TRANSITION_FAST,
               'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
@@ -120,9 +144,11 @@ export default function ProjectsSection() {
             aria-label={`Technologies used in ${title}`}
             tabIndex={0}
           >
-            {tech.map((t, i) => (
-              <span key={t} className="shrink-0 break-words">
-                {i > 0 && <span className="mx-1 text-[var(--color-muted)]">·</span>}
+            {tech.map((t) => (
+              <span
+                key={t}
+                className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[var(--color-muted)]/10 text-[var(--color-muted)] border border-[var(--color-border)] hover:bg-[var(--color-muted)]/20 transition-colors"
+              >
                 {t}
               </span>
             ))}

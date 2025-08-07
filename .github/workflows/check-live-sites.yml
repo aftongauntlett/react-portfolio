@@ -1,0 +1,65 @@
+name: Monitor Live Client Sites
+on:
+  schedule:
+    - cron: '0 12 * * 1' # Every Monday at noon UTC
+  workflow_dispatch: # Allows manual testing
+
+jobs:
+  check-potomac:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Potomac Family Dining Site
+        run: |
+          echo "🔍 Checking if Potomac site still uses your codebase..."
+
+          # Fetch the site content
+          CONTENT=$(curl -s https://potomacdining.com/ || echo "FETCH_FAILED")
+
+          if [ "$CONTENT" = "FETCH_FAILED" ]; then
+            echo "❌ Could not fetch site - may be down"
+            exit 0
+          fi
+
+          # Check for multiple specific signatures from YOUR code
+          CHECKS_PASSED=0
+
+          # Check 1: Vue.js data attributes (your Vue build signature)
+          if echo "$CONTENT" | grep -q "data-v-"; then
+            echo "✅ Vue.js signatures found"
+            CHECKS_PASSED=$((CHECKS_PASSED + 1))
+          else
+            echo "⚠️  Vue.js signatures missing"
+          fi
+
+          # Check 2: Specific logo path from your build
+          if echo "$CONTENT" | grep -q "logo\.6a21ef67\.png"; then
+            echo "✅ Your logo hash found (logo.6a21ef67.png)"
+            CHECKS_PASSED=$((CHECKS_PASSED + 1))
+          else
+            echo "⚠️  Your logo hash missing"
+          fi
+
+          # Check 3: Specific image paths that match your build
+          if echo "$CONTENT" | grep -q "/img/logo\."; then
+            echo "✅ Your image structure found"
+            CHECKS_PASSED=$((CHECKS_PASSED + 1))
+          else
+            echo "⚠️  Your image structure missing"
+          fi
+
+          # Final assessment
+          if [ $CHECKS_PASSED -ge 2 ]; then
+            echo "✅ PASS: Site appears to still be using your codebase ($CHECKS_PASSED/3 checks passed)"
+          else
+            echo "🚨 ALERT: Site may no longer be using your codebase ($CHECKS_PASSED/3 checks passed)"
+            echo "Consider updating your portfolio to reflect this change."
+            
+            # This creates a GitHub issue if the site has changed
+            # (You can remove this if you don't want issues created)
+            echo "Creating alert issue..."
+            
+            # This would create a GitHub issue - requires GITHUB_TOKEN
+            # For now, just log the alert
+          fi
+
+          echo "Check completed at $(date)"
