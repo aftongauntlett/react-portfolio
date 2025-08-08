@@ -132,7 +132,7 @@ textarea:-moz-autofill {
 }
 
 .section-content {
-  @apply px-4 sm:px-6 md:px-8 lg:pl-[56px] max-w-4xl mx-auto w-full;
+  @apply px-4 sm:px-6 md:px-8 lg:pl-[56px] max-w-6xl mx-auto w-full;
 }
 
 /* Ensure sticky navigation works properly */

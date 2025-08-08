@@ -89,26 +89,6 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 - **Code Splitting**: Vendor, router, motion, and icons chunks
 - **Build Process**: esbuild minification with Vite 7
 
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── Background.tsx       # Animated background component
-│   ├── layout/              # Layout components (Header, Nav, etc.)
-│   ├── sections/            # Page sections (About, Experience, Projects, Contact)
-│   ├── shared/              # Reusable components (Button, ErrorBoundary, etc.)
-│   └── Timeline/            # Timeline-specific components
-├── hooks/                   # Custom React hooks
-├── pages/                   # Page components (Home)
-├── router/                  # React Router setup and configuration
-├── context/                 # React context providers (theme management)
-├── data/                    # Static data (jobs, projects, skills)
-├── constants/               # App constants and style utilities
-├── assets/                  # Static assets (Lottie animations, images)
-└── test/                    # Test configuration
-```
-
 ## Tech Stack
 
 **Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
