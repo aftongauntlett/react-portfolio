@@ -22,7 +22,6 @@ const renderHighlightedText = (text: string) => {
     return part;
   });
 };
-
 export default function AboutSection() {
   const [planetColor] = useState<'secondary' | 'muted'>('secondary');
   const { theme } = useTheme();
@@ -33,9 +32,8 @@ export default function AboutSection() {
       aboutParagraphs.map((paragraph, index) => (
         <p
           key={index}
-          className="text-body leading-relaxed focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/10 rounded px-2 py-1"
+          className="text-body leading-relaxed focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/5 rounded px-2 py-1"
           tabIndex={0}
-          role="paragraph"
           aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
         >
           {renderHighlightedText(paragraph)}
@@ -90,6 +88,7 @@ export default function AboutSection() {
 
       {/* Story Content Section */}
       <div className="mx-auto">
+        <h2 className="sr-only">About Me</h2>
         <div className="space-y-6 mb-16">{renderedParagraphs}</div>
       </div>
     </div>

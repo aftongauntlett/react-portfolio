@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react';
+import type { MouseEvent, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
@@ -58,6 +58,25 @@ export default function SideNav() {
                   top: elementPosition,
                   behavior: 'smooth',
                 });
+                // Focus the section for screen readers
+                element.focus();
+              }
+            };
+
+            const handleKeyDown = (e: KeyboardEvent<HTMLAnchorElement>) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const element = document.getElementById(id);
+                if (element) {
+                  const offset = 80; // Offset for better positioning
+                  const elementPosition = element.offsetTop - offset;
+                  window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth',
+                  });
+                  // Focus the section for screen readers
+                  element.focus();
+                }
               }
             };
 
@@ -66,6 +85,7 @@ export default function SideNav() {
                 key={id}
                 href={`#${id}`}
                 onClick={handleClick}
+                onKeyDown={handleKeyDown}
                 aria-current={isActive ? 'page' : undefined}
                 className={clsx(
                   'relative group block pl-4 text-base',

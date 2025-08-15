@@ -48,7 +48,19 @@ export const Button: React.FC<ButtonProps> = (props) => {
 
   // Enhanced accessibility for icon-only buttons
   const isIconOnly = icon && !children;
-  const effectiveAriaLabel = ariaLabel || (isIconOnly ? 'Button' : undefined);
+
+  // Require explicit aria-label for icon-only buttons in development
+  if (isIconOnly && !ariaLabel) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(
+        'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.',
+      );
+    }
+    // Optionally, you could throw an error instead of just logging:
+    // throw new Error('Icon-only Button requires an explicit aria-label prop.');
+  }
+
+  const effectiveAriaLabel = ariaLabel;
 
   // Class generation includes variant, color, textColor, hoverTextColor, icon-only state, disabled state, and additional className
   const buttonClasses = [

@@ -133,21 +133,17 @@ export default function ProjectsSection() {
             {description}
           </div>
           <div
-            className={clsx(
-              'flex flex-wrap gap-2 text-sm mb-4',
-              TEXT_MUTED_HOVER,
-              TRANSITION_FAST,
-              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
-              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
-            )}
+            className={clsx('flex flex-wrap gap-2 text-sm mb-4', TEXT_MUTED_HOVER, TRANSITION_FAST)}
             role="group"
             aria-label={`Technologies used in ${title}`}
-            tabIndex={0}
           >
             {tech.map((t) => (
               <span
                 key={t}
-                className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[var(--color-muted)]/10 text-[var(--color-muted)] border border-[var(--color-border)] hover:bg-[var(--color-muted)]/20 transition-colors"
+                className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[var(--color-muted)]/10 text-[var(--color-muted)] border border-[var(--color-border)] hover:bg-[var(--color-muted)]/20 transition-colors focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded"
+                tabIndex={0}
+                role="button"
+                aria-label={`Technology: ${t}`}
               >
                 {t}
               </span>

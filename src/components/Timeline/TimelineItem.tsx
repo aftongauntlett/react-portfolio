@@ -53,7 +53,7 @@ export default function TimelineItem({
   };
 
   return (
-    <article
+    <div
       role="listitem"
       tabIndex={0}
       {...handleMouseEvents}
@@ -104,14 +104,18 @@ export default function TimelineItem({
           <h3 className="subtitle flex flex-col sm:flex-row sm:items-baseline sm:gap-1">
             <span
               className={clsx(
-                'transition-all',
+                'transition-all focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
                 isActive || isHovered ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]',
               )}
+              tabIndex={0}
             >
               {title}
             </span>
             {company && (
-              <span className="text-[var(--color-text)] text-base sm:text-lg">
+              <span
+                className="text-[var(--color-text)] text-base sm:text-lg focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1"
+                tabIndex={0}
+              >
                 &nbsp;@ {company}
               </span>
             )}
@@ -119,9 +123,10 @@ export default function TimelineItem({
           {dates && (
             <time
               className={clsx(
-                'block text-sm mb-3 text-[var(--color-secondary)] transition-colors md:group-hover:text-[var(--color-secondary)]',
+                'block text-sm mb-3 text-[var(--color-secondary)] transition-colors md:group-hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
               )}
               dateTime={dates}
+              tabIndex={0}
             >
               {dates}
             </time>
@@ -129,6 +134,6 @@ export default function TimelineItem({
         </header>
         {children && <div className="mt-2">{children}</div>}
       </div>
-    </article>
+    </div>
   );
 }
