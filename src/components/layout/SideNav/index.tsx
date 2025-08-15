@@ -34,9 +34,9 @@ export default function SideNav() {
           transition: { duration: 0.5, delay: 0.2 },
         }}
       >
-        <h1 className="text-xl font-bold leading-[1.3] capitalize text-[var(--color-text)]">
+        <div className="text-xl font-bold leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
-        </h1>
+        </div>
         <div className="space-y-3">
           <p className="font-semibold leading-[1.3] capitalize text-[var(--color-secondary)]">
             Senior Frontend Engineer & UI Specialist
@@ -86,7 +86,7 @@ export default function SideNav() {
                 href={`#${id}`}
                 onClick={handleClick}
                 onKeyDown={handleKeyDown}
-                aria-current={isActive ? 'page' : undefined}
+                aria-current={isActive ? 'location' : undefined}
                 className={clsx(
                   'relative group block pl-4 text-base',
                   TRANSITION_FAST,
@@ -122,7 +122,7 @@ export default function SideNav() {
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
         <div className="flex items-center justify-between">
-          <div className="flex gap-4" role="list" aria-label="Social media links">
+          <div className="flex gap-4" aria-label="Social media links">
             <Button
               href="https://github.com/aftongauntlett"
               target="_blank"

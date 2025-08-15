@@ -14,28 +14,30 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
 
   return (
     <div>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={clsx(
-          'w-full text-left py-4 flex items-center justify-between',
-          'text-[var(--color-text)] hover:text-[var(--color-primary)]',
-          TRANSITION_FAST,
-          'focus:outline-none focus:text-[var(--color-primary)]',
-          'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-          'group',
-        )}
-        aria-expanded={isOpen}
-      >
-        <span className="subtitle">{title}</span>
-        <HiChevronDown
+      <h3>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
           className={clsx(
-            'transition-transform duration-300 text-[var(--color-muted)]',
-            'group-hover:text-[var(--color-secondary)]',
-            isOpen && 'rotate-180',
+            'w-full text-left py-4 flex items-center justify-between',
+            'text-[var(--color-text)] hover:text-[var(--color-primary)]',
+            TRANSITION_FAST,
+            'focus:outline-none focus:text-[var(--color-primary)]',
+            'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+            'group',
           )}
-          size={20}
-        />
-      </button>
+          aria-expanded={isOpen}
+        >
+          <span className="subtitle">{title}</span>
+          <HiChevronDown
+            className={clsx(
+              'transition-transform duration-300 text-[var(--color-muted)]',
+              'group-hover:text-[var(--color-secondary)]',
+              isOpen && 'rotate-180',
+            )}
+            size={20}
+          />
+        </button>
+      </h3>
 
       <div
         className={clsx(

@@ -81,7 +81,7 @@ export default function TimelineItem({
         {isNextRoleItem ? (
           <div
             className="w-5 h-5 rounded-full bg-[var(--color-background)] flex items-center justify-center border-2 border-[var(--color-primary)] relative z-10"
-            aria-label="Future opportunity"
+            aria-hidden="true"
           >
             <HiQuestionMarkCircle className="w-4 h-4 text-[var(--color-primary)] animate-pulse" />
           </div>
