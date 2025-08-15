@@ -86,7 +86,7 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 - **Font Loading**: Google Fonts with `display=swap` for zero layout shift
 - **Bundle Optimization**: Tree-shaking and selective imports for optimal bundle size
 - **Resource Hints**: Strategic preconnect and DNS prefetch
-- **Code Splitting**: Vendor, router, motion, and icons chunks
+- **Code Splitting**: Vendor, motion, and icons chunks for optimal loading
 - **Build Process**: esbuild minification with Vite 7
 
 ## Project Structure
@@ -101,7 +101,6 @@ src/
 │   └── Timeline/            # Timeline-specific components
 ├── hooks/                   # Custom React hooks
 ├── pages/                   # Page components (Home)
-├── router/                  # React Router setup and configuration
 ├── context/                 # React context providers (theme management)
 ├── data/                    # Static data (jobs, projects, skills)
 ├── constants/               # App constants and style utilities
@@ -114,7 +113,7 @@ src/
 **Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
 **Build:** Vite 7 with esbuild minification and optimized code splitting  
 **Testing:** Vitest, React Testing Library, TypeScript strict mode  
-**Quality:** ESLint, Prettier, comprehensive TypeScript coverage  
+**Quality:** ESLint, Prettier, comprehensive accessibility standards (WCAG AA)  
 **Performance:** Google Fonts optimization, strategic resource hints, dynamic imports
 
 ## Scripts
