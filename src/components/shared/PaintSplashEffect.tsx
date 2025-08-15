@@ -3,6 +3,15 @@ import type { MouseEvent, ElementType, JSX } from 'react';
 
 type AllowedTags = keyof JSX.IntrinsicElements;
 
+interface PaintSplashTextProps {
+  children: string;
+  tag?: AllowedTags;
+  className?: string;
+  id?: string;
+  'aria-labelledby'?: string;
+  'aria-describedby'?: string;
+}
+
 /**
  * PaintSplashText renders a hoverable text element with a radial splash effect.
  * On hover, the mouse position is tracked and passed as CSS variables to the pseudo-element.
@@ -11,11 +20,8 @@ export default function PaintSplashText({
   children,
   tag = 'span',
   className = '',
-}: {
-  children: string;
-  tag?: AllowedTags;
-  className?: string;
-}) {
+  ...additionalProps
+}: PaintSplashTextProps) {
   const ref = useRef<HTMLElement>(null);
 
   /**
@@ -55,6 +61,7 @@ export default function PaintSplashText({
       onMouseLeave={handleMouseLeave}
       className={`paint-splash font-heading text-4xl font-bold leading-tight tracking-tight ${className}`}
       data-splash={children}
+      {...additionalProps}
     >
       {children}
     </Tag>
