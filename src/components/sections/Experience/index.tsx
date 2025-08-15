@@ -65,8 +65,13 @@ export default function ExperienceSection() {
       <div
         className="absolute left-5 top-7 bottom-0 w-px bg-[var(--color-line)] hidden md:block"
         style={{ zIndex: 1 }}
+        aria-hidden="true"
       />
-      <MotionSection className="space-y-6 md:space-y-8">
+      <MotionSection
+        className="space-y-6 md:space-y-8"
+        role="list"
+        aria-label="Professional experience timeline"
+      >
         {entries.map(({ idx, title, company, dates, isFirst, isActive, content }) => (
           <TimelineItem
             key={`${title}-${idx}`}

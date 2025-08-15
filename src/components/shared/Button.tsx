@@ -12,6 +12,8 @@ interface BaseButtonProps {
   hoverTextColor?: TextColor;
   icon?: React.ReactNode;
   disabled?: boolean;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
 }
 
 interface ButtonAsButton
@@ -40,8 +42,13 @@ export const Button: React.FC<ButtonProps> = (props) => {
     icon,
     disabled = false,
     className,
+    'aria-label': ariaLabel,
     ...restProps
   } = props;
+
+  // Enhanced accessibility for icon-only buttons
+  const isIconOnly = icon && !children;
+  const effectiveAriaLabel = ariaLabel || (isIconOnly ? 'Button' : undefined);
 
   // Class generation includes variant, color, textColor, hoverTextColor, icon-only state, disabled state, and additional className
   const buttonClasses = [
@@ -53,7 +60,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     // Add hover text color class if specified
     hoverTextColor && `btn--hover-text-${hoverTextColor}`,
     // Add icon-only class when there's an icon but no children (text)
-    icon && !children && 'btn--icon-only',
+    isIconOnly && 'btn--icon-only',
     disabled && 'btn--disabled',
     className,
   ]
@@ -62,12 +69,19 @@ export const Button: React.FC<ButtonProps> = (props) => {
 
   if ('href' in props && props.href && !disabled) {
     const { href, target, rel, ...linkProps } = restProps as ButtonAsLink;
+
+    // Enhanced security and accessibility for external links
+    const isExternal = href.startsWith('http');
+    const defaultTarget = isExternal ? '_blank' : undefined;
+    const defaultRel = isExternal ? 'noopener noreferrer' : undefined;
+
     return (
       <a
         href={href}
-        target={target || '_blank'}
-        rel={rel || 'noopener noreferrer'}
+        target={target || defaultTarget}
+        rel={rel || defaultRel}
         className={buttonClasses}
+        aria-label={effectiveAriaLabel}
         {...linkProps}
       >
         {icon && <span aria-hidden="true">{icon}</span>}
@@ -78,7 +92,12 @@ export const Button: React.FC<ButtonProps> = (props) => {
 
   const buttonProps = restProps as ButtonAsButton;
   return (
-    <button className={buttonClasses} disabled={disabled} {...buttonProps}>
+    <button
+      className={buttonClasses}
+      disabled={disabled}
+      aria-label={effectiveAriaLabel}
+      {...buttonProps}
+    >
       {icon && <span aria-hidden="true">{icon}</span>}
       {children}
     </button>

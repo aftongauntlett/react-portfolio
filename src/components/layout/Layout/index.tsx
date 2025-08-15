@@ -13,6 +13,14 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="text-[var(--color-text)] min-h-screen">
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--color-primary)] focus:text-white focus:rounded focus:outline-2 focus:outline-offset-2 focus:outline-[var(--color-primary)]"
+      >
+        Skip to main content
+      </a>
+
       <Background />
       <MobileHeader />
       <div className="flex justify-center px-3 sm:px-4 md:px-6 lg:px-8">

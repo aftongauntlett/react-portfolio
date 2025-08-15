@@ -31,7 +31,13 @@ export default function AboutSection() {
   const renderedParagraphs = useMemo(
     () =>
       aboutParagraphs.map((paragraph, index) => (
-        <p key={index} className="text-body leading-relaxed">
+        <p
+          key={index}
+          className="text-body leading-relaxed focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/10 rounded px-2 py-1"
+          tabIndex={0}
+          role="paragraph"
+          aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
+        >
           {renderHighlightedText(paragraph)}
         </p>
       )),
