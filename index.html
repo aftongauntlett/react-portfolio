@@ -13,7 +13,35 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Critical CSS for LCP optimization -->
+    <style>
+      /* Critical styles for Hello text (LCP element) */
+      .hello-gradient {
+        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-weight: bold;
+        line-height: 1.1;
+      }
+
+      /* Ensure fonts load immediately for critical text */
+      h1,
+      .hello-gradient {
+        font-display: swap;
+      }
+    </style>
 
     <!-- DNS Prefetch for External Resources -->
     <link rel="dns-prefetch" href="https://formspree.io" />

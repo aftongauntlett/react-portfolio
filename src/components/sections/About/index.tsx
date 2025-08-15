@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState, lazy, Suspense } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import LottieHello from './LottieHello';
+
+// Lazy load the Lottie animation to improve initial page load
+const LottieHello = lazy(() => import('./LottieHello'));
 
 const aboutParagraphs = [
   "I'm {Afton} - a senior frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I've led frontend architecture at companies ranging from Fortune 500 firms like {Booz Allen Hamilton} to small businesses generating {$300M+} annually.",
@@ -69,12 +71,14 @@ export default function AboutSection() {
         {/* Background Lottie Animation */}
         <div className="absolute inset-0 flex justify-center items-center z-10">
           <div className="w-48 h-48 md:w-80 md:h-80 lg:w-96 lg:h-96">
-            <LottieHello
-              opacity={0.15}
-              speed={0.3}
-              planetColor={planetColor}
-              className="w-full h-full"
-            />
+            <Suspense fallback={<div className="w-full h-full" />}>
+              <LottieHello
+                opacity={0.15}
+                speed={0.3}
+                planetColor={planetColor}
+                className="w-full h-full"
+              />
+            </Suspense>
           </div>
         </div>
 
