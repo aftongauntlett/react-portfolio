@@ -57,7 +57,9 @@ export const Button: React.FC<ButtonProps> = (props) => {
       );
     }
     // Optionally, you could throw an error instead of just logging:
-    // throw new Error('Icon-only Button requires an explicit aria-label prop.');
+    throw new Error(
+      'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.'
+    );
   }
 
   const effectiveAriaLabel = ariaLabel;
