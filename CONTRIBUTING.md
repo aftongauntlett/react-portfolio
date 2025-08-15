@@ -60,7 +60,7 @@ If you're interested in the technical implementation for learning purposes:
 - TypeScript strict mode compliance
 - ESLint and Prettier formatting
 - WCAG AA accessibility compliance
-- 95%+ Lighthouse scores
+- 100% Lighthouse scores across all metrics
 - Comprehensive testing
 
 ### Local Development

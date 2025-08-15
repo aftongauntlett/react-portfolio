@@ -1,9 +1,21 @@
 # React Portfolio
 
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/aftongauntlett/react-portfolio)](https://github.com/aftongauntlett/react-portfolio/commits)
+[![Last Commit](https://img.shields.io/github/last-commit/aftongauntlett/react-portfolio?style=flat&logo=github)](https://github.com/aftongauntlett/react-portfolio/commits)
+[![Top Language](https://img.shields.io/github/languages/top/aftongauntlett/react-portfolio?style=flat&logo=typescript)](https://github.com/aftongauntlett/react-portfolio)
 [![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
 
-**Tech Stack:**
+## About
+
+A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
+
+### **[View Live Portfolio →](https://aftongauntlett.com)**
+
+![Portfolio Preview - Dark Mode](./docs/dark.png)
+
+_Featuring responsive design, smooth animations, and seamless theme switching_
+
+## Tech Stack
 
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat&logo=vite&logoColor=white)
@@ -12,28 +24,35 @@
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
 
-**Lighthouse Scores:**
+**Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
+**Build:** Vite 7 with esbuild minification and optimized code splitting  
+**Testing:** Vitest, React Testing Library, TypeScript strict mode  
+**Quality:** ESLint, Prettier, comprehensive accessibility standards (WCAG AA)  
+**Performance:** Google Fonts optimization, strategic resource hints, dynamic imports
 
-![Performance](https://img.shields.io/badge/Performance-99%25-brightgreen?style=flat&logo=lighthouse)
-![Accessibility](https://img.shields.io/badge/Accessibility-99%25-brightgreen?style=flat&logo=lighthouse)
-![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
-![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
+## Architecture
 
-A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
+**Component-driven design** with TypeScript interfaces, custom hooks for state management, and CSS custom properties for theming. Follows modern React patterns with error boundaries and accessibility-first development.
 
-### **[View Live Portfolio →](https://aftongauntlett.com)**
+## Project Structure
 
-## Preview
-
-### Light Mode
-
-![Portfolio Preview - Light Mode](./docs/light.png)
-
-### Dark Mode
-
-![Portfolio Preview - Dark Mode](./docs/dark.png)
-
-_Featuring responsive design, smooth animations, and seamless theme switching_
+```
+src/
+├── assets/                  # Static assets (Lottie animations, galaxy.json)
+├── components/
+│   ├── Background.tsx       # Animated starry background component
+│   ├── layout/              # Layout components (Layout, SideNav, MobileHeader, PageSection)
+│   ├── sections/            # Page sections (About, Experience, Projects, Skills, Contact)
+│   ├── shared/              # Reusable components (Button, Card, ErrorBoundary, etc.)
+│   └── Timeline/            # Timeline-specific components
+├── constants/               # App constants (navigation, styles)
+├── context/                 # React context providers (theme, job contact)
+├── data/                    # Static data (jobs, projects, skills, education)
+├── hooks/                   # Custom React hooks (useActiveSection, useHoverGroup)
+├── pages/                   # Page components (Home)
+├── router/                  # Application routing
+└── test/                    # Test configuration and setup
+```
 
 ## Features
 
@@ -74,10 +93,15 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 
 ## Performance
 
-**Exceptional optimization delivering top-tier user experience:**
+### **Lighthouse Scores:**
 
-- **99% Performance Score**: Faster than 99% of websites tested
-- **99% Accessibility**: WCAG AA compliant, full keyboard navigation
+![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen?style=flat&logo=lighthouse)
+![Accessibility](https://img.shields.io/badge/Accessibility-100%25-brightgreen?style=flat&logo=lighthouse)
+![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
+![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
+
+- **100% Performance Score**: Optimal loading speed with lazy-loaded components
+- **100% Accessibility**: WCAG AA compliant, full keyboard navigation
 - **100% Best Practices**: Modern web standards and security
 - **100% SEO**: Optimized for search engines and social sharing
 
@@ -88,34 +112,6 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 - **Resource Hints**: Strategic preconnect and DNS prefetch
 - **Code Splitting**: Vendor, motion, and icons chunks for optimal loading
 - **Build Process**: esbuild minification with Vite 7
-
-## Project Structure
-
-```
-src/
-├── assets/                  # Static assets (Lottie animations, galaxy.json)
-├── components/
-│   ├── Background.tsx       # Animated starry background component
-│   ├── layout/              # Layout components (Layout, SideNav, MobileHeader, PageSection)
-│   ├── sections/            # Page sections (About, Experience, Projects, Skills, Contact)
-│   ├── shared/              # Reusable components (Button, Card, ErrorBoundary, etc.)
-│   └── Timeline/            # Timeline-specific components
-├── constants/               # App constants (navigation, styles)
-├── context/                 # React context providers (theme, job contact)
-├── data/                    # Static data (jobs, projects, skills, education)
-├── hooks/                   # Custom React hooks (useActiveSection, useHoverGroup)
-├── pages/                   # Page components (Home)
-├── router/                  # Application routing
-└── test/                    # Test configuration and setup
-```
-
-## Tech Stack
-
-**Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
-**Build:** Vite 7 with esbuild minification and optimized code splitting  
-**Testing:** Vitest, React Testing Library, TypeScript strict mode  
-**Quality:** ESLint, Prettier, comprehensive accessibility standards (WCAG AA)  
-**Performance:** Google Fonts optimization, strategic resource hints, dynamic imports
 
 ## Scripts
 
@@ -142,8 +138,6 @@ npm run deps:check   # Check outdated dependencies
 npm run health:check # Full project validation
 ```
 
-````
-
 ## Maintenance & Monitoring
 
 ### **Automated Maintenance**
@@ -158,6 +152,8 @@ npm run health:check # Full project validation
 - **Vercel Analytics**: User behavior tracking
 - **Speed Insights**: Core Web Vitals monitoring
 - **Bundle Analysis**: Performance optimization tools
+- **Bundle Size**: Optimized from 555kB to 226kB main bundle (59% reduction)
+- **Lazy Loading**: Heavy components split into separate chunks for better performance
 
 ### **Long-term Care**
 
@@ -165,46 +161,12 @@ npm run health:check # Full project validation
 2. **Quarterly**: Manual major version updates if needed
 3. **As needed**: Security patches (automated alerts)
 
-## Architecture
-
-**Component-driven design** with TypeScript interfaces, custom hooks for state management, and CSS custom properties for theming. Follows modern React patterns with error boundaries and accessibility-first development.
-
 ## Deployment
 
-**Live:** [aftongauntlett.com](https://aftongauntlett.com)
+**Live:** [aftongauntlett.com](https://aftongauntlett.com)  
 **Hosted on:** Vercel with automatic deployments from `master` branch
 
 Ready for deployment to any static hosting platform (Vercel, Netlify, GitHub Pages).
-
-## Releases
-
-This project uses semantic versioning for releases. Deployments and releases are separate:
-
-- **Deployments**: Automatic via Vercel on every push to `master`
-- **Releases**: Manual process for version milestones
-
-### **Creating a Release:**
-
-1. **Prepare the release:**
-   ```bash
-   npm run release:patch  # For bug fixes (1.0.0 → 1.0.1)
-   npm run release:minor  # For new features (1.0.0 → 1.1.0)
-   npm run release:major  # For breaking changes (1.0.0 → 2.0.0)
-````
-
-2. **Update CHANGELOG.md** with the new version details
-
-3. **Commit and push:**
-
-   ```bash
-   git add .
-   git commit -m "chore: release version X.X.X"
-   git push origin master --tags
-   ```
-
-4. **Create GitHub Release** from the new tag with release notes
-
-**Note:** Releases are for communication/documentation. Your site deploys automatically on every push regardless of releases.
 
 ## Credits
 

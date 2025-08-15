@@ -35,7 +35,7 @@ src/components/
 
 ### Performance Requirements
 
-- Maintain 95%+ Lighthouse scores (Performance, Accessibility, Best Practices, SEO)
+- Maintain 100% Lighthouse scores (Performance, Accessibility, Best Practices, SEO)
 - Bundle size optimization (current: ~550KB gzipped)
 - Code splitting where appropriate
 - Lazy loading for non-critical components
