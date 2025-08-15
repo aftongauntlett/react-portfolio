@@ -1,8 +1,34 @@
 {
   "name": "react-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Modern, high-performance portfolio showcasing frontend engineering expertise with React 19, TypeScript, and WCAG AA accessibility compliance",
+  "author": {
+    "name": "Afton Gauntlett",
+    "email": "hello@aftongauntlett.com",
+    "url": "https://aftongauntlett.com"
+  },
+  "homepage": "https://aftongauntlett.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aftongauntlett/react-portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aftongauntlett/react-portfolio/issues"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "vite",
+    "tailwindcss",
+    "framer-motion",
+    "accessibility",
+    "wcag",
+    "frontend",
+    "responsive"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -18,6 +44,8 @@
     "type-check": "tsc --noEmit",
     "preview": "vite preview",
     "clean": "rm -rf dist node_modules/.vite",
+    "release:patch": "npm run health:check && npm version patch",
+    "release:minor": "npm run health:check && npm version minor",
     "security:audit": "npm audit",
     "security:fix": "npm audit fix",
     "deps:check": "npm outdated",

@@ -93,19 +93,20 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 
 ```
 src/
+├── assets/                  # Static assets (Lottie animations, galaxy.json)
 ├── components/
-│   ├── Background.tsx       # Animated background component
-│   ├── layout/              # Layout components (Header, Nav, etc.)
-│   ├── sections/            # Page sections (About, Experience, Projects, Contact)
-│   ├── shared/              # Reusable components (Button, ErrorBoundary, etc.)
+│   ├── Background.tsx       # Animated starry background component
+│   ├── layout/              # Layout components (Layout, SideNav, MobileHeader, PageSection)
+│   ├── sections/            # Page sections (About, Experience, Projects, Skills, Contact)
+│   ├── shared/              # Reusable components (Button, Card, ErrorBoundary, etc.)
 │   └── Timeline/            # Timeline-specific components
-├── hooks/                   # Custom React hooks
+├── constants/               # App constants (navigation, styles)
+├── context/                 # React context providers (theme, job contact)
+├── data/                    # Static data (jobs, projects, skills, education)
+├── hooks/                   # Custom React hooks (useActiveSection, useHoverGroup)
 ├── pages/                   # Page components (Home)
-├── context/                 # React context providers (theme management)
-├── data/                    # Static data (jobs, projects, skills)
-├── constants/               # App constants and style utilities
-├── assets/                  # Static assets (Lottie animations, images)
-└── test/                    # Test configuration
+├── router/                  # Application routing
+└── test/                    # Test configuration and setup
 ```
 
 ## Tech Stack
@@ -131,11 +132,17 @@ npm run test:coverage # Test coverage report
 npm run lint         # Code linting
 npm run type-check   # TypeScript validation
 
+# Releases (Manual Process)
+npm run release:patch # Bump patch version (1.0.0 → 1.0.1)
+npm run release:minor # Bump minor version (1.0.0 → 1.1.0)
+
 # Security & Monitoring
 npm run security:audit # Security vulnerability check
 npm run deps:check   # Check outdated dependencies
-npm run health:check # Full project health validation
+npm run health:check # Full project validation
 ```
+
+````
 
 ## Maintenance & Monitoring
 
@@ -164,10 +171,40 @@ npm run health:check # Full project health validation
 
 ## Deployment
 
-**Live:** [aftongauntlett.com](https://aftongauntlett.com)  
+**Live:** [aftongauntlett.com](https://aftongauntlett.com)
 **Hosted on:** Vercel with automatic deployments from `master` branch
 
 Ready for deployment to any static hosting platform (Vercel, Netlify, GitHub Pages).
+
+## Releases
+
+This project uses semantic versioning for releases. Deployments and releases are separate:
+
+- **Deployments**: Automatic via Vercel on every push to `master`
+- **Releases**: Manual process for version milestones
+
+### **Creating a Release:**
+
+1. **Prepare the release:**
+   ```bash
+   npm run release:patch  # For bug fixes (1.0.0 → 1.0.1)
+   npm run release:minor  # For new features (1.0.0 → 1.1.0)
+   npm run release:major  # For breaking changes (1.0.0 → 2.0.0)
+````
+
+2. **Update CHANGELOG.md** with the new version details
+
+3. **Commit and push:**
+
+   ```bash
+   git add .
+   git commit -m "chore: release version X.X.X"
+   git push origin master --tags
+   ```
+
+4. **Create GitHub Release** from the new tag with release notes
+
+**Note:** Releases are for communication/documentation. Your site deploys automatically on every push regardless of releases.
 
 ## Credits
 
