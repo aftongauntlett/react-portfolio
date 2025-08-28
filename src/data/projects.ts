@@ -26,22 +26,31 @@ export const projects: Project[] = [
     demo: 'https://gauntletdesigns.com/',
   },
   {
-    title: 'Interactive Coding Platform',
-    status: 'Development',
+    title: 'Potomac Family Dining',
+    status: 'Production',
     description:
-      'Interactive, story-driven coding platform inspired by Portal, Half-Life, and The Stanley Parable. Features full-stack architecture with user authentication, progress tracking, and immersive narrative elements. Demonstrates containerized development and production-ready infrastructure.',
-    tech: [
-      'React',
-      'TypeScript',
-      'Vite',
-      'Tailwind CSS',
-      'Express.js',
-      'MySQL',
-      'Docker',
-      'Node.js',
-    ],
-    link: 'https://github.com/aftongauntlett/react-tutorial',
-    demo: 'https://react-tutorial-rho-seven.vercel.app/',
+      'Enterprise client website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Built comprehensive web platform featuring employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic loads with robust performance optimization.',
+    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
+    link: '#',
+    demo: 'https://potomacdining.com/',
+  },
+  {
+    title: 'JS13k 2025 Game Submission – The Cat & The Luminid',
+    status: 'Production',
+    description:
+      'My official JS13k competition entry, built under the strict 13KB size limit. A minimalist browser game featuring unique mouse-driven mechanics and atmospheric design. Focused on performance and bundle optimization, using compression tools (Roadroller, Terser) to fit advanced visuals and animations within the size cap.',
+    tech: ['HTML', 'CSS', 'Vanilla JavaScript', 'Canvas 2D', 'Vite'],
+    link: 'https://github.com/aftongauntlett/js13k-2025',
+    demo: 'https://js13k-2025.vercel.app/',
+  },
+  {
+    title: 'JS13k 2025 Practice – Orbital Order',
+    status: 'Production',
+    description:
+      'A second, completed game developed alongside my official JS13k entry. Explores alternate mechanics and narrative style within the same 13KB constraint, demonstrating rapid prototyping, creative coding, and iterative design.',
+    tech: ['HTML', 'CSS', 'Vanilla JavaScript'],
+    link: 'https://github.com/aftongauntlett/js13k-demo',
+    demo: 'https://js13k-demo.vercel.app',
   },
   {
     title: 'Bloop Museum',
@@ -51,14 +60,5 @@ export const projects: Project[] = [
     tech: ['Eleventy', 'JavaScript', 'HTML', 'CSS', 'Retro Design', 'Vercel'],
     link: 'https://github.com/aftongauntlett/bloop-demo',
     demo: 'https://bloop-demo.vercel.app/',
-  },
-  {
-    title: 'Potomac Family Dining',
-    status: 'Production',
-    description:
-      'Enterprise client website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Built comprehensive web platform featuring employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic loads with robust performance optimization.',
-    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
-    link: '#',
-    demo: 'https://potomacdining.com/',
   },
 ];
