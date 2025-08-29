@@ -11,13 +11,18 @@ export default function MobileHeader() {
       role="banner"
     >
       <div className="text-xl font-medium text-[var(--color-text)]">Afton Gauntlett</div>
-      <Button
-        onClick={toggleTheme}
-        icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
-        aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        variant="link"
-        color="muted"
-      />
+      <div className="flex gap-2">
+        <Button
+          onClick={toggleTheme}
+          icon={theme === 'dark' ? <HiSun size={16} /> : <HiMoon size={16} />}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          variant="link"
+          color="muted"
+        />
+        <Button href="https://aftongauntlett.github.io/resume/" variant="outline" color="primary">
+          Resume
+        </Button>
+      </div>
     </header>
   );
 }
