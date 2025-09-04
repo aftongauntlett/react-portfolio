@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 
 export const BulletList = ({ children }: { children: ReactNode }) => (
   <ul
-    className="group mt-2 list-none space-y-2 text-[var(--color-text-muted)]"
+    className="group mt-2 list-none space-y-2 text-body text-[var(--color-text-muted)]"
     role="list"
     aria-label="Job responsibilities and achievements"
   >

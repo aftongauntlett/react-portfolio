@@ -113,7 +113,7 @@ export default function TimelineItem({
             </span>
             {company && (
               <span
-                className="text-[var(--color-text)] text-base sm:text-lg focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1"
+                className="text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1"
                 tabIndex={0}
               >
                 &nbsp;@ {company}
