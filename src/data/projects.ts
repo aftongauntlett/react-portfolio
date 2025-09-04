@@ -36,7 +36,7 @@ export const projects: Project[] = [
   },
   {
     title: 'JS13k 2025 Game Submission – The Cat & The Luminid',
-    status: 'Production',
+    status: 'Development',
     description:
       'My official JS13k competition entry, built under the strict 13KB size limit. A minimalist browser game featuring unique mouse-driven mechanics and atmospheric design. Focused on performance and bundle optimization, using compression tools (Roadroller, Terser) to fit advanced visuals and animations within the size cap.',
     tech: ['HTML', 'CSS', 'Vanilla JavaScript', 'Canvas 2D', 'Vite'],
@@ -45,20 +45,11 @@ export const projects: Project[] = [
   },
   {
     title: 'JS13k 2025 Practice – Orbital Order',
-    status: 'Production',
+    status: 'Development',
     description:
       'A second, completed game developed alongside my official JS13k entry. Explores alternate mechanics and narrative style within the same 13KB constraint, demonstrating rapid prototyping, creative coding, and iterative design.',
     tech: ['HTML', 'CSS', 'Vanilla JavaScript'],
     link: 'https://github.com/aftongauntlett/js13k-demo',
     demo: 'https://js13k-demo.vercel.app',
-  },
-  {
-    title: 'Bloop Museum',
-    status: 'Development',
-    description:
-      'Client website for the Bloop Museum - an electronic entertainment museum dedicated to computers, games, media, and gadgets! Built with retro-inspired design optimized for vintage browsers including Netscape 4.0/Pentium 90 and ProtoWeb.org emulation.',
-    tech: ['Eleventy', 'JavaScript', 'HTML', 'CSS', 'Retro Design', 'Vercel'],
-    link: 'https://github.com/aftongauntlett/bloop-demo',
-    demo: 'https://bloop-demo.vercel.app/',
   },
 ];
