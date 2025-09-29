@@ -34,22 +34,4 @@ export const projects: Project[] = [
     link: '#',
     demo: 'https://potomacdining.com/',
   },
-  {
-    title: 'JS13k 2025 Game Submission – The Cat & The Luminid',
-    status: 'Development',
-    description:
-      'My official JS13k competition entry, built under the strict 13KB size limit. A minimalist browser game featuring unique mouse-driven mechanics and atmospheric design. Focused on performance and bundle optimization, using compression tools (Roadroller, Terser) to fit advanced visuals and animations within the size cap.',
-    tech: ['HTML', 'CSS', 'Vanilla JavaScript', 'Canvas 2D', 'Vite'],
-    link: 'https://github.com/aftongauntlett/js13k-2025',
-    demo: 'https://js13k-2025.vercel.app/',
-  },
-  {
-    title: 'JS13k 2025 Practice – Orbital Order',
-    status: 'Development',
-    description:
-      'A second, completed game developed alongside my official JS13k entry. Explores alternate mechanics and narrative style within the same 13KB constraint, demonstrating rapid prototyping, creative coding, and iterative design.',
-    tech: ['HTML', 'CSS', 'Vanilla JavaScript'],
-    link: 'https://github.com/aftongauntlett/js13k-demo',
-    demo: 'https://js13k-demo.vercel.app',
-  },
 ];

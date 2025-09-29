@@ -140,9 +140,7 @@ export default function ProjectsSection() {
             {tech.map((t) => (
               <span
                 key={t}
-                className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[var(--color-muted)]/10 text-[var(--color-muted)] border border-[var(--color-border)] hover:bg-[var(--color-muted)]/20 transition-colors focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded"
-                tabIndex={0}
-                role="button"
+                className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[var(--color-muted)]/10 text-[var(--color-muted)] border border-[var(--color-border)] rounded cursor-default"
                 aria-label={`Technology: ${t}`}
               >
                 {t}
