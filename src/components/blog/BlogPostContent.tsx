@@ -3,6 +3,14 @@ import { Button } from '@/components/shared/Button';
 import { BlogImage } from '@/components/shared/BlogImage';
 import { BlogFeedbackForm } from './BlogFeedbackForm';
 import type { ReactNode } from 'react';
+import {
+  BLOG_H1_CLASSES,
+  BLOG_H2_CLASSES,
+  BLOG_H3_CLASSES,
+  BLOG_H4_CLASSES,
+  BLOG_PARAGRAPH_CLASSES,
+  BLOG_LIST_ITEM_CLASSES,
+} from '@/constants/styles';
 
 interface BlogPostContentProps {
   sections: BlogPostSection[];
@@ -23,10 +31,10 @@ function HeadingSection({ content, level = 2 }: BlogPostSection) {
   if (!content) return null;
 
   const headingClasses = {
-    1: 'text-3xl lg:text-4xl font-bold mt-0 mb-8 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
-    2: 'text-2xl lg:text-3xl font-bold mt-16 mb-6 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
-    3: 'text-xl lg:text-2xl font-semibold mt-12 mb-4 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
-    4: 'text-lg lg:text-xl font-medium mt-8 mb-3 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
+    1: BLOG_H1_CLASSES,
+    2: BLOG_H2_CLASSES,
+    3: BLOG_H3_CLASSES,
+    4: BLOG_H4_CLASSES,
   };
 
   const id = content
@@ -73,9 +81,7 @@ function HeadingSection({ content, level = 2 }: BlogPostSection) {
 function ParagraphSection({ content }: BlogPostSection) {
   if (!content) return null;
 
-  return (
-    <p className="text-base lg:text-lg leading-relaxed text-[var(--color-text)] mb-8">{content}</p>
-  );
+  return <p className={`${BLOG_PARAGRAPH_CLASSES} mb-8`}>{content}</p>;
 }
 
 function ListSection({ items }: BlogPostSection) {
@@ -86,7 +92,7 @@ function ListSection({ items }: BlogPostSection) {
       {items.map((item, index) => (
         <li
           key={`${item.slice(0, 20).replace(/[^a-z0-9]/gi, '')}-${index}`}
-          className="relative pl-6 flex items-start gap-3 text-base lg:text-lg leading-relaxed text-[var(--color-text)] rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/5"
+          className={`relative pl-6 flex items-start gap-3 ${BLOG_LIST_ITEM_CLASSES} rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/5`}
           tabIndex={0}
           role="listitem"
         >
@@ -223,11 +229,7 @@ export default function BlogPostContent({ sections, tableOfContents }: BlogPostC
     <>
       {/* Intro sections (full width) */}
       {shouldShowToc && (
-        <article
-          className="prose prose-lg max-w-none mb-12"
-          role="main"
-          aria-label="Blog post introduction"
-        >
+        <article className="max-w-none mb-12" role="main" aria-label="Blog post introduction">
           {introSections.map((section, index) => {
             const SectionComponent = sectionTypeComponentMap[section.type];
             if (!SectionComponent) return null;
@@ -254,7 +256,7 @@ export default function BlogPostContent({ sections, tableOfContents }: BlogPostC
 
         {/* Main Content */}
         <div className={shouldShowToc ? 'max-w-4xl' : ''}>
-          <article className="prose prose-lg max-w-none" role="main" aria-label="Blog post content">
+          <article className="max-w-none" role="main" aria-label="Blog post content">
             {mainSections.map((section, index) => {
               const SectionComponent = sectionTypeComponentMap[section.type];
 

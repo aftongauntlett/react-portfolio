@@ -23,7 +23,7 @@ export const games: Game[] = [
     title: 'Nyx Felis and Lampyris',
     description:
       'A resource management game about a curious cat collecting bioluminescent fireflies. Started as a JS13k entry, evolved into a complete game with strategic depth.',
-    image: '/blog/cat-game-main.png',
+    image: '/blog/nyx-felis.png',
     imageAlt: 'Nyx Felis collecting fireflies in the starry night sky',
     tags: ['JavaScript', 'Game Design', 'JS13k', 'Resource Management'],
     links: [
@@ -52,7 +52,7 @@ export const games: Game[] = [
     title: 'Orbital Order',
     description:
       'A practice game built to understand JS13k constraints. Simple atomic collection mechanics in under 13KB.',
-    image: '/blog/atom-game-main.png',
+    image: '/blog/orbital-order.png',
     imageAlt: 'Orbital Order gameplay showing particle effects',
     tags: ['JavaScript', 'JS13k', 'Code Golf', 'Minimal Design'],
     links: [

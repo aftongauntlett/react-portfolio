@@ -21,3 +21,15 @@ export const TITLE_HOVER_CLASSES =
 export const DATE_CLASSES =
   'text-sm font-medium transition-colors duration-300 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] ml-2 shrink-0';
 export const TEXT_SM_CLASSES = 'text-sm transition-colors duration-300';
+
+// Blog Typography Classes (consistent with main portfolio)
+export const BLOG_H1_CLASSES =
+  'title mt-0 mb-8 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default';
+export const BLOG_H2_CLASSES =
+  'text-2xl font-bold mt-16 mb-6 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default';
+export const BLOG_H3_CLASSES =
+  'subtitle mt-12 mb-4 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default';
+export const BLOG_H4_CLASSES =
+  'text-lg font-medium mt-8 mb-3 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default';
+export const BLOG_PARAGRAPH_CLASSES = 'text-body leading-relaxed text-[var(--color-text)] mb-8';
+export const BLOG_LIST_ITEM_CLASSES = 'text-body leading-relaxed text-[var(--color-text)]';

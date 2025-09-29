@@ -1,8 +1,12 @@
 import type { ReactNode } from 'react';
+import { lazy, Suspense } from 'react';
 import Footer from '@/components/shared/Footer';
 import ExternalNav from '@/components/layout/ExternalNav';
 import { FaCalendar, FaClock } from 'react-icons/fa';
 import { formatDate } from '@/utils/dateFormatter';
+
+// Lazy load the starry background for performance
+const StarryBackground = lazy(() => import('../../StarryBackground'));
 
 interface ExternalPageLayoutProps {
   title: string;
@@ -25,6 +29,10 @@ export default function ExternalPageLayout({
 }: ExternalPageLayoutProps) {
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
+      {/* Starry background for consistency with main portfolio */}
+      <Suspense fallback={null}>
+        <StarryBackground />
+      </Suspense>
       {/* Simple, consistent navigation */}
       <ExternalNav />
 
