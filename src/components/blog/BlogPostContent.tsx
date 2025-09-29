@@ -1,0 +1,280 @@
+import type { BlogPostSection } from '@/data/blog/types';
+import { Button } from '@/components/shared/Button';
+import { BlogImage } from '@/components/shared/BlogImage';
+import { BlogFeedbackForm } from './BlogFeedbackForm';
+import type { ReactNode } from 'react';
+
+interface BlogPostContentProps {
+  sections: BlogPostSection[];
+  tableOfContents?: ReactNode;
+}
+
+const sectionTypeComponentMap = {
+  heading: HeadingSection,
+  paragraph: ParagraphSection,
+  list: ListSection,
+  separator: SeparatorSection,
+  links: LinksSection,
+  'blog-image': BlogImageSection,
+  'feedback-form': FeedbackFormSection,
+} as const;
+
+function HeadingSection({ content, level = 2 }: BlogPostSection) {
+  if (!content) return null;
+
+  const headingClasses = {
+    1: 'text-3xl lg:text-4xl font-bold mt-0 mb-8 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
+    2: 'text-2xl lg:text-3xl font-bold mt-16 mb-6 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
+    3: 'text-xl lg:text-2xl font-semibold mt-12 mb-4 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
+    4: 'text-lg lg:text-xl font-medium mt-8 mb-3 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default',
+  };
+
+  const id = content
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+
+  if (level === 1) {
+    return (
+      <h1 className={headingClasses[1]} id={id}>
+        {content}
+      </h1>
+    );
+  }
+  if (level === 2) {
+    return (
+      <h2 className={headingClasses[2]} id={id}>
+        {content}
+      </h2>
+    );
+  }
+  if (level === 3) {
+    return (
+      <h3 className={headingClasses[3]} id={id}>
+        {content}
+      </h3>
+    );
+  }
+  if (level === 4) {
+    return (
+      <h4 className={headingClasses[4]} id={id}>
+        {content}
+      </h4>
+    );
+  }
+
+  return (
+    <h2 className={headingClasses[2]} id={id}>
+      {content}
+    </h2>
+  );
+}
+
+function ParagraphSection({ content }: BlogPostSection) {
+  if (!content) return null;
+
+  return (
+    <p className="text-base lg:text-lg leading-relaxed text-[var(--color-text)] mb-8">{content}</p>
+  );
+}
+
+function ListSection({ items }: BlogPostSection) {
+  if (!items || items.length === 0) return null;
+
+  return (
+    <ul className="group space-y-4 mb-8 list-none" role="list" aria-label="List of items">
+      {items.map((item, index) => (
+        <li
+          key={`${item.slice(0, 20).replace(/[^a-z0-9]/gi, '')}-${index}`}
+          className="relative pl-6 flex items-start gap-3 text-base lg:text-lg leading-relaxed text-[var(--color-text)] rounded-sm focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/5"
+          tabIndex={0}
+          role="listitem"
+        >
+          <span
+            className="absolute left-0 text-[var(--color-secondary)] transition-colors md:group-hover:text-[var(--color-secondary)]"
+            aria-hidden="true"
+          >
+            –
+          </span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+function SeparatorSection() {
+  return (
+    <div className="flex justify-center my-16" role="separator" aria-hidden="true">
+      <div className="text-2xl text-[var(--color-muted)] font-light tracking-widest">⸻</div>
+    </div>
+  );
+}
+
+function LinksSection({ links }: BlogPostSection) {
+  if (!links || links.length === 0) return null;
+
+  const getIconForType = (type: 'github' | 'demo' | 'external') => {
+    switch (type) {
+      case 'github':
+        return (
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path
+              fillRule="evenodd"
+              d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        );
+      case 'demo':
+        return (
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        );
+      default:
+        return (
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        );
+    }
+  };
+
+  return (
+    <div className="my-8" role="group" aria-label="Related links">
+      <div className="flex flex-wrap gap-4 justify-center">
+        {links.map((link, index) => (
+          <Button
+            key={`${link.type}-${link.text.replace(/[^a-z0-9]/gi, '')}-${index}`}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="outline"
+            color="secondary"
+            icon={getIconForType(link.type)}
+            aria-label={`${link.text} (opens in new tab)`}
+          >
+            {link.text}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BlogImageSection({ src, alt, caption }: BlogPostSection) {
+  if (!src || !alt) return null;
+
+  return <BlogImage src={src} alt={alt} caption={caption} />;
+}
+
+function FeedbackFormSection({ formTitle, formDescription }: BlogPostSection) {
+  return (
+    <div className="my-12">
+      <BlogFeedbackForm title={formTitle} description={formDescription} />
+    </div>
+  );
+}
+
+export default function BlogPostContent({ sections, tableOfContents }: BlogPostContentProps) {
+  // Find where to insert table of contents - after intro content (paragraph, image, links)
+  let insertTocAfterIndex = -1;
+  for (let i = 0; i < sections.length; i++) {
+    const section = sections[i];
+    // Include intro paragraph, image, and links in the intro area
+    if (section.type === 'links') {
+      insertTocAfterIndex = i;
+      break;
+    }
+    // Fallback: if we find a separator or heading after image, insert before it
+    if (i > 0 && (section.type === 'separator' || section.type === 'heading')) {
+      insertTocAfterIndex = i - 1;
+      break;
+    }
+  }
+
+  const shouldShowToc = tableOfContents && insertTocAfterIndex !== -1;
+  const introSections = shouldShowToc ? sections.slice(0, insertTocAfterIndex + 1) : [];
+  const mainSections = shouldShowToc ? sections.slice(insertTocAfterIndex + 1) : sections;
+
+  return (
+    <>
+      {/* Intro sections (full width) */}
+      {shouldShowToc && (
+        <article
+          className="prose prose-lg max-w-none mb-12"
+          role="main"
+          aria-label="Blog post introduction"
+        >
+          {introSections.map((section, index) => {
+            const SectionComponent = sectionTypeComponentMap[section.type];
+            if (!SectionComponent) return null;
+
+            const stableKey = section.content
+              ? `intro-${section.type}-${section.content.slice(0, 20).replace(/[^a-z0-9]/gi, '')}-${index}`
+              : `intro-${section.type}-${index}`;
+
+            return <SectionComponent key={stableKey} {...section} />;
+          })}
+        </article>
+      )}
+
+      {/* Main content with sidebar layout */}
+      <div
+        className={
+          shouldShowToc
+            ? 'grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-8 lg:gap-12 max-w-7xl mx-auto'
+            : ''
+        }
+      >
+        {/* Table of Contents Sidebar */}
+        {shouldShowToc && <div className="lg:block">{tableOfContents}</div>}
+
+        {/* Main Content */}
+        <div className={shouldShowToc ? 'max-w-4xl' : ''}>
+          <article className="prose prose-lg max-w-none" role="main" aria-label="Blog post content">
+            {mainSections.map((section, index) => {
+              const SectionComponent = sectionTypeComponentMap[section.type];
+
+              if (!SectionComponent) {
+                if (process.env.NODE_ENV === 'development') {
+                  console.warn(`Unknown section type: ${section.type}`);
+                }
+                return null;
+              }
+
+              const sectionIndex = shouldShowToc ? insertTocAfterIndex + 1 + index : index;
+              const stableKey = section.content
+                ? `${section.type}-${section.content.slice(0, 20).replace(/[^a-z0-9]/gi, '')}-${sectionIndex}`
+                : `${section.type}-${sectionIndex}`;
+
+              return <SectionComponent key={stableKey} {...section} />;
+            })}
+          </article>
+        </div>
+      </div>
+    </>
+  );
+}
