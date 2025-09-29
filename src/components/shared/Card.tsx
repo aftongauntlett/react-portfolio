@@ -8,8 +8,8 @@ import {
 } from '@/constants/styles';
 
 interface CardProps {
-  title: string;
-  subtitle: string;
+  title: string | ReactNode;
+  subtitle: string | ReactNode;
   date: string;
   badge?: string;
   description?: string;
@@ -72,7 +72,9 @@ export default function Card({
       <div className="flex flex-col justify-between h-full">
         <div>
           <div className="flex justify-between items-start mb-1">
-            <h4 className={TITLE_HOVER_CLASSES}>{title}</h4>
+            <h4 className={typeof title === 'string' ? TITLE_HOVER_CLASSES : 'subtitle'}>
+              {title}
+            </h4>
             <span className={DATE_CLASSES}>{date}</span>
           </div>
 
@@ -82,17 +84,18 @@ export default function Card({
             </span>
           )}
 
-          <p
+          <div
             className={clsx(
               TEXT_SM_CLASSES,
               'mb-2',
-              subtitleColor === 'primary'
-                ? 'text-[var(--color-primary)] group-hover:text-[var(--color-text)]'
-                : 'text-[var(--color-muted)] group-hover:text-[var(--color-text)]',
+              typeof subtitle === 'string' &&
+                (subtitleColor === 'primary'
+                  ? 'text-[var(--color-primary)] group-hover:text-[var(--color-text)]'
+                  : 'text-[var(--color-muted)] group-hover:text-[var(--color-text)]'),
             )}
           >
             {subtitle}
-          </p>
+          </div>
 
           {description && <p className="text-sm text-[var(--color-muted)]">{description}</p>}
 

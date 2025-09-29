@@ -56,9 +56,13 @@ export default class ErrorBoundary extends Component<Props, State> {
                 </div>
               </div>
               {process.env.NODE_ENV === 'development' && this.state.error && (
-                <details className="mt-4 p-4 bg-red-50 border border-red-200 rounded text-left text-sm">
-                  <summary className="font-medium cursor-pointer">Error Details (Dev Mode)</summary>
-                  <pre className="mt-2 text-xs overflow-auto">{this.state.error.stack}</pre>
+                <details className="mt-4 p-4 bg-[var(--color-surface)] border border-[var(--color-line)] rounded text-left text-sm">
+                  <summary className="font-medium cursor-pointer text-[var(--color-text)]">
+                    Error Details (Dev Mode)
+                  </summary>
+                  <pre className="mt-2 text-xs overflow-auto text-[var(--color-muted)] bg-[var(--color-background)] p-2 rounded">
+                    {this.state.error.stack}
+                  </pre>
                 </details>
               )}
             </div>
