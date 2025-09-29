@@ -1,5 +1,7 @@
 import { useMemo, useState, lazy, Suspense } from 'react';
 import { useTheme } from '@/context/ThemeContext';
+import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
+import clsx from 'clsx';
 
 // Lazy load the Lottie animation to improve initial page load
 const LottieHello = lazy(() => import('./LottieHello'));
@@ -17,7 +19,7 @@ const renderHighlightedText = (text: string) => {
     if (part.startsWith('{') && part.endsWith('}')) {
       const content = part.slice(1, -1);
       return (
-        <span key={index} className="font-semibold text-[var(--color-primary)]">
+        <span key={index} className={clsx('font-semibold', TYPOGRAPHY.TEXT_PRIMARY)}>
           {content}
         </span>
       );
@@ -35,7 +37,7 @@ export default function AboutSection() {
       aboutParagraphs.map((paragraph, index) => (
         <p
           key={index}
-          className="text-body leading-relaxed focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/5 rounded px-2 py-1"
+          className={clsx(TEXT_COMBINATIONS.BODY_RELAXED, FOCUS_STYLES.PRIMARY)}
           tabIndex={0}
           aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
         >
@@ -85,9 +87,7 @@ export default function AboutSection() {
 
         {/* Foreground Hello Text */}
         <div className="relative z-20 text-center">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold hello-gradient drop-shadow-2xl">
-            Hello
-          </h1>
+          <h1 className={clsx(TYPOGRAPHY.TITLE, 'hello-gradient drop-shadow-2xl')}>Hello</h1>
         </div>
       </div>
 

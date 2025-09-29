@@ -2,6 +2,7 @@ import { FaArrowLeft, FaHome } from 'react-icons/fa';
 import { Button } from '@/components/shared/Button';
 import { useLocation } from 'react-router-dom';
 import { navigateToPortfolio, navigateToBlog } from '@/utils/navigation';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface ExternalNavProps {
   onBackClick?: () => void;
@@ -38,7 +39,7 @@ export default function ExternalNav({ onBackClick }: ExternalNavProps) {
         <div className="flex items-center justify-between">
           <Button
             onClick={handleBack}
-            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors"
+            className={`inline-flex items-center gap-2 ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors`}
           >
             <FaArrowLeft className="w-3 h-3" />
             {getBackText()}
@@ -49,7 +50,7 @@ export default function ExternalNav({ onBackClick }: ExternalNavProps) {
             <Button
               onClick={handlePortfolio}
               variant="outline"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+              className={`inline-flex items-center gap-2 ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors`}
             >
               <FaHome className="w-3 h-3" />
               Portfolio

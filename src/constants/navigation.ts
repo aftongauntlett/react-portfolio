@@ -5,14 +5,14 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'professional-projects', label: 'Professional Projects' },
-  { id: 'personal-projects', label: 'Personal Projects' },
   { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'credentials', label: 'Credentials' },
   { id: 'contact', label: 'Contact' },
 ];
 
-// External navigation items (not tied to scrollspy)
+// External navigation items (not tied to scrollspy) - keeping for potential future use
 export interface ExternalNavItem {
   id: string;
   label: string;

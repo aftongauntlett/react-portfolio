@@ -1,4 +1,5 @@
 import { HiArrowUp } from 'react-icons/hi2';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface FooterProps {
   scrollTarget?: string;
@@ -19,7 +20,7 @@ export default function Footer({ scrollTarget = '#about' }: FooterProps) {
   };
 
   return (
-    <footer className="text-sm text-[var(--color-muted)] py-10 mt-8">
+    <footer className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)] py-10 mt-8`}>
       {/* Footer Content */}
       <div className="flex items-center justify-between gap-4">
         <div />

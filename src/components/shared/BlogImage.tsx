@@ -1,3 +1,5 @@
+import { TYPOGRAPHY } from '@/constants/typography';
+
 interface BlogImageProps {
   src: string;
   alt: string;
@@ -37,7 +39,7 @@ export function BlogImage({ src, alt, caption, size = 'large', className = '' }:
         {caption && (
           <p
             id={captionId}
-            className="text-[var(--color-muted)] text-sm lg:text-base leading-relaxed text-center mt-4 italic font-medium"
+            className={`text-[var(--color-muted)] ${TYPOGRAPHY.TEXT_SMALL} lg:${TYPOGRAPHY.TEXT_BODY} leading-relaxed text-center mt-4 italic font-medium`}
           >
             {caption}
           </p>

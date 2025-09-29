@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { FaCalendar, FaClock, FaArrowRight, FaStar } from 'react-icons/fa';
+import clsx from 'clsx';
 import Card from '@/components/shared/Card';
 import { Button } from '@/components/shared/Button';
 import HighlightText from '@/components/shared/HighlightText';
 import { formatDate } from '@/utils/dateFormatter';
+import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
 import type { BlogPost } from '@/data/blog/types';
 
 interface BlogCardProps {
@@ -27,7 +29,7 @@ export default function BlogCard({
         <Card
           title={
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-bold flex-1">
+              <h2 className={clsx(TYPOGRAPHY.HEADING_2, 'flex-1')}>
                 <HighlightText text={post.metadata.title} searchQuery={searchTerm} />
               </h2>
               {post.metadata.featured && (
@@ -47,7 +49,7 @@ export default function BlogCard({
           className="h-full cursor-pointer"
         >
           {/* Post metadata: publish date and reading time */}
-          <div className="flex items-center gap-6 text-sm text-[var(--color-muted)] mb-4">
+          <div className={clsx('flex items-center gap-6 mb-4', TEXT_COMBINATIONS.SMALL_MUTED)}>
             <div className="flex items-center gap-2">
               <FaCalendar className="w-3 h-3" />
               <time dateTime={post.metadata.publishDate}>
@@ -67,7 +69,12 @@ export default function BlogCard({
               {post.metadata.categories?.slice(0, 2).map((category: string) => (
                 <span
                   key={category}
-                  className="px-3 py-1 text-sm bg-[var(--color-primary)]/10 text-[var(--color-primary)] rounded-full font-medium"
+                  className={clsx(
+                    'px-3 py-1 rounded-full font-medium',
+                    'bg-[var(--color-primary)]/10',
+                    TYPOGRAPHY.TEXT_SMALL,
+                    TYPOGRAPHY.TEXT_PRIMARY,
+                  )}
                 >
                   {category}
                 </span>
@@ -76,7 +83,12 @@ export default function BlogCard({
               {post.metadata.tags?.slice(0, 2).map((tag: string) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] rounded-full"
+                  className={clsx(
+                    'px-3 py-1 rounded-full',
+                    'bg-[var(--color-secondary)]/10',
+                    TYPOGRAPHY.TEXT_SMALL,
+                    TYPOGRAPHY.TEXT_SECONDARY,
+                  )}
                 >
                   {tag}
                 </span>

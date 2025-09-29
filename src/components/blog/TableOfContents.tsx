@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import type { BlogPostSection } from '@/data/blog/types';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface TableOfContentsProps {
   sections: BlogPostSection[];
@@ -68,7 +69,9 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
         className="w-full flex items-center justify-between p-4 text-left lg:cursor-default"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <h3 className="text-sm font-semibold text-[var(--color-text)]">Contents</h3>
+        <h3 className={`${TYPOGRAPHY.TEXT_SMALL} font-semibold text-[var(--color-text)]`}>
+          Contents
+        </h3>
         <div className="lg:hidden">
           {isExpanded ? (
             <FaChevronUp className="w-3 h-3 text-[var(--color-muted)]" />
@@ -89,7 +92,7 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
                     scrollToSection(item.id);
                     setIsExpanded(false); // Close on mobile after clicking
                   }}
-                  className={`block w-full text-left text-sm py-1.5 px-2 rounded transition-colors hover:bg-[var(--color-line)]/30 ${
+                  className={`block w-full text-left ${TYPOGRAPHY.TEXT_SMALL} py-1.5 px-2 rounded transition-colors hover:bg-[var(--color-line)]/30 ${
                     activeSection === item.id
                       ? 'text-[var(--color-primary)] bg-[var(--color-primary)]/5 font-medium'
                       : 'text-[var(--color-muted)] hover:text-[var(--color-text)]'

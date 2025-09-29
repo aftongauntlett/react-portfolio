@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { Button } from '@/components/shared/Button';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface FeedbackFormData {
   name: string;
@@ -98,9 +99,9 @@ export function BlogFeedbackForm({
   return (
     <div className="max-w-2xl mx-auto bg-[var(--color-surface)] rounded-lg border border-[var(--color-line)] p-6 shadow-sm">
       <div className="mb-6">
-        <h3 className="text-xl font-semibold text-[var(--color-text)] mb-2">{title}</h3>
-        <p className="text-[var(--color-muted)] mb-4">{description}</p>
-        <div className="text-sm text-[var(--color-muted)] space-y-2">
+        <h3 className={`${TYPOGRAPHY.HEADING_3} text-[var(--color-text)] mb-2`}>{title}</h3>
+        <p className={`${TYPOGRAPHY.TEXT_BODY} text-[var(--color-muted)] mb-4`}>{description}</p>
+        <div className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)] space-y-2`}>
           <p>
             <strong>Why feedback matters:</strong> Playtesting is crucial for game development.
             Every perspective helps identify issues I might miss as the developer.
@@ -176,7 +177,7 @@ export function BlogFeedbackForm({
 
           {status.message && (
             <div
-              className={`text-sm ${
+              className={`${TYPOGRAPHY.TEXT_SMALL} ${
                 status.type === 'success'
                   ? 'text-[var(--color-status-production)]'
                   : status.type === 'error'

@@ -3,7 +3,7 @@
  */
 
 export const NAVIGATION_URLS = {
-  PORTFOLIO: '/?scrollTo=personal-projects',
+  PORTFOLIO: '/?scrollTo=projects',
   BLOG: '/blog',
 } as const;
 

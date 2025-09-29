@@ -5,8 +5,8 @@ import AboutSection from '@/components/sections/About';
 import ContactSection from '@/components/sections/Contact';
 import ExperienceSection from '@/components/sections/Experience';
 import ProjectsSection from '@/components/sections/Projects';
-import MoreProjectsSection from '@/components/sections/MoreProjects';
 import SkillsSection from '@/components/sections/Skills';
+import CredentialsSection from '@/components/sections/Credentials';
 
 export default function Home() {
   // Handle scrolling to section when page loads with hash or query parameter
@@ -51,17 +51,17 @@ export default function Home() {
       <PageSection id="about">
         <AboutSection />
       </PageSection>
+      <PageSection id="skills" title="Technical Skills">
+        <SkillsSection />
+      </PageSection>
       <PageSection id="experience" title="Experience">
         <ExperienceSection />
       </PageSection>
-      <PageSection id="professional-projects" title="Professional Projects">
+      <PageSection id="projects" title="Projects">
         <ProjectsSection />
       </PageSection>
-      <PageSection id="personal-projects" title="Personal Projects">
-        <MoreProjectsSection />
-      </PageSection>
-      <PageSection id="skills" title="Skills & Tools">
-        <SkillsSection />
+      <PageSection id="credentials" title="Credentials">
+        <CredentialsSection />
       </PageSection>
       <PageSection id="contact" title="Get in Touch">
         <ContactSection />

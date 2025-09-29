@@ -4,6 +4,7 @@ import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { useSimpleBlogFilter } from '@/hooks/useSimpleBlogFilter';
 import SimpleBlogFilter from '@/components/blog/SimpleBlogFilter';
 import BlogCard from '@/components/blog/BlogCard';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 export default function Blog() {
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
@@ -62,7 +63,7 @@ export default function Blog() {
         {/* Coming Soon */}
         <div className="mt-16 text-center">
           <div className="p-8 bg-[var(--color-muted)]/5 border border-[var(--color-line)] rounded-lg">
-            <h3 className="text-lg font-semibold mb-2 text-[var(--color-text)]">
+            <h3 className={`${TYPOGRAPHY.TEXT_LARGE} font-semibold mb-2 text-[var(--color-text)]`}>
               More Posts Coming Soon
             </h3>
             <p className="text-[var(--color-muted)]">

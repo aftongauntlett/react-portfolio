@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import MotionSection from '@/components/shared/MotionSection';
 import { Button } from '@/components/shared/Button';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
@@ -10,6 +11,8 @@ import {
   TRANSITION_FAST,
   TEXT_PRIMARY_HOVER,
   TEXT_MUTED_HOVER,
+  TYPOGRAPHY,
+  FOCUS_STYLES,
 } from '@/constants/styles';
 
 export default function ProjectsSection() {
@@ -27,13 +30,35 @@ export default function ProjectsSection() {
     }
   };
 
-  const renderStatus = (status: string) => {
+  const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
     const isProduction = status === 'Production';
+    const isCollection = status === 'Collection';
+
+    // For external collections, show last updated instead of status
+    if (isCollection && lastUpdated) {
+      return (
+        <span
+          className={clsx(
+            TYPOGRAPHY.TEXT_XS,
+            'font-medium px-2 py-1 rounded border border-[var(--color-line)]',
+            TYPOGRAPHY.TEXT_MUTED,
+            'flex items-center gap-1',
+          )}
+          style={{
+            backgroundColor: 'var(--color-muted)/10',
+          }}
+        >
+          {external && <FaExternalLinkAlt className="w-3 h-3" />}
+          Updated {lastUpdated}
+        </span>
+      );
+    }
 
     return (
       <span
         className={clsx(
-          'text-xs font-medium px-2 py-1 rounded border border-[var(--color-line)]',
+          TYPOGRAPHY.TEXT_XS,
+          'font-medium px-2 py-1 rounded border border-[var(--color-line)]',
           isProduction
             ? 'text-[var(--color-status-production)]'
             : 'text-[var(--color-status-development)]',
@@ -84,107 +109,114 @@ export default function ProjectsSection() {
         },
       }}
     >
-      {projects.map(({ title, status, description, tech, link, demo }, idx) => (
-        <MotionSection
-          key={title}
-          variants={projectVariants}
-          onMouseEnter={() => setHovered(idx)}
-          onMouseLeave={clearHovered}
-          onClick={() => 'ontouchstart' in window && handleInteraction(idx)}
-          className={clsx(
-            'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md ',
-            // Left border only on desktop
-            'md:border-l-4 md:border-transparent',
-            TRANSITION_COLORS,
-            TRANSITION_OPACITY,
-            'ease-in-out md:hover:border-[var(--color-primary)]',
-            // Only apply dimming on hover-capable devices
-            isDimmed(idx) && '!opacity-50',
-            // Add subtle touch feedback for mobile
-            'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
-          )}
-          role="listitem"
-          aria-labelledby={`project-title-${idx}`}
-        >
-          <h3
-            id={`project-title-${idx}`}
-            tabIndex={0}
+      {projects.map(
+        ({ title, status, description, tech, link, demo, external, lastUpdated }, idx) => (
+          <MotionSection
+            key={title}
+            variants={projectVariants}
+            onMouseEnter={() => setHovered(idx)}
+            onMouseLeave={clearHovered}
+            onClick={() => 'ontouchstart' in window && handleInteraction(idx)}
             className={clsx(
-              'subtitle', // Using the same class as timeline items
-              TEXT_PRIMARY_HOVER,
-              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
-              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
-              'flex items-center gap-3 flex-wrap',
+              'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md ',
+              // Left border only on desktop
+              'md:border-l-4 md:border-transparent',
+              TRANSITION_COLORS,
+              TRANSITION_OPACITY,
+              'ease-in-out md:hover:border-[var(--color-primary)]',
+              // Only apply dimming on hover-capable devices
+              isDimmed(idx) && '!opacity-50',
+              // Add subtle touch feedback for mobile
+              'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
             )}
+            role="listitem"
+            aria-labelledby={`project-title-${idx}`}
           >
-            {title}
-            {renderStatus(status)}
-          </h3>
-          <div
-            tabIndex={0}
-            aria-label={`Project description: ${description}`}
-            role="text"
-            className={clsx(
-              'text-body text-[var(--color-muted)] mt-3 mb-3',
-              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1',
-              'focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
-            )}
-          >
-            {description}
-          </div>
-          <div
-            className={clsx('flex flex-wrap gap-2 text-sm mb-4', TEXT_MUTED_HOVER, TRANSITION_FAST)}
-            role="group"
-            aria-label={`Technologies used in ${title}`}
-          >
-            {tech.map((t) => (
-              <span
-                key={t}
-                className="inline-flex items-center px-2 py-1 text-xs font-medium bg-[var(--color-muted)]/10 text-[var(--color-muted)] border border-[var(--color-border)] rounded cursor-default"
-                aria-label={`Technology: ${t}`}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-          <div
-            className="flex flex-wrap gap-3 justify-end mt-4"
-            role="group"
-            aria-label="Project links"
-          >
-            {link && link !== '#' ? (
-              <Button
-                href={link}
-                variant="outline"
-                color="primary"
-                aria-label={`View ${title} source code on GitHub`}
-              >
-                View Repo
-              </Button>
-            ) : link === '#' ? (
-              <Button
-                disabled
-                variant="outline"
-                color="muted"
-                aria-label="Source code not publicly available"
-              >
-                Private Repo
-              </Button>
-            ) : null}
+            <h3
+              id={`project-title-${idx}`}
+              tabIndex={0}
+              className={clsx(
+                TYPOGRAPHY.SUBTITLE,
+                TEXT_PRIMARY_HOVER,
+                FOCUS_STYLES.COMPACT,
+                'flex items-center gap-3 flex-wrap',
+              )}
+            >
+              {title}
+              {renderStatus(status, lastUpdated, external)}
+            </h3>
+            <div
+              tabIndex={0}
+              aria-label={`Project description: ${description}`}
+              role="text"
+              className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'mt-3 mb-3', FOCUS_STYLES.COMPACT)}
+            >
+              {description}
+            </div>
+            <div
+              className={clsx(
+                'flex flex-wrap gap-2 mb-4',
+                TYPOGRAPHY.TEXT_SMALL,
+                TEXT_MUTED_HOVER,
+                TRANSITION_FAST,
+              )}
+              role="group"
+              aria-label={`Technologies used in ${title}`}
+            >
+              {tech.map((t) => (
+                <span
+                  key={t}
+                  className={clsx(
+                    'inline-flex items-center px-2 py-1 font-medium rounded cursor-default',
+                    'bg-[var(--color-muted)]/10 border border-[var(--color-border)]',
+                    TYPOGRAPHY.TEXT_XS,
+                    TYPOGRAPHY.TEXT_MUTED,
+                  )}
+                  aria-label={`Technology: ${t}`}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div
+              className="flex flex-wrap gap-3 justify-end mt-4"
+              role="group"
+              aria-label="Project links"
+            >
+              {link && link !== '#' ? (
+                <Button
+                  href={link}
+                  variant="outline"
+                  color="primary"
+                  aria-label={`View ${title} source code on GitHub`}
+                >
+                  View Repo
+                </Button>
+              ) : link === '#' ? (
+                <Button
+                  disabled
+                  variant="outline"
+                  color="muted"
+                  aria-label="Source code not publicly available"
+                >
+                  Private Repo
+                </Button>
+              ) : null}
 
-            {demo && demo !== '#' && (
-              <Button
-                variant="solid"
-                color="secondary"
-                href={demo}
-                aria-label={`View live demo of ${title}`}
-              >
-                View Live
-              </Button>
-            )}
-          </div>
-        </MotionSection>
-      ))}
+              {demo && demo !== '#' && (
+                <Button
+                  variant="solid"
+                  color="secondary"
+                  href={demo}
+                  aria-label={`View live demo of ${title}`}
+                >
+                  {external ? 'View Collection' : 'View Live'}
+                </Button>
+              )}
+            </div>
+          </MotionSection>
+        ),
+      )}
     </motion.div>
   );
 }

@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { skills, skillCategories } from '@/data/skills';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { TRANSITION_COLORS, TEXT_PRIMARY_HOVER } from '@/constants/styles';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 export default function SkillsSectionContent() {
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
@@ -27,11 +28,11 @@ export default function SkillsSectionContent() {
         >
           <h3
             id={`skills-category-${categoryIdx}`}
-            className={clsx('text-lg font-semibold mb-4', TEXT_PRIMARY_HOVER)}
+            className={clsx(`${TYPOGRAPHY.TEXT_LARGE} font-semibold mb-4`, TEXT_PRIMARY_HOVER)}
           >
             {label}
           </h3>
-          <div className="text-sm">
+          <div className={TYPOGRAPHY.TEXT_SMALL}>
             <ul
               className="hidden md:flex flex-wrap items-center gap-2"
               aria-label={`${label} skills`}

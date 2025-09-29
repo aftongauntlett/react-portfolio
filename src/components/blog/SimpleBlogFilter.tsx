@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaSearch, FaChevronDown } from 'react-icons/fa';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface SimpleBlogFilterProps {
   searchTerm: string;
@@ -70,7 +71,7 @@ export default function SimpleBlogFilter({
                 onClick={() => onTagToggle(tag)}
                 aria-pressed={isSelected}
                 aria-label={`${isSelected ? 'Remove' : 'Add'} ${tag} filter`}
-                className={`px-3 py-1.5 text-sm font-medium rounded-full border transition-all ${
+                className={`px-3 py-1.5 ${TYPOGRAPHY.TEXT_SMALL} font-medium rounded-full border transition-all ${
                   isSelected
                     ? 'bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-sm'
                     : 'bg-[var(--color-background)] text-[var(--color-muted)] border-[var(--color-line)] hover:border-[var(--color-primary)] hover:text-[var(--color-text)]'
@@ -89,9 +90,9 @@ export default function SimpleBlogFilter({
             aria-expanded={showSortDropdown}
             aria-haspopup="listbox"
             aria-label="Sort posts"
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--color-text)] 
+            className={`flex items-center gap-2 px-4 py-2 ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)] 
                      bg-[var(--color-background)] border border-[var(--color-line)] rounded-lg
-                     hover:border-[var(--color-primary)] transition-colors"
+                     hover:border-[var(--color-primary)] transition-colors`}
           >
             {currentSortLabel}
             <FaChevronDown
@@ -112,7 +113,7 @@ export default function SimpleBlogFilter({
                     onSortChange(option.value);
                     setShowSortDropdown(false);
                   }}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-[var(--color-line)]/30 transition-colors ${
+                  className={`w-full text-left px-3 py-2 ${TYPOGRAPHY.TEXT_SMALL} hover:bg-[var(--color-line)]/30 transition-colors ${
                     sortBy === option.value
                       ? 'text-[var(--color-primary)] font-medium'
                       : 'text-[var(--color-text)]'
@@ -129,7 +130,7 @@ export default function SimpleBlogFilter({
       {/* Results Count */}
       <p
         id="search-results-count"
-        className="text-sm text-[var(--color-muted)]"
+        className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)]`}
         role="status"
         aria-live="polite"
       >
