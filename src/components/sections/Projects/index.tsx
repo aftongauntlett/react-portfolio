@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import MotionSection from '@/components/shared/MotionSection';
 import { Button } from '@/components/shared/Button';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
@@ -190,6 +190,7 @@ export default function ProjectsSection() {
                   color="primary"
                   aria-label={`View ${title} source code on GitHub`}
                 >
+                  <FaGithub className="w-4 h-4" />
                   View Repo
                 </Button>
               ) : link === '#' ? (
@@ -210,6 +211,7 @@ export default function ProjectsSection() {
                   href={demo}
                   aria-label={`View live demo of ${title}`}
                 >
+                  <FaExternalLinkAlt className="w-3 h-3" />
                   {external ? 'View Collection' : 'View Live'}
                 </Button>
               )}

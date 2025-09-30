@@ -22,17 +22,10 @@ export interface ExternalNavItem {
 
 export const externalNavItems: ExternalNavItem[] = [
   {
-    id: 'blog',
-    label: 'Technical Blog',
-    href: '/blog',
+    id: 'game-development',
+    label: 'Game Development',
+    href: '/gamedev',
     description:
-      'In-depth technical writing covering development insights, post-mortems from game jams, and lessons learned from building complex frontend applications.',
-  },
-  {
-    id: 'games',
-    label: 'Interactive Games',
-    href: '/games',
-    description:
-      'Creative coding projects and game development experiments, including entries from JS13k game jams and interactive web experiences showcasing advanced JavaScript techniques.',
+      'Interactive games and development insights. Features playable JS13k competition entries with detailed post-mortems covering game design, physics simulation, creative coding under constraints, and lessons learned.',
   },
 ];

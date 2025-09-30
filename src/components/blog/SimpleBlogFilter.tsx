@@ -53,8 +53,7 @@ export default function SimpleBlogFilter({
           onChange={(e) => onSearchChange(e.target.value)}
           className="w-full pl-10 pr-4 py-3 bg-[var(--color-background)] border border-[var(--color-line)] rounded-lg 
                    text-[var(--color-text)] placeholder-[var(--color-muted)]
-                   focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]
-                   transition-colors"
+                   focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]"
           aria-describedby="search-results-count"
         />
       </div>
@@ -71,9 +70,9 @@ export default function SimpleBlogFilter({
                 onClick={() => onTagToggle(tag)}
                 aria-pressed={isSelected}
                 aria-label={`${isSelected ? 'Remove' : 'Add'} ${tag} filter`}
-                className={`px-3 py-1.5 ${TYPOGRAPHY.TEXT_SMALL} font-medium rounded-full border transition-all ${
+                className={`px-3 py-1.5 ${TYPOGRAPHY.TEXT_SMALL} font-medium rounded border transition-[border-color,color] duration-200 ${
                   isSelected
-                    ? 'bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-sm'
+                    ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-[var(--color-primary)] shadow-sm'
                     : 'bg-[var(--color-background)] text-[var(--color-muted)] border-[var(--color-line)] hover:border-[var(--color-primary)] hover:text-[var(--color-text)]'
                 }`}
               >
@@ -92,11 +91,11 @@ export default function SimpleBlogFilter({
             aria-label="Sort posts"
             className={`flex items-center gap-2 px-4 py-2 ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)] 
                      bg-[var(--color-background)] border border-[var(--color-line)] rounded-lg
-                     hover:border-[var(--color-primary)] transition-colors`}
+                     hover:border-[var(--color-primary)] transition-[border-color] duration-200`}
           >
             {currentSortLabel}
             <FaChevronDown
-              className={`w-3 h-3 transition-transform ${showSortDropdown ? 'rotate-180' : ''}`}
+              className={`w-3 h-3 transition-transform duration-200 ${showSortDropdown ? 'rotate-180' : ''}`}
               aria-hidden="true"
             />
           </button>
@@ -113,7 +112,7 @@ export default function SimpleBlogFilter({
                     onSortChange(option.value);
                     setShowSortDropdown(false);
                   }}
-                  className={`w-full text-left px-3 py-2 ${TYPOGRAPHY.TEXT_SMALL} hover:bg-[var(--color-line)]/30 transition-colors ${
+                  className={`w-full text-left px-3 py-2 ${TYPOGRAPHY.TEXT_SMALL} hover:bg-[var(--color-line)]/30 transition-[background-color] duration-200 ${
                     sortBy === option.value
                       ? 'text-[var(--color-primary)] font-medium'
                       : 'text-[var(--color-text)]'

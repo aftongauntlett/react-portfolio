@@ -75,7 +75,7 @@ export default function GameCard({ game, isDimmed, onMouseEnter, onMouseLeave }:
             {game.tags.map((tag: string) => (
               <span
                 key={tag}
-                className={`px-3 py-1 ${TYPOGRAPHY.TEXT_SMALL} bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] rounded-full`}
+                className={`px-3 py-1 ${TYPOGRAPHY.TEXT_SMALL} bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] rounded`}
               >
                 {tag}
               </span>

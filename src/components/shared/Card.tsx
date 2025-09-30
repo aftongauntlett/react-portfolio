@@ -81,7 +81,7 @@ export default function Card({
 
           {badge && (
             <span
-              className={`hidden sm:inline-block mb-2 px-2 py-1 ${TYPOGRAPHY.TEXT_XS} font-medium bg-green-300 text-green-800 rounded-full`}
+              className={`hidden sm:inline-block mb-2 px-2 py-1 ${TYPOGRAPHY.TEXT_XS} font-medium bg-green-300 text-green-800 rounded`}
             >
               {badge}
             </span>
@@ -108,7 +108,7 @@ export default function Card({
         </div>
         {badge && (
           <span
-            className={`inline-block sm:hidden px-2 py-1 ${TYPOGRAPHY.TEXT_XS} bg-green-100 text-green-800 rounded-full self-start`}
+            className={`inline-block sm:hidden px-2 py-1 ${TYPOGRAPHY.TEXT_XS} bg-green-100 text-green-800 rounded self-start`}
           >
             {badge}
           </span>

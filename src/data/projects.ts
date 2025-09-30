@@ -37,23 +37,12 @@ export const projects: Project[] = [
     demo: 'https://potomacdining.com/',
   },
   {
-    title: 'Technical Blog',
-    status: 'Collection',
+    title: 'Game Development',
+    status: 'Development',
     description:
-      'In-depth technical writing covering development insights, post-mortems from game jams, and lessons learned from building complex frontend applications. Features markdown-based content, responsive design, and optimized reading experience.',
-    tech: ['Career', 'Tech', 'Gaming', 'Development', 'Insights'],
+      'Interactive games and development insights. Features playable JS13k competition entries with detailed post-mortems covering game design, physics simulation, creative coding under constraints, and lessons learned from building complete games in vanilla JavaScript.',
+    tech: ['JavaScript', 'Canvas 2D', 'Game Design', 'Physics', 'JS13k'],
     demo: '/blog',
     external: true,
-    lastUpdated: 'September 2025',
-  },
-  {
-    title: 'Interactive Games',
-    status: 'Collection',
-    description:
-      'Creative coding projects and game development experiments, including entries from JS13k game jams and interactive web experiences showcasing advanced JavaScript techniques. Features canvas animations, game physics, and creative UI/UX.',
-    tech: ['Phaser', 'Unity', 'JS13k', 'GMTK', 'Canvas', 'WebGL'],
-    demo: '/games',
-    external: true,
-    lastUpdated: 'August 2025',
   },
 ];

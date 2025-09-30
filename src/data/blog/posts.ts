@@ -2,21 +2,14 @@ import type { BlogPost } from './types';
 
 export const js13kPostMortem: BlogPost = {
   metadata: {
-    title: 'JS13k 2025: Nyx Felis and Lampyris Post-Mortem',
+    title: 'JS13k 2025 Official Submission - Nyx Felis & Lampyrus',
     description:
       'My first JS13k game jam: building Nyx Felis and Lampyris with advanced Canvas 2D techniques. What went well, what went wrong, and what I learned about pushing vanilla JavaScript to its limits.',
     publishDate: '2025-09-17',
     slug: 'js13k-2025-post-mortem',
     author: 'Afton Gauntlett',
     readTime: '8 min read',
-    tags: [
-      'Game Development',
-      'JS13k',
-      'Post-Mortem',
-      'Canvas 2D',
-      'JavaScript',
-      'Performance Optimization',
-    ],
+    tags: ['JS13k', 'Post-Mortem', 'Canvas 2D'],
     categories: ['Game Development'],
     featured: true,
   },
@@ -311,14 +304,14 @@ export const js13kPostMortem: BlogPost = {
 
 export const orbitalOrderPostMortem: BlogPost = {
   metadata: {
-    title: 'JS13k 2025 Game Practice: Orbital Order (Post-Mortem)',
+    title: 'JS13k 2025 Practice Demo - Orbital Order',
     description:
       'Creating a JS13K practice game that teaches atomic physics through interactive orbital mechanics and procedural audio.',
     publishDate: '2025-08-01',
     slug: 'orbital-order-post-mortem',
     author: 'Afton Gauntlett',
     readTime: '6 min read',
-    tags: ['Game Development', 'JS13K', 'Physics', 'Educational Games', 'Procedural Audio'],
+    tags: ['JS13k', 'Post-Mortem', 'Canvas 2D'],
     categories: ['Game Development'],
     featured: false,
   },

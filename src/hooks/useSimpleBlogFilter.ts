@@ -20,6 +20,7 @@ export function useSimpleBlogFilter(posts: BlogPost[]): UseSimpleBlogFilterResul
   // Only use the specific categories you want - ignore tags for filtering
   const availableTags = useMemo(() => {
     const allowedCategories = [
+      'Games',
       'Game Development',
       'Web Development',
       'Tech Insights',
@@ -27,6 +28,10 @@ export function useSimpleBlogFilter(posts: BlogPost[]): UseSimpleBlogFilterResul
       'Career',
     ];
     const tagSet = new Set<string>();
+
+    // Always include Games as an option
+    tagSet.add('Games');
+
     posts.forEach((post) => {
       post.metadata.categories?.forEach((category) => {
         if (allowedCategories.includes(category)) {

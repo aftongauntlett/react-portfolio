@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { lazy, Suspense } from 'react';
-import Footer from '@/components/shared/Footer';
+import ExternalFooter from '@/components/layout/ExternalFooter';
 import ExternalNav from '@/components/layout/ExternalNav';
 import { FaCalendar, FaClock } from 'react-icons/fa';
 import { formatDate } from '@/utils/dateFormatter';
@@ -9,7 +9,7 @@ import { formatDate } from '@/utils/dateFormatter';
 const StarryBackground = lazy(() => import('../../StarryBackground'));
 
 interface ExternalPageLayoutProps {
-  title: string;
+  title: string | ReactNode;
   description: string;
   children: ReactNode;
   // Optional metadata for blog posts
@@ -88,10 +88,10 @@ export default function ExternalPageLayout({
         <main role="main" aria-label="Main content">
           {children}
         </main>
-
-        {/* Simple Footer */}
-        <Footer scrollTarget="top" />
       </div>
+
+      {/* Full-width External Footer */}
+      <ExternalFooter />
     </div>
   );
 }
