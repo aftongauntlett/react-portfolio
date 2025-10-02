@@ -2,9 +2,10 @@ import type { BlogPost } from './types';
 
 export const js13kPostMortem: BlogPost = {
   metadata: {
-    title: 'JS13k 2025 Official Submission - Nyx Felis & Lampyrus',
+    title: 'JS13k 2025 Official Submission',
+    subtitle: 'Nyx Felis & Lampyrus',
     description:
-      'My first JS13k game jam: building Nyx Felis and Lampyris with advanced Canvas 2D techniques. What went well, what went wrong, and what I learned about pushing vanilla JavaScript to its limits.',
+      'A detailed post-mortem of my first JS13k competition entry, covering the technical challenges of building a resource management game in vanilla JavaScript. This deep dive explores advanced Canvas 2D techniques, procedural audio synthesis, game state management, and the lessons learned from pushing browser APIs to their limits within a 13KB constraint. Includes insights on what worked, what failed, and how the game evolved from an unfinished submission to a complete experience through post-jam iteration.',
     publishDate: '2025-09-17',
     slug: 'js13k-2025-post-mortem',
     author: 'Afton Gauntlett',
@@ -15,28 +16,17 @@ export const js13kPostMortem: BlogPost = {
   },
   sections: [
     {
-      type: 'paragraph',
-      content:
-        'Nyx Felis and Lampyris was my entry for the 2025 JS13k competition. This was my first time joining the jam, and while my game ended up in the "Unfinished" category due to a timezone mistake, the real story happened after submission. What started as a flawed but visually polished tech demo became a proper game through a complete mechanical rebuild—and taught me more about game design than I expected.',
-    },
-    {
-      type: 'blog-image',
+      type: 'game-showcase',
       src: '/blog/nyx-felis.png',
       alt: 'Gameplay screenshot of Nyx Felis and Lampyris showing the night sky with glowing fireflies and Nyx Felis the cat',
       caption: 'Main gameplay - Nyx Felis collecting fireflies in the starry night sky',
-    },
-    {
-      type: 'links',
+      content:
+        'Nyx Felis and Lampyris was my entry for the 2025 JS13k competition. This was my first time joining the jam, and while my game ended up in the "Unfinished" category due to a timezone mistake, the real story happened after submission. What started as a flawed but visually polished tech demo became a proper game through a complete mechanical rebuild—and taught me more about game design than I expected.',
       links: [
         {
-          url: 'https://github.com/caoimhejyoti/js13k-nyx-felis-and-lampyris',
+          url: 'https://github.com/aftongauntlett/js13k-2025',
           text: 'View Source Code',
           type: 'github',
-        },
-        {
-          url: 'https://js13kgames.com/games/nyx-felis-and-lampyris',
-          text: 'Play Original Submission',
-          type: 'demo',
         },
         {
           url: 'https://nyx-felis.aftongauntlett.com',
@@ -56,43 +46,24 @@ export const js13kPostMortem: BlogPost = {
         'Engine: Vanilla JavaScript with Canvas 2D (no WebGL, no libraries)',
         'Size: Optimized for js13k competition (<13KB zipped)',
         'Performance: 60fps gameplay with hundreds of particles and complex effects',
-        'Audio: Dynamic sound effects and ambient background music',
+        'Audio: Fully procedural Web Audio API system with zero external sound files',
       ],
     },
     {
       type: 'paragraph',
       content:
-        'A player commented that they were impressed I built this using Canvas 2D instead of WebGL. Canvas 2D has a reputation for being "simple," but what I achieved here pushes it to its limits. This is pure vanilla Canvas 2D API with no frameworks or libraries—just mathematical precision and clever optimization.',
+        'A player commented that they were impressed I built this using Canvas 2D instead of WebGL. Canvas 2D has a reputation for being "simple," but I managed to pack in particle systems, gradient effects, and real-time visual effects that normally require game engines. Claude helped me understand why my particle physics looked like drunk fireflies at first, but the end result maintains 60fps with hundreds of particles running simultaneously—all in vanilla JavaScript with no libraries.',
     },
+    { type: 'separator' },
     {
       type: 'heading',
-      level: 3,
-      content: 'Advanced Canvas 2D Techniques',
+      level: 2,
+      content: 'Building Audio From Scratch',
     },
     {
       type: 'paragraph',
       content:
-        'The visual complexity achieved with Canvas 2D includes several sophisticated systems running simultaneously:',
-    },
-    {
-      type: 'list',
-      items: [
-        'Multiple particle systems: atmospheric dust, capture effects, drop physics, rainbow trails',
-        'Advanced gradient effects: radial gradients for glowing, linear gradients for UI depth',
-        'Optimized shadow and glow systems with cached blur states for performance',
-        'Complex curved drawing using quadraticCurveTo() for natural cat whiskers and smooth trajectories',
-        'Real-time visual effects: screen shake, flash effects, dynamic alpha blending',
-      ],
-    },
-    {
-      type: 'paragraph',
-      content:
-        "The performance optimization is what makes this technically impressive. Canvas 2D isn't hardware-accelerated like WebGL, yet I maintain 60fps with hundreds of particles, multiple gradients, and complex effects. This required state caching to avoid redundant Canvas API calls, batch rendering to minimize context switches, and efficient particle culling and lifecycle management.",
-    },
-    {
-      type: 'paragraph',
-      content:
-        "Most games with this visual richness use WebGL or game engines. Achieving particle effects and lighting that look almost GPU-accelerated, all within 21KB uncompressed vanilla JavaScript, demonstrates what's possible when you push Canvas 2D beyond simple drawing into real-time visual effects territory.",
+        'Creating all the audio procedurally through the Web Audio API was one of my favorite parts. No external sound files—everything from firefly collection sounds to the background music gets synthesized in real-time using oscillators and mathematical formulas. The firefly sound slides between frequencies with volume fading, while the music generates harmonic chord progressions that never repeat exactly. It sounds way more sophisticated than my actual understanding of music theory would suggest, but that\'s the magic of working with tools that can translate "I want ethereal space cat vibes" into actual audio code.',
     },
     { type: 'separator' },
     {
@@ -113,41 +84,12 @@ export const js13kPostMortem: BlogPost = {
     {
       type: 'heading',
       level: 2,
-      content: 'What Went Well',
+      content: "What Worked and What Didn't",
     },
     {
       type: 'paragraph',
       content:
-        "I was especially happy with the polish in the visuals. Small details—like the cat's eyes and whiskers moving, or the curve of its smile—took many iterations, but the result captured the atmosphere I wanted. I also managed to refactor out a lot of repeated code, which gave me cleaner structure than I usually manage under time pressure.",
-    },
-    {
-      type: 'list',
-      items: [
-        'Visual polish and animation details turned out well.',
-        'Improved habits around cleaning up redundant code.',
-        'Bundling/minification (Rollup + Terser) taught me a lot about optimization.',
-        'I built working audio/music in code despite limited sound options.',
-      ],
-    },
-    { type: 'separator' },
-    {
-      type: 'heading',
-      level: 2,
-      content: 'Challenges Faced',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'The most obvious mistake was the timezone confusion—I thought I was submitting early, but I missed the real CEST deadline by a few hours. I also lost some promising music when I went too long without committing. Gameplay itself was the biggest issue: at ~10 minutes it ran too long, was almost impossible to lose, and lacked the meaningful choices that make games engaging. The submitted version was more of an interactive art piece than a real game.',
-    },
-    {
-      type: 'list',
-      items: [
-        'Deadline confusion (CEST vs CST) caused a late submission.',
-        "Waiting too long to commit cost me some unique audio I couldn't reproduce.",
-        "Gameplay loop is too easy and doesn't provide enough challenge.",
-        'Spending too much time on polish before locking down core mechanics.',
-      ],
+        "I was thrilled with the visual polish—all those little details like the cat's animated whiskers and glowing eyes really captured the atmosphere I wanted. The procedural audio turned out better than expected, and I learned a ton about code optimization through Rollup and Terser. But the biggest mistake was obvious: I completely botched the timezone conversion and submitted late to the competition. Even worse, I spent so much time on visual polish that the actual gameplay was broken—10 minutes long, nearly impossible to lose, and more like an interactive screensaver than a real game.",
     },
     { type: 'separator' },
     {
@@ -256,32 +198,7 @@ export const js13kPostMortem: BlogPost = {
         },
       ],
     },
-    { type: 'separator' },
-    {
-      type: 'heading',
-      level: 2,
-      content: 'On AI Assistance and Mathematical Realities',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'Let me be transparent about something: those "mathematical precision" and "clever optimization" achievements I mentioned? Yeah, my math skills are approximately equivalent to a golden retriever trying to solve calculus. I can barely calculate a tip without my phone calculator.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'The Canvas 2D magic happened through a combination of GitHub Copilot suggestions, Claude Sonnet explaining why my particle physics were behaving like drunk fireflies, and strategic googling when ChatGPT got too excited about theoretical solutions that would require a PhD in mathematics to implement.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'Learning when to use which AI tool became its own skill: Copilot for "please autocomplete this obviously repetitive code pattern," Claude for "explain why my gradients look like someone spilled paint," ChatGPT for "what is trigonometry and why does my cat need to understand it," and good old Google/YouTube when I needed someone to slowly walk me through concepts like I was five.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'The result is still my code—I wrote every line, debugged every particle system crash, and suffered through every performance optimization. But pretending I figured out quadratic curves and optimized shadow blur caching through pure human brilliance would be like claiming I built my house without tools. AI assistance is just a really sophisticated hammer.',
-    },
+
     { type: 'separator' },
     {
       type: 'heading',
@@ -295,8 +212,12 @@ export const js13kPostMortem: BlogPost = {
     },
     { type: 'separator' },
     {
+      type: 'heading',
+      level: 2,
+      content: 'Share Your Feedback',
+    },
+    {
       type: 'feedback-form',
-      formTitle: 'Share Your Feedback',
       formDescription: "Played the game? I'd love to hear your thoughts!",
     },
   ],
@@ -304,9 +225,10 @@ export const js13kPostMortem: BlogPost = {
 
 export const orbitalOrderPostMortem: BlogPost = {
   metadata: {
-    title: 'JS13k 2025 Practice Demo - Orbital Order',
+    title: 'JS13k 2025 Practice Demo',
+    subtitle: 'Orbital Order',
     description:
-      'Creating a JS13K practice game that teaches atomic physics through interactive orbital mechanics and procedural audio.',
+      'A comprehensive post-mortem of my JS13k practice project that combined educational gameplay with complex physics simulations. This analysis covers the technical implementation of realistic orbital mechanics, the challenges of building an educational game that remains engaging, and the development of a procedural audio system that generates chemistry-themed soundscapes. Explores lessons learned about balancing scientific accuracy with intuitive gameplay, code optimization techniques, and the value of community feedback during development.',
     publishDate: '2025-08-01',
     slug: 'orbital-order-post-mortem',
     author: 'Afton Gauntlett',
@@ -317,19 +239,13 @@ export const orbitalOrderPostMortem: BlogPost = {
   },
   sections: [
     {
-      type: 'paragraph',
-      content:
-        'Orbital Order was my JS13K practice project—a physics-based puzzle game that teaches real atomic structure through interactive gameplay. Players guide electrons into their proper orbitals using electromagnetic fields, learning chemistry while building atoms from Hydrogen to Oxygen. As my very first completed game, this project pushed me into unfamiliar territory: physics simulation, educational game design, and procedural audio synthesis.',
-    },
-    {
-      type: 'blog-image',
+      type: 'game-showcase',
       src: '/blog/orbital-order.png',
       alt: 'Orbital Order gameplay showing electron orbitals and physics simulation',
       caption:
         'Orbital Order - Building authentic atomic structures through physics-based gameplay',
-    },
-    {
-      type: 'links',
+      content:
+        'Orbital Order was my JS13K practice project—a physics-based puzzle game that teaches real atomic structure through interactive gameplay. Players guide electrons into their proper orbitals using electromagnetic fields, learning chemistry while building atoms from Hydrogen to Oxygen. As my very first completed game, this project pushed me into unfamiliar territory: physics simulation, educational game design, and procedural audio synthesis.',
       links: [
         {
           url: 'https://github.com/aftongauntlett/js13k-demo',
@@ -361,32 +277,22 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'heading',
       level: 2,
-      content: 'Physics Simulation Architecture',
+      content: 'Making Physics Feel Fun',
     },
     {
       type: 'paragraph',
       content:
-        'The game simulates electromagnetic interactions between electrons and mouse cursor positioning. Blue s-electrons are attracted to the cursor while orange p-electrons are repelled, creating intuitive controls for complex quantum mechanical rules. Each electron has physics properties—position, velocity, electromagnetic influence zones, and collision detection with orbitals and boundaries.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'The biggest technical challenge was making the physics feel responsive while remaining scientifically accurate. Electrons needed to bounce realistically off orbital barriers when violating electron configuration rules, but still feel smooth and controllable. I implemented electromagnetic storms in infinite mode that create chaotic fields affecting electron movement, adding gameplay variety while demonstrating how external forces affect atomic structure.',
+        'The game needed to simulate real electron behavior—blue s-electrons attracted to your cursor, orange p-electrons repelled by it—while still feeling responsive and fun to play. I had to Google what electron orbitals actually were before I could even start, but with some help from ChatGPT explaining quantum mechanics like I was five, I managed to build something that teaches real chemistry through gameplay. The electromagnetic storms in infinite mode were particularly satisfying to implement, creating chaotic fields that demonstrate how external forces affect atomic structure.',
     },
     {
       type: 'heading',
       level: 2,
-      content: 'Procedural Audio System',
+      content: 'The Audio That Actually Worked',
     },
     {
       type: 'paragraph',
       content:
-        'Rather than using audio files, Orbital Order generates all sound effects and background music through the Web Audio API. The system creates chord progressions, electron collision sounds, orbital capture feedback, and atmospheric ambient music—all synthesized in real-time through JavaScript.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'I was genuinely surprised by how much I loved the audio that came out of this project, and how little tweaking it needed. The procedural approach worked so well that I got cocky—when I started working on audio for my main JS13K entry, I was shocked to discover I\'d gotten incredibly lucky here. Apparently giving Claude a detailed prompt about "ethereal cosmic chemistry sounds" and getting beautiful chord progressions back was not going to be repeatable magic. This taught me to appreciate good audio when it happens and commit those wins early.',
+        'All the audio gets generated procedurally through the Web Audio API—no sound files, just oscillators and mathematical formulas creating everything from electron collision sounds to the ambient background music. I got incredibly lucky here: I gave Claude a prompt about "ethereal cosmic chemistry sounds" and somehow got back beautiful chord progressions with bass drones and evolving melodies. The whole system became like a mini digital audio workstation in about 200 lines of code, generating infinite variations that never repeat exactly. When I tried to recreate this magic for my main JS13K entry, I learned that good procedural audio is much harder than I thought!',
     },
     {
       type: 'heading',
@@ -421,43 +327,14 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'heading',
       level: 2,
-      content: 'What Went Well',
+      content: 'What Actually Worked',
     },
     {
       type: 'paragraph',
       content:
-        "As my very first completed game, I'm incredibly proud that Orbital Order actually works as intended—players learn real chemistry while having fun with physics-based puzzles. The procedural audio system exceeded my expectations, creating an atmospheric experience that feels much larger than its tiny file size. The educational goals succeeded: players understand electron configuration rules through gameplay rather than memorization.",
+        "For my very first completed game, I'm pretty thrilled that it actually teaches real chemistry! Players learn electron configuration rules through gameplay rather than memorization, and the physics simulation accurately represents s-electrons vs p-electrons and how orbital energy levels work. The procedural audio exceeded my expectations, and several playtesters mentioned they genuinely learned chemistry concepts while playing. Plus, getting feedback from real players was incredibly fun—the game development community turned out to be wonderfully supportive.",
     },
-    {
-      type: 'paragraph',
-      content:
-        "The scientific accuracy held up under scrutiny—the game correctly teaches s-electrons vs p-electrons, the Aufbau principle, and real atomic structure for elements from Hydrogen through Oxygen. Players reported actually learning chemistry concepts, which validated the educational approach. The whole experience has been fun from start to finish, and I'm happy I took the leap into game development.",
-    },
-    {
-      type: 'heading',
-      level: 2,
-      content: 'On AI Tools and Creative Confidence',
-    },
-    {
-      type: 'paragraph',
-      content:
-        "Full transparency: I'm a developer, but I'd never made a game before this project. AI assistance became my training wheels for venturing into unfamiliar territory—physics simulation, procedural audio, educational game design, and even dipping my toes into pixel art concepts.",
-    },
-    {
-      type: 'paragraph',
-      content:
-        'Claude helped explain why my electron collision detection was behaving like a drunk physics simulation, GitHub Copilot autocompleted repetitive Canvas API patterns, and ChatGPT walked me through Web Audio API concepts when I needed someone to explain oscillators like I was five. The AI tools gave me the confidence to attempt something as ambitious as the JS13K competition.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'But here\'s the thing: I still wrote every line of code, debugged every physics glitch, and made every design decision. AI assistance is like having really good documentation that can explain itself—it helped me learn faster, but the learning still had to happen in my brain. The tools have fueled my creativity by removing some of the "I don\'t know how to do that" barriers, letting me focus on "what do I want to create?" instead.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'I\'m now exploring AI tools for music generation and pixel art because frankly, I was getting tired of trying to explain to Claude what "ethereal cosmic chemistry sounds" should actually sound like. These tools are expanding what I can attempt as a solo developer, which feels like the whole point.',
-    },
+
     {
       type: 'heading',
       level: 2,
@@ -474,8 +351,12 @@ export const orbitalOrderPostMortem: BlogPost = {
         "The build optimization process showed me how modern JavaScript tooling can achieve incredible compression ratios while maintaining clean, readable source code. Starting with a practice project before the actual JS13K competition was absolutely the right call—it let me experiment with unfamiliar technologies without submission pressure. The supportive community made the whole experience enjoyable, and I'm genuinely excited to keep exploring game development.",
     },
     {
+      type: 'heading',
+      level: 2,
+      content: 'Share Your Feedback',
+    },
+    {
       type: 'feedback-form',
-      formTitle: 'Played Orbital Order?',
       formDescription: 'Curious about your experience with the educational gameplay!',
     },
   ],

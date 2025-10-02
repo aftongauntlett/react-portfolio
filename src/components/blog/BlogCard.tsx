@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import Card from '@/components/shared/Card';
 import { Button } from '@/components/shared/Button';
 import HighlightText from '@/components/shared/HighlightText';
+import TruncatedText from '@/components/shared/TruncatedText';
 import { formatDate } from '@/utils/dateFormatter';
 import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
 import type { BlogPost } from '@/data/blog/types';
@@ -39,7 +40,7 @@ export default function BlogCard({
 
   // Extract common data
   const title = isGame ? game.title : post!.metadata.title;
-  const description = isGame ? game.description : post!.metadata.description;
+  const description = isGame ? gamePost!.metadata.description : post!.metadata.description;
   const publishDate = isGame ? gamePost!.metadata.publishDate : post!.metadata.publishDate;
   const date = formatDate(publishDate);
   const readTime = isGame ? gamePost!.metadata.readTime : post!.metadata.readTime;
@@ -58,11 +59,19 @@ export default function BlogCard({
             <HighlightText text={title} searchQuery={searchTerm} />
           </h2>
         }
-        subtitle={<HighlightText text={description} searchQuery={searchTerm} />}
+        subtitle=""
         date=""
         isDimmed={isDimmed}
         className="h-full"
       >
+        {/* Description with Read More */}
+        <div className="mb-4">
+          <TruncatedText
+            text={description}
+            maxLength={180}
+            className={clsx(TEXT_COMBINATIONS.BODY_MUTED, 'leading-relaxed')}
+          />
+        </div>
         {/* Metadata: date and reading time OR completion date */}
         <div className={clsx('flex items-center gap-6 mb-4', TEXT_COMBINATIONS.SMALL_MUTED)}>
           <div className="flex items-center gap-2">

@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { FaGithub, FaPlay, FaCalendar, FaClock, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaGithub, FaPlay } from 'react-icons/fa';
 import clsx from 'clsx';
 import { Button } from '@/components/shared/Button';
 import HighlightText from '@/components/shared/HighlightText';
+import TruncatedText from '@/components/shared/TruncatedText';
+import BlogMetaInfo from '@/components/shared/BlogMetaInfo';
+import Tag from '@/components/shared/Tag';
+import { formatDate } from '@/utils/dateFormatter';
 import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
 import type { Game } from '@/data/games';
 import { blogPosts } from '@/data/blog/posts';
@@ -22,8 +25,6 @@ export default function UnifiedGameCard({
   onMouseEnter,
   onMouseLeave,
 }: UnifiedGameCardProps) {
-  const [showFullDescription, setShowFullDescription] = useState(false);
-
   // Get the corresponding blog post
   const blogPost = blogPosts.find((p) => p.metadata.slug === game.blogSlug);
 
@@ -31,10 +32,6 @@ export default function UnifiedGameCard({
   const titleParts = game.title.split(' - ');
   const competitionInfo = titleParts[0]; // "JS13k 2025 Official Submission"
   const gameTitle = titleParts[1] || game.title; // "Nyx Felis & Lampyrus"
-
-  // Truncate description for preview
-  const shortDescription = game.description.slice(0, 200);
-  const hasLongDescription = game.description.length > 200;
 
   return (
     <article
@@ -82,50 +79,16 @@ export default function UnifiedGameCard({
               {/* Tech Stack Tags - Under Title */}
               <div className="flex flex-wrap gap-2 mt-3">
                 {game.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className={clsx(
-                      'px-3 py-1 rounded border',
-                      'bg-[var(--color-secondary)]/10 border-[var(--color-secondary)]/20',
-                      'group-hover:bg-[var(--color-secondary)]/15 group-hover:border-[var(--color-secondary)]/30',
-                      TYPOGRAPHY.TEXT_SMALL,
-                      'text-[var(--color-secondary)]',
-                      'transition-colors duration-300',
-                    )}
-                  >
+                  <Tag key={tag} variant="secondary">
                     {tag}
-                  </span>
+                  </Tag>
                 ))}
               </div>
             </div>
 
-            {/* Game Description with Read More */}
-            <div className={clsx('space-y-3', TEXT_COMBINATIONS.BODY_RELAXED, 'leading-relaxed')}>
-              <p>
-                {showFullDescription ? game.description : shortDescription}
-                {hasLongDescription && !showFullDescription && (
-                  <span className="bg-gradient-to-r from-[var(--color-text-secondary)] to-transparent bg-clip-text text-transparent">
-                    ...
-                  </span>
-                )}
-              </p>
-              {hasLongDescription && (
-                <button
-                  type="button"
-                  onClick={() => setShowFullDescription(!showFullDescription)}
-                  className={clsx(
-                    'inline-flex items-center gap-1 text-sm text-[var(--color-primary)] hover:text-[var(--color-primary)]/80',
-                    'transition-colors duration-200 font-medium',
-                  )}
-                >
-                  {showFullDescription ? 'Show Less' : 'Read More'}
-                  {showFullDescription ? (
-                    <FaChevronUp className="w-3 h-3" />
-                  ) : (
-                    <FaChevronDown className="w-3 h-3" />
-                  )}
-                </button>
-              )}
+            {/* Game Description */}
+            <div className={clsx('space-y-3', 'leading-relaxed')}>
+              <p className={TEXT_COMBINATIONS.BODY_RELAXED}>{game.description}</p>
             </div>
 
             {/* Action Buttons - Bottom Right Above Divider */}
@@ -155,46 +118,45 @@ export default function UnifiedGameCard({
             </div>
           </div>
         </div>
-        {/* Post-Mortem Preview */}
+
+        {/* Divider */}
+        <div className="border-t border-[var(--color-line)] my-6"></div>
+
+        {/* Post-Mortem Section - Separated */}
         {blogPost && (
-          <div className="border-t border-[var(--color-line)] pt-6">
-            <div className="flex flex-col">
-              {/* Post-mortem header */}
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <div
-                    className={clsx(
-                      TEXT_COMBINATIONS.SMALL_MUTED,
-                      'uppercase font-semibold text-[var(--color-primary)] mb-2',
-                    )}
-                  >
-                    Development Post-Mortem
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
-                    <FaCalendar className="w-3 h-3" />
-                    <span>{blogPost.metadata.publishDate}</span>
-                    <span>•</span>
-                    <FaClock className="w-3 h-3" />
-                    <span>{blogPost.metadata.readTime}</span>
-                  </div>
-                </div>
-              </div>
+          <div>
+            <h4
+              className={clsx(
+                TYPOGRAPHY.TEXT_LARGE,
+                'font-semibold mb-2 text-[var(--color-text)] uppercase tracking-wide',
+              )}
+            >
+              Development Post-Mortem
+            </h4>
 
-              {/* Post-mortem content */}
-              <p className={clsx(TEXT_COMBINATIONS.BODY_MUTED, 'text-sm mb-4')}>
-                {blogPost.metadata.description}
-              </p>
+            <BlogMetaInfo
+              publishDate={formatDate(blogPost.metadata.publishDate)}
+              author={blogPost.metadata.author}
+              readTime={blogPost.metadata.readTime}
+              dateTime={blogPost.metadata.publishDate}
+              className="mb-4 text-[var(--color-muted)]"
+            />
 
-              {/* Read Post-Mortem Button - Bottom Right */}
-              <div className="flex justify-end">
-                <Button
-                  href={`/blog/${blogPost.metadata.slug}`}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  Read Post-Mortem
-                </Button>
-              </div>
+            <TruncatedText
+              text={blogPost.metadata.description}
+              maxLength={180}
+              className={clsx(TEXT_COMBINATIONS.BODY_RELAXED, 'leading-relaxed mb-4')}
+            />
+
+            <div className="flex justify-end">
+              <Button
+                href={`/blog/${blogPost.metadata.slug}`}
+                variant="outline"
+                className="text-sm"
+                aria-label={`Read ${gameTitle} post-mortem`}
+              >
+                Read Post-Mortem
+              </Button>
             </div>
           </div>
         )}

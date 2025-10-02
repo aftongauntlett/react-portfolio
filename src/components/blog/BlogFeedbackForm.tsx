@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { Button } from '@/components/shared/Button';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
-import { TYPOGRAPHY } from '@/constants/typography';
+import { BLOG_PARAGRAPH_CLASSES } from '@/constants/styles';
 
 interface FeedbackFormData {
   name: string;
@@ -16,12 +16,10 @@ interface FormStatus {
 }
 
 interface BlogFeedbackFormProps {
-  title?: string;
   description?: string;
 }
 
 export function BlogFeedbackForm({
-  title = 'Share Your Feedback',
   description = "Played the game? I'd love to hear your thoughts!",
 }: BlogFeedbackFormProps) {
   const [formData, setFormData] = useState<FeedbackFormData>({
@@ -97,27 +95,32 @@ export function BlogFeedbackForm({
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-[var(--color-surface)] rounded-lg border border-[var(--color-line)] p-6 shadow-sm">
-      <div className="mb-6">
-        <h3 className={`${TYPOGRAPHY.HEADING_3} text-[var(--color-text)] mb-2`}>{title}</h3>
-        <p className={`${TYPOGRAPHY.TEXT_BODY} text-[var(--color-muted)] mb-4`}>{description}</p>
-        <div className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)] space-y-2`}>
-          <p>
-            <strong>Why feedback matters:</strong> Playtesting is crucial for game development.
-            Every perspective helps identify issues I might miss as the developer.
+    <div className="max-w-2xl mx-auto">
+      <div className="space-y-8 mb-12">
+        <div>
+          <p className={BLOG_PARAGRAPH_CLASSES}>{description}</p>
+        </div>
+
+        <div className="space-y-4">
+          <p className={BLOG_PARAGRAPH_CLASSES}>
+            <strong className="text-[var(--color-secondary)]">Why feedback matters:</strong>{' '}
+            Playtesting is crucial for game development. Every perspective helps identify issues I
+            might miss as the developer.
           </p>
-          <p>
-            <strong>What to share:</strong> Gameplay thoughts, bugs, confusing mechanics, or
-            anything that stood out—both positive and negative feedback welcome!
+          <p className={BLOG_PARAGRAPH_CLASSES}>
+            <strong className="text-[var(--color-secondary)]">What to share:</strong> Gameplay
+            thoughts, bugs, confusing mechanics, or anything that stood out—both positive and
+            negative feedback welcome!
           </p>
-          <p>
-            <strong>Privacy:</strong> Name and email are optional. Include them only if you'd like
-            me to respond. Anonymous feedback is perfectly fine too.
+          <p className={BLOG_PARAGRAPH_CLASSES}>
+            <strong className="text-[var(--color-secondary)]">Privacy:</strong> Name and email are
+            optional. Include them only if you'd like me to respond. Anonymous feedback is perfectly
+            fine too.
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Honeypot field for spam protection */}
         <input
           type="text"
@@ -129,29 +132,32 @@ export function BlogFeedbackForm({
           autoComplete="off"
         />
 
-        <FormField
-          label="Name"
-          name="name"
-          type="text"
-          optional
-          placeholder="Your name (optional)"
-          value={formData.name}
-          onChange={handleInputChange}
-          disabled={status.type === 'loading'}
-          maxLength={100}
-        />
+        {/* Name and Email in 2 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            label="Name"
+            name="name"
+            type="text"
+            optional
+            placeholder="Your name"
+            value={formData.name}
+            onChange={handleInputChange}
+            disabled={status.type === 'loading'}
+            maxLength={100}
+          />
 
-        <FormField
-          label="Email"
-          name="email"
-          type="email"
-          optional
-          placeholder="your@email.com (optional - only if you want a response)"
-          value={formData.email}
-          onChange={handleInputChange}
-          disabled={status.type === 'loading'}
-          maxLength={200}
-        />
+          <FormField
+            label="Email"
+            name="email"
+            type="email"
+            optional
+            placeholder="your@email.com"
+            value={formData.email}
+            onChange={handleInputChange}
+            disabled={status.type === 'loading'}
+            maxLength={200}
+          />
+        </div>
 
         <TextAreaField
           label="Your Feedback"
@@ -165,29 +171,47 @@ export function BlogFeedbackForm({
           maxLength={2000}
         />
 
-        <div className="flex items-center justify-between">
+        {status.message && (
+          <div
+            className={`p-4 rounded-lg text-sm border-2 ${
+              status.type === 'success'
+                ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-[var(--color-primary)]/30'
+                : status.type === 'error'
+                  ? 'bg-red-50 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800'
+                  : 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800'
+            }`}
+            role={status.type === 'error' ? 'alert' : 'status'}
+            aria-live="polite"
+          >
+            <div className="flex items-start">
+              <span
+                className={`inline-block w-2 h-2 rounded-full mt-1.5 mr-3 ${
+                  status.type === 'success'
+                    ? 'bg-[var(--color-primary)]'
+                    : status.type === 'error'
+                      ? 'bg-red-500'
+                      : 'bg-blue-500'
+                }`}
+              ></span>
+              {status.message}
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-end pt-3">
           <Button
             type="submit"
             variant="solid"
             color="primary"
             disabled={status.type === 'loading' || !formData.feedback.trim()}
+            title={
+              !formData.feedback.trim() && status.type !== 'loading'
+                ? 'Please share your feedback before submitting'
+                : ''
+            }
           >
             {status.type === 'loading' ? 'Sending...' : 'Send Feedback'}
           </Button>
-
-          {status.message && (
-            <div
-              className={`${TYPOGRAPHY.TEXT_SMALL} ${
-                status.type === 'success'
-                  ? 'text-[var(--color-status-production)]'
-                  : status.type === 'error'
-                    ? 'text-red-600 dark:text-red-400'
-                    : 'text-[var(--color-muted)]'
-              }`}
-            >
-              {status.message}
-            </div>
-          )}
         </div>
       </form>
     </div>

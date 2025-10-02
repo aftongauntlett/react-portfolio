@@ -109,7 +109,7 @@ export default function GameDev() {
           : 'Development insights and technical articles. Deep dives into game development processes, programming challenges, creative problem-solving, and lessons learned from building interactive experiences.'
       }
     >
-      <div className="max-w-4xl mx-auto">
+      <div>
         {/* Search and Filter */}
         <SimpleBlogFilter
           searchTerm={searchTerm}

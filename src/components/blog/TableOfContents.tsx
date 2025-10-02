@@ -33,24 +33,39 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
       };
     });
 
-  // Handle scroll spy to highlight active section
+  // Use Intersection Observer for reliable scroll spy
   useEffect(() => {
-    const handleScroll = () => {
-      const headingElements = tocItems
-        .map((item) => document.getElementById(item.id))
-        .filter(Boolean);
+    const headingElements = tocItems
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean);
 
-      let current = '';
-      for (const element of headingElements) {
-        if (element && element.getBoundingClientRect().top <= 100) {
-          current = element.id;
+    if (headingElements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the entry that's most visible in the viewport
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+
+        if (visibleEntries.length > 0) {
+          // Sort by how much of the element is visible, pick the most visible one
+          const mostVisible = visibleEntries.reduce((prev, current) =>
+            current.intersectionRatio > prev.intersectionRatio ? current : prev,
+          );
+          setActiveSection(mostVisible.target.id);
         }
-      }
-      setActiveSection(current);
-    };
+      },
+      {
+        // Trigger when heading enters the top 30% of viewport
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+      },
+    );
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    headingElements.forEach((element) => {
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, [tocItems]);
 
   if (tocItems.length === 0) return null;
@@ -63,7 +78,7 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
   };
 
   return (
-    <div className="lg:sticky lg:top-8 bg-[var(--color-background)]/90 backdrop-blur-sm border border-[var(--color-line)] rounded-lg overflow-hidden lg:max-h-[calc(100vh-4rem)]">
+    <div className="lg:sticky lg:top-24 bg-[var(--color-background)]/90 backdrop-blur-sm border border-[var(--color-line)] rounded-lg overflow-hidden lg:max-h-[calc(100vh-8rem)]">
       {/* Header - always visible, clickable on mobile */}
       <button
         className="w-full flex items-center justify-between p-4 text-left lg:cursor-default"

@@ -46,11 +46,13 @@ function BlogPostPage() {
         publishDate: post.metadata.publishDate,
         readTime: post.metadata.readTime,
         tags: post.metadata.tags,
+        subtitle: post.metadata.subtitle,
       }}
     >
       <BlogPostContent
         sections={post.sections}
         tableOfContents={<TableOfContents sections={post.sections} />}
+        metadata={{ subtitle: post.metadata.subtitle, tags: post.metadata.tags }}
       />
     </ExternalPageLayout>
   );
