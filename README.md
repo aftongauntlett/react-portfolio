@@ -7,7 +7,7 @@
 
 ## About
 
-A modern, high-performance portfolio showcasing frontend engineering expertise. Built with React 19, TypeScript, and a comprehensive development toolchain featuring testing, bundle analysis, and exceptional performance optimization.
+A modern, high-performance portfolio showcasing frontend engineering expertise with integrated game development showcase and technical blog. Built with React 19, TypeScript, and routing for multi-page experiences while maintaining exceptional performance standards.
 
 ### **[View Live Portfolio →](https://aftongauntlett.com)**
 
@@ -23,8 +23,10 @@ _Featuring responsive design, smooth animations, and seamless theme switching_
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router_7-CA4245?style=flat&logo=reactrouter&logoColor=white)
 
 **Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
+**Routing:** React Router 7 with client-side navigation and SEO-friendly URLs  
 **Build:** Vite 7 with esbuild minification and optimized code splitting  
 **Testing:** Vitest, React Testing Library, TypeScript strict mode  
 **Quality:** ESLint, Prettier, comprehensive accessibility standards (WCAG AA)  
@@ -41,22 +43,23 @@ src/
 ├── assets/                  # Static assets (Lottie animations, galaxy.json)
 ├── components/
 │   ├── Background.tsx       # Animated starry background component
-│   ├── layout/              # Layout components (Layout, SideNav, MobileHeader, PageSection)
-│   ├── sections/            # Page sections (About, Experience, Projects, Skills, Contact)
-│   ├── shared/              # Reusable components (Button, Card, ErrorBoundary, etc.)
+│   ├── blog/                # Blog and game showcase components
+│   ├── layout/              # Layout components (Layout, SideNav, ExternalPageLayout)
+│   ├── sections/            # Portfolio sections (About, Experience, Projects, Skills)
+│   ├── shared/              # Reusable components (Button, Card, TruncatedText, etc.)
 │   └── Timeline/            # Timeline-specific components
-├── constants/               # App constants (navigation, styles)
+├── constants/               # App constants (navigation, styles, typography)
 ├── context/                 # React context providers (theme, job contact)
-├── data/                    # Static data (jobs, projects, skills, education)
-├── hooks/                   # Custom React hooks (useActiveSection, useHoverGroup)
-├── pages/                   # Page components (Home)
-├── router/                  # Application routing
+├── data/                    # Static data (jobs, projects, skills, blog posts, games)
+├── hooks/                   # Custom React hooks (useActiveSection, useSimpleBlogFilter)
+├── pages/                   # Page components (Home, GameDev, BlogPost)
+├── utils/                   # Utility functions (dateFormatter, navigation)
 └── test/                    # Test configuration and setup
 ```
 
 ## Features
 
-### **Core**
+### **Portfolio**
 
 - **Dark/Light Mode**: System preference detection with manual toggle and animated theme switching
 - **Responsive Design**: Mobile-first with fluid typography and optimized layouts
@@ -65,9 +68,23 @@ src/
 - **Interactive Effects**: Custom paint splash hover states and starry night background
 - **Working Contact Form**: Formspree integration with form validation
 
+### **Game Development Showcase**
+
+- **Playable Games**: Hosted JS13k competition entries with live demos
+- **Technical Deep Dives**: Detailed post-mortems covering game design and development challenges
+- **Interactive Content**: Advanced filtering, sorting, and search functionality
+- **Rich Media**: Game screenshots, technical diagrams, and interactive examples
+
+### **Blog System**
+
+- **Technical Articles**: In-depth development insights and lessons learned
+- **Advanced Filtering**: Category-based filtering with real-time search
+- **Rich Content**: Code examples, images, interactive elements, and feedback forms
+- **SEO Optimized**: Proper meta tags, structured data, and social sharing
+
 ### **Developer Experience**
 
-- **Modern Stack**: React 19, TypeScript 5.8, Vite 7, Lottie React
+- **Modern Stack**: React 19, TypeScript 5.8, Vite 7, React Router 7
 - **Code Quality**: ESLint, Prettier, comprehensive testing with Vitest
 - **Performance**: Optimized font loading, code splitting, bundle analysis
 - **Accessibility**: WCAG AA compliant, full keyboard navigation, focus management
@@ -116,26 +133,27 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 ## Scripts
 
 ```bash
-# Development
-npm run dev          # Development server
-npm run build        # Production build
-npm run build:analyze # Build with bundle analyzer
-npm run preview      # Preview build locally
+# Development server
+npm run dev          # Start development server with HMR
 
-# Testing & Quality
-npm run test         # Run tests
-npm run test:coverage # Test coverage report
-npm run lint         # Code linting
+# Production build
+npm run build        # Build for production
+npm run preview      # Preview production build locally
+
+# Code quality
 npm run type-check   # TypeScript validation
+npm run lint         # ESLint with auto-fix
+npm run test         # Run all tests
+npm run test:ui      # Interactive test UI
+npm run test:watch   # Watch mode for development
 
-# Releases (Manual Process)
-npm run release:patch # Bump patch version (1.0.0 → 1.0.1)
-npm run release:minor # Bump minor version (1.0.0 → 1.1.0)
+# Analysis & optimization
+npm run analyze      # Interactive bundle analyzer
+npm run health:check # Run all checks (type-check, lint, test, build)
 
-# Security & Monitoring
-npm run security:audit # Security vulnerability check
-npm run deps:check   # Check outdated dependencies
-npm run health:check # Full project validation
+# Deployment
+# Automatic deployment to Vercel on push to main
+# Manual deployment: git push origin main
 ```
 
 ## Maintenance & Monitoring
@@ -163,10 +181,26 @@ npm run health:check # Full project validation
 
 ## Deployment
 
-**Live:** [aftongauntlett.com](https://aftongauntlett.com)  
-**Hosted on:** Vercel with automatic deployments from `master` branch
+This portfolio is deployed on Vercel with automatic deployments from the main branch.
 
-Ready for deployment to any static hosting platform (Vercel, Netlify, GitHub Pages).
+### **Production Optimizations**
+
+- **Bundle Splitting**: Automatic code splitting for optimal loading
+- **Asset Optimization**: Image optimization and compression
+- **Caching Strategy**: Aggressive caching for static assets
+- **Performance Monitoring**: Web Vitals tracking and Lighthouse CI
+- **SEO Enhancement**: Static generation for blog content and game pages
+
+### **Environment Variables**
+
+No environment variables required for basic functionality. Contact form uses Formspree's client-side integration.
+
+### **Build Process**
+
+- **Type Safety**: Full TypeScript compilation with strict mode
+- **Bundle Analysis**: Automated bundle size monitoring
+- **Route Generation**: Static route pre-rendering for SEO
+- **Asset Pipeline**: Optimized image loading and lazy loading
 
 ## Credits
 
