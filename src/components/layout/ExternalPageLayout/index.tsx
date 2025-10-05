@@ -40,14 +40,11 @@ export default function ExternalPageLayout({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header - Left Aligned */}
         <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-[var(--color-text)] leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-[var(--color-text)] leading-tight">
             {title}
           </h1>
-          <p className="text-base sm:text-lg text-[var(--color-muted)] leading-relaxed mb-6">
-            {description}
-          </p>
 
-          {/* Blog Post Metadata */}
+          {/* Blog Post Metadata - Between title and description */}
           {metadata && (
             <div className="mb-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 text-sm text-[var(--color-muted)] pb-4 border-b border-[var(--color-line)]">
@@ -67,6 +64,10 @@ export default function ExternalPageLayout({
               </div>
             </div>
           )}
+
+          <p className="text-base sm:text-lg text-[var(--color-muted)] leading-relaxed">
+            {description}
+          </p>
         </div>
 
         {/* Content */}
