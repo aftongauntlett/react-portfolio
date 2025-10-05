@@ -1,5 +1,6 @@
 import type { BlogPostSection } from '@/data/blog/types';
 import { Button } from '@/components/shared/Button';
+import Tag from '@/components/shared/Tag';
 import { BlogImage } from '@/components/shared/BlogImage';
 import { BlogFeedbackForm } from './BlogFeedbackForm';
 import type { ReactNode } from 'react';
@@ -304,12 +305,9 @@ function GameShowcaseSection({
             {tags && tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1.5 text-xs font-medium bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] border border-[var(--color-secondary)]/20 rounded-md shadow-sm"
-                  >
+                  <Tag key={tag} variant="secondary" size="xs" className="shadow-sm">
                     {tag}
-                  </span>
+                  </Tag>
                 ))}
               </div>
             )}

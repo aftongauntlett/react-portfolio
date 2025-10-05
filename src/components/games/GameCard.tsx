@@ -3,8 +3,8 @@ import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { FaBookOpen } from 'react-icons/fa';
 import Card from '@/components/shared/Card';
 import { Button } from '@/components/shared/Button';
+import Tag from '@/components/shared/Tag';
 import type { Game } from '@/data/games';
-import { TYPOGRAPHY } from '@/constants/typography';
 
 const iconMap = {
   demo: FaExternalLinkAlt,
@@ -73,12 +73,9 @@ export default function GameCard({ game, isDimmed, onMouseEnter, onMouseLeave }:
           {/* Technology tags */}
           <div className="flex flex-wrap gap-2 mb-6">
             {game.tags.map((tag: string) => (
-              <span
-                key={tag}
-                className={`px-3 py-1 ${TYPOGRAPHY.TEXT_SMALL} bg-[var(--color-secondary)]/10 text-[var(--color-secondary)] rounded`}
-              >
+              <Tag key={tag} variant="secondary" size="small">
                 {tag}
-              </span>
+              </Tag>
             ))}
           </div>
 

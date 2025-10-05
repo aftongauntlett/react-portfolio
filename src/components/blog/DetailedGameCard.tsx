@@ -2,6 +2,7 @@ import { FaGithub, FaPlay } from 'react-icons/fa';
 import clsx from 'clsx';
 import Card from '@/components/shared/Card';
 import { Button } from '@/components/shared/Button';
+import Tag from '@/components/shared/Tag';
 import HighlightText from '@/components/shared/HighlightText';
 import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
 import type { Game } from '@/data/games';
@@ -80,36 +81,17 @@ export default function DetailedGameCard({
         {/* Technology tags */}
         <div className="flex flex-wrap gap-2 mb-6">
           {game.tags.map((tag: string) => (
-            <span
-              key={tag}
-              className={clsx(
-                'px-3 py-1 rounded border',
-                'bg-[var(--color-secondary)]/10 border-[var(--color-secondary)]/20',
-                'group-hover:bg-[var(--color-secondary)]/15 group-hover:border-[var(--color-secondary)]/30',
-                TYPOGRAPHY.TEXT_SMALL,
-                'text-[var(--color-secondary)]',
-                'transition-colors duration-300',
-              )}
-            >
+            <Tag key={tag} variant="secondary" size="small">
               {tag}
-            </span>
+            </Tag>
           ))}
         </div>
 
         {/* Game Status Badge */}
         <div className="mb-6">
-          <span
-            className={clsx(
-              'inline-block px-3 py-1 rounded border font-medium',
-              game.status === 'complete'
-                ? 'bg-[var(--color-primary)]/10 border-[var(--color-primary)]/30 text-[var(--color-primary)]'
-                : 'bg-[var(--color-muted)]/10 border-[var(--color-muted)]/30 text-[var(--color-muted)]',
-              'group-hover:border-opacity-50 transition-colors duration-300',
-              TYPOGRAPHY.TEXT_SMALL,
-            )}
-          >
+          <Tag variant={game.status === 'complete' ? 'primary' : 'muted'} size="small">
             {game.status === 'complete' ? 'Complete' : 'In Progress'}
-          </span>
+          </Tag>
         </div>
 
         {/* Action buttons - Only GitHub and Play */}

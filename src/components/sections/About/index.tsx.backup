@@ -1,4 +1,4 @@
-import { useMemo, useState, lazy, Suspense, useRef, useEffect } from 'react';
+import { use  'Outside of the technical work, I'm known for mentoring teammates, demystifying complex UI problems, and fostering collaboration. I've been told I'd make a great technical PM, thanks to my clarity and empathy. I'm drawn to solving real-world problems over abstract puzzles and I find fulfillment in seeing my work make a real difference for both teams and end users.',emo, useState, lazy, Suspense, useRef, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
 import clsx from 'clsx';

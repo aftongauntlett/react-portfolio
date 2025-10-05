@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { blogPosts } from '@/data/blog/posts';
 import { games } from '@/data/games';
 import ExternalPageLayout from '@/components/layout/ExternalPageLayout';
+import SkeletonLoader from '@/components/shared/SkeletonLoader';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { useSimpleBlogFilter } from '@/hooks/useSimpleBlogFilter';
-import SimpleBlogFilter from '@/components/blog/SimpleBlogFilter';
-import UnifiedGameCard from '@/components/blog/UnifiedGameCard';
 import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
+import type { BlogPost } from '@/data/blog/types';
 import clsx from 'clsx';
-import BlogEntryCard from '@/components/blog/BlogEntryCard';
+
+// Lazy load heavy components
+const SimpleBlogFilter = lazy(() => import('@/components/blog/SimpleBlogFilter'));
+const UnifiedGameCard = lazy(() => import('@/components/blog/UnifiedGameCard'));
+const BlogEntryCard = lazy(() => import('@/components/blog/BlogEntryCard'));
 
 type ViewMode = 'games' | 'blog';
 
@@ -17,6 +20,8 @@ export default function GameDev() {
   const location = useLocation();
   const navigate = useNavigate();
   const { setHovered, clearHovered, isDimmed } = useHoverGroup();
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [isLoadingBlogPosts, setIsLoadingBlogPosts] = useState(false);
 
   // Determine view mode based on URL
   const [viewMode, setViewMode] = useState<ViewMode>(() => {
@@ -24,6 +29,17 @@ export default function GameDev() {
   });
 
   const { searchTerm, setSearchTerm, sortBy, setSortBy } = useSimpleBlogFilter(blogPosts);
+
+  // Dynamically load blog posts only when switching to blog view for better initial page performance
+  useEffect(() => {
+    if (viewMode === 'blog' && blogPosts.length === 0 && !isLoadingBlogPosts) {
+      setIsLoadingBlogPosts(true);
+      import('@/data/blog/posts').then((module) => {
+        setBlogPosts(module.blogPosts);
+        setIsLoadingBlogPosts(false);
+      });
+    }
+  }, [viewMode, blogPosts.length, isLoadingBlogPosts]);
 
   // Update view mode when URL changes
   useEffect(() => {
@@ -111,35 +127,39 @@ export default function GameDev() {
     >
       <div>
         {/* Search and Filter */}
-        <SimpleBlogFilter
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          selectedTags={selectedTags}
-          onTagToggle={(tag) => {
-            const newMode = tag === 'Blog' ? 'blog' : 'games';
-            handleTabChange(newMode);
-          }}
-          availableTags={availableTags}
-          sortBy={sortBy}
-          onSortChange={setSortBy}
-          resultCount={totalResults}
-        />
+        <Suspense fallback={<SkeletonLoader variant="list" count={1} />}>
+          <SimpleBlogFilter
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            selectedTags={selectedTags}
+            onTagToggle={(tag) => {
+              const newMode = tag === 'Blog' ? 'blog' : 'games';
+              handleTabChange(newMode);
+            }}
+            availableTags={availableTags}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+            resultCount={totalResults}
+          />
+        </Suspense>
 
         {/* Content */}
         <div className="space-y-8">
           {viewMode === 'games' ? (
             /* Games Section */
             filteredGames.length > 0 ? (
-              filteredGames.map((game, idx) => (
-                <UnifiedGameCard
-                  key={game.id}
-                  game={game}
-                  searchTerm={searchTerm}
-                  isDimmed={isDimmed(idx)}
-                  onMouseEnter={() => setHovered(idx)}
-                  onMouseLeave={clearHovered}
-                />
-              ))
+              <Suspense fallback={<SkeletonLoader variant="card" count={3} />}>
+                {filteredGames.map((game, idx) => (
+                  <UnifiedGameCard
+                    key={game.id}
+                    game={game}
+                    searchTerm={searchTerm}
+                    isDimmed={isDimmed(idx)}
+                    onMouseEnter={() => setHovered(idx)}
+                    onMouseLeave={clearHovered}
+                  />
+                ))}
+              </Suspense>
             ) : (
               <div className="text-center py-16">
                 <div className="p-8 bg-[var(--color-muted)]/5 border border-[var(--color-line)] rounded-lg">
@@ -154,16 +174,18 @@ export default function GameDev() {
             )
           ) : /* Blog Section */
           filteredBlogPosts.length > 0 ? (
-            filteredBlogPosts.map((post, idx) => (
-              <BlogEntryCard
-                key={post.metadata.slug}
-                post={post}
-                searchTerm={searchTerm}
-                isDimmed={isDimmed(idx)}
-                onMouseEnter={() => setHovered(idx)}
-                onMouseLeave={clearHovered}
-              />
-            ))
+            <Suspense fallback={<SkeletonLoader variant="card" count={3} />}>
+              {filteredBlogPosts.map((post, idx) => (
+                <BlogEntryCard
+                  key={post.metadata.slug}
+                  post={post}
+                  searchTerm={searchTerm}
+                  isDimmed={isDimmed(idx)}
+                  onMouseEnter={() => setHovered(idx)}
+                  onMouseLeave={clearHovered}
+                />
+              ))}
+            </Suspense>
           ) : (
             <div className="text-center py-16">
               <div className="p-8 bg-[var(--color-muted)]/5 border border-[var(--color-line)] rounded-lg">

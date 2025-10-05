@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaSearch, FaChevronDown } from 'react-icons/fa';
+import Tag from '@/components/shared/Tag';
 import { TYPOGRAPHY } from '@/constants/typography';
 
 interface SimpleBlogFilterProps {
@@ -65,19 +66,17 @@ export default function SimpleBlogFilter({
           {availableTags.map((tag) => {
             const isSelected = selectedTags.includes(tag);
             return (
-              <button
+              <Tag
                 key={tag}
+                variant={isSelected ? 'active' : 'neutral'}
+                size="small"
                 onClick={() => onTagToggle(tag)}
                 aria-pressed={isSelected}
                 aria-label={`${isSelected ? 'Remove' : 'Add'} ${tag} filter`}
-                className={`px-3 py-1.5 ${TYPOGRAPHY.TEXT_SMALL} font-medium rounded border transition-[border-color,color] duration-200 ${
-                  isSelected
-                    ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)] border-[var(--color-primary)] shadow-sm'
-                    : 'bg-[var(--color-background)] text-[var(--color-muted)] border-[var(--color-line)] hover:border-[var(--color-primary)] hover:text-[var(--color-text)]'
-                }`}
+                className="py-1.5"
               >
                 {tag}
-              </button>
+              </Tag>
             );
           })}
         </div>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import MotionSection from '@/components/shared/MotionSection';
 import { Button } from '@/components/shared/Button';
+import Tag from '@/components/shared/Tag';
 import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { projects } from '@/data/projects';
 import {
@@ -164,18 +165,9 @@ export default function ProjectsSection() {
               aria-label={`Technologies used in ${title}`}
             >
               {tech.map((t) => (
-                <span
-                  key={t}
-                  className={clsx(
-                    'inline-flex items-center px-2 py-1 font-medium rounded cursor-default',
-                    'bg-[var(--color-muted)]/10 border border-[var(--color-border)]',
-                    TYPOGRAPHY.TEXT_XS,
-                    TYPOGRAPHY.TEXT_MUTED,
-                  )}
-                  aria-label={`Technology: ${t}`}
-                >
+                <Tag key={t} variant="muted" size="xs">
                   {t}
-                </span>
+                </Tag>
               ))}
             </div>
             <div

@@ -2,6 +2,7 @@ import { FaCalendar, FaClock, FaArrowRight } from 'react-icons/fa';
 import clsx from 'clsx';
 import Card from '@/components/shared/Card';
 import { Button } from '@/components/shared/Button';
+import Tag from '@/components/shared/Tag';
 import HighlightText from '@/components/shared/HighlightText';
 import { formatDate } from '@/utils/dateFormatter';
 import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
@@ -60,31 +61,15 @@ export default function DevlogCard({
           <div className="flex flex-wrap gap-2">
             {/* Show categories for blog posts */}
             {categories.slice(0, 2).map((category: string) => (
-              <span
-                key={category}
-                className={clsx(
-                  'px-3 py-1 rounded border font-medium',
-                  'bg-[var(--color-primary)]/10 border-[var(--color-primary)]/20',
-                  TYPOGRAPHY.TEXT_SMALL,
-                  'text-[var(--color-primary)]',
-                )}
-              >
+              <Tag key={category} variant="primary" size="small">
                 {category}
-              </span>
+              </Tag>
             ))}
             {/* Show tags */}
             {tags.slice(0, 2).map((tag: string) => (
-              <span
-                key={tag}
-                className={clsx(
-                  'px-3 py-1 rounded border',
-                  'bg-[var(--color-secondary)]/10 border-[var(--color-secondary)]/20',
-                  TYPOGRAPHY.TEXT_SMALL,
-                  'text-[var(--color-secondary)]',
-                )}
-              >
+              <Tag key={tag} variant="secondary" size="small">
                 {tag}
-              </span>
+              </Tag>
             ))}
           </div>
 

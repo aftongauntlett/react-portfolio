@@ -139,8 +139,6 @@ export default function ContactSection() {
     setStatus({ type: 'loading', message: 'Sending message...' });
 
     try {
-      console.log('Submitting form data to Formspree...');
-
       const response = await fetch('https://formspree.io/f/mpwldyrq', {
         method: 'POST',
         headers: {

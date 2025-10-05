@@ -1,12 +1,32 @@
+import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
-import BlogPostContent from '@/components/blog/BlogPostContent';
-import TableOfContents from '@/components/blog/TableOfContents';
 import { getBlogPost } from '@/data/blog';
 import ErrorBoundary from '@/components/shared/ErrorBoundary';
 import { Button } from '@/components/shared/Button';
 import ExternalPageLayout from '@/components/layout/ExternalPageLayout';
 import { navigateToPortfolio } from '@/utils/navigation';
 import { TYPOGRAPHY } from '@/constants/typography';
+
+// Lazy load blog components for better code splitting
+const BlogPostContent = lazy(() => import('@/components/blog/BlogPostContent'));
+const TableOfContents = lazy(() => import('@/components/blog/TableOfContents'));
+
+// Loading component for blog post content
+function BlogPostLoader() {
+  return (
+    <div className="max-w-4xl mx-auto px-6 py-8">
+      <div className="animate-pulse space-y-6">
+        <div className="h-8 bg-gray-300 dark:bg-gray-600 rounded w-3/4"></div>
+        <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+        <div className="space-y-3">
+          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-2/3"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function NotFound() {
   return (
@@ -49,11 +69,21 @@ function BlogPostPage() {
         subtitle: post.metadata.subtitle,
       }}
     >
-      <BlogPostContent
-        sections={post.sections}
-        tableOfContents={<TableOfContents sections={post.sections} />}
-        metadata={{ subtitle: post.metadata.subtitle, tags: post.metadata.tags }}
-      />
+      <Suspense fallback={<BlogPostLoader />}>
+        <BlogPostContent
+          sections={post.sections}
+          tableOfContents={
+            <Suspense
+              fallback={
+                <div className="w-64 h-96 animate-pulse bg-gray-300 dark:bg-gray-600 rounded"></div>
+              }
+            >
+              <TableOfContents sections={post.sections} />
+            </Suspense>
+          }
+          metadata={{ subtitle: post.metadata.subtitle, tags: post.metadata.tags }}
+        />
+      </Suspense>
     </ExternalPageLayout>
   );
 }
