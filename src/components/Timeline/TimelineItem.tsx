@@ -1,5 +1,6 @@
 import type { ReactNode, KeyboardEvent } from 'react';
 import clsx from 'clsx';
+import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import { HiQuestionMarkCircle } from 'react-icons/hi2';
 
 export interface TimelineItemProps {
@@ -71,7 +72,7 @@ export default function TimelineItem({
         // Only apply dimming on hover-capable devices
         shouldDim && 'opacity-50 [@media(hover:none)]:!opacity-100',
         isActive && 'bg-[var(--color-primary)]/10 rounded-lg p-2',
-        'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+        FOCUS_STYLES.BUTTON,
         // Add subtle touch feedback for mobile
         'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
       )}
@@ -101,10 +102,16 @@ export default function TimelineItem({
       {/* Content area */}
       <div className="md:px-2">
         <header>
-          <h3 className="subtitle flex flex-col sm:flex-row sm:items-baseline sm:gap-1">
+          <h3
+            className={clsx(
+              TYPOGRAPHY.SUBTITLE,
+              'flex flex-col sm:flex-row sm:items-baseline sm:gap-1',
+            )}
+          >
             <span
               className={clsx(
-                'transition-all focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
+                'transition-all',
+                FOCUS_STYLES.COMPACT,
                 isActive || isHovered ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]',
               )}
               tabIndex={0}
@@ -112,10 +119,7 @@ export default function TimelineItem({
               {title}
             </span>
             {company && (
-              <span
-                className="text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1"
-                tabIndex={0}
-              >
+              <span className={clsx('text-[var(--color-text)]', FOCUS_STYLES.COMPACT)} tabIndex={0}>
                 &nbsp;@ {company}
               </span>
             )}
@@ -123,7 +127,10 @@ export default function TimelineItem({
           {dates && (
             <time
               className={clsx(
-                'block text-sm mb-3 text-[var(--color-secondary)] transition-colors md:group-hover:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-1 focus-visible:bg-[var(--color-primary)]/10 rounded px-1',
+                'block mb-3 transition-colors md:group-hover:text-[var(--color-secondary)]',
+                TYPOGRAPHY.TEXT_SMALL,
+                TYPOGRAPHY.TEXT_SECONDARY,
+                FOCUS_STYLES.COMPACT,
               )}
               dateTime={dates}
               tabIndex={0}

@@ -1,14 +1,16 @@
-import { useMemo, useState, lazy, Suspense } from 'react';
+import { useMemo, useState, lazy, Suspense, useRef, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
+import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
+import clsx from 'clsx';
 
-// Lazy load the Lottie animation to improve initial page load
+// Lazy load the Lottie animation only when needed
 const LottieHello = lazy(() => import('./LottieHello'));
 
 const aboutParagraphs = [
-  "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I've led frontend architecture at companies ranging from Fortune 500 firms like {Booz Allen Hamilton} to small businesses generating {$300M+} annually.",
-  "As the founder of {Gauntlet Designs}, I built custom platforms from the ground up. This included a complete overhaul of an internal app for the 6th-largest {Applebee's} franchisee, which still serves thousands of employees and fundraisers across multiple states.",
-  'At {Booz Allen}, I led the frontend efforts for multiple {React} apps, introduced multi-theme systems and reusable component libraries, migrated legacy codebases from {Angular/Node.js} to modular {React/Flask}, integrated collaborative tools like {Figma} and {TanStack Query}, and advocated for {accessibility} and code maintainability across multiple teams in {remote-first} environments.',
-  "Outside of the technical work, I’m known for bringing people together - mentoring teammates, demystifying challenging UI problems, and fostering collaboration. I’ve been told I’d make a great {technical PM}, thanks to my clarity and empathy. I’m drawn to solving {real-world problems} over abstract puzzles and try to keep the joy in engineering - whether that's through performance-driven {JS13k} games or other creative side projects that remind me why I love building for the web.",
+  "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and served as the sole developer for high-revenue clients through my business, {Gauntlet Designs}.",
+  "At {Gauntlet Designs}, I built custom platforms end-to-end. This included a complete overhaul of an internal app for the {6th-largest Applebee's franchisee}, which still serves {thousands of employees} and fundraisers across multiple states.",
+  'At {Booz Allen}, I led the frontend for multiple {React} apps, introduced multi-theme systems and reusable component libraries, migrated legacy {Angular}/{Node.js} codebases to modular {React}/{Flask}, integrated collaborative tools like {Figma} and {TanStack Query}, and advocated for accessibility and code maintainability across distributed teams in remote-first environments.',
+  'Outside of the technical work, I’m known for {mentoring teammates}, {demystifying complex UI problems}, and fostering {collaboration}. I’ve been told I’d make a great {technical PM}, thanks to my {clarity} and {empathy}. I’m drawn to solving {real-world problems} over abstract puzzles and I find fulfillment in seeing my work make a real difference for both teams and end users.',
 ];
 
 // Move outside component to prevent recreation on every render
@@ -17,7 +19,7 @@ const renderHighlightedText = (text: string) => {
     if (part.startsWith('{') && part.endsWith('}')) {
       const content = part.slice(1, -1);
       return (
-        <span key={index} className="font-semibold text-[var(--color-primary)]">
+        <span key={index} className={clsx('font-semibold', TYPOGRAPHY.TEXT_PRIMARY)}>
           {content}
         </span>
       );
@@ -27,7 +29,30 @@ const renderHighlightedText = (text: string) => {
 };
 export default function AboutSection() {
   const [planetColor] = useState<'secondary' | 'muted'>('secondary');
+  const [shouldLoadLottie, setShouldLoadLottie] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+
+  // Lazy load Lottie animation when hero section comes into view for better initial page load performance
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadLottie(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: '100px' },
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Memoize rendered paragraphs since they don't change
   const renderedParagraphs = useMemo(
@@ -35,7 +60,7 @@ export default function AboutSection() {
       aboutParagraphs.map((paragraph, index) => (
         <p
           key={index}
-          className="text-body leading-relaxed focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:bg-[var(--color-primary)]/5 rounded px-2 py-1"
+          className={clsx(TEXT_COMBINATIONS.BODY_RELAXED, FOCUS_STYLES.PRIMARY)}
           tabIndex={0}
           aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
         >
@@ -48,7 +73,10 @@ export default function AboutSection() {
   return (
     <div className="w-full">
       {/* Hero Section with Lottie Animation - Responsive spacing */}
-      <div className="relative flex justify-center items-center min-h-[50px] w-full my-16 md:my-32 lg:my-48">
+      <div
+        ref={heroRef}
+        className="relative flex justify-center items-center min-h-[50px] w-full my-16 md:my-32 lg:my-48"
+      >
         {theme === 'light' && (
           <>
             {/* Twinkling Sparkles */}
@@ -69,25 +97,27 @@ export default function AboutSection() {
           </>
         )}
 
-        {/* Background Lottie Animation */}
+        {/* Background Lottie Animation - Only load when visible */}
         <div className="absolute inset-0 flex justify-center items-center z-10">
           <div className="w-48 h-48 md:w-80 md:h-80 lg:w-96 lg:h-96">
-            <Suspense fallback={<div className="w-full h-full" />}>
-              <LottieHello
-                opacity={0.15}
-                speed={0.3}
-                planetColor={planetColor}
-                className="w-full h-full"
-              />
-            </Suspense>
+            {shouldLoadLottie ? (
+              <Suspense fallback={<div className="w-full h-full" />}>
+                <LottieHello
+                  opacity={0.15}
+                  speed={0.3}
+                  planetColor={planetColor}
+                  className="w-full h-full"
+                />
+              </Suspense>
+            ) : (
+              <div className="w-full h-full" />
+            )}
           </div>
         </div>
 
         {/* Foreground Hello Text */}
         <div className="relative z-20 text-center">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold hello-gradient drop-shadow-2xl">
-            Hello
-          </h1>
+          <h1 className={clsx(TYPOGRAPHY.TITLE, 'hello-gradient drop-shadow-2xl')}>Hello</h1>
         </div>
       </div>
 

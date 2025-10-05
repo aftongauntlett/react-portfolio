@@ -1,13 +1,3 @@
-import AwardsAccordion from './AwardsAccordion';
-import CertificationsAccordion from './CertificationsAccordion';
-import SkillsAccordion from './SkillsAccordion';
+import SkillsSection from './SkillsSection';
 
-export default function SkillsSection() {
-  return (
-    <div className="space-y-6">
-      <AwardsAccordion />
-      <CertificationsAccordion />
-      <SkillsAccordion />
-    </div>
-  );
-}
+export default SkillsSection;

@@ -6,10 +6,11 @@ import {
   DATE_CLASSES,
   TEXT_SM_CLASSES,
 } from '@/constants/styles';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface CardProps {
-  title: string;
-  subtitle: string;
+  title: string | ReactNode;
+  subtitle: string | ReactNode;
   date: string;
   badge?: string;
   description?: string;
@@ -72,34 +73,43 @@ export default function Card({
       <div className="flex flex-col justify-between h-full">
         <div>
           <div className="flex justify-between items-start mb-1">
-            <h4 className={TITLE_HOVER_CLASSES}>{title}</h4>
+            <h4 className={typeof title === 'string' ? TITLE_HOVER_CLASSES : 'subtitle'}>
+              {title}
+            </h4>
             <span className={DATE_CLASSES}>{date}</span>
           </div>
 
           {badge && (
-            <span className="hidden sm:inline-block mb-2 px-2 py-1 text-xs font-medium bg-green-300 text-green-800 rounded-full">
+            <span
+              className={`hidden sm:inline-block mb-2 px-2 py-1 ${TYPOGRAPHY.TEXT_XS} font-medium bg-green-300 text-green-800 rounded`}
+            >
               {badge}
             </span>
           )}
 
-          <p
+          <div
             className={clsx(
               TEXT_SM_CLASSES,
               'mb-2',
-              subtitleColor === 'primary'
-                ? 'text-[var(--color-primary)] group-hover:text-[var(--color-text)]'
-                : 'text-[var(--color-muted)] group-hover:text-[var(--color-text)]',
+              typeof subtitle === 'string' &&
+                (subtitleColor === 'primary'
+                  ? 'text-[var(--color-primary)] group-hover:text-[var(--color-text)]'
+                  : 'text-[var(--color-muted)] group-hover:text-[var(--color-text)]'),
             )}
           >
             {subtitle}
-          </p>
+          </div>
 
-          {description && <p className="text-sm text-[var(--color-muted)]">{description}</p>}
+          {description && (
+            <p className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)]`}>{description}</p>
+          )}
 
           {children}
         </div>
         {badge && (
-          <span className="inline-block sm:hidden px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full self-start">
+          <span
+            className={`inline-block sm:hidden px-2 py-1 ${TYPOGRAPHY.TEXT_XS} bg-green-100 text-green-800 rounded self-start`}
+          >
             {badge}
           </span>
         )}

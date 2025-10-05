@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react';
 import clsx from 'clsx';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 const inputBaseClass = `
   mt-1 block w-full rounded-md
@@ -45,7 +46,10 @@ export function FormField({
 }: FormFieldProps) {
   return (
     <div className="space-y-1">
-      <label htmlFor={name} className="block text-sm font-medium text-[var(--color-text)]">
+      <label
+        htmlFor={name}
+        className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)]`}
+      >
         {label}
         {optional && <span className="text-[var(--color-muted)] font-normal"> (optional)</span>}
       </label>
@@ -62,10 +66,10 @@ export function FormField({
         spellCheck={spellCheck}
         className={clsx(inputBaseClass, error && 'border-red-500 focus:ring-red-500')}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}>{error}</p>}
       {showCounter && maxLength && (
         <div className="flex justify-end">
-          <span className="text-xs text-[var(--color-muted)]">
+          <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
             {value.length}/{maxLength}
           </span>
         </div>
@@ -101,7 +105,10 @@ export function TextAreaField({
 }: TextAreaFieldProps) {
   return (
     <div className="space-y-1">
-      <label htmlFor={name} className="block text-sm font-medium text-[var(--color-text)]">
+      <label
+        htmlFor={name}
+        className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)]`}
+      >
         {label}
       </label>
       <textarea
@@ -116,10 +123,10 @@ export function TextAreaField({
         maxLength={maxLength}
         className={clsx(inputBaseClass, error && 'border-red-500 focus:ring-red-500')}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}>{error}</p>}
       {maxLength && (
         <div className="flex justify-end">
-          <span className="text-xs text-[var(--color-muted)]">
+          <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
             {value.length}/{maxLength}
           </span>
         </div>

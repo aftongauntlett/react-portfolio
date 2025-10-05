@@ -3,6 +3,7 @@ import { useState, type FormEvent } from 'react';
 import type { Job } from '@/data/jobs';
 import { BulletList, BulletItem } from '@/components/shared/BulletList';
 import { useJobContact } from '@/context/JobContactContext';
+import { TYPOGRAPHY } from '@/constants/typography';
 
 interface NextRoleSlotProps {
   onNewJob: (job: Job) => void;
@@ -92,7 +93,9 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
               if (company.trim() && title.trim()) handleNewJob();
             }}
           >
-            <label className="block text-sm font-medium text-[var(--color-text)]">
+            <label
+              className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)]`}
+            >
               What's the name of your company?
               <input
                 type="text"
@@ -108,14 +111,18 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
                 className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
               <div className="flex justify-between mt-1">
-                <span className="text-xs text-[var(--color-muted)]">Company name (required)</span>
-                <span className="text-xs text-[var(--color-muted)]">
+                <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
+                  Company name (required)
+                </span>
+                <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
                   {company.length}/{MAX_COMPANY_LENGTH}
                 </span>
               </div>
             </label>
 
-            <label className="block text-sm font-medium text-[var(--color-text)]">
+            <label
+              className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)]`}
+            >
               And what would my job title be?
               <input
                 type="text"
@@ -131,8 +138,10 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
                 className="mt-1 w-full rounded-md border border-[var(--color-line)] bg-transparent px-3 py-2 text-[var(--color-text)] placeholder-[var(--color-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
               <div className="flex justify-between mt-1">
-                <span className="text-xs text-[var(--color-muted)]">Job title (required)</span>
-                <span className="text-xs text-[var(--color-muted)]">
+                <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
+                  Job title (required)
+                </span>
+                <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
                   {title.length}/{MAX_TITLE_LENGTH}
                 </span>
               </div>

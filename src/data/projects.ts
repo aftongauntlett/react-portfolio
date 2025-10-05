@@ -5,6 +5,8 @@ export type Project = {
   tech: string[];
   link?: string;
   demo?: string;
+  external?: boolean; // For projects that open in new tab
+  lastUpdated?: string; // For external collections
 };
 
 export const projects: Project[] = [
@@ -35,21 +37,12 @@ export const projects: Project[] = [
     demo: 'https://potomacdining.com/',
   },
   {
-    title: 'JS13k 2025 Game Submission – The Cat & The Luminid',
+    title: 'Game Development',
     status: 'Development',
     description:
-      'My official JS13k competition entry, built under the strict 13KB size limit. A minimalist browser game featuring unique mouse-driven mechanics and atmospheric design. Focused on performance and bundle optimization, using compression tools (Roadroller, Terser) to fit advanced visuals and animations within the size cap.',
-    tech: ['HTML', 'CSS', 'Vanilla JavaScript', 'Canvas 2D', 'Vite'],
-    link: 'https://github.com/aftongauntlett/js13k-2025',
-    demo: 'https://js13k-2025.vercel.app/',
-  },
-  {
-    title: 'JS13k 2025 Practice – Orbital Order',
-    status: 'Development',
-    description:
-      'A second, completed game developed alongside my official JS13k entry. Explores alternate mechanics and narrative style within the same 13KB constraint, demonstrating rapid prototyping, creative coding, and iterative design.',
-    tech: ['HTML', 'CSS', 'Vanilla JavaScript'],
-    link: 'https://github.com/aftongauntlett/js13k-demo',
-    demo: 'https://js13k-demo.vercel.app',
+      'Interactive games and development insights. Features playable JS13k competition entries with detailed post-mortems covering game design, physics simulation, creative coding under constraints, and lessons learned from building complete games in vanilla JavaScript.',
+    tech: ['JavaScript', 'Canvas 2D', 'Game Design', 'Physics', 'JS13k'],
+    demo: '/blog',
+    external: true,
   },
 ];
