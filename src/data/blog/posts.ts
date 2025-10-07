@@ -5,7 +5,7 @@ export const nyxFelisPostMortem: BlogPost = {
     title: 'JS13k 2025 Official Submission',
     subtitle: 'Nyx Felis & Lampyris',
     description:
-      'A post-mortem of my first JS13k entry, following the journey from an unfinished submission to a fully realized game. Built with vanilla JavaScript and procedural Web Audio, this piece explores creative limits, lessons learned, and how AI helped me experiment with tools I once found intimidating.',
+      'A post-mortem for Nyx Felis & Lampyris, my JS13k 2025 entry about collecting and evolving fireflies for a celestial cat. Built in vanilla JavaScript with Canvas 2D and procedural Web Audio, this reflection covers the design shift from “cozy screensaver” to a compact, readable game loop.',
     publishDate: '2025-09-17',
     slug: 'js13k-2025-post-mortem',
     author: 'Afton Gauntlett',
@@ -18,144 +18,131 @@ export const nyxFelisPostMortem: BlogPost = {
     {
       type: 'game-showcase',
       src: '/blog/nyx-felis.png',
-      alt: 'Gameplay screenshot of Nyx Felis & Lampyris showing glowing fireflies and Nyx the cat under a starry sky',
-      caption: 'Nyx Felis collecting fireflies beneath the night sky',
+      alt: 'Nyx Felis under a starry sky with glowing fireflies orbiting',
+      caption: 'Nyx Felis — a small game about curiosity, timing, and fireflies',
       content:
-        'A small game about a curious night-cat and bioluminescent fireflies, built for the JS13k 2025 competition.',
+        'A calm, atmospheric collector with a timing layer: guide fireflies, evolve them with well-timed shields, and keep Nyx Felis curious long enough to survive the night.',
       links: [
         {
           url: 'https://github.com/aftongauntlett/js13k-2025',
           text: 'View Source Code',
           type: 'github',
         },
-        { url: 'https://nyx-felis.aftongauntlett.com', text: 'Play Game', type: 'demo' },
-      ],
-    },
-
-    { type: 'heading', level: 2, content: 'About' },
-    {
-      type: 'paragraph',
-      content:
-        'My first JS13k entry ended up in the “Unfinished” category after a timezone mistake, but that didn’t feel like the ending. I spent the following weeks rebuilding the entire game, turning what was essentially a pretty tech demo into a playable, choice-driven experience. The theme, “Black Cat,” became Nyx Felis - a curious cat collecting fireflies to keep the night alive.',
-    },
-    {
-      type: 'pull-quote',
-      content: '“An animal’s eyes have the power to speak a great language.” — David Attenborough',
-    },
-
-    { type: 'heading', level: 2, content: 'Technical Overview' },
-    {
-      type: 'paragraph',
-      content:
-        'Canvas 2D was pushed much farther than I thought possible. Gradient layers and composite modes faked the kind of glow effects you’d normally need WebGL for, while hundreds of fireflies drifted around on their own simple motion logic. The procedural audio system generated ambient tones from basic math - something I didn’t even know was possible before building this.',
-    },
-    {
-      type: 'list',
-      items: [
-        'Engine: Vanilla JavaScript + Canvas 2D (no frameworks or libraries)',
-        'Audio: 100% procedural via Web Audio API',
-        'Performance: ~60fps with hundreds of active particles',
-        'Size: 13KB competition limit (final rebuild ~21KB)',
-      ],
-    },
-
-    { type: 'heading', level: 2, content: 'Engineering Insights' },
-    {
-      type: 'paragraph',
-      content:
-        'Once the visuals and audio were solid, I turned my attention to keeping performance consistent within the 13KB constraint. The limit forced different kinds of trade-offs than I’d make on a normal project - optimizing for byte size instead of readability, and finding ways to reuse logic without breaking clarity. It was a rare chance to think about efficiency at both the code and gameplay level at the same time.',
-    },
-    {
-      type: 'list',
-      items: [
-        'Object pooling eliminated lag from garbage collection spikes.',
-        'Rollup and Terser kept the code compact for jam limits.',
-        'Web Audio timing synced naturally with the game loop.',
-        'Canvas composite modes can convincingly mimic lighting shaders.',
-      ],
-    },
-
-    { type: 'heading', level: 2, content: 'Design & UX Insights' },
-    {
-      type: 'paragraph',
-      content:
-        'The original build looked good but played like a screensaver. The post-jam version focused on readable feedback and resource tension: light equals life, and every firefly matters. Instead of endless collecting, I made every choice carry a small risk - an idea borrowed from real firefly behavior, where their glow is both communication and survival signal.',
-    },
-    {
-      type: 'list',
-      items: [
-        'Bioluminescence (mana) as a finite resource adds natural tension.',
-        'Evolution stages with increasing value create risk/reward.',
-        'Curiosity timer introduces gentle time pressure.',
-        'Shield timing adds rhythm and rewards precision.',
-        'Task-based tutorials replace overwhelming instruction dumps.',
-      ],
-    },
-
-    { type: 'heading', level: 2, content: 'Key Takeaways' },
-    {
-      type: 'paragraph',
-      content:
-        'Finishing Nyx Felis reinforced how much small decisions shape the player experience. The constraints of JS13k made every feature earn its place, and that mindset carried into how I design larger projects now - focusing on clarity, feedback, and the moments that make interaction feel intentional.',
-    },
-    {
-      type: 'list',
-      items: [
-        'Prototype the gameplay loop first, polish later.',
-        'Scope discipline beats overbuilding every time.',
-        'Commit often - audio bugs love bad timing.',
-        'Clear player feedback is as important as good mechanics.',
-      ],
-    },
-
-    { type: 'heading', level: 2, content: 'Post-Mortem Reflections' },
-    {
-      type: 'paragraph',
-      content:
-        'Missing the submission deadline over a timezone mix-up was frustrating, but it also took the pressure off and let me rebuild the game the way I wanted. I learned how much difference clarity and constraint make - and how satisfying it feels when a project finally clicks into place. The final version captured the quiet, glowing mood I had in mind from the start, and finishing it on my own terms made the whole jam experience feel complete.',
-    },
-    {
-      type: 'links',
-      links: [
         {
-          url: 'https://js13kgames.com/2025/games/nyx-felis-and-lampyris',
-          text: 'View Original Submission',
-          type: 'external',
+          url: 'https://nyx-felis.aftongauntlett.com',
+          text: 'Play Enhanced Version',
+          type: 'demo',
         },
       ],
     },
 
+    // 1) About
+    { type: 'heading', level: 2, content: 'About' },
+    {
+      type: 'paragraph',
+      content:
+        'I wanted to build a game, and when I came across the JS13k competition, I knew this would be a perfect project - small enough to make sure I would finish! When the theme landed on Black Cats, I was super happy - I love cats. I also love fireflies, so I immediately knew where I wanted to go with it. I wanted it to be calm, cozy, and a bit mysterious. And particles, lots of particles.',
+    },
+
+    // 2) Technical Overview
+    { type: 'heading', level: 2, content: 'Technical Overview' },
+    {
+      type: 'list',
+      items: [
+        'Engine: Vanilla JavaScript + Canvas 2D (no frameworks).',
+        'Audio: Procedural Web Audio API (no external files).',
+        'Performance: ~60fps with hundreds of particles on screen.',
+        'Size: 12.5KB competition build; 22KB enhanced post-jam build.',
+        'Loop: Summon → Collect → Shield → Evolve → Deliver.',
+      ],
+    },
+    {
+      type: 'paragraph',
+      content:
+        'The visuals are minimal but purposeful: layered gradients, soft composites, and particle glints to sell bioluminescence without WebGL. The audio was generated in code; it came together, but I’d rework it with more experience - the constraint taught me a lot.',
+    },
+
+    // 3) Engineering Insights
+    { type: 'heading', level: 2, content: 'Engineering Insights' },
+    {
+      type: 'paragraph',
+      content:
+        'Most engineering effort went into keeping timing readable. The shield window needed to feel predictable while everything else shimmered. When players read the red warning flashes as “the attack itself,” I tightened copy, cues, and ordering so the third flash clearly signaled “now.”',
+    },
+    {
+      type: 'list',
+      items: [
+        'Particle system tuned for low churn; pooled objects where it mattered.',
+        'Canvas composite operations for glow instead of shader work.',
+        'Shield timing aligned to a simple, repeatable flash cadence.',
+        'Task-based tutorial replaced static instructions to teach timing and delivery.',
+        'Small fixes to help/menu layout so UI stayed centered and readable.',
+      ],
+    },
+
+    // 4) Design & UX Insights
+    { type: 'heading', level: 2, content: 'Design & UX Insights' },
+    {
+      type: 'paragraph',
+      content:
+        'It started as a peaceful collector. Adding the curiosity bar introduced gentle pressure and turned it into an actual game. The cat’s face reacts to the cursor - whiskers, eyes, nose - because tiny, responsive touches carry a lot of feeling. The firefly evolution colors sell progress at a glance.',
+    },
+    {
+      type: 'list',
+      items: [
+        'Curiosity bar added a clear goal without losing the night-walk vibe.',
+        'Eyes/whiskers respond to proximity; small animation = big personality.',
+        'Evolution colors (green → purple → gold → rainbow) communicate risk/reward.',
+        'Tutorial and copy focused on clarifying the shield window.',
+        'Made the drop-and-recollect loop explicit in the tutorial and copy so climbing to rainbow tier feels intentional.',
+      ],
+    },
+
+    // 5) Key Takeaways
+    { type: 'heading', level: 2, content: 'Key Takeaways' },
+    {
+      type: 'paragraph',
+      content:
+        'Constraints helped me finish. Clear timing beats flashy effects, and tiny UX changes move the needle more than new features. The game found its shape when I accepted “calm with pockets of focus” instead of chasing every idea.',
+    },
+
+    // 6) Post-Mortem Reflections
+    { type: 'heading', level: 2, content: 'Post-Mortem Reflections' },
+    {
+      type: 'paragraph',
+      content:
+        'I missed the submission deadline due to a timezone mistake - annoying, but not the end. I finished the enhanced version anyway and ended up happier with it. Making two games back-to-back taught me discipline: keep scope tight, fix what confuses players, move on. Next I’ll explore Unity - maybe rebuild one of these ideas, revisit the lightning concept that started me down this path, or try something new. Stars, sparkles, particles and glows will most certainly be involved.',
+    },
+
+    // 7) AI as a Creative Partner
     { type: 'heading', level: 2, content: 'AI as a Creative Partner' },
     {
       type: 'paragraph',
       content:
-        'Looking back, I know all of this sounds impressive - but I didn’t come into it knowing physics, music theory, or procedural audio. AI gave me the room to explore those things safely, like a harness that let me climb without worrying about the fall. I used Copilot in a very technical way: prompting it to structure reusable components, create hooks, and respect accessibility rules like color contrast and keyboard focus. It didn’t always listen. Learning how to steer it - when to trust its instincts and when to push back - was its own kind of development skill.',
+        'I used Copilot for coding and ChatGPT for research and unblocking build/deployment questions. It’s a tool, not magic - useful when directed, messy when left alone. I had to keep it honest: prefer reusable bits, keep accessibility in mind, don’t repeat logic, respect keyboard focus and contrast.',
     },
     {
       type: 'paragraph',
       content:
-        'ChatGPT helped with the less glamorous but equally painful stuff: build pipelines, Firebase, Vercel quirks, and version control headaches. Copilot wasn’t a magic fix - it was more like a strong teammate with bad short-term memory. It could suggest brilliant snippets and then forget the project context two lines later. Using it well meant managing its chaos. But that process made me more deliberate about architecture, naming, and accessibility than I’d been before.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'AI didn’t write the game for me - it made me braver about trying things I used to find intimidating. It turned curiosity into progress. I got to ask “How did developers make music from math before?” and then watch those answers turn into sound and light. Every spark, hum, and glow in Nyx Felis came from that back-and-forth.',
+        'A good example of “human in the loop”: centering the help menu. The AI declared it fixed several times while the screen still looked off. Adding visual debug markers exposed the issue - the container was centered, but the left-aligned text made it read wrong. We measured real text width, wrapped that, and centered the result. Same with Firebase leaderboard testing - I asked for a simple local UI harness so I could click through tests without juggling dashboards. The value wasn’t shortcuts; it was faster feedback.',
     },
 
+    // 8) Feedback
     { type: 'heading', level: 2, content: 'Feedback' },
     {
       type: 'feedback-form',
-      formDescription: "Played it? I'd love to hear what you thought of Nyx Felis & Lampyris.",
+      formDescription:
+        'Tried Nyx Felis? I’d love thoughts on the shield window, clarity, and overall feel.',
     },
   ],
 };
 
 export const orbitalOrderPostMortem: BlogPost = {
   metadata: {
-    title: 'JS13k 2025 Practice Demo',
+    title: 'JS13k 2025 Practice Project',
     subtitle: 'Orbital Order',
     description:
-      'A post-mortem of my JS13k practice project - a physics-based puzzle that teaches atomic structure through play. Built under 13KB, it explores scientific accuracy, procedural sound, and how curiosity turned a technical experiment into a real learning experience.',
+      'A post-mortem for Orbital Order, my first completed JS13k practice project - a physics-based puzzle game built in vanilla JavaScript that teaches atomic structure through interactive play. It explores minimalism, scientific accuracy, and creative confidence gained through AI-assisted development.',
     publishDate: '2025-08-01',
     slug: 'orbital-order-post-mortem',
     author: 'Afton Gauntlett',
@@ -168,122 +155,116 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'game-showcase',
       src: '/blog/orbital-order.png',
-      alt: 'Gameplay screenshot of Orbital Order showing electron orbitals and atomic structures forming',
-      caption: 'Orbital Order - building atoms through interactive physics',
+      alt: 'Gameplay showing orbiting electrons in blue and orange orbitals',
+      caption: 'Orbital Order - teaching atomic structure through interactive physics',
       content:
-        'A JS13k practice project where players guide electrons into orbitals using magnetic fields, learning atomic structure through gameplay.',
+        'Before the official JS13k competition, I built Orbital Order as a warm-up challenge: a small, self-contained game about guiding electrons into orbitals using simple mouse interactions. It was my first completed game, and my first serious attempt to mix science, education, and game feel - all under 13KB.',
       links: [
         {
           url: 'https://github.com/aftongauntlett/js13k-demo',
           text: 'View Source Code',
           type: 'github',
         },
-        { url: 'https://orbital-order.aftongauntlett.com/', text: 'Play Game', type: 'demo' },
+        { url: 'https://orbital-order.aftongauntlett.com', text: 'Play Game', type: 'demo' },
       ],
     },
 
+    // SECTION 1: About
     { type: 'heading', level: 2, content: 'About' },
     {
       type: 'paragraph',
       content:
-        'Before entering the official jam, I built Orbital Order as a test to see if I could make something educational and fun under 13KB. The goal was simple: make electrons behave like electrons, but without needing a physics degree. It quickly became my favorite kind of project - part science experiment, part puzzle game.',
-    },
-    {
-      type: 'pull-quote',
-      content:
-        '“The nitrogen in our DNA, the calcium in our teeth, the iron in our blood, the carbon in our apple pies were made in the interiors of collapsing stars. We are made of starstuff.” — Carl Sagan',
+        'The idea started while watching Neil deGrasse Tyson explain lightning on StarTalk. I thought the physics behind lightning could make interesting mechanics, but after prototyping, the visuals of orbs and rings started feeling more like atoms. From there, the theme pivoted naturally to chemistry - stable orbitals, glowing electrons, and the Aufbau principle became the foundation of the game. It was the first project where everything seemed to fall into place.',
     },
 
+    // SECTION 2: Technical Overview
     { type: 'heading', level: 2, content: 'Technical Overview' },
-    {
-      type: 'paragraph',
-      content:
-        'It uses real rules from electron configuration - the Aufbau principle and Pauli exclusion - but simplified enough to stay playable. I wanted accuracy without making it feel like homework. The visuals and audio are generated entirely in code, which saved space and gave everything an organic feel.',
-    },
     {
       type: 'list',
       items: [
-        'Engine: Vanilla JavaScript + Canvas 2D',
-        'Size: 8.2KB zipped (47% compression)',
-        'Audio: Procedural using Web Audio API',
-        'Physics: Simplified attraction/repulsion forces',
+        'Built with vanilla JavaScript and Canvas 2D.',
+        'All audio generated procedurally using the Web Audio API.',
+        'Optimized to fit under 13KB using Terser and code golfing.',
+        'Features authentic atomic structure logic: 1s² → 2s² → 2p⁶.',
+        'Runs at 60fps with real-time electron physics and collision checks.',
       ],
     },
+    {
+      type: 'paragraph',
+      content:
+        'The visual palette came from a mix of science class nostalgia and Portal’s iconic blue-orange energy. Those colors instantly gave the atoms personality. The sound design leaned toward calm and minimal — ambient hums and gentle tones meant to feel like quiet isolation in space, but without loneliness. It’s the kind of solitude that feels focused.',
+    },
 
+    // SECTION 3: Engineering Insights
     { type: 'heading', level: 2, content: 'Engineering Insights' },
     {
       type: 'paragraph',
       content:
-        'Most of the real work in Orbital Order came down to making the physics feel stable inside tight constraints. Balancing accuracy, performance, and clarity in one file forced a kind of discipline that carried through the rest of the jam. These were the patterns that kept everything predictable and smooth.',
+        'The project was my crash course in scope control. The 13KB limit demanded discipline - no external libraries, no wasted bytes. Every small decision mattered. I learned to watch how often objects were created, how to reuse references, and how to structure updates cleanly. Golfing and minification were fascinating to watch in action. Once I understood what they were doing, the term “golfing” made sense - it’s all about precision and less distance between ideas and results.',
     },
     {
       type: 'list',
       items: [
-        'Simplified orbital physics made gameplay readable and reactive.',
-        'Rollup + Terser compression cut file size nearly in half.',
-        'Single-file architecture improved focus and iteration speed.',
-        'Infinite mode added replayability through chaos events.',
+        'Reduced from 47KB to 8.2KB zipped using aggressive minification.',
+        'Simplified rendering loop for stability and performance.',
+        'Removed a complex infinite mode after state-pollution bugs surfaced.',
+        'Introduced an interactive tutorial for onboarding new players.',
+        'Used save/restore patterns to manage Canvas state safely.',
       ],
     },
 
-    {
-      type: 'heading',
-      level: 2,
-      content: 'Design & UX Insights',
-    },
+    // SECTION 4: Design & UX Insights
+    { type: 'heading', level: 2, content: 'Design & UX Insights' },
     {
       type: 'paragraph',
       content:
-        'Orbital Order started as a small experiment with lightning and particle physics after watching a Neil deGrasse Tyson video about electrical charge. That curiosity spiraled into learning how electrons actually move and interact, and the game slowly shifted from storms to orbitals. The design direction came naturally—I was already working with blue and orange energy effects, circular motion, and glow layers, so the science theme fit. The goal wasn’t realism, just something calm, bright, and satisfying to watch. The storm mechanic was added near the end to give players a bit of chaos to balance the calm.',
+        'Most of the early design decisions came from curiosity, not planning. Watching a Neil deGrasse Tyson segment about lightning sparked ideas about push and pull forces - that later became the electron interactions. I liked the way blue and orange felt opposite but harmonious, like positive and negative charges. I love glowy effects, particles, and calm color gradients, so building the visuals was the most natural part of the process. The lightning storm effect at the end added some gentle chaos and challenge without breaking the calm tone.',
     },
     {
       type: 'list',
       items: [
-        'Two-hit knockout added risk and improved feedback.',
-        'Persistent overlays replaced interruptive modals based on player feedback.',
-        'Contextual tutorials introduced mechanics organically as they appeared.',
+        'Interactive tutorial replaced static instructions to make learning intuitive.',
+        'Level transitions redesigned to flow seamlessly instead of pausing gameplay.',
+        'Player feedback influenced polish — fewer modals, smoother flow.',
+        '“Two-hit knockout” kept as a light penalty to encourage precision.',
       ],
     },
 
+    // SECTION 5: Key Takeaways
     { type: 'heading', level: 2, content: 'Key Takeaways' },
     {
-      type: 'list',
-      items: [
-        'Educational games can be accurate and fun at once.',
-        'Procedural audio can feel alive without assets.',
-        'Tight limits inspire smarter design decisions.',
-        'Small playtests are worth more than perfect code.',
-      ],
+      type: 'paragraph',
+      content:
+        'This was the project that taught me the value of finishing. It reinforced that smaller, polished ideas have more impact than ambitious, half-finished ones. I learned that clarity in scope and UX feedback loops matter as much as clever mechanics. And I learned that compression and performance tuning are less about tools and more about how you think as a developer.',
     },
 
+    // SECTION 6: Post-Mortem Reflections
     { type: 'heading', level: 2, content: 'Post-Mortem Reflections' },
     {
       type: 'paragraph',
       content:
-        'This was the perfect warm-up. It gave me confidence, patterns, and a few scars I could bring into my main entry. Every constraint forced focus, and that clarity carried over into everything I built after. I learned more about atoms, physics, and audio than I ever expected from 13KB of JavaScript.',
+        'Looking back, this game gave me something bigger than technical skill - it gave me confidence. For a first finished project, it represented a shift from “I wonder if I could” to “I can.” It made me curious again about learning, science, and visual design. The next logical step is expanding what I learned into something larger, maybe in Unity, or even returning to the lightning idea that started this all. Wherever it leads, this project is the foundation.',
     },
 
+    // SECTION 7: AI as a Creative Partner
     { type: 'heading', level: 2, content: 'AI as a Creative Partner' },
     {
       type: 'paragraph',
       content:
-        'AI played a real, practical role in this project. Copilot handled the small but constant decisions-refactoring loops, suggesting cleaner functions, and helping me maintain consistent structure as the file grew. It wasn’t hands-off work. I had to guide it carefully, remind it to use reusable logic, and make sure it respected accessibility and readability. The results depended entirely on the quality of my prompts and my willingness to edit what it produced.',
+        'Copilot handled most of the code integration and low-level logic, while ChatGPT helped me explore scientific principles and troubleshoot deployment issues. This just made the whole idea of making a game more approachable. The biggest challenge was learning how to steer it. I had to remind Copilot to build reusable structures, respect accessibility, and avoid redundant logic. Using it well meant understanding what it misunderstood. Over time, I learned to prompt more like a technical partner than a user.',
     },
     {
       type: 'paragraph',
       content:
-        'ChatGPT filled in the gaps that documentation couldn’t. It explained physics concepts like the Aufbau principle in plain English, helped me debug strange particle behaviors, and clarified math I only half remembered. The goal was never to let AI “do the thinking,” but to use it as a fast feedback loop-something between a reference manual and a sounding board.',
-    },
-    {
-      type: 'paragraph',
-      content:
-        'I’m aware this section makes the project sound deeply technical, but truthfully, I was learning most of it as I went. AI made that possible. It didn’t replace my work; it expanded the range of what I could try. That’s what makes it powerful-it compresses the time between curiosity and execution. In the end, the game exists because I could ask the right questions and see how far I could push the answers.',
+        'AI let me try things I used to avoid because they looked intimidating - like physics formulas, procedural audio, and build pipelines. Watching how it structured code helped me become more deliberate about architecture and naming. Overall, it expanded my creative possibilities without taking away the challenge.',
     },
 
+    // SECTION 8: Feedback
     { type: 'heading', level: 2, content: 'Feedback' },
     {
       type: 'feedback-form',
-      formDescription: 'Played Orbital Order? Share what you learned or what confused you.',
+      formDescription:
+        'Played Orbital Order? I’d love to hear your thoughts on the mechanics and pacing.',
     },
   ],
 };
