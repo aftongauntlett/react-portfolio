@@ -33,9 +33,8 @@ export default function ExternalNav({ onBackClick }: ExternalNavProps) {
 
   return (
     <nav className="border-b border-[var(--color-line)] bg-[var(--color-background)]/95 backdrop-blur-sm sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
-          {/* Left: Back button */}
           <Button
             onClick={handleBack}
             variant="link"
@@ -45,9 +44,7 @@ export default function ExternalNav({ onBackClick }: ExternalNavProps) {
             {getBackText()}
           </Button>
 
-          {/* Right: Actions */}
           <div className="flex items-center gap-3">
-            {/* Theme Toggle */}
             <Button
               onClick={toggleTheme}
               variant="link"

@@ -10,9 +10,7 @@ const StarryBackground = lazy(() => import('../../StarryBackground'));
 
 interface ExternalPageLayoutProps {
   title: string | ReactNode;
-  description: string;
   children: ReactNode;
-  // Optional metadata for blog posts
   metadata?: {
     author?: string;
     publishDate?: string;
@@ -22,29 +20,20 @@ interface ExternalPageLayoutProps {
   };
 }
 
-export default function ExternalPageLayout({
-  title,
-  description,
-  children,
-  metadata,
-}: ExternalPageLayoutProps) {
+export default function ExternalPageLayout({ title, children, metadata }: ExternalPageLayoutProps) {
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
-      {/* Starry background for consistency with main portfolio */}
       <Suspense fallback={null}>
         <StarryBackground />
       </Suspense>
-      {/* Simple, consistent navigation */}
       <ExternalNav />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header - Left Aligned */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-[var(--color-text)] leading-tight">
             {title}
           </h1>
 
-          {/* Blog Post Metadata - Between title and description */}
           {metadata && (
             <div className="mb-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 text-sm text-[var(--color-muted)] pb-4 border-b border-[var(--color-line)]">
@@ -64,19 +53,13 @@ export default function ExternalPageLayout({
               </div>
             </div>
           )}
-
-          <p className="text-base sm:text-lg text-[var(--color-muted)] leading-relaxed">
-            {description}
-          </p>
         </div>
 
-        {/* Content */}
         <main role="main" aria-label="Main content">
           {children}
         </main>
       </div>
 
-      {/* Full-width External Footer */}
       <ExternalFooter />
     </div>
   );

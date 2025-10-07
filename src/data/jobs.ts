@@ -24,7 +24,7 @@ export const jobs: Job[] = [
     dates: '03/2022 – 03/2023',
     description: [
       'Led the full revamp of a core government platform, driving the shift from Angular/Node to React with TypeScript for cleaner code and future-proof features.',
-      'Introduced a suite of modern developer tools—Prettier, Husky, ESLint, and TanStack Query—to enforce code standards and optimize daily workflow.',
+      'Introduced a suite of modern developer tools-Prettier, Husky, ESLint, and TanStack Query-to enforce code standards and optimize daily workflow.',
       'Authored comprehensive onboarding guides and accessibility docs, making it easier for new hires to get up to speed while embedding WCAG/508 compliance.',
     ],
   },

@@ -60,7 +60,6 @@ function BlogPostPage() {
   return (
     <ExternalPageLayout
       title={post.metadata.title}
-      description={post.metadata.description}
       metadata={{
         author: post.metadata.author,
         publishDate: post.metadata.publishDate,
@@ -81,7 +80,11 @@ function BlogPostPage() {
               <TableOfContents sections={post.sections} />
             </Suspense>
           }
-          metadata={{ subtitle: post.metadata.subtitle, tags: post.metadata.tags }}
+          metadata={{
+            subtitle: post.metadata.subtitle,
+            tags: post.metadata.tags,
+            description: post.metadata.description,
+          }}
         />
       </Suspense>
     </ExternalPageLayout>

@@ -29,7 +29,7 @@ export default function Layout({ children }: LayoutProps) {
       </Suspense>
       <MobileHeader />
       <div className="flex justify-center px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:gap-x-6 w-full max-w-6xl lg:min-h-screen">
+        <div className="flex flex-col lg:flex-row lg:gap-x-6 w-full max-w-7xl lg:min-h-screen">
           <div className="hidden lg:block w-72 flex-shrink-0">
             <div className="sticky-sidebar">
               <SideNav />

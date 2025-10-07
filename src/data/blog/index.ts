@@ -1,8 +1,8 @@
-import { js13kPostMortem, orbitalOrderPostMortem } from './posts';
+import { nyxFelisPostMortem, orbitalOrderPostMortem } from './posts';
 import type { BlogPostRegistry } from './types';
 
 export const blogRegistry: BlogPostRegistry = {
-  [js13kPostMortem.metadata.slug]: js13kPostMortem,
+  [nyxFelisPostMortem.metadata.slug]: nyxFelisPostMortem,
   [orbitalOrderPostMortem.metadata.slug]: orbitalOrderPostMortem,
 };
 

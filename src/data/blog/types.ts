@@ -7,36 +7,38 @@ export interface BlogPostSection {
     | 'links'
     | 'blog-image'
     | 'feedback-form'
-    | 'game-showcase';
+    | 'game-showcase'
+    | 'pull-quote';
   content?: string;
-  items?: string[]; // For lists
-  level?: 1 | 2 | 3 | 4; // For heading levels
-  src?: string; // For blog-image and game-showcase
-  alt?: string; // For blog-image and game-showcase
-  caption?: string; // For blog-image and game-showcase
-  size?: 'small' | 'medium' | 'large'; // For blog-image sizing
-  tags?: string[]; // For game-showcase tags
+  items?: string[];
+  level?: 1 | 2 | 3 | 4;
+  src?: string;
+  alt?: string;
+  caption?: string;
+  size?: 'small' | 'medium' | 'large';
+  tags?: string[];
   links?: Array<{
     url: string;
     text: string;
     type: 'github' | 'demo' | 'external';
-  }>; // For styled link sections and game-showcase
-  formTitle?: string; // For feedback form
-  formDescription?: string; // For feedback form
+  }>;
+  formTitle?: string;
+  formDescription?: string;
+  author?: string;
+  citation?: string;
 }
 
 export interface BlogPostMetadata {
   title: string;
-  subtitle?: string; // Optional subtitle for posts
+  subtitle?: string;
   description: string;
   publishDate: string;
   slug: string;
   author: string;
   readTime?: string;
   tags?: string[];
-  // Enhanced for filtering/sorting
-  categories?: string[]; // Primary categories for filtering
-  featured?: boolean; // For highlighting important posts
+  categories?: string[];
+  featured?: boolean;
 }
 
 export interface BlogPost {

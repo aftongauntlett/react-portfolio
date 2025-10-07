@@ -17,9 +17,11 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Extract headings from sections
   const tocItems: TocItem[] = sections
-    .filter((section) => section.type === 'heading' && section.content)
+    .filter(
+      (section) =>
+        section.type === 'heading' && section.content && section.level && section.level === 2,
+    )
     .map((section) => {
       const id = section
         .content!.toLowerCase()

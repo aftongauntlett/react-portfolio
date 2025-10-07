@@ -13,6 +13,7 @@ import {
   BLOG_PARAGRAPH_CLASSES,
   BLOG_LIST_ITEM_CLASSES,
 } from '@/constants/styles';
+import { addSeparatorsToSections } from '@/utils/blogHelpers';
 
 interface BlogPostContentProps {
   sections: BlogPostSection[];
@@ -20,6 +21,7 @@ interface BlogPostContentProps {
   metadata?: {
     subtitle?: string;
     tags?: string[];
+    description?: string;
   };
 }
 
@@ -32,6 +34,7 @@ const sectionTypeComponentMap = {
   'blog-image': BlogImageSection,
   'game-showcase': GameShowcaseSection,
   'feedback-form': FeedbackFormSection,
+  'pull-quote': PullQuoteSection,
 } as const;
 
 function HeadingSection({ content, level = 2 }: BlogPostSection) {
@@ -123,6 +126,26 @@ function SeparatorSection() {
   );
 }
 
+function PullQuoteSection({ content, author, citation }: BlogPostSection) {
+  if (!content) return null;
+
+  return (
+    <blockquote
+      className="my-8 pl-6 border-l-4 border-[var(--color-secondary)] italic text-[var(--color-text)]/90"
+      role="note"
+    >
+      <p className={`${BLOG_PARAGRAPH_CLASSES} text-lg mb-2`}>{content}</p>
+      {(author || citation) && (
+        <footer className="text-sm text-[var(--color-muted)] not-italic mt-2">
+          {author && <cite>— {author}</cite>}
+          {author && citation && ', '}
+          {citation && <span>{citation}</span>}
+        </footer>
+      )}
+    </blockquote>
+  );
+}
+
 function LinksSection({ links }: BlogPostSection) {
   if (!links || links.length === 0) return null;
 
@@ -207,12 +230,12 @@ function GameShowcaseSection({
   src,
   alt,
   caption,
-  content,
   links,
   subtitle,
   tags,
-}: BlogPostSection & { subtitle?: string; tags?: string[] }) {
-  if (!src || !alt || !content) return null;
+  description,
+}: BlogPostSection & { subtitle?: string; tags?: string[]; description?: string }) {
+  if (!src || !alt) return null;
 
   const getIconForType = (type: 'github' | 'demo' | 'external') => {
     switch (type) {
@@ -263,7 +286,6 @@ function GameShowcaseSection({
     }
   };
 
-  // Filter and organize links
   const githubLink = links?.find((link) => link.type === 'github');
   const demoLink = links?.find(
     (link) => link.type === 'demo' && !link.text.toLowerCase().includes('original'),
@@ -271,80 +293,77 @@ function GameShowcaseSection({
 
   return (
     <div className="my-12" role="group" aria-label="Game showcase">
-      <div className="grid md:grid-cols-2 gap-8 items-start">
-        {/* Left Column - Smaller Image and Caption */}
-        <div className="space-y-4">
-          <div className="relative rounded-lg overflow-hidden bg-gradient-to-b from-[var(--color-surface)] to-[var(--color-background)] p-4 shadow-lg border border-[var(--color-line)] dark:border-transparent dark:bg-none dark:p-0 max-w-md">
+      <div className="grid md:grid-cols-[auto_1fr] gap-8 lg:gap-10 items-start">
+        <div className="w-full max-w-[480px]">
+          <div className="relative rounded-xl overflow-hidden bg-gradient-to-b from-[var(--color-surface)] to-[var(--color-background)] p-4 shadow-xl border border-[var(--color-line)] dark:border-transparent dark:bg-none dark:p-0">
             <img
               src={src}
               alt={alt}
-              className="w-full h-auto rounded-lg dark:shadow-lg"
+              className="w-full h-auto rounded-lg dark:shadow-xl"
               loading="lazy"
             />
-          </div>
-          {caption && (
-            <p
-              className={`text-[var(--color-muted)] ${TYPOGRAPHY.TEXT_SMALL} leading-relaxed italic font-medium text-left`}
-            >
-              {caption}
-            </p>
-          )}
-        </div>
-
-        {/* Right Column - Content and Buttons */}
-        <div className="space-y-4 flex flex-col h-full">
-          {/* Subtitle and Tags */}
-          <div className="space-y-3">
-            {subtitle && (
-              <h3 className="text-xl sm:text-2xl font-semibold text-[var(--color-text)] leading-tight">
-                {subtitle}
-              </h3>
-            )}
-
-            {/* Tags - Under subtitle */}
-            {tags && tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <Tag key={tag} variant="secondary" size="xs" className="shadow-sm">
-                    {tag}
-                  </Tag>
-                ))}
+            {caption && (
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-4 rounded-b-lg">
+                <p
+                  className={`text-white/90 ${TYPOGRAPHY.TEXT_SMALL} leading-relaxed italic font-medium text-center`}
+                >
+                  {caption}
+                </p>
               </div>
             )}
           </div>
+        </div>
 
-          <p className={`${BLOG_PARAGRAPH_CLASSES}`}>{content}</p>
+        <div className="flex flex-col h-full space-y-4">
+          {subtitle && (
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-text)] leading-tight">
+              {subtitle}
+            </h2>
+          )}
 
-          {/* Buttons - Bottom Right Aligned */}
-          <div className="flex-1 flex items-end justify-end">
-            <div className="flex gap-3">
-              {githubLink && (
-                <Button
-                  href={githubLink.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outline"
-                  color="primary"
-                  icon={getIconForType('github')}
-                  aria-label={`View source code (opens in new tab)`}
-                >
-                  View Source
-                </Button>
-              )}
-              {demoLink && (
-                <Button
-                  href={demoLink.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="solid"
-                  color="secondary"
-                  icon={getIconForType('demo')}
-                  aria-label={`Play game (opens in new tab)`}
-                >
-                  Play Game
-                </Button>
-              )}
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <Tag key={tag} variant="secondary" size="small">
+                  {tag}
+                </Tag>
+              ))}
             </div>
+          )}
+
+          {description && (
+            <p className="text-base sm:text-lg text-[var(--color-muted)] leading-relaxed flex-1">
+              {description}
+            </p>
+          )}
+
+          <div className="flex gap-4 justify-end mt-auto">
+            {githubLink && (
+              <Button
+                href={githubLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outline"
+                color="primary"
+                icon={getIconForType('github')}
+                aria-label={`View source code (opens in new tab)`}
+              >
+                View Source
+              </Button>
+            )}
+            {demoLink && (
+              <Button
+                href={demoLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="solid"
+                color="secondary"
+                icon={getIconForType('demo')}
+                aria-label={`Play game (opens in new tab)`}
+              >
+                Play Game
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -361,29 +380,25 @@ export default function BlogPostContent({
   tableOfContents,
   metadata,
 }: BlogPostContentProps) {
-  // Find where to insert table of contents - after intro content (paragraph, image, links)
-  let insertTocAfterIndex = -1;
-  for (let i = 0; i < sections.length; i++) {
-    const section = sections[i];
-    // Include intro paragraph, image, and links in the intro area
-    if (section.type === 'links') {
-      insertTocAfterIndex = i;
-      break;
-    }
-    // Fallback: if we find a separator or heading after image, insert before it
-    if (i > 0 && (section.type === 'separator' || section.type === 'heading')) {
-      insertTocAfterIndex = i - 1;
+  const sectionsWithSeparators = addSeparatorsToSections(sections);
+
+  let tocStartIndex = -1;
+  for (let i = 0; i < sectionsWithSeparators.length; i++) {
+    const section = sectionsWithSeparators[i];
+    if (section.type === 'heading' && section.level === 2) {
+      tocStartIndex = i;
       break;
     }
   }
 
-  const shouldShowToc = tableOfContents && insertTocAfterIndex !== -1;
-  const introSections = shouldShowToc ? sections.slice(0, insertTocAfterIndex + 1) : [];
-  const mainSections = shouldShowToc ? sections.slice(insertTocAfterIndex + 1) : sections;
+  const shouldShowToc = tableOfContents && tocStartIndex >= 0;
+  const introSections = shouldShowToc ? sectionsWithSeparators.slice(0, tocStartIndex) : [];
+  const mainSections = shouldShowToc
+    ? sectionsWithSeparators.slice(tocStartIndex)
+    : sectionsWithSeparators;
 
   return (
     <>
-      {/* Intro sections (full width) */}
       {shouldShowToc && (
         <article className="max-w-none mb-12" role="main" aria-label="Blog post introduction">
           {introSections.map((section, index) => {
@@ -399,7 +414,11 @@ export default function BlogPostContent({
                 key={stableKey}
                 {...section}
                 {...(section.type === 'game-showcase'
-                  ? { subtitle: metadata?.subtitle, tags: metadata?.tags }
+                  ? {
+                      subtitle: metadata?.subtitle,
+                      tags: metadata?.tags,
+                      description: metadata?.description,
+                    }
                   : {})}
               />
             );
@@ -407,7 +426,6 @@ export default function BlogPostContent({
         </article>
       )}
 
-      {/* Main content with sidebar layout */}
       <div
         className={
           shouldShowToc
@@ -415,10 +433,8 @@ export default function BlogPostContent({
             : ''
         }
       >
-        {/* Table of Contents Sidebar */}
         {shouldShowToc && <div className="lg:block">{tableOfContents}</div>}
 
-        {/* Main Content */}
         <div className={shouldShowToc ? 'max-w-4xl' : ''}>
           <article className="max-w-none" role="main" aria-label="Blog post content">
             {mainSections.map((section, index) => {
@@ -431,7 +447,7 @@ export default function BlogPostContent({
                 return null;
               }
 
-              const sectionIndex = shouldShowToc ? insertTocAfterIndex + 1 + index : index;
+              const sectionIndex = shouldShowToc ? tocStartIndex + index : index;
               const stableKey = section.content
                 ? `${section.type}-${section.content.slice(0, 20).replace(/[^a-z0-9]/gi, '')}-${sectionIndex}`
                 : `${section.type}-${sectionIndex}`;

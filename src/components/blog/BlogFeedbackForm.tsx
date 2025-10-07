@@ -1,13 +1,14 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { Button } from '@/components/shared/Button';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
-import { BLOG_PARAGRAPH_CLASSES } from '@/constants/styles';
 
 interface FeedbackFormData {
   name: string;
   email: string;
-  feedback: string;
-  _gotcha: string; // Formspree's built-in honeypot field
+  liked: string;
+  disliked: string;
+  wouldChange: string;
+  _gotcha: string;
 }
 
 interface FormStatus {
@@ -20,12 +21,14 @@ interface BlogFeedbackFormProps {
 }
 
 export function BlogFeedbackForm({
-  description = "Played the game? I'd love to hear your thoughts!",
+  description = "Tried the game? I'd love to hear your thoughts and suggestions!",
 }: BlogFeedbackFormProps) {
   const [formData, setFormData] = useState<FeedbackFormData>({
     name: '',
     email: '',
-    feedback: '',
+    liked: '',
+    disliked: '',
+    wouldChange: '',
     _gotcha: '',
   });
 
@@ -40,10 +43,10 @@ export function BlogFeedbackForm({
   };
 
   const validateForm = (): boolean => {
-    if (!formData.feedback.trim()) {
+    if (!formData.liked.trim() && !formData.disliked.trim() && !formData.wouldChange.trim()) {
       setStatus({
         type: 'error',
-        message: 'Please share your feedback before submitting.',
+        message: 'Please answer at least one question before submitting.',
       });
       return false;
     }
@@ -66,7 +69,9 @@ export function BlogFeedbackForm({
         body: JSON.stringify({
           name: formData.name || 'Anonymous Player',
           email: formData.email || 'No email provided',
-          feedback: formData.feedback,
+          liked: formData.liked,
+          disliked: formData.disliked,
+          wouldChange: formData.wouldChange,
           _gotcha: formData._gotcha,
         }),
       });
@@ -79,7 +84,9 @@ export function BlogFeedbackForm({
         setFormData({
           name: '',
           email: '',
-          feedback: '',
+          liked: '',
+          disliked: '',
+          wouldChange: '',
           _gotcha: '',
         });
       } else {
@@ -95,33 +102,10 @@ export function BlogFeedbackForm({
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="space-y-8 mb-12">
-        <div>
-          <p className={BLOG_PARAGRAPH_CLASSES}>{description}</p>
-        </div>
-
-        <div className="space-y-4">
-          <p className={BLOG_PARAGRAPH_CLASSES}>
-            <strong className="text-[var(--color-secondary)]">Why feedback matters:</strong>{' '}
-            Playtesting is crucial for game development. Every perspective helps identify issues I
-            might miss as the developer.
-          </p>
-          <p className={BLOG_PARAGRAPH_CLASSES}>
-            <strong className="text-[var(--color-secondary)]">What to share:</strong> Gameplay
-            thoughts, bugs, confusing mechanics, or anything that stood out—both positive and
-            negative feedback welcome!
-          </p>
-          <p className={BLOG_PARAGRAPH_CLASSES}>
-            <strong className="text-[var(--color-secondary)]">Privacy:</strong> Name and email are
-            optional. Include them only if you'd like me to respond. Anonymous feedback is perfectly
-            fine too.
-          </p>
-        </div>
-      </div>
+    <div className="space-y-8">
+      <p className="text-base text-[var(--color-text)]/80 leading-relaxed">{description}</p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Honeypot field for spam protection */}
         <input
           type="text"
           name="_gotcha"
@@ -132,44 +116,71 @@ export function BlogFeedbackForm({
           autoComplete="off"
         />
 
-        {/* Name and Email in 2 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            label="Name"
-            name="name"
-            type="text"
-            optional
-            placeholder="Your name"
-            value={formData.name}
+        <div className="space-y-5">
+          <TextAreaField
+            label="What's one thing you loved?"
+            name="liked"
+            placeholder="e.g., The art style was charming, the puzzle mechanics felt satisfying..."
+            value={formData.liked}
             onChange={handleInputChange}
             disabled={status.type === 'loading'}
-            maxLength={100}
+            rows={3}
+            maxLength={500}
           />
 
-          <FormField
-            label="Email"
-            name="email"
-            type="email"
-            optional
-            placeholder="your@email.com"
-            value={formData.email}
+          <TextAreaField
+            label="What's one thing that frustrated you?"
+            name="disliked"
+            placeholder="e.g., The controls felt clunky, I got stuck on level 3..."
+            value={formData.disliked}
             onChange={handleInputChange}
             disabled={status.type === 'loading'}
-            maxLength={200}
+            rows={3}
+            maxLength={500}
+          />
+
+          <TextAreaField
+            label="If you could change one thing, what would it be?"
+            name="wouldChange"
+            placeholder="e.g., Add a tutorial, make the timer more forgiving, improve the UI..."
+            value={formData.wouldChange}
+            onChange={handleInputChange}
+            disabled={status.type === 'loading'}
+            rows={3}
+            maxLength={500}
           />
         </div>
 
-        <TextAreaField
-          label="Your Feedback"
-          name="feedback"
-          required
-          placeholder="Share your thoughts on the game mechanics, any bugs you found, or general impressions..."
-          value={formData.feedback}
-          onChange={handleInputChange}
-          disabled={status.type === 'loading'}
-          rows={6}
-          maxLength={2000}
-        />
+        <div className="pt-4 border-t border-[var(--color-text)]/10">
+          <p className="text-sm text-[var(--color-muted)] mb-4">
+            Want a response? Leave your contact info (optional):
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              label="Name"
+              name="name"
+              type="text"
+              optional
+              placeholder="Your name"
+              value={formData.name}
+              onChange={handleInputChange}
+              disabled={status.type === 'loading'}
+              maxLength={100}
+            />
+
+            <FormField
+              label="Email"
+              name="email"
+              type="email"
+              optional
+              placeholder="your@email.com"
+              value={formData.email}
+              onChange={handleInputChange}
+              disabled={status.type === 'loading'}
+              maxLength={200}
+            />
+          </div>
+        </div>
 
         {status.message && (
           <div
@@ -203,10 +214,16 @@ export function BlogFeedbackForm({
             type="submit"
             variant="solid"
             color="primary"
-            disabled={status.type === 'loading' || !formData.feedback.trim()}
+            disabled={
+              status.type === 'loading' ||
+              (!formData.liked.trim() && !formData.disliked.trim() && !formData.wouldChange.trim())
+            }
             title={
-              !formData.feedback.trim() && status.type !== 'loading'
-                ? 'Please share your feedback before submitting'
+              !formData.liked.trim() &&
+              !formData.disliked.trim() &&
+              !formData.wouldChange.trim() &&
+              status.type !== 'loading'
+                ? 'Please answer at least one question before submitting'
                 : ''
             }
           >
