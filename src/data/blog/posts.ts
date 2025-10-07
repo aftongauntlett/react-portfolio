@@ -178,7 +178,7 @@ export const orbitalOrderPostMortem: BlogPost = {
           text: 'View Source Code',
           type: 'github',
         },
-        { url: 'https://js13k-demo.vercel.app', text: 'Play Game', type: 'demo' },
+        { url: 'https://orbital-order.aftongauntlett.com/', text: 'Play Game', type: 'demo' },
       ],
     },
 
