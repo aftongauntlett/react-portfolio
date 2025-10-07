@@ -117,14 +117,7 @@ export default function GameDev() {
   const availableTags = ['Games', 'Blog'];
 
   return (
-    <ExternalPageLayout
-      title={viewMode === 'games' ? 'Game Development' : 'Dev Blog'}
-      description={
-        viewMode === 'games'
-          ? 'Interactive games and development insights. Features playable JS13k competition entries with detailed post-mortems covering game design, physics simulation, creative coding under constraints, and lessons learned.'
-          : 'Development insights and technical articles. Deep dives into game development processes, programming challenges, creative problem-solving, and lessons learned from building interactive experiences.'
-      }
-    >
+    <ExternalPageLayout title={viewMode === 'games' ? 'Game Development' : 'Dev Blog'}>
       <div>
         {/* Search and Filter */}
         <Suspense fallback={<SkeletonLoader variant="list" count={1} />}>
