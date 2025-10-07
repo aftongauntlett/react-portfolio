@@ -43,6 +43,10 @@ export const nyxFelisPostMortem: BlogPost = {
       content:
         'I wanted to build a game, and when I came across the JS13k competition, I knew this would be a perfect project - small enough to make sure I would finish! When the theme landed on Black Cats, I was super happy - I love cats. I also love fireflies, so I immediately knew where I wanted to go with it. I wanted it to be calm, cozy, and a bit mysterious. And particles, lots of particles.',
     },
+    {
+      type: 'pull-quote',
+      content: '"An animal\'s eyes have the power to speak a great language." — David Attenborough',
+    },
 
     // 2) Technical Overview
     { type: 'heading', level: 2, content: 'Technical Overview' },
@@ -175,6 +179,11 @@ export const orbitalOrderPostMortem: BlogPost = {
       type: 'paragraph',
       content:
         'The idea started while watching Neil deGrasse Tyson explain lightning on StarTalk. I thought the physics behind lightning could make interesting mechanics, but after prototyping, the visuals of orbs and rings started feeling more like atoms. From there, the theme pivoted naturally to chemistry - stable orbitals, glowing electrons, and the Aufbau principle became the foundation of the game. It was the first project where everything seemed to fall into place.',
+    },
+    {
+      type: 'pull-quote',
+      content:
+        '"The nitrogen in our DNA, the calcium in our teeth, the iron in our blood, the carbon in our apple pies were made in the interiors of collapsing stars. We are made of starstuff." — Carl Sagan',
     },
 
     // SECTION 2: Technical Overview
