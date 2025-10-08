@@ -19,7 +19,7 @@ export const nyxFelisPostMortem: BlogPost = {
       type: 'game-showcase',
       src: '/blog/nyx-felis.png',
       alt: 'Nyx Felis under a starry sky with glowing fireflies orbiting',
-      caption: 'Nyx Felis — a small game about curiosity, timing, and fireflies',
+      caption: 'Nyx Felis & Lampyris - a small game about curiosity, timing, and fireflies',
       content:
         'A calm, atmospheric collector with a timing layer: guide fireflies, evolve them with well-timed shields, and keep Nyx Felis curious long enough to survive the night.',
       links: [
@@ -45,7 +45,7 @@ export const nyxFelisPostMortem: BlogPost = {
     },
     {
       type: 'pull-quote',
-      content: '"An animal\'s eyes have the power to speak a great language." — David Attenborough',
+      content: '"An animal\'s eyes have the power to speak a great language." - David Attenborough',
     },
 
     // 2) Technical Overview
@@ -146,7 +146,7 @@ export const orbitalOrderPostMortem: BlogPost = {
     title: 'JS13k 2025 Practice Project',
     subtitle: 'Orbital Order',
     description:
-      'A post-mortem for Orbital Order, my first completed JS13k practice project - a physics-based puzzle game built in vanilla JavaScript that teaches atomic structure through interactive play. It explores minimalism, scientific accuracy, and creative confidence gained through AI-assisted development.',
+      'A post-mortem for Orbital Order, my first completed JS13k practice project - a small physics-based puzzle about guiding electrons into orbitals. Built in vanilla JavaScript with Canvas 2D and procedural audio, it became my first real lesson in finishing something simple, clean, and complete.',
     publishDate: '2025-08-01',
     slug: 'orbital-order-post-mortem',
     author: 'Afton Gauntlett',
@@ -160,9 +160,9 @@ export const orbitalOrderPostMortem: BlogPost = {
       type: 'game-showcase',
       src: '/blog/orbital-order.png',
       alt: 'Gameplay showing orbiting electrons in blue and orange orbitals',
-      caption: 'Orbital Order - teaching atomic structure through interactive physics',
+      caption: 'Orbital Order - a small physics game about balance, light, and motion',
       content:
-        'Before the official JS13k competition, I built Orbital Order as a warm-up challenge: a small, self-contained game about guiding electrons into orbitals using simple mouse interactions. It was my first completed game, and my first serious attempt to mix science, education, and game feel - all under 13KB.',
+        'Before the official JS13k competition, I built Orbital Order as a warm-up challenge: a small, self-contained experiment in physics, color, and constraint. Guide electrons into orbitals, follow atomic rules, and learn how a few lines of code can feel alive. It was my first finished game, and it reminded me how satisfying it is to make something click.',
       links: [
         {
           url: 'https://github.com/aftongauntlett/js13k-demo',
@@ -178,12 +178,12 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'The idea started while watching Neil deGrasse Tyson explain lightning on StarTalk. I thought the physics behind lightning could make interesting mechanics, but after prototyping, the visuals of orbs and rings started feeling more like atoms. From there, the theme pivoted naturally to chemistry - stable orbitals, glowing electrons, and the Aufbau principle became the foundation of the game. It was the first project where everything seemed to fall into place.',
+        'The idea first sparked while I was watching Neil deGrasse Tyson talk about lightning on StarTalk. I loved how he described the movement of energy - invisible, but powerful - and started wondering if that could be turned into gameplay. I tried lightning, but what I built looked more like atoms. That visual shift ended up changing everything. Stable orbitals, glowing electrons, and the Aufbau principle became the backbone of the game. Once I leaned into it, the whole thing just clicked.',
     },
     {
       type: 'pull-quote',
       content:
-        '"The nitrogen in our DNA, the calcium in our teeth, the iron in our blood, the carbon in our apple pies were made in the interiors of collapsing stars. We are made of starstuff." — Carl Sagan',
+        '"The nitrogen in our DNA, the calcium in our teeth, the iron in our blood, the carbon in our apple pies were made in the interiors of collapsing stars. We are made of starstuff." - Carl Sagan',
     },
 
     // SECTION 2: Technical Overview
@@ -201,7 +201,7 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'The visual palette came from a mix of science class nostalgia and Portal’s iconic blue-orange energy. Those colors instantly gave the atoms personality. The sound design leaned toward calm and minimal — ambient hums and gentle tones meant to feel like quiet isolation in space, but without loneliness. It’s the kind of solitude that feels focused.',
+        'The color palette came from equal parts science-class nostalgia and my love for Portal’s blue and orange energy. Those two colors just felt alive together - like charge and polarity. I wanted it to look quiet but energetic, like floating in space without the coldness. The sound design followed that same vibe: calm, minimal, slightly isolating in a way that felt focused, not lonely.',
     },
 
     // SECTION 3: Engineering Insights
@@ -209,16 +209,16 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'The project was my crash course in scope control. The 13KB limit demanded discipline - no external libraries, no wasted bytes. Every small decision mattered. I learned to watch how often objects were created, how to reuse references, and how to structure updates cleanly. Golfing and minification were fascinating to watch in action. Once I understood what they were doing, the term “golfing” made sense - it’s all about precision and less distance between ideas and results.',
+        'This project was my crash course in scope control. Working within a 13KB limit forced me to think about every single byte - no libraries, no waste. Every little choice mattered. I started to enjoy that kind of precision. Watching the code shrink through Terser and seeing how much still worked was surprisingly fun. Once I understood what “golfing” was doing, it made sense - like trimming distance between ideas and execution.',
     },
     {
       type: 'list',
       items: [
         'Reduced from 47KB to 8.2KB zipped using aggressive minification.',
-        'Simplified rendering loop for stability and performance.',
-        'Removed a complex infinite mode after state-pollution bugs surfaced.',
-        'Introduced an interactive tutorial for onboarding new players.',
-        'Used save/restore patterns to manage Canvas state safely.',
+        'Simplified the main render loop for smoother, predictable timing.',
+        'Removed an infinite mode that created state-pollution bugs.',
+        'Replaced static instructions with an interactive tutorial.',
+        'Used save/restore blocks to keep Canvas state consistent.',
       ],
     },
 
@@ -227,15 +227,15 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'Most of the early design decisions came from curiosity, not planning. Watching a Neil deGrasse Tyson segment about lightning sparked ideas about push and pull forces - that later became the electron interactions. I liked the way blue and orange felt opposite but harmonious, like positive and negative charges. I love glowy effects, particles, and calm color gradients, so building the visuals was the most natural part of the process. The lightning storm effect at the end added some gentle chaos and challenge without breaking the calm tone.',
+        'Most of my design choices came from curiosity. The push and pull forces were born out of lightning experiments that turned into orbit mechanics. Blue and orange became my stand-ins for attraction and repulsion - positive and negative. I’ve always loved glowy effects and smooth gradients, so that part came naturally. I added a light storm effect near the end to bring some tension without losing the calm tone.',
     },
     {
       type: 'list',
       items: [
-        'Interactive tutorial replaced static instructions to make learning intuitive.',
-        'Level transitions redesigned to flow seamlessly instead of pausing gameplay.',
-        'Player feedback influenced polish — fewer modals, smoother flow.',
-        '“Two-hit knockout” kept as a light penalty to encourage precision.',
+        'Interactive tutorial helped players understand the mechanics by doing, not reading.',
+        'Level transitions became seamless instead of pausing between rounds.',
+        'Playtest feedback simplified UI flow - fewer interruptions, better pacing.',
+        '“Two-hit knockout” stayed as a light penalty to reward precision without punishing mistakes.',
       ],
     },
 
@@ -244,7 +244,7 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'This was the project that taught me the value of finishing. It reinforced that smaller, polished ideas have more impact than ambitious, half-finished ones. I learned that clarity in scope and UX feedback loops matter as much as clever mechanics. And I learned that compression and performance tuning are less about tools and more about how you think as a developer.',
+        'Finishing something small changed how I think about projects. It proved that small ideas can carry weight if they feel complete. I learned that polish and clarity matter more than scale - that scope control is a skill, not a compromise. And that performance work isn’t just about tools or numbers; it’s about being thoughtful with what you build and why.',
     },
 
     // SECTION 6: Post-Mortem Reflections
@@ -252,7 +252,7 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'Looking back, this game gave me something bigger than technical skill - it gave me confidence. For a first finished project, it represented a shift from “I wonder if I could” to “I can.” It made me curious again about learning, science, and visual design. The next logical step is expanding what I learned into something larger, maybe in Unity, or even returning to the lightning idea that started this all. Wherever it leads, this project is the foundation.',
+        'Looking back, Orbital Order gave me more than I expected. It built confidence, but also reminded me why I love learning - how science and design overlap, how visuals can feel like physics. I’d love to explore that intersection further, maybe in Unity, or maybe by revisiting the lightning idea that started it all. Either way, I know I’ll end up chasing that same glow - calm, focused, and a little bit curious.',
     },
 
     // SECTION 7: AI as a Creative Partner
@@ -260,12 +260,12 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'paragraph',
       content:
-        'Copilot handled most of the code integration and low-level logic, while ChatGPT helped me explore scientific principles and troubleshoot deployment issues. This just made the whole idea of making a game more approachable. The biggest challenge was learning how to steer it. I had to remind Copilot to build reusable structures, respect accessibility, and avoid redundant logic. Using it well meant understanding what it misunderstood. Over time, I learned to prompt more like a technical partner than a user.',
+        'Copilot handled a lot of the repetitive code, while ChatGPT helped me reason through the physics and debug the build pipeline. It made things that used to feel intimidating - like procedural audio and compression - actually approachable. I still had to keep it honest, though. I caught it repeating logic or overcomplicating structure more than once. The trick was treating it like a junior partner: helpful, but only if you’re paying attention.',
     },
     {
       type: 'paragraph',
       content:
-        'AI let me try things I used to avoid because they looked intimidating - like physics formulas, procedural audio, and build pipelines. Watching how it structured code helped me become more deliberate about architecture and naming. Overall, it expanded my creative possibilities without taking away the challenge.',
+        'AI helped me stretch into new areas without removing the challenge. I learned how to prompt better, how to read its code critically, and how to balance curiosity with control. The best part wasn’t that it wrote things faster - it was that it made me braver about trying new ones.',
     },
 
     // SECTION 8: Feedback
@@ -273,7 +273,7 @@ export const orbitalOrderPostMortem: BlogPost = {
     {
       type: 'feedback-form',
       formDescription:
-        'Played Orbital Order? I’d love to hear your thoughts on the mechanics and pacing.',
+        'Played Orbital Order? I’d love to hear your thoughts on the pacing, visuals, and overall feel.',
     },
   ],
 };

@@ -120,7 +120,13 @@ export default function LottieHello({
   };
 
   if (!animationData) {
-    return <div className={`${className} animate-pulse bg-[var(--color-line)] rounded`} />;
+    return (
+      <div
+        className={`${className} rounded`}
+        style={{ backgroundColor: 'transparent' }}
+        aria-hidden="true"
+      />
+    );
   }
 
   return (
@@ -136,6 +142,12 @@ export default function LottieHello({
         opacity: opacity,
         pointerEvents: 'none',
         filter: 'blur(0.2px)',
+        backgroundColor: 'transparent',
+      }}
+      rendererSettings={{
+        preserveAspectRatio: 'xMidYMid slice',
+        progressiveLoad: true,
+        hideOnTransparent: true,
       }}
     />
   );
