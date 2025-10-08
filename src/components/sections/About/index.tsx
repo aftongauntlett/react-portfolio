@@ -7,10 +7,9 @@ import clsx from 'clsx';
 const LottieHello = lazy(() => import('./LottieHello'));
 
 const aboutParagraphs = [
-  "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and component-driven design systems. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and served as the sole developer for high-revenue clients through my business, {Gauntlet Designs}.",
-  "At {Gauntlet Designs}, I built custom platforms end-to-end. This included a complete overhaul of an internal app for the {6th-largest Applebee's franchisee}, which still serves {thousands of employees} and fundraisers across multiple states.",
-  'At {Booz Allen}, I led the frontend for multiple {React} apps, introduced multi-theme systems and reusable component libraries, migrated legacy {Angular}/{Node.js} codebases to modular {React}/{Flask}, integrated collaborative tools like {Figma} and {TanStack Query}, and advocated for accessibility and code maintainability across distributed teams in remote-first environments.',
-  'Outside of the technical work, I’m known for {mentoring teammates}, {demystifying complex UI problems}, and fostering {collaboration}. I’ve been told I’d make a great {technical PM}, thanks to my {clarity} and {empathy}. I’m drawn to solving {real-world problems} over abstract puzzles and I find fulfillment in seeing my work make a real difference for both teams and end users.',
+  "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
+  "I've shipped large {React} apps, migrated legacy {Angular} and {Node.js} systems, built reusable {component libraries}, and improved {accessibility} and {performance} across distributed teams. I'm known for simplifying complex UI problems and supporting teammates through clear {communication} and {documentation}.",
+  'Before web development I worked in places that taught me how to learn fast. I spent time in law offices, a {biohazard lab}, and a vintage shop that ran on {century-old machinery}. I once taught myself the {AS400} and translated manuals line by line just to keep things running. That same curiosity and persistence still guide how I build today.',
 ];
 
 // Move outside component to prevent recreation on every render
