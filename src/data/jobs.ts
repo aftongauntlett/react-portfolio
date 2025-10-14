@@ -57,6 +57,7 @@ export const jobs: Job[] = [
     title: 'Frontend Developer',
     company: 'Global Dimensions',
     dates: '08/2021 – 12/2021',
+    location: 'On-site',
     description: [
       'Facilitated alignment between design and development, translating vision into practical, developer-friendly guidelines.',
       'Drove accessibility improvements by partnering with design and compliance experts, delivering interfaces ready for 508/WCAG audits.',
