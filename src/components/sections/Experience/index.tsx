@@ -29,6 +29,7 @@ export default function ExperienceSection() {
           title: currentJob.title,
           company: currentJob.company,
           dates: currentJob.dates,
+          location: currentJob.location,
           isFirst: true,
           isActive: true,
           content: <NewJobEntry job={currentJob} />,
@@ -38,6 +39,7 @@ export default function ExperienceSection() {
           title: "What's my next role?",
           company: '',
           dates: 'TBD',
+          location: undefined,
           isFirst: true,
           isActive: false,
           content: <NextRoleSlot onNewJob={setCurrentJob} />,
@@ -47,6 +49,7 @@ export default function ExperienceSection() {
       title: job.title,
       company: job.company,
       dates: job.dates,
+      location: job.location,
       isFirst: false,
       isActive: false,
       content: (
@@ -72,13 +75,14 @@ export default function ExperienceSection() {
         role="list"
         aria-label="Professional experience timeline"
       >
-        {entries.map(({ idx, title, company, dates, isFirst, isActive, content }) => (
+        {entries.map(({ idx, title, company, dates, location, isFirst, isActive, content }) => (
           <TimelineItem
             key={`${title}-${idx}`}
             idx={idx}
             title={title}
             company={company}
             dates={dates}
+            location={location}
             isFirst={isFirst}
             isActive={isActive}
             isHovered={isHovered(idx)}

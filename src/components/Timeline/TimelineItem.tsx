@@ -2,12 +2,14 @@ import type { ReactNode, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import { HiQuestionMarkCircle } from 'react-icons/hi2';
+import Tag from '@/components/shared/Tag';
 
 export interface TimelineItemProps {
   idx: number;
   title: string;
   company?: string;
   dates?: string;
+  location?: 'Remote' | 'Hybrid' | 'On-site';
   isFirst?: boolean;
   isActive?: boolean;
   isHovered: boolean;
@@ -23,6 +25,7 @@ export default function TimelineItem({
   title,
   company,
   dates,
+  location,
   isFirst = false,
   isActive = false,
   isHovered,
@@ -105,7 +108,7 @@ export default function TimelineItem({
           <h3
             className={clsx(
               TYPOGRAPHY.SUBTITLE,
-              'flex flex-col sm:flex-row sm:items-baseline sm:gap-1',
+              'flex flex-col sm:flex-row sm:items-baseline sm:gap-[5px]',
             )}
           >
             <span
@@ -119,24 +122,39 @@ export default function TimelineItem({
               {title}
             </span>
             {company && (
-              <span className={clsx('text-[var(--color-text)]', FOCUS_STYLES.COMPACT)} tabIndex={0}>
-                &nbsp;@ {company}
-              </span>
+              <>
+                <span className="text-[var(--color-muted)]" aria-hidden="true">
+                  @
+                </span>
+                <span
+                  className={clsx('text-[var(--color-text)]', FOCUS_STYLES.COMPACT)}
+                  tabIndex={0}
+                >
+                  {company}
+                </span>
+              </>
             )}
           </h3>
           {dates && (
-            <time
-              className={clsx(
-                'block mb-3 transition-colors md:group-hover:text-[var(--color-secondary)]',
-                TYPOGRAPHY.TEXT_SMALL,
-                TYPOGRAPHY.TEXT_SECONDARY,
-                FOCUS_STYLES.COMPACT,
+            <div className="flex items-center gap-2.5 mb-3 mt-1">
+              <time
+                className={clsx(
+                  'transition-colors md:group-hover:text-[var(--color-secondary)]',
+                  TYPOGRAPHY.TEXT_SMALL,
+                  TYPOGRAPHY.TEXT_SECONDARY,
+                  FOCUS_STYLES.COMPACT,
+                )}
+                dateTime={dates}
+                tabIndex={0}
+              >
+                {dates}
+              </time>
+              {location && (
+                <Tag variant="muted" size="xs">
+                  {location}
+                </Tag>
               )}
-              dateTime={dates}
-              tabIndex={0}
-            >
-              {dates}
-            </time>
+            </div>
           )}
         </header>
         {children && <div className="mt-2">{children}</div>}

@@ -4,6 +4,7 @@ export type Job = {
   title: string;
   company: string;
   dates: string;
+  location?: 'Remote' | 'Hybrid' | 'On-site';
   description: ReactNode[];
 };
 
@@ -12,6 +13,7 @@ export const jobs: Job[] = [
     title: 'Lead Engineer',
     company: 'Booz Allen Hamilton',
     dates: '03/2023 – 05/2025',
+    location: 'Hybrid',
     description: [
       'Championed modern frontend practices as lead engineer across 7 React apps, standardizing shared components and themes for a unified user experience.',
       'Led the design and rollout of a guided, stepper-style data portal, facilitating stakeholder alignment and outperforming competing internal concepts.',
@@ -22,6 +24,7 @@ export const jobs: Job[] = [
     title: 'Software Engineer',
     company: 'Booz Allen Hamilton',
     dates: '03/2022 – 03/2023',
+    location: 'Hybrid',
     description: [
       'Led the full revamp of a core government platform, driving the shift from Angular/Node to React with TypeScript for cleaner code and future-proof features.',
       'Introduced a suite of modern developer tools-Prettier, Husky, ESLint, and TanStack Query-to enforce code standards and optimize daily workflow.',
@@ -32,6 +35,7 @@ export const jobs: Job[] = [
     title: 'Founder & Developer',
     company: 'Gauntlet Designs',
     dates: '07/2020 – 01/2025',
+    location: 'Hybrid',
     description: [
       'Delivered custom web platforms for clients ranging from small businesses to major restaurant groups, handling every phase from requirements through long-term support.',
       'Built and maintained a robust employee portal and fundraising scheduler for Potomac Dining, ensuring five years of smooth operation and seamless legacy data migration.',
@@ -42,6 +46,7 @@ export const jobs: Job[] = [
     title: 'UI Developer',
     company: 'IronClad Technology Services',
     dates: '12/2021 – 03/2022',
+    location: 'Remote',
     description: [
       'Evaluated and recommended frontend frameworks to help shape the next generation of scalable web apps for DIA.',
       'Designed and delivered detailed Figma wireframes, laying the foundation for modern, accessible UI architecture.',
