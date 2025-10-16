@@ -109,12 +109,12 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 
 ### **Lighthouse Scores:**
 
-![Performance](https://img.shields.io/badge/Performance-100%25-brightgreen?style=flat&logo=lighthouse)
+![Performance](https://img.shields.io/badge/Performance-95%25-brightgreen?style=flat&logo=lighthouse)
 ![Accessibility](https://img.shields.io/badge/Accessibility-100%25-brightgreen?style=flat&logo=lighthouse)
 ![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
 ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
-- **100% Performance Score**: Optimal loading speed with lazy-loaded components
+- **95% Performance Score**: Elite tier performance with engaging Lottie animations
 - **100% Accessibility**: WCAG AA compliant, full keyboard navigation
 - **100% Best Practices**: Modern web standards and security
 - **100% SEO**: Optimized for search engines and social sharing

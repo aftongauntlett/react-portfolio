@@ -79,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - CI/CD: Automated pipeline on all PRs and pushes
   - Type safety: TypeScript strict mode with zero errors
   - Accessibility: WCAG AA compliance with tests
-  - Performance: 100% Lighthouse scores maintained
+  - Performance: 95+ Lighthouse scores maintained (elite tier)
 
 ### Documentation
 

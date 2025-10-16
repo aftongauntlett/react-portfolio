@@ -50,6 +50,8 @@
     "security:fix": "npm audit fix",
     "deps:check": "npm outdated",
     "deps:update": "ncu -u && npm install",
+    "lighthouse": "npm run build && npx lhci autorun",
+    "lighthouse:mobile": "npm run build && npx lhci autorun --collect.settings.preset=mobile",
     "health:check": "npm run type-check && npm run lint && npm run test:run && npm run build && npm run security:audit"
   },
   "dependencies": {
