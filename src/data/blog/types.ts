@@ -6,9 +6,14 @@ export interface BlogPostSection {
     | 'separator'
     | 'links'
     | 'blog-image'
+    | 'image'
+    | 'image-grid'
     | 'feedback-form'
     | 'game-showcase'
-    | 'pull-quote';
+    | 'design-showcase'
+    | 'pull-quote'
+    | 'color-palette'
+    | 'tech-grid';
   content?: string;
   items?: string[];
   level?: 1 | 2 | 3 | 4;
@@ -16,16 +21,19 @@ export interface BlogPostSection {
   alt?: string;
   caption?: string;
   size?: 'small' | 'medium' | 'large';
+  images?: Array<{ src: string; alt: string; caption?: string }>;
   tags?: string[];
   links?: Array<{
     url: string;
     text: string;
-    type: 'github' | 'demo' | 'external';
+    type: 'github' | 'demo' | 'external' | 'figma';
   }>;
   formTitle?: string;
   formDescription?: string;
   author?: string;
   citation?: string;
+  colors?: Array<{ name: string; hex: string; usage: string }>;
+  techStack?: Array<{ name: string; category: string }>;
 }
 
 export interface BlogPostMetadata {

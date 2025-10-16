@@ -1,6 +1,9 @@
 import { useEffect, Suspense, lazy } from 'react';
-import Layout from '@/components/layout/Layout';
 import PageSection from '@/components/layout/PageSection';
+import DetailView from '@/components/shared/DetailView';
+import BlogPostContent from '@/components/blog/BlogPostContent';
+import { useDetailView } from '@/context/DetailViewContext';
+import { blogPosts } from '@/data/blog/posts';
 
 // Lazy load sections for better code splitting
 const AboutSection = lazy(() => import('@/components/sections/About'));
@@ -26,75 +29,156 @@ function SectionLoader() {
 }
 
 export default function Home() {
-  // Handle scrolling to section when page loads with hash or query parameter
+  // Use context to share detail view state with sidebar
+  const { detailView, setDetailView } = useDetailView();
+
+  // Parse hash to determine what to show
   useEffect(() => {
-    const hash = window.location.hash.slice(1); // Remove the #
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // Remove the #
+
+      // Check for nested routes like #projects/game-dev/js13k-2025-post-mortem
+      if (hash.startsWith('projects/game-dev/')) {
+        const parts = hash.split('/');
+
+        if (parts.length === 3) {
+          // Post-mortem: #projects/game-dev/js13k-2025-post-mortem
+          setDetailView({
+            type: 'post-mortem',
+            slug: parts[2],
+            title: parts[2], // We'll get the real title from blog posts data
+          });
+        }
+      } else {
+        // Normal section navigation
+        setDetailView(null);
+
+        // Handle scrolling to section
+        if (hash) {
+          setTimeout(() => {
+            const element = document.getElementById(hash);
+            if (element) {
+              const offset = 80;
+              const elementPosition = element.offsetTop - offset;
+              window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth',
+              });
+              element.focus();
+            }
+          }, 100);
+        }
+      }
+    };
+
+    // Run on mount and when hash changes
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [setDetailView]);
+
+  // Close detail view and return to projects section
+  const closeDetailView = () => {
+    window.location.hash = 'projects';
+    setDetailView(null);
+  };
+
+  // Handle scrolling to section when page loads with query parameter (legacy support)
+  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const scrollTo = urlParams.get('scrollTo');
 
-    const targetId = hash || scrollTo;
-
-    if (targetId) {
-      // Small delay to ensure page is fully rendered
+    if (scrollTo) {
       setTimeout(() => {
-        const element = document.getElementById(targetId);
+        const element = document.getElementById(scrollTo);
         if (element) {
-          const offset = 80; // Offset for better positioning
+          const offset = 80;
           const elementPosition = element.offsetTop - offset;
           window.scrollTo({
             top: elementPosition,
             behavior: 'smooth',
           });
 
-          // Only focus for hash-based navigation (accessibility)
-          // Skip focus for query-based navigation to avoid unwanted highlighting
-          if (hash) {
-            element.focus();
-          }
-
-          // Clean up URL if using query parameter
-          if (scrollTo) {
-            // Remove the scrollTo parameter from URL without page reload
-            const newUrl = new URL(window.location.href);
-            newUrl.searchParams.delete('scrollTo');
-            window.history.replaceState({}, '', newUrl.pathname + newUrl.hash);
-          }
+          // Clean up URL
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.delete('scrollTo');
+          window.history.replaceState({}, '', newUrl.pathname + newUrl.hash);
         }
       }, 100);
     }
   }, []);
+
   return (
-    <Layout>
-      <PageSection id="about">
-        <Suspense fallback={<SectionLoader />}>
-          <AboutSection />
-        </Suspense>
-      </PageSection>
-      <PageSection id="skills" title="Technical Skills">
-        <Suspense fallback={<SectionLoader />}>
-          <SkillsSection />
-        </Suspense>
-      </PageSection>
-      <PageSection id="experience" title="Experience">
-        <Suspense fallback={<SectionLoader />}>
-          <ExperienceSection />
-        </Suspense>
-      </PageSection>
-      <PageSection id="projects" title="Projects">
-        <Suspense fallback={<SectionLoader />}>
-          <ProjectsSection />
-        </Suspense>
-      </PageSection>
-      <PageSection id="credentials" title="Credentials">
-        <Suspense fallback={<SectionLoader />}>
-          <CredentialsSection />
-        </Suspense>
-      </PageSection>
-      <PageSection id="contact" title="Get in Touch">
-        <Suspense fallback={<SectionLoader />}>
-          <ContactSection />
-        </Suspense>
-      </PageSection>
-    </Layout>
+    <>
+      {detailView ? (
+        // Show detail view (post-mortem)
+        <DetailView isOpen={true} onClose={closeDetailView} title={detailView.title}>
+          {/* Load post-mortem content from blog posts data */}
+          {(() => {
+            const blogPost = blogPosts.find((post) => post.metadata.slug === detailView.slug);
+            if (!blogPost) {
+              return (
+                <div>
+                  <h1 className="text-3xl font-bold mb-4">Post-Mortem Not Found</h1>
+                  <p className="text-[var(--color-muted)]">
+                    Could not find post-mortem for slug: {detailView.slug}
+                  </p>
+                </div>
+              );
+            }
+
+            return (
+              <BlogPostContent
+                sections={blogPost.sections}
+                metadata={{
+                  title: blogPost.metadata.title,
+                  subtitle: blogPost.metadata.subtitle,
+                  tags: blogPost.metadata.tags,
+                  description: blogPost.metadata.description,
+                  author: blogPost.metadata.author,
+                  publishDate: blogPost.metadata.publishDate,
+                  readTime: blogPost.metadata.readTime,
+                }}
+              />
+            );
+          })()}
+        </DetailView>
+      ) : (
+        // Show normal portfolio sections
+        <>
+          <PageSection id="about">
+            <Suspense fallback={<SectionLoader />}>
+              <AboutSection />
+            </Suspense>
+          </PageSection>
+          <PageSection id="skills" title="Technical Skills">
+            <Suspense fallback={<SectionLoader />}>
+              <SkillsSection />
+            </Suspense>
+          </PageSection>
+          <PageSection id="experience" title="Experience">
+            <Suspense fallback={<SectionLoader />}>
+              <ExperienceSection />
+            </Suspense>
+          </PageSection>
+          <PageSection id="projects" title="Projects">
+            <Suspense fallback={<SectionLoader />}>
+              <ProjectsSection />
+            </Suspense>
+          </PageSection>
+          <PageSection id="credentials" title="Credentials">
+            <Suspense fallback={<SectionLoader />}>
+              <CredentialsSection />
+            </Suspense>
+          </PageSection>
+          <PageSection id="contact" title="Get in Touch">
+            <Suspense fallback={<SectionLoader />}>
+              <ContactSection />
+            </Suspense>
+          </PageSection>
+        </>
+      )}
+    </>
   );
 }

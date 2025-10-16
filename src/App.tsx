@@ -3,11 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import ErrorBoundary from './components/shared/ErrorBoundary';
 import { JobContactProvider } from './context/JobContactContext';
+import { DetailViewProvider } from './context/DetailViewContext';
+import Layout from './components/layout/Layout';
 
-// Lazy load all pages to enable code splitting
+// Lazy load home page - all content now lives here with hash-based navigation
 const Home = lazy(() => import('./pages/Home'));
-const GameDev = lazy(() => import('./pages/GameDev'));
-const BlogPost = lazy(() => import('./pages/blog/BlogPost'));
 
 // Loading component for code splitting
 function LoadingFallback() {
@@ -23,21 +23,17 @@ export default function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <JobContactProvider>
-          <Suspense fallback={<LoadingFallback />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              {/* Game Development page - shows games by default */}
-              <Route path="/gamedev" element={<GameDev />} />
-              {/* Blog page - shows blog posts */}
-              <Route path="/blog" element={<GameDev />} />
-              {/* Blog post routes - using /blog prefix to avoid portfolio conflicts */}
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              {/* Temporary redirect for direct slug access */}
-              <Route path="/:slug" element={<BlogPost />} />
-              {/* Redirect old routes */}
-              <Route path="/games" element={<GameDev />} />
-            </Routes>
-          </Suspense>
+          <DetailViewProvider>
+            <Layout>
+              <Suspense fallback={<LoadingFallback />}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  {/* All navigation now handled via hash routes in Home page */}
+                  {/* /#about, /#projects, /#projects/portfolio, etc. */}
+                </Routes>
+              </Suspense>
+            </Layout>
+          </DetailViewProvider>
         </JobContactProvider>
       </BrowserRouter>
     </ErrorBoundary>

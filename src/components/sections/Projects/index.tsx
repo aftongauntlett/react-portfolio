@@ -110,8 +110,12 @@ export default function ProjectsSection() {
         },
       }}
     >
+      {/* All Projects */}
       {projects.map(
-        ({ title, status, description, tech, link, demo, external, lastUpdated }, idx) => (
+        (
+          { title, status, description, tech, link, demo, external, lastUpdated, postMortem },
+          idx,
+        ) => (
           <MotionSection
             key={title}
             variants={projectVariants}
@@ -175,37 +179,76 @@ export default function ProjectsSection() {
               role="group"
               aria-label="Project links"
             >
-              {link && link !== '#' ? (
-                <Button
-                  href={link}
-                  variant="outline"
-                  color="primary"
-                  aria-label={`View ${title} source code on GitHub`}
-                >
-                  <FaGithub className="w-4 h-4" />
-                  View Repo
-                </Button>
-              ) : link === '#' ? (
-                <Button
-                  disabled
-                  variant="outline"
-                  color="muted"
-                  aria-label="Source code not publicly available"
-                >
-                  Private Repo
-                </Button>
-              ) : null}
+              {postMortem ? (
+                // If project has a post-mortem, show post-mortem and demo/repo buttons
+                <>
+                  <Button
+                    href={postMortem}
+                    variant="solid"
+                    color="primary"
+                    aria-label={`Read ${title} post-mortem`}
+                  >
+                    Read Post-Mortem
+                  </Button>
+                  {demo && demo !== '#' && (
+                    <Button
+                      variant="outline"
+                      color="secondary"
+                      href={demo}
+                      aria-label={`Play ${title}`}
+                    >
+                      <FaExternalLinkAlt className="w-3 h-3" />
+                      Play Game
+                    </Button>
+                  )}
+                  {link && link !== '#' && (
+                    <Button
+                      href={link}
+                      variant="outline"
+                      color="primary"
+                      aria-label={`View ${title} source code on GitHub`}
+                    >
+                      <FaGithub className="w-4 h-4" />
+                      View Repo
+                    </Button>
+                  )}
+                </>
+              ) : (
+                // If no case study, show repo and demo buttons
+                <>
+                  {link && link !== '#' ? (
+                    <Button
+                      href={link}
+                      variant="outline"
+                      color="primary"
+                      aria-label={`View ${title} source code on GitHub`}
+                    >
+                      <FaGithub className="w-4 h-4" />
+                      View Repo
+                    </Button>
+                  ) : link === '#' ? (
+                    <Button
+                      disabled
+                      variant="outline"
+                      color="muted"
+                      aria-label="Source code not publicly available"
+                    >
+                      Private Repo
+                    </Button>
+                  ) : null}
 
-              {demo && demo !== '#' && (
-                <Button
-                  variant="solid"
-                  color="secondary"
-                  href={demo}
-                  aria-label={`View live demo of ${title}`}
-                >
-                  <FaExternalLinkAlt className="w-3 h-3" />
-                  {external ? 'View Collection' : 'View Live'}
-                </Button>
+                  {demo && demo !== '#' && (
+                    <Button
+                      variant="solid"
+                      color="secondary"
+                      href={demo}
+                      aria-label={`View live demo of ${title}`}
+                    >
+                      <FaExternalLinkAlt className="w-3 h-3" />
+                      {external ? 'View Collection' : 'View Live'}
+                    </Button>
+                  )}
+                </>
               )}
             </div>
           </MotionSection>

@@ -17,9 +17,9 @@ export const nyxFelisPostMortem: BlogPost = {
   sections: [
     {
       type: 'game-showcase',
-      src: '/blog/nyx-felis.png',
+      src: '/games/nyx-felis.png',
       alt: 'Nyx Felis under a starry sky with glowing fireflies orbiting',
-      caption: 'Nyx Felis & Lampyris - a small game about curiosity, timing, and fireflies',
+      caption: 'Nyx Felis & Lampyrus - a small game about curiosity, timing, and fireflies',
       content:
         'A calm, atmospheric collector with a timing layer: guide fireflies, evolve them with well-timed shields, and keep Nyx Felis curious long enough to survive the night.',
       links: [

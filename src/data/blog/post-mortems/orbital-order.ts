@@ -17,7 +17,7 @@ export const orbitalOrderPostMortem: BlogPost = {
   sections: [
     {
       type: 'game-showcase',
-      src: '/blog/orbital-order.png',
+      src: '/games/orbital-order.png',
       alt: 'Gameplay showing orbiting electrons in blue and orange orbitals',
       caption: 'Orbital Order - a small physics game about balance, light, and motion',
       content:
