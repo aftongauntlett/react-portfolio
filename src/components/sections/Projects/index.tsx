@@ -214,7 +214,7 @@ export default function ProjectsSection() {
                   )}
                 </>
               ) : (
-                // If no case study, show repo and demo buttons
+                // If no post-mortem, show standard repo and demo buttons
                 <>
                   {link && link !== '#' ? (
                     <Button

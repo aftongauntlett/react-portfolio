@@ -1,21 +1,19 @@
 /**
- * Blog Posts Index
+ * Post-Mortems Index
  *
- * Centralized export for all blog posts organized by category.
- * Each category has its own directory with individual post files.
+ * Centralized export for all game development and project post-mortems.
+ * Each post-mortem is stored in the post-mortems/ directory.
  *
  * Directory Structure:
- * - post-mortems/  : Game development post-mortems
- * - tech/          : Technical articles and tutorials (future)
- * - career/        : Career reflections and advice (future)
- * - templates/     : Reusable post structures and patterns
+ * - post-mortems/  : All post-mortem content files
+ * - templates/     : Post-mortem template for consistent structure
  */
 
 import { nyxFelisPostMortem } from './post-mortems/nyx-felis';
 import { orbitalOrderPostMortem } from './post-mortems/orbital-order';
 
 /**
- * All blog posts in reverse chronological order (newest first)
+ * All post-mortems in reverse chronological order (newest first)
  */
 export const blogPosts = [
   nyxFelisPostMortem, // 2025-09-17

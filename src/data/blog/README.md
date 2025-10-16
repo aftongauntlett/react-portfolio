@@ -1,53 +1,47 @@
-# Blog Content Structure
+# Post-Mortem Content Structure
 
-This directory contains all blog posts organized by category with reusable templates.
+This directory contains technical post-mortems for game development projects and other development work.
 
 ## Directory Structure
 
 ```
 src/data/blog/
 ├── index.ts                      # Main export (import from here)
+├── posts.ts                      # All post-mortem content
 ├── types.ts                      # TypeScript interfaces
-├── templates/                    # Reusable post structures
-│   ├── post-mortem-template.ts  # Pattern for game dev post-mortems
-│   ├── tech-blog-template.ts    # Pattern for technical articles
-│   └── career-blog-template.ts  # Pattern for career reflections
-├── post-mortems/                 # Game development post-mortems
-│   ├── nyx-felis.ts
-│   └── orbital-order.ts
-├── tech/                         # Technical blog posts (future)
-└── career/                       # Career-related posts (future)
+└── templates/
+    └── post-mortem-template.ts  # Template for new post-mortems
 ```
 
-## Adding New Posts
+## Adding New Post-Mortems
 
-### Post-Mortem (Game Development)
-
-1. Create a new file in `post-mortems/your-game.ts`
-2. Follow the structure in `templates/post-mortem-template.ts`
-3. Import and add to `index.ts`:
+1. Open `posts.ts` and follow the existing pattern
+2. Use `templates/post-mortem-template.ts` as a reference
+3. Add your new post-mortem to the exports:
 
 ```typescript
-import { yourGame } from './post-mortems/your-game';
-
-export const blogPosts = [
-  yourGame, // Newest first
-  nyxFelisPostMortem,
-  orbitalOrderPostMortem,
-];
+export const yourGamePostMortem: BlogPost = {
+  metadata: {
+    slug: 'your-game-slug',
+    title: 'Your Game Title',
+    // ... rest of metadata
+  },
+  content: [
+    // ... post-mortem sections
+  ],
+};
 ```
 
-### Tech Blog (Future)
+4. Register it in `index.ts`:
 
-1. Create a new file in `tech/your-post.ts`
-2. Follow the structure in `templates/tech-blog-template.ts`
-3. Import and add to `index.ts`
+```typescript
+import { yourGamePostMortem } from './posts';
 
-### Career Blog (Future)
-
-1. Create a new file in `career/your-post.ts`
-2. Follow the structure in `templates/career-blog-template.ts`
-3. Import and add to `index.ts`
+export const blogRegistry: BlogPostRegistry = {
+  [yourGamePostMortem.metadata.slug]: yourGamePostMortem,
+  // ... other posts
+};
+```
 
 ## Post-Mortem Template Structure
 
@@ -66,29 +60,19 @@ All game development post-mortems follow this consistent structure:
 ## Helper Functions
 
 ```typescript
-import { getPostsByCategory, getFeaturedPosts, getPostBySlug } from '@/data/blog';
+import { getBlogPost, getAllBlogPosts } from '@/data/blog';
 
-// Get all game dev posts
-const gamePosts = getPostsByCategory('Game Development');
+// Get all post-mortems
+const allPosts = getAllBlogPosts();
 
-// Get featured posts for homepage
-const featured = getFeaturedPosts();
-
-// Get specific post
-const post = getPostBySlug('js13k-2025-post-mortem');
+// Get specific post-mortem by slug
+const post = getBlogPost('nyx-felis-post-mortem');
 ```
 
 ## Benefits of This Structure
 
-- ✅ **Scalable** - Easy to add new categories
-- ✅ **Maintainable** - One file per post, clear Git diffs
-- ✅ **Consistent** - Templates ensure quality
+- ✅ **Simple** - One system for one purpose (post-mortems)
+- ✅ **Maintainable** - Clear structure, easy to add new posts
+- ✅ **Consistent** - Template ensures quality and structure
 - ✅ **Type-Safe** - Full TypeScript support
-- ✅ **Organized** - Clear categorization
-- ✅ **Searchable** - Helper functions for queries
-
-## Migration Notes
-
-- Old `posts.ts` backed up as `posts-old.ts`
-- All imports from `@/data/blog/posts` still work
-- No breaking changes to existing code
+- ✅ **Focused** - No unnecessary complexity

@@ -4,10 +4,12 @@
 [![Last Commit](https://img.shields.io/github/last-commit/aftongauntlett/react-portfolio?style=flat&logo=github)](https://github.com/aftongauntlett/react-portfolio/commits)
 [![Top Language](https://img.shields.io/github/languages/top/aftongauntlett/react-portfolio?style=flat&logo=typescript)](https://github.com/aftongauntlett/react-portfolio)
 [![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
+![Tests](https://img.shields.io/badge/tests-26%20passing-success)
+![Coverage](https://img.shields.io/badge/coverage-75%25-green)
 
 ## About
 
-A modern, high-performance portfolio showcasing frontend engineering expertise with integrated game development showcase and technical blog. Built with React 19, TypeScript, and routing for multi-page experiences while maintaining exceptional performance standards.
+A modern, high-performance portfolio showcasing frontend engineering expertise with integrated game development showcase featuring detailed post-mortems. Built with React 19, TypeScript, and routing for multi-page experiences while maintaining exceptional performance standards.
 
 ### **[View Live Portfolio →](https://aftongauntlett.com)**
 
@@ -43,17 +45,17 @@ src/
 ├── assets/                  # Static assets (Lottie animations, galaxy.json)
 ├── components/
 │   ├── Background.tsx       # Animated starry background component
-│   ├── blog/                # Blog and game showcase components
+│   ├── blog/                # Post-mortem content and game showcase components
 │   ├── layout/              # Layout components (Layout, SideNav, ExternalPageLayout)
 │   ├── sections/            # Portfolio sections (About, Experience, Projects, Skills)
 │   ├── shared/              # Reusable components (Button, Card, TruncatedText, etc.)
 │   └── Timeline/            # Timeline-specific components
 ├── constants/               # App constants (navigation, styles, typography)
-├── context/                 # React context providers (theme, job contact)
-├── data/                    # Static data (jobs, projects, skills, blog posts, games)
+├── context/                 # React context providers (theme, job contact, detail view)
+├── data/                    # Static data (jobs, projects, skills, post-mortems, games)
 ├── hooks/                   # Custom React hooks (useActiveSection, useSimpleBlogFilter)
-├── pages/                   # Page components (Home, GameDev, BlogPost)
-├── utils/                   # Utility functions (dateFormatter, navigation)
+├── pages/                   # Page components (Home, BlogPost)
+├── utils/                   # Utility functions (dateFormatter, blogHelpers, navigation)
 └── test/                    # Test configuration and setup
 ```
 
@@ -71,16 +73,11 @@ src/
 ### **Game Development Showcase**
 
 - **Playable Games**: Hosted JS13k competition entries with live demos
-- **Technical Deep Dives**: Detailed post-mortems covering game design and development challenges
+- **Technical Post-Mortems**: In-depth analysis of game design, development challenges, and lessons learned
 - **Interactive Content**: Advanced filtering, sorting, and search functionality
 - **Rich Media**: Game screenshots, technical diagrams, and interactive examples
-
-### **Blog System**
-
-- **Technical Articles**: In-depth development insights and lessons learned
-- **Advanced Filtering**: Category-based filtering with real-time search
-- **Rich Content**: Code examples, images, interactive elements, and feedback forms
-- **SEO Optimized**: Proper meta tags, structured data, and social sharing
+- **Structured Format**: Consistent post-mortem structure covering technical overview, engineering insights, design decisions, and reflections
+- **Community Engagement**: Feedback forms and social sharing
 
 ### **Developer Experience**
 
@@ -189,7 +186,7 @@ This portfolio is deployed on Vercel with automatic deployments from the main br
 - **Asset Optimization**: Image optimization and compression
 - **Caching Strategy**: Aggressive caching for static assets
 - **Performance Monitoring**: Web Vitals tracking and Lighthouse CI
-- **SEO Enhancement**: Static generation for blog content and game pages
+- **SEO Enhancement**: Optimized meta tags and structured data for post-mortems
 
 ### **Environment Variables**
 

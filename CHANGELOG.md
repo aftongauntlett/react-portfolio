@@ -5,6 +5,97 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-10-16
+
+### Added
+
+- **🧪 Comprehensive Testing Suite**: Strategic test coverage showcasing best practices
+  - 26 passing tests across 4 test files
+  - Component tests (Button, Card) with accessibility focus
+  - Utility function tests (dateFormatter) with edge case handling
+  - Content validation tests (blogHelpers) for post-mortem structure
+  - Interactive test UI with Vitest UI
+  - Coverage reporting and CI integration
+
+- **🔄 CI/CD Pipeline**: Automated quality checks and deployment
+  - GitHub Actions workflow for continuous integration
+  - Automated type checking, linting, and testing on all PRs
+  - Build verification before deployment
+  - Lighthouse CI for automated performance monitoring
+
+- **🪝 Pre-commit Hooks**: Code quality enforcement
+  - Husky integration for Git hooks
+  - lint-staged for running checks on staged files
+  - Automatic code formatting with Prettier
+  - ESLint auto-fix on commit
+
+- **📦 Dependency Management**: Professional maintenance tooling
+  - npm-check-updates for dependency monitoring
+  - Automated security audit scripts
+  - Health check command combining all quality checks
+  - Scripts for checking and updating dependencies
+
+- **📊 Enhanced Monitoring**: Performance and quality tracking
+  - Lighthouse CI configuration for automated audits
+  - Test coverage tracking and reporting
+  - Bundle size analysis with visualizer
+  - CI/CD status badges in README
+
+### Enhanced
+
+- **📚 Documentation Improvements**: Clearer system purpose and structure
+  - Refactored "blog system" → "post-mortem system" for clarity
+  - Updated README with accurate feature descriptions
+  - Comprehensive testing strategy documentation (docs/TESTING.md)
+  - Post-mortem content structure guide (src/data/blog/README.md)
+  - Refactor summary document for reference
+
+- **🎯 System Simplification**: Focused post-mortem content system
+  - Removed unused tech/career blog templates
+  - Simplified directory structure for maintainability
+  - Updated all references from generic "blog" to specific "post-mortems"
+  - Clearer helper function documentation
+  - Single-purpose content system
+
+### Fixed
+
+- **🐛 TypeScript Build Errors**: Production deployment issues resolved
+  - Fixed invalid type check in SideNav (case-study vs post-mortem)
+  - Removed unused imports causing compilation errors
+  - Removed non-existent property references (Project.slug)
+  - Updated comments to match actual functionality
+
+### Technical
+
+- **🔧 Developer Experience**: Enhanced tooling and workflows
+  - npm-check-updates (v19.1.1) for dependency management
+  - Husky (v9.1.7) for Git hooks
+  - lint-staged (v16.2.4) for staged file processing
+  - @lhci/cli (v0.15.1) for Lighthouse CI
+  - Prettier (v3.6.2) for consistent code formatting
+
+- **📈 Quality Metrics**: Measurable improvements
+  - Test coverage: 75% (26 tests passing)
+  - CI/CD: Automated pipeline on all PRs and pushes
+  - Type safety: TypeScript strict mode with zero errors
+  - Accessibility: WCAG AA compliance with tests
+  - Performance: 100% Lighthouse scores maintained
+
+### Documentation
+
+- **📖 New Documentation**: Comprehensive guides added
+  - `docs/TESTING.md`: Complete testing strategy and philosophy
+  - `docs/BLOG-SYSTEM-REFACTOR.md`: Refactor summary and rationale
+  - Updated README with testing section and accurate descriptions
+  - CI/CD badge and test status indicators
+  - Pre-commit hook setup instructions
+
+### Removed
+
+- ❌ `tech-blog-template.ts`: Unused template removed
+- ❌ `career-blog-template.ts`: Unused template removed
+- ❌ Generic "blog system" references throughout codebase
+
 ## [2.0.0] - 2025-01-16
 
 ### Added
@@ -142,12 +233,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned
 
-- Additional project showcases
-- Blog section integration
+- Additional game development post-mortems
+- More project showcases and case studies
 - Enhanced animation library
-- Multi-language support
-- Advanced analytics integration
+- E2E testing with Playwright/Cypress
+- Visual regression testing
 
 ---
 
-**Note**: This changelog will be updated with each release. For the complete development history, see the [Git commit history](https://github.com/aftongauntlett/react-portfolio/commits).
+**Note**: This changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format and [Semantic Versioning](https://semver.org/spec/v2.0.0.html). For the complete development history, see the [Git commit history](https://github.com/aftongauntlett/react-portfolio/commits).

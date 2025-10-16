@@ -1,3 +1,10 @@
+/**
+ * Post-Mortem Content Helpers
+ *
+ * Utilities for formatting and validating post-mortem content structure.
+ * Ensures consistent formatting and required sections across all post-mortems.
+ */
+
 import type { BlogPostSection } from '@/data/blog/types';
 
 /**

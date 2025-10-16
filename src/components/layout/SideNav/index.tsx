@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useDetailView } from '@/context/DetailViewContext';
 import { navItems } from '../../../constants/navigation';
-import { projects } from '@/data/projects';
 import { games } from '@/data/games';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
@@ -58,11 +57,7 @@ export default function SideNav() {
             // Get the nested item title based on detail view type
             let nestedItemTitle = '';
             if (showNestedItem && detailView) {
-              if (detailView.type === 'case-study') {
-                // Find project by slug
-                const project = projects.find((p) => p.slug === detailView.slug);
-                nestedItemTitle = project?.title || detailView.title;
-              } else if (detailView.type === 'post-mortem') {
+              if (detailView.type === 'post-mortem') {
                 // Find game by blogSlug
                 const game = games.find((g) => g.blogSlug === detailView.slug);
                 nestedItemTitle = game?.title || detailView.title;
@@ -170,7 +165,6 @@ export default function SideNav() {
                   {label}
                 </a>
 
-                {/* Show nested item when viewing a case study or post-mortem */}
                 {showNestedItem && nestedItemTitle && (
                   <div className="ml-6 mt-2">
                     <span className="text-sm text-[var(--color-muted)] block pl-4 relative before:content-['→'] before:absolute before:left-0">
