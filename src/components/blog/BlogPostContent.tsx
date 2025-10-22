@@ -408,6 +408,7 @@ function GameShowcaseSection({
   const demoLink = links?.find(
     (link) => link.type === 'demo' && !link.text.toLowerCase().includes('original'),
   );
+  const externalLink = links?.find((link) => link.type === 'external');
 
   return (
     <div className="my-12" role="group" aria-label="Game showcase">
@@ -469,20 +470,7 @@ function GameShowcaseSection({
             </p>
           )}
 
-          <div className="flex gap-4 justify-end mt-auto pt-4">
-            {githubLink && (
-              <Button
-                href={githubLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="outline"
-                color="primary"
-                icon={getIconForType('github')}
-                aria-label={`View source code (opens in new tab)`}
-              >
-                View Source
-              </Button>
-            )}
+          <div className="flex flex-col gap-3 mt-auto pt-4">
             {demoLink && isGameShowcase && (
               <Button
                 href={demoLink.url}
@@ -509,6 +497,34 @@ function GameShowcaseSection({
                 View Live
               </Button>
             )}
+            <div className="grid grid-cols-2 gap-3">
+              {githubLink && (
+                <Button
+                  href={githubLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  color="primary"
+                  icon={getIconForType('github')}
+                  aria-label={`View source code (opens in new tab)`}
+                >
+                  View Source
+                </Button>
+              )}
+              {externalLink && (
+                <Button
+                  href={externalLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outline"
+                  color="secondary"
+                  icon={getIconForType('external')}
+                  aria-label={`${externalLink.text} (opens in new tab)`}
+                >
+                  {externalLink.text}
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

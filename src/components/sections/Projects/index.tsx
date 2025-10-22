@@ -180,7 +180,7 @@ export default function ProjectsSection() {
               aria-label="Project links"
             >
               {postMortem ? (
-                // If project has a post-mortem, show post-mortem and demo/repo buttons
+                // If project has a post-mortem, show post-mortem and repo buttons
                 <>
                   <Button
                     href={postMortem}
@@ -190,17 +190,6 @@ export default function ProjectsSection() {
                   >
                     Read Post-Mortem
                   </Button>
-                  {demo && demo !== '#' && (
-                    <Button
-                      variant="outline"
-                      color="secondary"
-                      href={demo}
-                      aria-label={`Play ${title}`}
-                    >
-                      <FaExternalLinkAlt className="w-3 h-3" />
-                      Play Game
-                    </Button>
-                  )}
                   {link && link !== '#' && (
                     <Button
                       href={link}

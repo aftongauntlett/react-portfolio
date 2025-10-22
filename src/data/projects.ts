@@ -29,6 +29,15 @@ export const projects: Project[] = [
     demo: 'https://gauntletdesigns.com/',
   },
   {
+    title: 'NPC Finder',
+    status: 'In Development',
+    description:
+      'Invite-only networking platform for connecting professionals through discoverable contact cards. Built with React 19, TypeScript, and Supabase featuring real-time updates, Row Level Security policies, and a custom theming system. Implements spec-driven development workflow using Traycer.AI for planning paired with Claude Sonnet 4.5 via GitHub Copilot for execution. Features forward-only database migrations, comprehensive test coverage with Vitest, and scalable architecture designed for production deployment.',
+    tech: ['React 19', 'TypeScript', 'Supabase', 'PostgreSQL', 'Vite', 'Tailwind CSS', 'Vitest'],
+    link: 'https://github.com/aftongauntlett/npcfinder',
+    demo: 'https://npcfinder.com',
+  },
+  {
     title: 'Potomac Family Dining',
     status: 'Production',
     description:

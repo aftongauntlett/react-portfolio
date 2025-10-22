@@ -33,6 +33,11 @@ export const nyxFelisPostMortem: BlogPost = {
           text: 'Play Enhanced Version',
           type: 'demo',
         },
+        {
+          url: 'https://js13kgames.com/2025/games/nyx-felis-and-lampyris',
+          text: 'JS13k Entry',
+          type: 'external',
+        },
       ],
     },
 
