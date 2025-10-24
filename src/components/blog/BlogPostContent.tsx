@@ -470,62 +470,90 @@ function GameShowcaseSection({
             </p>
           )}
 
-          <div className="flex flex-col gap-3 mt-auto pt-4">
-            {demoLink && isGameShowcase && (
-              <Button
-                href={demoLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="solid"
-                color="secondary"
-                icon={getIconForType('demo')}
-                aria-label={`Play game (opens in new tab)`}
-              >
-                Play Game
-              </Button>
-            )}
-            {demoLink && isDesignShowcase && (
-              <Button
-                href={demoLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="solid"
-                color="secondary"
-                icon={getIconForType('demo')}
-                aria-label={`View live site (opens in new tab)`}
-              >
-                View Live
-              </Button>
-            )}
-            <div className="grid grid-cols-2 gap-3">
-              {githubLink && (
-                <Button
-                  href={githubLink.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outline"
-                  color="primary"
-                  icon={getIconForType('github')}
-                  aria-label={`View source code (opens in new tab)`}
-                >
-                  View Source
-                </Button>
-              )}
-              {externalLink && (
-                <Button
-                  href={externalLink.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outline"
-                  color="secondary"
-                  icon={getIconForType('external')}
-                  aria-label={`${externalLink.text} (opens in new tab)`}
-                >
-                  {externalLink.text}
-                </Button>
-              )}
-            </div>
-          </div>
+          {(() => {
+            // Count how many buttons we have
+            const buttonCount = [
+              demoLink && (isGameShowcase || isDesignShowcase),
+              githubLink,
+              externalLink,
+            ].filter(Boolean).length;
+
+            // For 3+ buttons, use stacked layout (Nyx Felis)
+            // For 2 buttons, use side-by-side layout (Orbital Order)
+            const hasThreeOrMoreButtons = buttonCount >= 3;
+            const containerClass = hasThreeOrMoreButtons
+              ? 'flex flex-col gap-3 mt-auto pt-4'
+              : 'flex flex-wrap gap-3 mt-auto pt-4';
+
+            return (
+              <div className={containerClass}>
+                {demoLink && isGameShowcase && (
+                  <Button
+                    href={demoLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="outline"
+                    color="secondary"
+                    icon={getIconForType('demo')}
+                    aria-label={`Play game (opens in new tab)`}
+                    className={
+                      hasThreeOrMoreButtons ? 'w-full' : 'flex-1 min-w-[calc(50%-0.375rem)]'
+                    }
+                  >
+                    Play Game
+                  </Button>
+                )}
+                {demoLink && isDesignShowcase && (
+                  <Button
+                    href={demoLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="outline"
+                    color="secondary"
+                    icon={getIconForType('demo')}
+                    aria-label={`View live site (opens in new tab)`}
+                    className={
+                      hasThreeOrMoreButtons ? 'w-full' : 'flex-1 min-w-[calc(50%-0.375rem)]'
+                    }
+                  >
+                    View Live
+                  </Button>
+                )}
+                {githubLink && (
+                  <Button
+                    href={githubLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="outline"
+                    color="primary"
+                    icon={getIconForType('github')}
+                    aria-label={`View source code (opens in new tab)`}
+                    className={
+                      hasThreeOrMoreButtons ? 'w-full' : 'flex-1 min-w-[calc(50%-0.375rem)]'
+                    }
+                  >
+                    View Source
+                  </Button>
+                )}
+                {externalLink && (
+                  <Button
+                    href={externalLink.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="solid"
+                    color="secondary"
+                    icon={getIconForType('external')}
+                    aria-label={`${externalLink.text} (opens in new tab)`}
+                    className={
+                      hasThreeOrMoreButtons ? 'w-full' : 'flex-1 min-w-[calc(50%-0.375rem)]'
+                    }
+                  >
+                    {externalLink.text}
+                  </Button>
+                )}
+              </div>
+            );
+          })()}
         </div>
       </div>
     </div>

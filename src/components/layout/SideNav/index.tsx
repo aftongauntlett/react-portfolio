@@ -14,7 +14,7 @@ import { HiSun, HiMoon } from 'react-icons/hi2';
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
-  const { detailView, setDetailView } = useDetailView();
+  const { detailView } = useDetailView();
 
   return (
     <motion.div
@@ -64,81 +64,20 @@ export default function SideNav() {
               }
             }
 
+            // Helper function for navigation
+            const navigateTo = (targetId: string) => {
+              window.location.hash = targetId;
+            };
+
             const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
               e.preventDefault();
-
-              // If clicking Projects while a detail view is open, close it first
-              if (isProjectsSection && detailView) {
-                setDetailView(null);
-                window.location.hash = '';
-
-                // Wait for detail view to close, then scroll to projects
-                setTimeout(() => {
-                  const element = document.getElementById(id);
-                  if (element) {
-                    const offset = 80;
-                    const elementPosition = element.offsetTop - offset;
-                    window.scrollTo({
-                      top: elementPosition,
-                      behavior: 'smooth',
-                    });
-                    element.focus();
-                  }
-                }, 100);
-                return;
-              }
-
-              // Normal navigation
-              const element = document.getElementById(id);
-              if (element) {
-                const offset = 80; // Offset for better positioning
-                const elementPosition = element.offsetTop - offset;
-                window.scrollTo({
-                  top: elementPosition,
-                  behavior: 'smooth',
-                });
-                // Focus the section for screen readers
-                element.focus();
-              }
+              navigateTo(id);
             };
 
             const handleKeyDown = (e: KeyboardEvent<HTMLAnchorElement>) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-
-                // If clicking Projects while a detail view is open, close it first
-                if (isProjectsSection && detailView) {
-                  setDetailView(null);
-                  window.location.hash = '';
-
-                  // Wait for detail view to close, then scroll to projects
-                  setTimeout(() => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                      const offset = 80;
-                      const elementPosition = element.offsetTop - offset;
-                      window.scrollTo({
-                        top: elementPosition,
-                        behavior: 'smooth',
-                      });
-                      element.focus();
-                    }
-                  }, 100);
-                  return;
-                }
-
-                // Normal navigation
-                const element = document.getElementById(id);
-                if (element) {
-                  const offset = 80; // Offset for better positioning
-                  const elementPosition = element.offsetTop - offset;
-                  window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth',
-                  });
-                  // Focus the section for screen readers
-                  element.focus();
-                }
+                navigateTo(id);
               }
             };
 

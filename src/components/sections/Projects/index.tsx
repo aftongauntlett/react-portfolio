@@ -180,16 +180,8 @@ export default function ProjectsSection() {
               aria-label="Project links"
             >
               {postMortem ? (
-                // If project has a post-mortem, show post-mortem and repo buttons
+                // If project has a post-mortem, show repo and post-mortem buttons
                 <>
-                  <Button
-                    href={postMortem}
-                    variant="solid"
-                    color="primary"
-                    aria-label={`Read ${title} post-mortem`}
-                  >
-                    Read Post-Mortem
-                  </Button>
                   {link && link !== '#' && (
                     <Button
                       href={link}
@@ -201,6 +193,14 @@ export default function ProjectsSection() {
                       View Repo
                     </Button>
                   )}
+                  <Button
+                    href={postMortem}
+                    variant="solid"
+                    color="secondary"
+                    aria-label={`Read ${title} post-mortem`}
+                  >
+                    Read Post-Mortem
+                  </Button>
                 </>
               ) : (
                 // If no post-mortem, show standard repo and demo buttons

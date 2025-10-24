@@ -53,9 +53,12 @@ export default function Home() {
         // Normal section navigation
         setDetailView(null);
 
-        // Handle scrolling to section
+        // Handle scrolling to section with retry
         if (hash) {
-          setTimeout(() => {
+          let attempts = 0;
+          const maxAttempts = 20; // 20 attempts * 50ms = 1 second
+
+          const tryScroll = () => {
             const element = document.getElementById(hash);
             if (element) {
               const offset = 80;
@@ -65,8 +68,13 @@ export default function Home() {
                 behavior: 'smooth',
               });
               element.focus();
+            } else if (attempts < maxAttempts) {
+              attempts++;
+              setTimeout(tryScroll, 50);
             }
-          }, 100);
+          };
+
+          tryScroll();
         }
       }
     };

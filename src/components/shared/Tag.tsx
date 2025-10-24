@@ -37,7 +37,7 @@ export default function Tag({
     secondary:
       'bg-[var(--color-secondary)]/10 border border-[var(--color-secondary)]/20 text-[var(--color-secondary)] hover:bg-[var(--color-secondary)]/15 hover:border-[var(--color-secondary)]/30',
     muted:
-      'border text-[var(--color-muted)] bg-[var(--color-chip-muted-bg)] border-[var(--color-chip-muted-border)] hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] hover:text-white dark:hover:border-[var(--color-primary)]/40 dark:hover:text-[var(--color-primary)] dark:hover:bg-[var(--color-primary)]/5',
+      'border text-[var(--color-muted)] bg-[var(--color-chip-muted-bg)] border-[var(--color-chip-muted-border)] hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] hover:text-white dark:hover:border-[var(--color-primary)] dark:hover:text-[var(--color-primary)] dark:hover:bg-transparent',
     neutral:
       'bg-[var(--color-surface)] border border-[var(--color-line)] text-[var(--color-text)] hover:border-[var(--color-primary)]/60 hover:bg-[var(--color-primary)]/5 hover:text-[var(--color-secondary)]',
     active:
