@@ -278,52 +278,6 @@ textarea:-moz-autofill {
   );
 }
 
-/* Smooth Lottie Animation Styles */
-.lottie-smooth {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  animation: lottieFloat 20s ease-in-out infinite;
-  background-color: transparent !important;
-}
-
-@keyframes lottieFloat {
-  0%,
-  100% {
-    transform: translateZ(0) scale(1);
-  }
-  50% {
-    transform: translateZ(0) scale(1.05);
-  }
-}
-
-.lottie-smooth svg {
-  shape-rendering: geometricPrecision;
-  vector-effect: non-scaling-stroke;
-  background-color: transparent !important;
-}
-
-.lottie-smooth path,
-.lottie-smooth circle,
-.lottie-smooth ellipse {
-  vector-effect: non-scaling-stroke;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* Lottie theme integration */
-.lottie-themed svg path[stroke='#00DDB6'],
-.lottie-themed svg path[stroke='#00ddb6'] {
-  stroke: var(--color-primary) !important;
-}
-
-.lottie-themed svg path[fill='#ffffff'],
-.lottie-themed svg path[fill='#FFFFFF'] {
-  fill: var(--color-secondary) !important;
-}
-
 /* Modern Button Enhancements */
 button,
 a[role='button'],

@@ -27,7 +27,7 @@ _Featuring responsive design, smooth animations, and seamless theme switching_
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router_7-CA4245?style=flat&logo=reactrouter&logoColor=white)
 
-**Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion, Lottie React  
+**Frontend:** React 19, TypeScript, Tailwind CSS, Framer Motion  
 **Routing:** React Router 7 with client-side navigation and SEO-friendly URLs  
 **Build:** Vite 7 with esbuild minification and optimized code splitting  
 **Testing:** Vitest, React Testing Library, TypeScript strict mode  
@@ -42,7 +42,7 @@ _Featuring responsive design, smooth animations, and seamless theme switching_
 
 ```
 src/
-├── assets/                  # Static assets (Lottie animations, galaxy.json)
+├── assets/                  # Static assets (images, etc.)
 ├── components/
 │   ├── Background.tsx       # Animated starry background component
 │   ├── blog/                # Post-mortem content and game showcase components
@@ -66,7 +66,6 @@ src/
 - **Dark/Light Mode**: System preference detection with manual toggle and animated theme switching
 - **Responsive Design**: Mobile-first with fluid typography and optimized layouts
 - **Smooth Animations**: Framer Motion with reduced-motion support and performance optimization
-- **Interactive Animations**: Custom Lottie animations with dynamic theme-aware color integration
 - **Interactive Effects**: Custom paint splash hover states and starry night background
 - **Working Contact Form**: Formspree integration with form validation
 
@@ -114,7 +113,7 @@ Open [http://localhost:5173](http://localhost:5173) to view locally.
 ![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
 ![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
-- **95% Performance Score**: Elite tier performance with engaging Lottie animations
+- **95% Performance Score**: Elite tier performance with smooth animations
 - **100% Accessibility**: WCAG AA compliant, full keyboard navigation
 - **100% Best Practices**: Modern web standards and security
 - **100% SEO**: Optimized for search engines and social sharing
@@ -198,10 +197,6 @@ No environment variables required for basic functionality. Contact form uses For
 - **Bundle Analysis**: Automated bundle size monitoring
 - **Route Generation**: Static route pre-rendering for SEO
 - **Asset Pipeline**: Optimized image loading and lazy loading
-
-## Credits
-
-**Lottie Animation:** Solar system animation adapted from community resources, dynamically themed and optimized for performance.
 
 ## License
 

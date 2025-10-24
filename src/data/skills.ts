@@ -30,7 +30,6 @@ export const skills: Skill[] = [
   { name: 'Adobe XD', category: 'tools' },
   { name: 'GSAP', category: 'tools' },
   { name: 'Framer', category: 'tools' },
-  { name: 'Lottie', category: 'tools' },
   { name: 'Agile', category: 'tools' },
   { name: 'GitHub Copilot Pro+', category: 'tools' },
   { name: 'Claude Sonnet 4', category: 'tools' },
