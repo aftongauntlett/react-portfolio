@@ -39,6 +39,29 @@ function initializeGlobalObserver() {
         if (id) {
           activeCallbacks.forEach((callback) => callback(id));
         }
+      } else {
+        // No entries intersecting - find the section closest to the top of the viewport
+        const sections = Array.from(document.querySelectorAll('section[data-section]'));
+
+        if (sections.length > 0) {
+          let closestSection = sections[0];
+          let smallestDistance = Math.abs(sections[0].getBoundingClientRect().top);
+
+          sections.forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            const distance = Math.abs(rect.top);
+
+            if (distance < smallestDistance) {
+              closestSection = section;
+              smallestDistance = distance;
+            }
+          });
+
+          const id = closestSection.getAttribute('data-section');
+          if (id) {
+            activeCallbacks.forEach((callback) => callback(id));
+          }
+        }
       }
     },
     {
@@ -88,20 +111,23 @@ export function useActiveSection() {
 
     // When closing detail view, wait for scroll animation to complete, then resume observer
     const resumeTimeout = setTimeout(() => {
-      // Force the observer to re-evaluate all sections
-      if (globalObserver) {
-        // Disconnect all currently observed sections
-        observedSections.forEach((section) => {
-          globalObserver!.unobserve(section);
-        });
-        // Clear the set
-        observedSections.clear();
-        // Reconnect all sections - this forces immediate intersection callbacks
-        observeSections();
-      }
-
-      // Resume the observer so it processes the intersection events
+      // Set isPaused to false before re-observing sections
       isPaused = false;
+
+      // Schedule re-observation after layout settles
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Disconnect and re-initialize for truly fresh observer state
+          if (globalObserver) {
+            globalObserver.disconnect();
+            globalObserver = null;
+            observedSections.clear();
+          }
+
+          // Re-initialize the observer with fresh state
+          initializeGlobalObserver();
+        });
+      });
     }, 500);
 
     return () => clearTimeout(resumeTimeout);
