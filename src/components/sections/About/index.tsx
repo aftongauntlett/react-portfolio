@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
 import { fadeInUp, staggerContainer } from '@/constants/animations';
 import clsx from 'clsx';
-import headshotImage from '@/assets/headshot-2-compressed.jpg';
+import headshotImage from '@/assets/afton-headshot.webp';
 
 const aboutParagraphs = [
   "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
@@ -81,6 +81,7 @@ export default function AboutSection() {
             alt="Afton Gauntlett - Frontend Engineer"
             className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 dark:hidden"
             loading="eager"
+            fetchPriority="high"
           />
 
           {/* Dark Mode: Grayscale Image with Interactive Color Reveal */}
@@ -91,6 +92,7 @@ export default function AboutSection() {
               alt="Afton Gauntlett - Frontend Engineer"
               className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 grayscale"
               loading="eager"
+              fetchPriority="high"
             />
 
             {/* Color Image with Radial Mask */}
@@ -104,6 +106,7 @@ export default function AboutSection() {
                 src={headshotImage}
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50"
+                loading="eager"
                 style={{
                   maskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
                   WebkitMaskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
