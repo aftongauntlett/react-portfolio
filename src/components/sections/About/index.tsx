@@ -114,7 +114,7 @@ export default function AboutSection() {
           </div>
 
           {/* Gradient Overlay - Different for light/dark mode */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/60 to-background/40 dark:from-background/80 dark:via-background/55 dark:to-background/35" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/55 to-background/35 dark:from-background/75 dark:via-background/50 dark:to-background/30" />
 
           {/* Hero Content with Montserrat */}
           <div className="relative h-full flex items-center px-4 sm:px-6 md:px-8">

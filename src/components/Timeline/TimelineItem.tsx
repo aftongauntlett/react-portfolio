@@ -122,17 +122,15 @@ export default function TimelineItem({
               {title}
             </span>
             {company && (
-              <>
+              <span
+                className={clsx('text-[var(--color-text)]', FOCUS_STYLES.COMPACT)}
+                tabIndex={0}
+              >
                 <span className="text-[var(--color-muted)]" aria-hidden="true">
-                  @
+                  @{' '}
                 </span>
-                <span
-                  className={clsx('text-[var(--color-text)]', FOCUS_STYLES.COMPACT)}
-                  tabIndex={0}
-                >
-                  {company}
-                </span>
-              </>
+                {company}
+              </span>
             )}
           </h3>
           {dates && (
