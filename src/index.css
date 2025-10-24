@@ -221,6 +221,15 @@ textarea:-moz-autofill {
     top: 0;
     height: 100vh;
     overflow-y: auto;
+    /* Add subtle sage green tint in light mode for visual separation */
+    background: linear-gradient(to bottom, hsl(177, 20%, 97%), hsl(177, 15%, 98%));
+    border-right: 1px solid hsl(177, 15%, 90%);
+  }
+
+  /* Dark mode sidebar keeps dark background */
+  html.dark .sticky-sidebar {
+    background: hsl(220, 18%, 8%);
+    border-right: 1px solid hsla(188, 29%, 49%, 0.25);
   }
 }
 
@@ -363,12 +372,12 @@ div[role='button']:focus-visible {
 /* Solid Variants */
 .btn--solid.btn--primary {
   @apply bg-[var(--color-primary)] border border-[var(--color-primary)];
-  color: var(--color-background) !important;
+  color: white !important;
 }
 
 .btn--solid.btn--primary:hover {
   @apply bg-[var(--color-primary-darker)] border-[var(--color-primary-darker)];
-  color: var(--color-background) !important;
+  color: white !important;
 }
 
 .btn--solid.btn--secondary {
@@ -398,13 +407,22 @@ div[role='button']:focus-visible {
 }
 
 .btn--outline.btn--primary {
-  @apply text-[var(--color-primary)] border-[var(--color-primary)];
+  @apply border-[var(--color-primary)];
+  /* Light mode: solid button with burnt orange bg and white text */
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+/* Dark mode: transparent with border */
+html.dark .btn--outline.btn--primary {
+  background-color: transparent !important;
+  color: var(--color-primary) !important;
 }
 
 .btn--outline.btn--primary:hover {
   @apply bg-[var(--color-primary)];
-  /* Use background color for text - this gives us dark text on light primary, light text on dark primary */
-  color: var(--color-background) !important;
+  /* White text on hover for both modes */
+  color: white !important;
 }
 
 .btn--outline.btn--secondary {

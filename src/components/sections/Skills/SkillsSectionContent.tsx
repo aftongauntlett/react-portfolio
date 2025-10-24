@@ -23,7 +23,7 @@ export default function SkillsSectionContent() {
           onMouseLeave={clearHovered}
           className={clsx(
             'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-opacity duration-300 group',
-            isDimmed(categoryIdx) && '!opacity-50',
+            isDimmed(categoryIdx) && 'dark:!opacity-50 !opacity-70',
           )}
         >
           <h3

@@ -72,8 +72,8 @@ export default function TimelineItem({
         // Mobile: simple stack layout without timeline
         'block space-y-2',
         !isFirst && 'mt-3',
-        // Only apply dimming on hover-capable devices
-        shouldDim && 'opacity-50 [@media(hover:none)]:!opacity-100',
+        // Only apply dimming on hover-capable devices - lighter on light mode
+        shouldDim && 'dark:opacity-50 opacity-70 [@media(hover:none)]:!opacity-100',
         isActive && 'bg-[var(--color-primary)]/10 rounded-lg p-2',
         FOCUS_STYLES.BUTTON,
         // Add subtle touch feedback for mobile

@@ -5,12 +5,16 @@
   --color-background: hsl(20, 43%, 99%);
   --color-surface: hsl(210, 9%, 96%); /* Pure white for cards in light mode */
   --color-text: hsl(222, 14%, 25%);
-  --color-muted: hsl(220, 15%, 35%);
+  --color-muted: hsl(220, 15%, 45%); /* Darker for better contrast */
   --color-primary: hsl(177, 12%, 37%);
   --color-primary-darker: hsl(195, 9%, 44%);
   --color-secondary: hsl(206, 15%, 46%);
   --color-secondary-darker: hsl(209, 14%, 30%);
   --color-line: hsla(220, 7%, 84%, 0.865);
+
+  /* Chip colors for light mode */
+  --color-chip-muted-bg: hsl(177, 35%, 88%);
+  --color-chip-muted-border: hsl(177, 25%, 75%);
 
   /* Status colors for light mode - harmonized with theme */
   --color-status-production: hsl(165, 28%, 32%); /* Teal-green that complements primary */
@@ -29,6 +33,10 @@ html.dark {
   --color-secondary: hsl(20, 47%, 64%);
   --color-secondary-darker: hsl(20, 57%, 56%);
   --color-line: hsla(188, 29%, 49%, 0.25);
+
+  /* Chip colors for dark mode */
+  --color-chip-muted-bg: hsla(220, 15%, 45%, 0.1);
+  --color-chip-muted-border: hsla(220, 7%, 84%, 0.2);
 
   /* Status colors for dark mode - keep existing successful colors */
   --color-status-production: hsl(152, 65%, 55%); /* Bright teal-green */

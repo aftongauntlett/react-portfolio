@@ -129,8 +129,8 @@ export default function ProjectsSection() {
               TRANSITION_COLORS,
               TRANSITION_OPACITY,
               'ease-in-out md:hover:border-[var(--color-primary)]',
-              // Only apply dimming on hover-capable devices
-              isDimmed(idx) && '!opacity-50',
+              // Only apply dimming on hover-capable devices - lighter on light mode
+              isDimmed(idx) && 'dark:!opacity-50 !opacity-70',
               // Add subtle touch feedback for mobile
               'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
             )}

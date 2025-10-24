@@ -9,7 +9,7 @@ import headshotImage from '@/assets/headshot-2-compressed.jpg';
 const aboutParagraphs = [
   "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
   "I've shipped large {React} apps, migrated legacy {Angular} and {Node.js} systems, built reusable {component libraries}, and improved {accessibility} and {performance} across distributed teams. I'm known for simplifying complex UI problems and supporting teammates through clear {communication} and {documentation}.",
-  'Before web development I worked in places that taught me how to learn fast. I spent time in law offices, a {biohazard lab}, and a vintage shop that ran on {century-old machinery}. I once taught myself the {AS400} and translated manuals line by line just to keep things running. That same curiosity and persistence still guide how I build today.',
+  'Before web development I worked in places that taught me how to learn fast. I spent time in law offices, a {biohazard lab}, and a vintage shop that ran on {century-old machinery}. I once had to figure out an old {IBM AS/400} system from scratch, translating manuals line by line just to keep it running. That same curiosity and persistence still guide how I build today.',
 ];
 
 // Move outside component to prevent recreation on every render
@@ -70,40 +70,51 @@ export default function AboutSection() {
       <motion.div variants={fadeInUp} className="space-y-12">
         <div
           ref={imageRef}
-          className="relative h-64 md:h-72 overflow-hidden -mx-4 sm:-mx-6 md:mx-0 md:rounded-lg cursor-none"
+          className="relative h-64 md:h-72 overflow-hidden -mx-4 sm:-mx-6 md:mx-0 md:rounded-lg dark:cursor-none"
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          {/* Grayscale Image */}
+          {/* Light Mode: Color Image */}
           <img
             src={headshotImage}
             alt="Afton Gauntlett - Frontend Engineer"
-            className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-30 grayscale"
+            className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 dark:hidden"
             loading="eager"
           />
 
-          {/* Color Image with Radial Mask */}
-          <div
-            className="absolute inset-0 transition-opacity duration-300"
-            style={{
-              opacity: isHovering ? 1 : 0,
-            }}
-          >
+          {/* Dark Mode: Grayscale Image with Interactive Color Reveal */}
+          <div className="hidden dark:block absolute inset-0">
+            {/* Base Grayscale Image */}
             <img
               src={headshotImage}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-30"
-              style={{
-                maskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
-                WebkitMaskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
-              }}
-              aria-hidden="true"
+              alt="Afton Gauntlett - Frontend Engineer"
+              className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 grayscale"
+              loading="eager"
             />
+
+            {/* Color Image with Radial Mask */}
+            <div
+              className="absolute inset-0 transition-opacity duration-300"
+              style={{
+                opacity: isHovering ? 1 : 0,
+              }}
+            >
+              <img
+                src={headshotImage}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50"
+                style={{
+                  maskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
+                  WebkitMaskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
+                }}
+                aria-hidden="true"
+              />
+            </div>
           </div>
 
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/70" />
+          {/* Gradient Overlay - Different for light/dark mode */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/60 to-background/40 dark:from-background/80 dark:via-background/55 dark:to-background/35" />
 
           {/* Hero Content with Montserrat */}
           <div className="relative h-full flex items-center px-4 sm:px-6 md:px-8">
@@ -113,7 +124,7 @@ export default function AboutSection() {
                 className={clsx(
                   'text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight',
                   'font-[family-name:var(--font-heading)]',
-                  TYPOGRAPHY.TEXT_PRIMARY,
+                  'text-[#4a4a4a] dark:text-[#e8e8e8]',
                   'leading-tight',
                 )}
                 style={{ letterSpacing: '0.01em' }}
