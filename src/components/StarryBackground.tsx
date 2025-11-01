@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
 const STAR_COUNT = 18;
@@ -8,80 +7,23 @@ function random(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-const Star = ({
-  x,
-  y,
-  size,
-  delay,
-  duration,
-  dx,
-  dy,
-  twinkleDelay,
-  color = 'rgba(255,255,255,0.48)',
-  shadowColor = 'rgba(255,255,255,0.18)',
-}: {
+interface StarData {
+  key: number;
   x: number;
   y: number;
   size: number;
-  delay: number;
   duration: number;
   dx: number;
   dy: number;
+  delay: number;
   twinkleDelay: number;
-  color?: string;
-  shadowColor?: string;
-}) => (
-  <motion.div
-    style={{
-      position: 'absolute',
-      left: `${x}%`,
-      top: `${y}%`,
-      width: size,
-      height: size,
-      borderRadius: '50%',
-      background: color,
-      boxShadow: `0 0 ${size * 2}px ${size / 2}px ${shadowColor}`,
-    }}
-    animate={{
-      opacity: [0.18, 0.7, 0.18, 0.7, 0.18],
-      scale: [1, 1.2, 1, 1.1, 1],
-      x: [0, dx],
-      y: [0, dy],
-    }}
-    transition={{
-      opacity: {
-        repeat: Infinity,
-        repeatType: 'mirror',
-        duration: duration * 0.7,
-        delay: twinkleDelay,
-      },
-      scale: {
-        repeat: Infinity,
-        repeatType: 'mirror',
-        duration: duration * 0.7,
-        delay: twinkleDelay,
-      },
-      x: {
-        repeat: Infinity,
-        repeatType: 'mirror',
-        duration,
-        delay,
-      },
-      y: {
-        repeat: Infinity,
-        repeatType: 'mirror',
-        duration,
-        delay,
-      },
-    }}
-  />
-);
+}
 
-// Memoized star generation to prevent recreation on re-renders
-const generateStars = () => {
+// Generate stars once at module level
+const generateStars = (): StarData[] => {
   return Array.from({ length: STAR_COUNT }).map((_, i) => {
     const angle = random(0, 2 * Math.PI);
-    const distance = random(30, 70); // percent of viewport
+    const distance = random(30, 70);
     const dx = Math.cos(angle) * distance;
     const dy = Math.sin(angle) * distance;
     return {
@@ -89,16 +31,15 @@ const generateStars = () => {
       x: random(0, 100),
       y: random(0, 100),
       size: random(1.5, 3.5),
-      delay: random(0, 6),
       duration: random(12, 22),
       dx,
       dy,
+      delay: random(0, 6),
       twinkleDelay: random(0, 8),
     };
   });
 };
 
-// Generate stars once and reuse
 const stars = generateStars();
 
 const StarryBackground = React.memo(function StarryBackground() {
@@ -110,33 +51,83 @@ const StarryBackground = React.memo(function StarryBackground() {
   }
 
   return (
-    <div
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 0,
-        pointerEvents: 'none',
-        overflow: 'hidden',
-        background: 'none',
-      }}
-    >
-      {stars.map(({ key, x, y, size, delay, duration, dx, dy, twinkleDelay }) => (
-        <Star
-          key={key}
-          x={x}
-          y={y}
-          size={size}
-          delay={delay}
-          duration={duration}
-          dx={dx}
-          dy={dy}
-          twinkleDelay={twinkleDelay}
-          color="rgba(255,255,255,0.48)"
-          shadowColor="rgba(255,255,255,0.18)"
-        />
-      ))}
-    </div>
+    <>
+      <style>
+        {`
+          @keyframes starFloat {
+            0%, 100% {
+              transform: translate(0, 0);
+            }
+            50% {
+              transform: translate(var(--dx), var(--dy));
+            }
+          }
+
+          @keyframes starTwinkle {
+            0%, 100% {
+              opacity: 0.3;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 0.8;
+              transform: scale(1.15);
+            }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .star {
+              animation: none !important;
+              opacity: 0.4 !important;
+            }
+          }
+
+          .star {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.48);
+            pointer-events: none;
+            will-change: transform, opacity;
+          }
+        `}
+      </style>
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: 'none',
+          overflow: 'hidden',
+          background: 'none',
+        }}
+      >
+        {stars.map((star) => {
+          const moveX = star.dx * 0.15; // Reduced to 15% for subtle movement
+          const moveY = star.dy * 0.15;
+
+          return (
+            <div
+              key={star.key}
+              className="star"
+              style={{
+                left: `${star.x}%`,
+                top: `${star.y}%`,
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                boxShadow: `0 0 ${star.size * 2}px ${star.size / 2}px rgba(255, 255, 255, 0.18)`,
+                // @ts-expect-error - CSS custom properties
+                '--dx': `${moveX}px`,
+                '--dy': `${moveY}px`,
+                animation: `
+                  starFloat ${star.duration}s ease-in-out ${star.delay}s infinite,
+                  starTwinkle ${star.duration * 0.8}s ease-in-out ${star.twinkleDelay}s infinite
+                `,
+              }}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 });
 

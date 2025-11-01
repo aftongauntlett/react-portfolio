@@ -18,14 +18,18 @@ export const BulletList = ({ children }: { children: ReactNode }) => (
 
 export const BulletItem = ({ children }: { children: ReactNode }) => (
   <li
-    className={clsx('relative pl-5 flex items-start gap-2 rounded-sm', FOCUS_STYLES.PRIMARY)}
+    className={clsx(
+      'bullet-item relative pl-5 flex items-start gap-2 rounded-sm',
+      FOCUS_STYLES.PRIMARY,
+    )}
     tabIndex={0}
     role="listitem"
   >
     <span
       className={clsx(
-        'absolute left-0 transition-colors md:group-hover:text-[var(--color-secondary)]',
-        TYPOGRAPHY.TEXT_SECONDARY,
+        'absolute left-0 transition-colors duration-300',
+        'text-[var(--color-muted)]',
+        'group-hover:text-[var(--color-primary)]',
       )}
     >
       –

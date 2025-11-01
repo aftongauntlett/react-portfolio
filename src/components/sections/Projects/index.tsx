@@ -1,14 +1,12 @@
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import MotionSection from '@/components/shared/MotionSection';
 import { Button } from '@/components/shared/Button';
 import Tag from '@/components/shared/Tag';
-import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { projects } from '@/data/projects';
 import {
   TRANSITION_COLORS,
-  TRANSITION_OPACITY,
   TRANSITION_FAST,
   TEXT_PRIMARY_HOVER,
   TEXT_MUTED_HOVER,
@@ -17,20 +15,6 @@ import {
 } from '@/constants/styles';
 
 export default function ProjectsSection() {
-  const { setHovered, clearHovered, isDimmed } = useHoverGroup();
-
-  const handleInteraction = (idx: number) => {
-    // On touch devices, toggle the hover state instead of just setting it
-    // This prevents the "stuck dimmed" issue on mobile
-    if ('ontouchstart' in window) {
-      setHovered(idx);
-      // Auto-clear after 3 seconds on touch devices
-      setTimeout(() => clearHovered(), 3000);
-    } else {
-      setHovered(idx);
-    }
-  };
-
   const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
     const isProduction = status === 'Production';
     const isCollection = status === 'Collection';
@@ -88,7 +72,7 @@ export default function ProjectsSection() {
   };
 
   return (
-    <motion.div
+    <m.div
       className="space-y-6"
       role="list"
       aria-label="Portfolio projects"
@@ -119,18 +103,12 @@ export default function ProjectsSection() {
           <MotionSection
             key={title}
             variants={projectVariants}
-            onMouseEnter={() => setHovered(idx)}
-            onMouseLeave={clearHovered}
-            onClick={() => 'ontouchstart' in window && handleInteraction(idx)}
             className={clsx(
               'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md ',
               // Left border only on desktop
               'md:border-l-4 md:border-transparent',
               TRANSITION_COLORS,
-              TRANSITION_OPACITY,
               'ease-in-out md:hover:border-[var(--color-primary)]',
-              // Only apply dimming on hover-capable devices - lighter on light mode
-              isDimmed(idx) && 'dark:!opacity-50 !opacity-70',
               // Add subtle touch feedback for mobile
               'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
             )}
@@ -243,6 +221,6 @@ export default function ProjectsSection() {
           </MotionSection>
         ),
       )}
-    </motion.div>
+    </m.div>
   );
 }

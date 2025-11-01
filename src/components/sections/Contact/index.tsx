@@ -1,5 +1,5 @@
 import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
@@ -182,7 +182,7 @@ export default function ContactSection() {
   const isLoading = status.type === 'loading';
 
   return (
-    <motion.div
+    <m.div
       className="space-y-6"
       initial="hidden"
       whileInView="visible"
@@ -352,6 +352,6 @@ export default function ContactSection() {
           </div>
         </form>
       </MotionSection>
-    </motion.div>
+    </m.div>
   );
 }

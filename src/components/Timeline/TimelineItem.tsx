@@ -1,4 +1,4 @@
-import type { ReactNode, KeyboardEvent } from 'react';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import { HiQuestionMarkCircle } from 'react-icons/hi2';
@@ -12,11 +12,6 @@ export interface TimelineItemProps {
   location?: 'Remote' | 'Hybrid' | 'On-site';
   isFirst?: boolean;
   isActive?: boolean;
-  isHovered: boolean;
-  isDimmed: boolean;
-  onHover: () => void;
-  onLeave: () => void;
-  onInteraction?: () => void;
   children?: ReactNode;
 }
 
@@ -28,53 +23,27 @@ export default function TimelineItem({
   location,
   isFirst = false,
   isActive = false,
-  isHovered,
-  isDimmed,
-  onHover,
-  onLeave,
-  onInteraction,
   children,
 }: TimelineItemProps) {
-  const shouldDim = !isActive && isDimmed;
   const isNextRoleItem = title.toLowerCase().includes('next role');
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      onInteraction?.();
-    }
-  };
-
-  const handleClick = () => {
-    if ('ontouchstart' in window) {
-      onInteraction?.();
-    }
-  };
-
-  const handleMouseEvents = {
-    onMouseEnter: () => !('ontouchstart' in window) && onHover(),
-    onMouseLeave: () => !('ontouchstart' in window) && onLeave(),
-  };
 
   return (
     <div
       role="listitem"
       tabIndex={0}
-      {...handleMouseEvents}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
       aria-label={`${title}${company ? ` at ${company}` : ''}${dates ? `, ${dates}` : ''}`}
       aria-current={isActive ? 'step' : undefined}
       className={clsx(
-        'group transition-opacity duration-300',
+        'group transition-colors duration-300',
         // Desktop: timeline grid layout
         'md:grid md:grid-cols-[2.5rem_1fr] md:gap-x-4 md:items-start',
         // Mobile: simple stack layout without timeline
         'block space-y-2',
         !isFirst && 'mt-3',
-        // Only apply dimming on hover-capable devices - lighter on light mode
-        shouldDim && 'dark:opacity-50 opacity-70 [@media(hover:none)]:!opacity-100',
-        isActive && 'bg-[var(--color-primary)]/10 rounded-lg p-2',
+        'rounded-lg p-2',
+        isActive && 'bg-[var(--color-primary)]/10',
+        // Hover effect - subtle highlight without shifting layout
+        '[@media(hover:hover)]:hover:bg-[var(--color-surface)]',
         FOCUS_STYLES.BUTTON,
         // Add subtle touch feedback for mobile
         'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
@@ -92,10 +61,10 @@ export default function TimelineItem({
         ) : (
           <span
             className={clsx(
-              'block w-3 h-3 rounded-full transition-[transform,box-shadow,background-color] duration-300 relative z-10',
-              isActive || isHovered
+              'block w-3 h-3 rounded-full transition-all duration-300 relative z-10',
+              isActive
                 ? 'bg-[var(--color-secondary)] border-2 border-[var(--color-background)] shadow-[0_0_8px_var(--color-secondary)] scale-125'
-                : 'bg-[var(--color-line)] border-2 border-[var(--color-background)]',
+                : 'bg-[var(--color-line)] border-2 border-[var(--color-background)] group-hover:bg-[var(--color-primary)] group-hover:shadow-[0_0_8px_var(--color-primary)]',
             )}
             aria-hidden="true"
           />
@@ -113,16 +82,24 @@ export default function TimelineItem({
           >
             <span
               className={clsx(
-                'transition-all',
+                'transition-all duration-300',
                 FOCUS_STYLES.COMPACT,
-                isActive || isHovered ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]',
+                isActive
+                  ? 'text-[var(--color-primary)]'
+                  : 'text-[var(--color-text)] group-hover:text-[var(--color-primary)]',
               )}
               tabIndex={0}
             >
               {title}
             </span>
             {company && (
-              <span className={clsx('text-[var(--color-text)]', FOCUS_STYLES.COMPACT)} tabIndex={0}>
+              <span
+                className={clsx(
+                  'text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]',
+                  FOCUS_STYLES.COMPACT,
+                )}
+                tabIndex={0}
+              >
                 <span className="text-[var(--color-muted)]" aria-hidden="true">
                   @{' '}
                 </span>
@@ -134,7 +111,7 @@ export default function TimelineItem({
             <div className="flex items-center gap-2.5 mb-3 mt-1">
               <time
                 className={clsx(
-                  'transition-colors md:group-hover:text-[var(--color-secondary)]',
+                  'transition-colors duration-300 group-hover:text-[var(--color-primary)]',
                   TYPOGRAPHY.TEXT_SMALL,
                   TYPOGRAPHY.TEXT_SECONDARY,
                   FOCUS_STYLES.COMPACT,

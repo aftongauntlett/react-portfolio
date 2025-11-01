@@ -41,7 +41,7 @@ export default function Tag({
     neutral:
       'bg-[var(--color-surface)] border border-[var(--color-line)] text-[var(--color-text)] hover:border-[var(--color-primary)]/60 hover:bg-[var(--color-primary)]/5 hover:text-[var(--color-secondary)]',
     active:
-      'bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)] shadow-sm',
+      'bg-[var(--color-primary)]/20 text-[var(--color-primary)] border border-[var(--color-primary)]/40 shadow-sm font-semibold',
   };
 
   const Element = onClick ? 'button' : 'span';

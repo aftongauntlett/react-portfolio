@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { motion, type Variants } from 'framer-motion';
+import { m, type Variants } from 'framer-motion';
 import clsx from 'clsx';
 
 export type MotionSectionProps = {
@@ -38,36 +38,27 @@ export default function MotionSection({
   // If variants are provided, use them (for stagger animations)
   if (variants) {
     return (
-      <motion.div variants={variants} className={clsx('opacity-100', className)} {...props}>
+      <m.div variants={variants} className={clsx('opacity-100', className)} {...props}>
         {children}
-      </motion.div>
+      </m.div>
     );
   }
 
   // Otherwise use the default reveal animation
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration,
-          delay,
-          ease: 'easeOut', // Simpler easing for better performance
-        },
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{
+        duration,
+        delay,
+        ease: 'easeOut',
       }}
-      viewport={{
-        once: true,
-        margin: '-50px',
-        amount: 0.1, // Only trigger when 10% is visible for better performance
-      }}
-      // Performance optimizations
-      style={{ willChange: 'auto' }} // Let browser optimize
       className={clsx('opacity-100', className)}
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

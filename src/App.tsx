@@ -1,6 +1,7 @@
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import ErrorBoundary from './components/shared/ErrorBoundary';
 import { JobContactProvider } from './context/JobContactContext';
 import { DetailViewProvider } from './context/DetailViewContext';
@@ -21,21 +22,23 @@ function LoadingFallback() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <JobContactProvider>
-          <DetailViewProvider>
-            <Layout>
-              <Suspense fallback={<LoadingFallback />}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  {/* All navigation now handled via hash routes in Home page */}
-                  {/* /#about, /#projects, /#projects/portfolio, etc. */}
-                </Routes>
-              </Suspense>
-            </Layout>
-          </DetailViewProvider>
-        </JobContactProvider>
-      </BrowserRouter>
+      <LazyMotion features={domAnimation} strict>
+        <BrowserRouter>
+          <JobContactProvider>
+            <DetailViewProvider>
+              <Layout>
+                <Suspense fallback={<LoadingFallback />}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    {/* All navigation now handled via hash routes in Home page */}
+                    {/* /#about, /#projects, /#projects/portfolio, etc. */}
+                  </Routes>
+                </Suspense>
+              </Layout>
+            </DetailViewProvider>
+          </JobContactProvider>
+        </BrowserRouter>
+      </LazyMotion>
     </ErrorBoundary>
   );
 }

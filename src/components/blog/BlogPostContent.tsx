@@ -4,7 +4,6 @@ import { BlogImage } from '@/components/shared/BlogImage';
 import { BlogFeedbackForm } from './BlogFeedbackForm';
 import type { ReactNode } from 'react';
 import { TYPOGRAPHY } from '@/constants/typography';
-import { useHoverGroup } from '@/hooks/useHoverGroup';
 import clsx from 'clsx';
 import {
   BLOG_H1_CLASSES,
@@ -569,7 +568,6 @@ export default function BlogPostContent({
   tableOfContents,
   metadata,
 }: BlogPostContentProps) {
-  const { setHovered, clearHovered, isDimmed } = useHoverGroup();
   const sectionsWithSeparators = addSeparatorsToSections(sections);
 
   let tocStartIndex = -1;
@@ -644,21 +642,10 @@ export default function BlogPostContent({
                 ? `${section.type}-${section.content.slice(0, 20).replace(/[^a-z0-9]/gi, '')}-${sectionIndex}`
                 : `${section.type}-${sectionIndex}`;
 
-              // Add hover handlers only for heading sections
-              const hoverProps =
-                section.type === 'heading'
-                  ? {
-                      onMouseEnter: () => setHovered(index),
-                      onMouseLeave: clearHovered,
-                      isDimmed: isDimmed(index),
-                    }
-                  : {};
-
               return (
                 <SectionComponent
                   key={stableKey}
                   {...section}
-                  {...hoverProps}
                   {...(section.type === 'game-showcase' || section.type === 'design-showcase'
                     ? {
                         subtitle: metadata?.subtitle,

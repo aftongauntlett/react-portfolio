@@ -1,6 +1,6 @@
 import { useMemo, useState, useRef } from 'react';
 import type { MouseEvent } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
 import { fadeInUp, staggerContainer } from '@/constants/animations';
 import clsx from 'clsx';
@@ -59,7 +59,7 @@ export default function AboutSection() {
   );
 
   return (
-    <motion.div
+    <m.div
       className="w-full pt-8 md:pt-12"
       variants={staggerContainer}
       initial="hidden"
@@ -67,7 +67,7 @@ export default function AboutSection() {
       viewport={{ once: true, margin: '-100px' }}
     >
       {/* Hero Banner - Interactive color reveal */}
-      <motion.div variants={fadeInUp} className="space-y-12">
+      <m.div variants={fadeInUp} className="space-y-12">
         <div
           ref={imageRef}
           className="relative h-64 md:h-72 overflow-hidden -mx-4 sm:-mx-6 md:mx-0 md:rounded-lg dark:cursor-none"
@@ -122,7 +122,7 @@ export default function AboutSection() {
           {/* Hero Content with Montserrat */}
           <div className="relative h-full flex items-center px-4 sm:px-6 md:px-8">
             <div className="max-w-2xl">
-              <motion.h2
+              <m.h2
                 variants={fadeInUp}
                 className={clsx(
                   'text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight',
@@ -133,14 +133,14 @@ export default function AboutSection() {
                 style={{ letterSpacing: '0.01em' }}
               >
                 About Me
-              </motion.h2>
+              </m.h2>
             </div>
           </div>
         </div>
 
         {/* Bio Content */}
         <div className="space-y-6 max-w-4xl">{renderedParagraphs}</div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

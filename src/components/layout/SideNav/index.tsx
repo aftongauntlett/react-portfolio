@@ -1,6 +1,6 @@
 import type { MouseEvent, KeyboardEvent } from 'react';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useDetailView } from '@/context/DetailViewContext';
 import { navItems } from '../../../constants/navigation';
@@ -17,7 +17,7 @@ export default function SideNav() {
   const { detailView } = useDetailView();
 
   return (
-    <motion.div
+    <m.div
       className="flex flex-col justify-between h-full pt-16 px-6 py-10"
       initial={{ opacity: 0, x: -20 }}
       animate={{
@@ -30,7 +30,7 @@ export default function SideNav() {
         },
       }}
     >
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{
           opacity: 1,
@@ -115,9 +115,9 @@ export default function SideNav() {
             );
           })}
         </nav>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="flex flex-col gap-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{
@@ -161,7 +161,7 @@ export default function SideNav() {
             color="muted"
           />
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

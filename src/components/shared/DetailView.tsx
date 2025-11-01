@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Button } from './Button';
 import { FOCUS_STYLES } from '@/constants/styles';
@@ -50,7 +50,7 @@ export default function DetailView({ isOpen, onClose, title, children }: DetailV
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           ref={containerRef}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export default function DetailView({ isOpen, onClose, title, children }: DetailV
               <span>Back to Projects</span>
             </Button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

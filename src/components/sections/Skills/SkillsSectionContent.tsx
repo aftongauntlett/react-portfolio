@@ -1,11 +1,9 @@
 import clsx from 'clsx';
 import { skills, skillCategories } from '@/data/skills';
-import { useHoverGroup } from '@/hooks/useHoverGroup';
 import { TRANSITION_COLORS, TEXT_PRIMARY_HOVER } from '@/constants/styles';
 import { TYPOGRAPHY } from '@/constants/typography';
 
 export default function SkillsSectionContent() {
-  const { setHovered, clearHovered, isDimmed } = useHoverGroup();
   const skillsByCategory = Object.entries(skillCategories).map(([key, label]) => ({
     key,
     label,
@@ -19,11 +17,8 @@ export default function SkillsSectionContent() {
           tabIndex={0}
           role="listitem"
           aria-labelledby={`skills-category-${categoryIdx}`}
-          onMouseEnter={() => setHovered(categoryIdx)}
-          onMouseLeave={clearHovered}
           className={clsx(
-            'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-opacity duration-300 group',
-            isDimmed(categoryIdx) && 'dark:!opacity-50 !opacity-70',
+            'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-colors duration-300 group',
           )}
         >
           <h3
