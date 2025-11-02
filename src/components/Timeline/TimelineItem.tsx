@@ -2,7 +2,6 @@ import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import { HiQuestionMarkCircle } from 'react-icons/hi2';
-import Tag from '@/components/shared/Tag';
 
 export interface TimelineItemProps {
   idx: number;
@@ -42,8 +41,6 @@ export default function TimelineItem({
         !isFirst && 'mt-3',
         'rounded-lg p-2',
         isActive && 'bg-[var(--color-primary)]/10',
-        // Hover effect - subtle highlight without shifting layout
-        '[@media(hover:hover)]:hover:bg-[var(--color-surface)]',
         FOCUS_STYLES.BUTTON,
         // Add subtle touch feedback for mobile
         'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
@@ -72,48 +69,61 @@ export default function TimelineItem({
       </div>
 
       {/* Content area */}
-      <div className="md:px-2">
+      <div>
         <header>
-          <h3
-            className={clsx(
-              TYPOGRAPHY.SUBTITLE,
-              'flex flex-col sm:flex-row sm:items-baseline sm:gap-[5px]',
-            )}
-          >
-            <span
-              className={clsx(
-                'transition-all duration-300',
-                FOCUS_STYLES.COMPACT,
-                isActive
-                  ? 'text-[var(--color-primary)]'
-                  : 'text-[var(--color-text)] group-hover:text-[var(--color-primary)]',
-              )}
-              tabIndex={0}
+          <div className="flex items-start justify-between gap-2">
+            <h3
+              className={clsx(TYPOGRAPHY.SUBTITLE, 'flex flex-col sm:flex-row sm:items-baseline')}
             >
-              {title}
-            </span>
-            {company && (
               <span
                 className={clsx(
-                  'text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]',
+                  'transition-colors duration-300',
                   FOCUS_STYLES.COMPACT,
+                  isActive
+                    ? 'text-[var(--color-primary)]'
+                    : 'text-[var(--color-text)] group-hover:text-[var(--color-primary)]',
                 )}
                 tabIndex={0}
               >
-                <span className="text-[var(--color-muted)]" aria-hidden="true">
-                  @{' '}
+                {title}
+              </span>
+              {company && (
+                <span
+                  className={clsx('text-[var(--color-muted)]', FOCUS_STYLES.COMPACT)}
+                  tabIndex={0}
+                >
+                  <span
+                    className="transition-colors duration-300 group-hover:text-[var(--color-text)]"
+                    aria-hidden="true"
+                  >
+                    @{' '}
+                  </span>
+                  <span className="text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]">
+                    {company}
+                  </span>
                 </span>
-                {company}
+              )}
+            </h3>
+            {location && (
+              <span
+                className={clsx(
+                  'inline-flex items-center font-medium rounded transition-colors duration-300 flex-shrink-0',
+                  'px-2 py-1 text-xs',
+                  'border text-[var(--color-muted)] bg-[var(--color-chip-muted-bg)] border-[var(--color-chip-muted-border)]',
+                  'group-hover:border-[var(--color-secondary)]',
+                )}
+              >
+                {location}
               </span>
             )}
-          </h3>
+          </div>
           {dates && (
             <div className="flex items-center gap-2.5 mb-3 mt-1">
               <time
                 className={clsx(
-                  'transition-colors duration-300 group-hover:text-[var(--color-primary)]',
+                  'transition-colors duration-300',
                   TYPOGRAPHY.TEXT_SMALL,
-                  TYPOGRAPHY.TEXT_SECONDARY,
+                  'text-[var(--color-muted)]',
                   FOCUS_STYLES.COMPACT,
                 )}
                 dateTime={dates}
@@ -121,11 +131,6 @@ export default function TimelineItem({
               >
                 {dates}
               </time>
-              {location && (
-                <Tag variant="muted" size="xs">
-                  {location}
-                </Tag>
-              )}
             </div>
           )}
         </header>

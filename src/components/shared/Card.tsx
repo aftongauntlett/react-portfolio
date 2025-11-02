@@ -81,8 +81,16 @@ export default function Card({
 
           {badge && (
             <span
-              className={`hidden sm:inline-block mb-2 px-2 py-1 ${TYPOGRAPHY.TEXT_XS} font-medium bg-green-300 text-green-800 rounded`}
+              className={clsx(
+                'inline-flex items-center gap-1 mb-2 px-2 py-1',
+                TYPOGRAPHY.TEXT_XS,
+                'font-semibold',
+                'bg-[var(--color-primary)]/10 text-[var(--color-primary)]',
+                'border border-[var(--color-primary)]/30',
+                'rounded',
+              )}
             >
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] animate-pulse" />
               {badge}
             </span>
           )}
@@ -106,13 +114,6 @@ export default function Card({
 
           {children}
         </div>
-        {badge && (
-          <span
-            className={`inline-block sm:hidden px-2 py-1 ${TYPOGRAPHY.TEXT_XS} bg-green-100 text-green-800 rounded self-start`}
-          >
-            {badge}
-          </span>
-        )}
       </div>
     </CardComponent>
   );

@@ -14,6 +14,7 @@ export default function CertificationsAccordion() {
             date={item.date}
             badge={item.status}
             link={item.link}
+            description={item.description}
           />
         ))}
       </div>

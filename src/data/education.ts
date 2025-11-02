@@ -5,6 +5,7 @@ export type Education = {
   status?: string;
   type: 'certification' | 'certificate';
   link?: string;
+  description?: string;
 };
 
 export type Award = {
@@ -16,24 +17,30 @@ export type Award = {
 
 export const education: Education[] = [
   {
-    title: 'Security+',
+    title: 'CompTIA Security+ (SY0-601)',
     institution: 'CompTIA',
     date: 'Nov 2022',
     status: 'Active',
     type: 'certification',
     link: 'https://www.credly.com/badges/90402bb7-7fdf-4945-aea3-b20fd916f1b4',
+    description:
+      'Foundation in security principles, access control, network defense, and risk management.',
   },
   {
-    title: 'UX Design',
+    title: 'User Experience Design Certificate',
     institution: 'General Assembly',
     date: 'Dec 2022',
     type: 'certificate',
+    description:
+      'Hands-on UX immersion covering research, information architecture, wireframing, prototyping, and usability testing.',
   },
   {
-    title: 'Web Development',
+    title: 'Full-Stack Web Development Certificate',
     institution: 'George Washington University',
     date: 'Aug 2020',
     type: 'certificate',
+    description:
+      'Immersive program focused on modern JavaScript, React, Node.js, and full-stack fundamentals.',
   },
 ];
 
