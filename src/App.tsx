@@ -5,6 +5,7 @@ import { LazyMotion, domAnimation } from 'framer-motion';
 import ErrorBoundary from './components/shared/ErrorBoundary';
 import { JobContactProvider } from './context/JobContactContext';
 import { DetailViewProvider } from './context/DetailViewContext';
+import { LenisProvider } from './context/LenisContext';
 import Layout from './components/layout/Layout';
 
 // Lazy load home page - all content now lives here with hash-based navigation
@@ -24,19 +25,21 @@ export default function App() {
     <ErrorBoundary>
       <LazyMotion features={domAnimation} strict>
         <BrowserRouter>
-          <JobContactProvider>
-            <DetailViewProvider>
-              <Layout>
-                <Suspense fallback={<LoadingFallback />}>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    {/* All navigation now handled via hash routes in Home page */}
-                    {/* /#about, /#projects, /#projects/portfolio, etc. */}
-                  </Routes>
-                </Suspense>
-              </Layout>
-            </DetailViewProvider>
-          </JobContactProvider>
+          <LenisProvider>
+            <JobContactProvider>
+              <DetailViewProvider>
+                <Layout>
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      {/* All navigation now handled via hash routes in Home page */}
+                      {/* /#about, /#projects, /#projects/portfolio, etc. */}
+                    </Routes>
+                  </Suspense>
+                </Layout>
+              </DetailViewProvider>
+            </JobContactProvider>
+          </LenisProvider>
         </BrowserRouter>
       </LazyMotion>
     </ErrorBoundary>

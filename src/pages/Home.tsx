@@ -3,6 +3,8 @@ import PageSection from '@/components/layout/PageSection';
 import DetailView from '@/components/shared/DetailView';
 import BlogPostContent from '@/components/blog/BlogPostContent';
 import { useDetailView } from '@/context/DetailViewContext';
+import { useLenisContext } from '@/context/LenisContext';
+import { smoothScrollTo } from '@/utils/scroll';
 import { blogPosts } from '@/data/blog/posts';
 
 // Lazy load sections for better code splitting
@@ -31,6 +33,7 @@ function SectionLoader() {
 export default function Home() {
   // Use context to share detail view state with sidebar
   const { detailView, setDetailView } = useDetailView();
+  const { lenis } = useLenisContext();
 
   // Parse hash to determine what to show
   useEffect(() => {
@@ -61,12 +64,7 @@ export default function Home() {
           const tryScroll = () => {
             const element = document.getElementById(hash);
             if (element) {
-              const offset = 80;
-              const elementPosition = element.offsetTop - offset;
-              window.scrollTo({
-                top: elementPosition,
-                behavior: 'smooth',
-              });
+              smoothScrollTo({ target: hash, offset: 80 }, lenis);
               element.focus();
             } else if (attempts < maxAttempts) {
               attempts++;
@@ -84,7 +82,7 @@ export default function Home() {
     window.addEventListener('hashchange', handleHashChange);
 
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [setDetailView]);
+  }, [setDetailView, lenis]);
 
   // Close detail view and return to projects section
   const closeDetailView = () => {
@@ -101,12 +99,7 @@ export default function Home() {
       setTimeout(() => {
         const element = document.getElementById(scrollTo);
         if (element) {
-          const offset = 80;
-          const elementPosition = element.offsetTop - offset;
-          window.scrollTo({
-            top: elementPosition,
-            behavior: 'smooth',
-          });
+          smoothScrollTo({ target: scrollTo, offset: 80 }, lenis);
 
           // Clean up URL
           const newUrl = new URL(window.location.href);
@@ -115,7 +108,7 @@ export default function Home() {
         }
       }, 100);
     }
-  }, []);
+  }, [lenis]);
 
   return (
     <>

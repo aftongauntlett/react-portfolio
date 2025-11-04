@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import type { BlogPostSection } from '@/data/blog/types';
 import { TYPOGRAPHY } from '@/constants/typography';
+import { useLenisContext } from '@/context/LenisContext';
+import { smoothScrollTo } from '@/utils/scroll';
 
 interface TableOfContentsProps {
   sections: BlogPostSection[];
@@ -16,6 +18,7 @@ interface TocItem {
 export default function TableOfContents({ sections }: TableOfContentsProps) {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const { lenis } = useLenisContext();
 
   const tocItems: TocItem[] = sections
     .filter(
@@ -73,10 +76,7 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
   if (tocItems.length === 0) return null;
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    smoothScrollTo({ target: id }, lenis);
   };
 
   return (

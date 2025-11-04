@@ -3,6 +3,8 @@ import { m, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Button } from './Button';
 import { FOCUS_STYLES } from '@/constants/styles';
+import { useLenisContext } from '@/context/LenisContext';
+import { scrollToTop } from '@/utils/scroll';
 import clsx from 'clsx';
 
 interface DetailViewProps {
@@ -15,6 +17,7 @@ interface DetailViewProps {
 export default function DetailView({ isOpen, onClose, title, children }: DetailViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const { lenis } = useLenisContext();
 
   // Store the element that was focused before opening
   useEffect(() => {
@@ -43,9 +46,9 @@ export default function DetailView({ isOpen, onClose, title, children }: DetailV
   // Scroll to top when opening
   useEffect(() => {
     if (isOpen) {
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      scrollToTop(lenis);
     }
-  }, [isOpen]);
+  }, [isOpen, lenis]);
 
   return (
     <AnimatePresence>

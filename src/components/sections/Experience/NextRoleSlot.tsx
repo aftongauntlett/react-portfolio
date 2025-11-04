@@ -3,6 +3,8 @@ import { useState, type FormEvent } from 'react';
 import type { Job } from '@/data/jobs';
 import { BulletList, BulletItem } from '@/components/shared/BulletList';
 import { useJobContact } from '@/context/JobContactContext';
+import { useLenisContext } from '@/context/LenisContext';
+import { smoothScrollTo } from '@/utils/scroll';
 import { TYPOGRAPHY } from '@/constants/typography';
 
 interface NextRoleSlotProps {
@@ -14,6 +16,7 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
   const [company, setCompany] = useState('');
   const [title, setTitle] = useState('');
   const { setJobData } = useJobContact();
+  const { lenis } = useLenisContext();
 
   // Character limits
   const MAX_COMPANY_LENGTH = 50;
@@ -52,8 +55,7 @@ export default function NextRoleSlot({ onNewJob }: NextRoleSlotProps) {
               });
 
               // Scroll to contact section
-              const contactSection = document.getElementById('contact');
-              contactSection?.scrollIntoView({ behavior: 'smooth' });
+              smoothScrollTo({ target: 'contact' }, lenis);
             }}
           >
             {' '}

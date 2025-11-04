@@ -2,13 +2,16 @@ import { useLocation } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaFileAlt, FaEnvelope, FaArrowUp } from 'react-icons/fa';
 import { navigateToPortfolio } from '@/utils/navigation';
 import { TYPOGRAPHY } from '@/constants/typography';
+import { useLenisContext } from '@/context/LenisContext';
+import { scrollToTop } from '@/utils/scroll';
 
 export default function ExternalFooter() {
   const location = useLocation();
   const currentYear = new Date().getFullYear();
+  const { lenis } = useLenisContext();
 
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop(lenis);
   };
 
   const handlePortfolio = () => {

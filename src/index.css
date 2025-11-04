@@ -2,8 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure Lenis doesn't conflict with native scroll */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 html {
-  scroll-behavior: smooth;
+  /* Lenis handles smooth scrolling */
   scroll-padding-top: 2rem;
 }
 
@@ -21,7 +42,7 @@ html {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    /* Lenis respects reduced motion preference */
   }
 }
 

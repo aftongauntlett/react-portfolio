@@ -1,20 +1,24 @@
 import { HiArrowUp } from 'react-icons/hi2';
 import { TYPOGRAPHY } from '@/constants/typography';
+import { useLenisContext } from '@/context/LenisContext';
+import { smoothScrollTo, scrollToTop } from '@/utils/scroll';
 
 interface FooterProps {
   scrollTarget?: string;
 }
 
 export default function Footer({ scrollTarget = '#about' }: FooterProps) {
+  const { lenis } = useLenisContext();
+
   const handleScrollToTop = () => {
     if (scrollTarget === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollToTop(lenis);
     } else {
       const element = document.querySelector(scrollTarget);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        smoothScrollTo({ target: scrollTarget }, lenis);
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTop(lenis);
       }
     }
   };

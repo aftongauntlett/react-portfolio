@@ -17,7 +17,7 @@ export type Award = {
 
 export const education: Education[] = [
   {
-    title: 'CompTIA Security+ (SY0-601)',
+    title: 'CompTIA Security+ Certification',
     institution: 'CompTIA',
     date: 'Nov 2022',
     status: 'Active',
@@ -27,7 +27,7 @@ export const education: Education[] = [
       'Foundation in security principles, access control, network defense, and risk management.',
   },
   {
-    title: 'User Experience Design Certificate',
+    title: 'User Experience Design',
     institution: 'General Assembly',
     date: 'Dec 2022',
     type: 'certificate',
@@ -35,7 +35,7 @@ export const education: Education[] = [
       'Hands-on UX immersion covering research, information architecture, wireframing, prototyping, and usability testing.',
   },
   {
-    title: 'Full-Stack Web Development Certificate',
+    title: 'Full-Stack Web Development',
     institution: 'George Washington University',
     date: 'Aug 2020',
     type: 'certificate',
