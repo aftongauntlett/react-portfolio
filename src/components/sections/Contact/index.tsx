@@ -209,7 +209,7 @@ export default function ContactSection() {
 
         // Retry logic for network errors only (up to 2 retries)
         if (retryCount < 2) {
-          const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // 1s, 2s exponential backoff
+          const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // Exponential backoff: 1s for first retry, 2s for second retry
           console.log(`Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`);
 
           await new Promise((resolve) => setTimeout(resolve, backoffDelay));

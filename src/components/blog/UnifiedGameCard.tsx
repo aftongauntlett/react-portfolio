@@ -93,16 +93,19 @@ export default function UnifiedGameCard({
 
             {/* Action Buttons - Bottom Right Above Divider */}
             <div className="flex justify-end gap-3 pt-2">
-              {game.links.find((link) => link.type === 'github') && (
-                <LinkButton
-                  type="github"
-                  href={game.links.find((link) => link.type === 'github')!.url}
-                  variant="outline"
-                  className="text-sm"
-                >
-                  Source
-                </LinkButton>
-              )}
+              {(() => {
+                const githubLink = game.links.find((link) => link.type === 'github');
+                return githubLink ? (
+                  <LinkButton
+                    type="github"
+                    href={githubLink.url}
+                    variant="outline"
+                    className="text-sm"
+                  >
+                    Source
+                  </LinkButton>
+                ) : null;
+              })()}
               {game.links.find((link) => link.type === 'demo') && (
                 <LinkButton
                   type="demo"

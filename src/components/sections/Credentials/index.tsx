@@ -92,18 +92,6 @@ export default function CredentialsSection() {
                     >
                       {cert.date}
                     </span>
-                    {cert.status === 'Active' && (
-                      <span
-                        className={clsx(
-                          'inline-flex items-center font-medium rounded',
-                          'px-2 py-1 text-xs',
-                          'bg-[var(--color-primary)]/10 text-[var(--color-primary)]',
-                          'border border-[var(--color-primary)]/20',
-                        )}
-                      >
-                        Active
-                      </span>
-                    )}
                   </div>
                 </div>
 

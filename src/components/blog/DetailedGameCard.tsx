@@ -96,17 +96,20 @@ export default function DetailedGameCard({
         {/* Action buttons - Only GitHub and Play */}
         <div className="flex gap-3 justify-end">
           {/* GitHub button */}
-          {game.links.find((link) => link.type === 'github') && (
-            <LinkButton
-              type="github"
-              variant="outline"
-              color="primary"
-              href={game.links.find((link) => link.type === 'github')!.url}
-              className="group-hover:border-[var(--color-primary)] transition-colors duration-300"
-            >
-              Source
-            </LinkButton>
-          )}
+          {(() => {
+            const githubLink = game.links.find((link) => link.type === 'github');
+            return githubLink ? (
+              <LinkButton
+                type="github"
+                variant="outline"
+                color="primary"
+                href={githubLink.url}
+                className="group-hover:border-[var(--color-primary)] transition-colors duration-300"
+              >
+                Source
+              </LinkButton>
+            ) : null;
+          })()}
 
           {/* Play Game button */}
           {game.links.find((link) => link.type === 'demo') && (
