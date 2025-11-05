@@ -17,6 +17,14 @@ export type Award = {
 
 export const education: Education[] = [
   {
+    title: 'Full-Stack Web Development',
+    institution: 'George Washington University',
+    date: '08/2020',
+    type: 'certificate',
+    description:
+      'Immersive program focused on modern JavaScript, React, Node.js, and full-stack fundamentals.',
+  },
+  {
     title: 'CompTIA Security+ Certification',
     institution: 'CompTIA',
     date: '11/2022',
@@ -32,14 +40,6 @@ export const education: Education[] = [
     type: 'certificate',
     description:
       'Hands-on UX immersion covering research, information architecture, wireframing, prototyping, and usability testing.',
-  },
-  {
-    title: 'Full-Stack Web Development',
-    institution: 'George Washington University',
-    date: '08/2020',
-    type: 'certificate',
-    description:
-      'Immersive program focused on modern JavaScript, React, Node.js, and full-stack fundamentals.',
   },
 ];
 
