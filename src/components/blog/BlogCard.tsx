@@ -108,24 +108,26 @@ export default function BlogCard({
             {isGame ? (
               <>
                 {/* GitHub button (first) */}
-                {game.links.find((link) => link.type === 'github') && (
-                  <LinkButton
-                    type="github"
-                    href={game.links.find((link) => link.type === 'github')!.url}
-                    aria-label={`View ${game.title} source code`}
-                  />
-                )}
+                {(() => {
+                  const githubLink = game.links.find((link) => link.type === 'github');
+                  return githubLink ? (
+                    <LinkButton
+                      type="github"
+                      href={githubLink.url}
+                      aria-label={`View ${game.title} source code`}
+                    />
+                  ) : null;
+                })()}
                 {/* Play Game button (second) */}
-                {game.links.find((link) => link.type === 'demo') && (
-                  <Button
-                    variant="solid"
-                    color="secondary"
-                    href={game.links.find((link) => link.type === 'demo')!.url}
-                  >
-                    <FaPlay className="w-3 h-3" />
-                    Play Game
-                  </Button>
-                )}
+                {(() => {
+                  const demoLink = game.links.find((link) => link.type === 'demo');
+                  return demoLink ? (
+                    <Button variant="solid" color="secondary" href={demoLink.url}>
+                      <FaPlay className="w-3 h-3" />
+                      Play Game
+                    </Button>
+                  ) : null;
+                })()}
                 {/* Post-Mortem button (third) */}
                 <Button variant="outline" color="primary" href={`/blog/${game.blogSlug}`}>
                   Post-Mortem
