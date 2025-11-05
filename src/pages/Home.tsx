@@ -51,6 +51,8 @@ export default function Home() {
             slug: parts[2],
             title: parts[2], // We'll get the real title from blog posts data
           });
+          // Scroll to top immediately when opening post-mortem
+          window.scrollTo(0, 0);
         }
       } else {
         // Normal section navigation
