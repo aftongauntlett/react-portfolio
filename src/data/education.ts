@@ -17,10 +17,17 @@ export type Award = {
 
 export const education: Education[] = [
   {
+    title: 'Full-Stack Web Development',
+    institution: 'George Washington University',
+    date: '08/2020',
+    type: 'certificate',
+    description:
+      'Immersive program focused on modern JavaScript, React, Node.js, and full-stack fundamentals.',
+  },
+  {
     title: 'CompTIA Security+ Certification',
     institution: 'CompTIA',
-    date: 'Nov 2022',
-    status: 'Active',
+    date: '11/2022',
     type: 'certification',
     link: 'https://www.credly.com/badges/90402bb7-7fdf-4945-aea3-b20fd916f1b4',
     description:
@@ -29,18 +36,10 @@ export const education: Education[] = [
   {
     title: 'User Experience Design',
     institution: 'General Assembly',
-    date: 'Dec 2022',
+    date: '12/2022',
     type: 'certificate',
     description:
       'Hands-on UX immersion covering research, information architecture, wireframing, prototyping, and usability testing.',
-  },
-  {
-    title: 'Full-Stack Web Development',
-    institution: 'George Washington University',
-    date: 'Aug 2020',
-    type: 'certificate',
-    description:
-      'Immersive program focused on modern JavaScript, React, Node.js, and full-stack fundamentals.',
   },
 ];
 
@@ -50,20 +49,20 @@ export const awards: Award[] = [
     organization: 'Booz Allen Hamilton',
     date: '2024',
     description:
-      'Led full redesign of flagship web application - improved user engagement and significantly reduced bugs.',
+      'Redesigned and rebuilt a high-visibility enterprise app adopted across multiple client teams, earning recognition from Amazon Developers for design quality.',
   },
   {
     title: 'Gold Award',
     organization: 'Booz Allen Hamilton',
     date: '2023',
     description:
-      'Built an event registration platform used by 100+ users, delivering improved scheduling and agenda access.',
+      'Multiple iterations of design won leadership buy-in over a competing proposal, directly influencing a multi-year contract.',
   },
   {
     title: 'Gold Award',
     organization: 'Booz Allen Hamilton',
     date: '2022',
     description:
-      'Delivered interactive homepage prototype using advanced Figma techniques and animation.',
+      'Built a registration and scheduling platform for the annual convention, enabling 100+ attendees to coordinate sessions seamlessly.',
   },
 ];

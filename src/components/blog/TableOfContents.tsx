@@ -4,6 +4,7 @@ import type { BlogPostSection } from '@/data/blog/types';
 import { TYPOGRAPHY } from '@/constants/typography';
 import { useLenisContext } from '@/context/LenisContext';
 import { smoothScrollTo } from '@/utils/scroll';
+import { slugifyHeading } from '@/utils/blogHelpers';
 
 interface TableOfContentsProps {
   sections: BlogPostSection[];
@@ -20,16 +21,16 @@ export default function TableOfContents({ sections }: TableOfContentsProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { lenis } = useLenisContext();
 
+  // Create a seen map for slugification (must match BlogPostContent)
+  const seenSlugs = new Map<string, number>();
+
   const tocItems: TocItem[] = sections
     .filter(
       (section) =>
         section.type === 'heading' && section.content && section.level && section.level === 2,
     )
     .map((section) => {
-      const id = section
-        .content!.toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
+      const id = slugifyHeading(section.content!, seenSlugs);
 
       return {
         id,

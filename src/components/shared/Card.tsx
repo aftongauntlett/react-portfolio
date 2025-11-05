@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { ReactNode } from 'react';
+import type { ReactNode, KeyboardEvent } from 'react';
 import {
   CARD_BASE_CLASSES,
   TITLE_HOVER_CLASSES,
@@ -39,19 +39,42 @@ export default function Card({
   onMouseLeave,
   subtitleColor = 'muted',
 }: CardProps) {
-  const CardComponent = link ? 'a' : 'div';
+  const isInteractive = !!(link || className?.includes('cursor-pointer'));
+
+  // Handle keyboard interaction for clickable cards
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (link && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const CardComponent = link ? 'a' : 'article';
   const cardProps = link
     ? {
         href: link,
-        target: '_blank',
+        target: '_blank' as const,
         rel: 'noopener noreferrer',
-        'aria-label': `View ${title} (opens in new tab)`,
+        'aria-label':
+          typeof title === 'string'
+            ? `View ${title} (opens in new tab)`
+            : 'View content (opens in new tab)',
         tabIndex: 0,
+        onKeyDown: handleKeyDown,
       }
     : {
-        tabIndex: 0,
-        role: 'article',
-        'aria-label': `${title} - ${subtitle}`,
+        role: 'article' as const,
+        ...(isInteractive
+          ? {
+              tabIndex: 0,
+              'aria-label':
+                typeof title === 'string' && typeof subtitle === 'string'
+                  ? `${title} - ${subtitle}`
+                  : typeof title === 'string'
+                    ? title
+                    : 'Card',
+            }
+          : {}),
       };
 
   return (
@@ -61,9 +84,9 @@ export default function Card({
         link && 'cursor-pointer',
         isDimmed && 'opacity-50',
         isHovered && 'z-10',
-        // Add focus styles for keyboard navigation
-        'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-        'focus-visible:shadow-lg focus-visible:shadow-[var(--color-primary)]/20',
+        // Add focus styles for keyboard navigation only when interactive
+        isInteractive &&
+          'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2 focus-visible:shadow-lg focus-visible:shadow-[var(--color-primary)]/20',
         className,
       )}
       onMouseEnter={onMouseEnter}

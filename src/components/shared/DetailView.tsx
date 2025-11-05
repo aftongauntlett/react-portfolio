@@ -46,9 +46,25 @@ export default function DetailView({ isOpen, onClose, title, children }: DetailV
   // Scroll to top when opening
   useEffect(() => {
     if (isOpen) {
+      // Immediate scroll to prevent any flash
       scrollToTop(lenis);
+
+      // Additional scroll after a short delay to ensure content has rendered
+      const timeoutId = setTimeout(() => {
+        scrollToTop(lenis);
+      }, 100);
+
+      // Final scroll after animation completes
+      const finalScrollId = setTimeout(() => {
+        scrollToTop(lenis);
+      }, 350); // After the 300ms animation
+
+      return () => {
+        clearTimeout(timeoutId);
+        clearTimeout(finalScrollId);
+      };
     }
-  }, [isOpen, lenis]);
+  }, [isOpen, lenis, title]); // Add title to deps so it re-scrolls when content changes
 
   return (
     <AnimatePresence>

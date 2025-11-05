@@ -47,7 +47,7 @@ export default function TimelineItem({
       )}
     >
       {/* Timeline dot - only show on desktop */}
-      <div className="relative hidden md:flex justify-center items-start pt-1 z-10">
+      <div className="relative hidden md:flex justify-center items-start pt-0.5 z-10">
         {isNextRoleItem ? (
           <div
             className="w-5 h-5 rounded-full bg-[var(--color-background)] flex items-center justify-center border-2 border-[var(--color-primary)] relative z-10"
@@ -72,11 +72,10 @@ export default function TimelineItem({
       <div>
         <header>
           <div className="flex items-start justify-between gap-2">
-            <h3
-              className={clsx(TYPOGRAPHY.SUBTITLE, 'flex flex-col sm:flex-row sm:items-baseline')}
-            >
-              <span
+            <div className="flex-1">
+              <h3
                 className={clsx(
+                  TYPOGRAPHY.SUBTITLE,
                   'transition-colors duration-300',
                   FOCUS_STYLES.COMPACT,
                   isActive
@@ -86,24 +85,18 @@ export default function TimelineItem({
                 tabIndex={0}
               >
                 {title}
-              </span>
+              </h3>
               {company && (
-                <span
-                  className={clsx('text-[var(--color-muted)]', FOCUS_STYLES.COMPACT)}
-                  tabIndex={0}
+                <p
+                  className={clsx(
+                    'text-sm text-[var(--color-muted)] mt-0.5',
+                    'transition-colors duration-300 group-hover:text-[var(--color-text)]',
+                  )}
                 >
-                  <span
-                    className="transition-colors duration-300 group-hover:text-[var(--color-text)]"
-                    aria-hidden="true"
-                  >
-                    @{' '}
-                  </span>
-                  <span className="text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]">
-                    {company}
-                  </span>
-                </span>
+                  {company}
+                </p>
               )}
-            </h3>
+            </div>
             {location && (
               <span
                 className={clsx(

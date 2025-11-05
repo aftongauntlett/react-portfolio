@@ -5,6 +5,7 @@ import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles'
 import { fadeInUp, staggerContainer } from '@/constants/animations';
 import clsx from 'clsx';
 import headshotImage from '@/assets/afton-headshot.webp';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 const aboutParagraphs = [
   "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
@@ -31,6 +32,7 @@ export default function AboutSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Track mouse position relative to image
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -61,13 +63,13 @@ export default function AboutSection() {
   return (
     <m.div
       className="w-full pt-8 md:pt-12"
-      variants={staggerContainer}
+      variants={prefersReducedMotion ? {} : staggerContainer}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
     >
       {/* Hero Banner - Interactive color reveal */}
-      <m.div variants={fadeInUp} className="space-y-12">
+      <m.div variants={prefersReducedMotion ? {} : fadeInUp} className="space-y-12">
         <div
           ref={imageRef}
           className="relative h-64 md:h-72 overflow-hidden -mx-4 sm:-mx-6 md:mx-0 md:rounded-lg dark:cursor-none"
@@ -123,7 +125,7 @@ export default function AboutSection() {
           <div className="relative h-full flex items-center px-4 sm:px-6 md:px-8">
             <div className="max-w-2xl">
               <m.h2
-                variants={fadeInUp}
+                variants={prefersReducedMotion ? {} : fadeInUp}
                 className={clsx(
                   'text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight',
                   'font-[family-name:var(--font-heading)]',

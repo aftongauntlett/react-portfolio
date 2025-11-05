@@ -5,32 +5,61 @@ type ButtonColor = 'primary' | 'secondary' | 'muted';
 type TextColor = 'dark' | 'light';
 
 interface BaseButtonProps {
-  children?: React.ReactNode;
   variant?: ButtonVariant;
   color?: ButtonColor;
   textColor?: TextColor;
   hoverTextColor?: TextColor;
-  icon?: React.ReactNode;
   disabled?: boolean;
-  'aria-label'?: string;
   'aria-describedby'?: string;
 }
 
-interface ButtonAsButton
+// Button with children (text/content)
+interface ButtonWithChildrenAsButton
   extends BaseButtonProps,
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  'aria-label'?: string;
   href?: never;
   target?: never;
   rel?: never;
 }
 
-interface ButtonAsLink
+interface ButtonWithChildrenAsLink
   extends BaseButtonProps,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  'aria-label'?: string;
   href: string;
 }
 
-export type ButtonProps = ButtonAsButton | ButtonAsLink;
+// Icon-only button (requires aria-label)
+interface IconOnlyButtonAsButton
+  extends BaseButtonProps,
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
+  children?: never;
+  icon: React.ReactNode;
+  'aria-label': string; // Required for icon-only
+  href?: never;
+  target?: never;
+  rel?: never;
+}
+
+interface IconOnlyButtonAsLink
+  extends BaseButtonProps,
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
+  children?: never;
+  icon: React.ReactNode;
+  'aria-label': string; // Required for icon-only
+  href: string;
+}
+
+export type ButtonProps =
+  | ButtonWithChildrenAsButton
+  | ButtonWithChildrenAsLink
+  | IconOnlyButtonAsButton
+  | IconOnlyButtonAsLink;
 
 export const Button: React.FC<ButtonProps> = (props) => {
   const {
@@ -58,7 +87,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     }
     // Optionally, you could throw an error instead of just logging:
     throw new Error(
-      'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.'
+      'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.',
     );
   }
 
@@ -82,7 +111,9 @@ export const Button: React.FC<ButtonProps> = (props) => {
     .join(' ');
 
   if ('href' in props && props.href && !disabled) {
-    const { href, target, rel, ...linkProps } = restProps as ButtonAsLink;
+    const { href, target, rel, ...linkProps } = restProps as
+      | ButtonWithChildrenAsLink
+      | IconOnlyButtonAsLink;
 
     // Enhanced security and accessibility for external links
     const isExternal = href.startsWith('http');
@@ -104,7 +135,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     );
   }
 
-  const buttonProps = restProps as ButtonAsButton;
+  const buttonProps = restProps as ButtonWithChildrenAsButton | IconOnlyButtonAsButton;
   return (
     <button
       className={buttonClasses}

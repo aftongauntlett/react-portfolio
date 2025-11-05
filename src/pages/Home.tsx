@@ -51,6 +51,8 @@ export default function Home() {
             slug: parts[2],
             title: parts[2], // We'll get the real title from blog posts data
           });
+          // Scroll to top immediately when opening post-mortem
+          window.scrollTo(0, 0);
         }
       } else {
         // Normal section navigation
@@ -62,10 +64,19 @@ export default function Home() {
           const maxAttempts = 20; // 20 attempts * 50ms = 1 second
 
           const tryScroll = () => {
-            const element = document.getElementById(hash);
+            // Try to find the heading first, fallback to section
+            const headingElement = document.getElementById(`${hash}-heading`);
+            const sectionElement = document.getElementById(hash);
+            const element = headingElement || sectionElement;
+
             if (element) {
               smoothScrollTo({ target: hash, offset: 80 }, lenis);
-              element.focus();
+              // Focus the heading if it exists and is focusable
+              if (headingElement && headingElement.tabIndex === -1) {
+                headingElement.focus();
+              } else if (element) {
+                element.focus();
+              }
             } else if (attempts < maxAttempts) {
               attempts++;
               setTimeout(tryScroll, 50);

@@ -4,6 +4,7 @@ import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
 import { useJobContact } from '@/context/JobContactContext';
+import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 
 interface FormData {
   name: string;
@@ -25,8 +26,13 @@ interface FormErrors {
   message?: string;
 }
 
+// Constants for retry/timeout configuration
+const FORM_SUBMIT_TIMEOUT_MS = 12000;
+const RETRY_BASE_DELAY_MS = 1000;
+
 export default function ContactSection() {
   const { jobData, clearJobData } = useJobContact();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -131,6 +137,11 @@ export default function ContactSection() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    // Prevent double submit
+    if (isLoading) {
+      return;
+    }
+
     // Validate form before submission
     if (!validateForm()) {
       return;
@@ -138,45 +149,83 @@ export default function ContactSection() {
 
     setStatus({ type: 'loading', message: 'Sending message...' });
 
-    try {
-      const response = await fetch('https://formspree.io/f/mpwldyrq', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-          _gotcha: formData._gotcha,
-        }),
-      });
+    // Create AbortController for timeout
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => abortController.abort(), FORM_SUBMIT_TIMEOUT_MS);
 
-      if (response.ok) {
+    const attemptSubmit = async (retryCount = 0): Promise<void> => {
+      try {
+        const response = await fetch('https://formspree.io/f/mpwldyrq', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+            _gotcha: formData._gotcha,
+          }),
+          signal: abortController.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          setStatus({
+            type: 'success',
+            message: "Message sent successfully! I'll get back to you soon.",
+          });
+
+          setFormData({ name: '', email: '', phone: '', message: '', _gotcha: '' });
+        } else {
+          // Don't retry 4xx errors (client errors)
+          if (response.status >= 400 && response.status < 500) {
+            const errorText = await response.text();
+            console.error('Formspree error response:', {
+              status: response.status,
+              statusText: response.statusText,
+              body: errorText,
+            });
+            throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+          }
+
+          // Retry 5xx errors (server errors)
+          throw new Error(`Server error: ${response.status}`);
+        }
+      } catch (error) {
+        clearTimeout(timeoutId);
+
+        // Handle abort (timeout)
+        if (error instanceof Error && error.name === 'AbortError') {
+          console.error('Form submission timeout');
+          setStatus({
+            type: 'error',
+            message: 'Request timed out. Please try again or email me directly.',
+          });
+          return;
+        }
+
+        // Retry logic for network errors only (up to 2 retries)
+        if (retryCount < 2) {
+          const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // Exponential backoff: 1s for first retry, 2s for second retry
+          console.log(`Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`);
+
+          await new Promise((resolve) => setTimeout(resolve, backoffDelay));
+          return attemptSubmit(retryCount + 1);
+        }
+
+        // All retries exhausted
+        console.error('Form submission error:', error);
         setStatus({
-          type: 'success',
-          message: "Message sent successfully! I'll get back to you soon.",
+          type: 'error',
+          message: 'Failed to send message. Please try again or email me directly.',
         });
-
-        setFormData({ name: '', email: '', phone: '', message: '', _gotcha: '' });
-      } else {
-        // Log the actual error response for debugging
-        const errorText = await response.text();
-        console.error('Formspree error response:', {
-          status: response.status,
-          statusText: response.statusText,
-          body: errorText,
-        });
-        throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
       }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setStatus({
-        type: 'error',
-        message: 'Failed to send message. Please try again or email me directly.',
-      });
-    }
+    };
+
+    await attemptSubmit();
   };
 
   const isLoading = status.type === 'loading';
@@ -191,19 +240,19 @@ export default function ContactSection() {
         hidden: {},
         visible: {
           transition: {
-            staggerChildren: 0.2,
+            staggerChildren: getMotionDuration(0.2, prefersReducedMotion),
           },
         },
       }}
     >
       <MotionSection
         variants={{
-          hidden: { opacity: 0, y: 20 },
+          hidden: { opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 },
           visible: {
             opacity: 1,
             y: 0,
             transition: {
-              duration: 0.5,
+              duration: getMotionDuration(0.5, prefersReducedMotion),
               ease: 'easeOut' as const,
             },
           },
@@ -232,12 +281,12 @@ export default function ContactSection() {
 
       <MotionSection
         variants={{
-          hidden: { opacity: 0, y: 20 },
+          hidden: { opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 },
           visible: {
             opacity: 1,
             y: 0,
             transition: {
-              duration: 0.5,
+              duration: getMotionDuration(0.5, prefersReducedMotion),
               ease: 'easeOut' as const,
             },
           },
