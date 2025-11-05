@@ -22,6 +22,7 @@ interface CardProps {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   subtitleColor?: 'muted' | 'primary';
+  ariaLabel?: string;
 }
 
 export default function Card({
@@ -38,6 +39,7 @@ export default function Card({
   onMouseEnter,
   onMouseLeave,
   subtitleColor = 'muted',
+  ariaLabel,
 }: CardProps) {
   const isInteractive = !!(link || className?.includes('cursor-pointer'));
 
@@ -55,7 +57,8 @@ export default function Card({
         href: link,
         target: '_blank' as const,
         rel: 'noopener noreferrer',
-        'aria-label': `View ${typeof title === 'string' ? title : 'content'} (opens in new tab)`,
+        'aria-label':
+          ariaLabel || `View ${typeof title === 'string' ? title : 'content'} (opens in new tab)`,
         tabIndex: 0,
         onKeyDown: handleKeyDown,
       }
@@ -64,7 +67,9 @@ export default function Card({
         ...(isInteractive
           ? {
               tabIndex: 0,
-              'aria-label': `${typeof title === 'string' ? title : 'Card'} - ${typeof subtitle === 'string' ? subtitle : ''}`,
+              'aria-label':
+                ariaLabel ||
+                `${typeof title === 'string' ? title : 'Card'} - ${typeof subtitle === 'string' ? subtitle : ''}`,
             }
           : {}),
       };

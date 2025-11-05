@@ -43,6 +43,7 @@ export default function DevlogCard({
         date=""
         isDimmed={isDimmed}
         className="h-full"
+        ariaLabel={`${post.metadata.title} - ${post.metadata.description}`}
       >
         {/* Metadata: date and reading time */}
         <div className={clsx('flex items-center gap-6 mb-4', TEXT_COMBINATIONS.SMALL_MUTED)}>

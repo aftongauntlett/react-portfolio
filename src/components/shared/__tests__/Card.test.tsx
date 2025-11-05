@@ -94,4 +94,34 @@ describe('Card Component', () => {
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('tabIndex', '0');
   });
+
+  it('uses custom ariaLabel when provided with string title', () => {
+    render(
+      <Card {...defaultProps} link="https://example.com" ariaLabel="Custom accessible label" />,
+    );
+
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('aria-label', 'Custom accessible label');
+  });
+
+  it('uses custom ariaLabel when provided with ReactNode title', () => {
+    render(
+      <Card
+        {...defaultProps}
+        title={<span>Complex Title</span>}
+        link="https://example.com"
+        ariaLabel="Descriptive label for Complex Title"
+      />,
+    );
+
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('aria-label', 'Descriptive label for Complex Title');
+  });
+
+  it('falls back to generic label when title is ReactNode and no ariaLabel provided', () => {
+    render(<Card {...defaultProps} title={<span>Complex Title</span>} link="https://example.com" />);
+
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('aria-label', 'View content (opens in new tab)');
+  });
 });

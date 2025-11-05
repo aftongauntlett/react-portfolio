@@ -42,6 +42,7 @@ export default function DetailedGameCard({
         date=""
         isDimmed={isDimmed}
         className="h-full group-hover:border-[var(--color-primary)]/30 transition-colors duration-300"
+        ariaLabel={`${game.title} - ${game.description}`}
       >
         {/* Game Screenshot */}
         <div className="mb-6">
