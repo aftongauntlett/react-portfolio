@@ -26,6 +26,10 @@ interface FormErrors {
   message?: string;
 }
 
+// Constants for retry/timeout configuration
+const FORM_SUBMIT_TIMEOUT_MS = 12000;
+const RETRY_BASE_DELAY_MS = 1000;
+
 export default function ContactSection() {
   const { jobData, clearJobData } = useJobContact();
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -147,7 +151,7 @@ export default function ContactSection() {
 
     // Create AbortController for timeout
     const abortController = new AbortController();
-    const timeoutId = setTimeout(() => abortController.abort(), 12000); // 12 second timeout
+    const timeoutId = setTimeout(() => abortController.abort(), FORM_SUBMIT_TIMEOUT_MS);
 
     const attemptSubmit = async (retryCount = 0): Promise<void> => {
       try {
@@ -205,7 +209,7 @@ export default function ContactSection() {
 
         // Retry logic for network errors only (up to 2 retries)
         if (retryCount < 2) {
-          const backoffDelay = Math.pow(2, retryCount) * 1000; // 1s, 2s exponential backoff
+          const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // 1s, 2s exponential backoff
           console.log(`Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`);
 
           await new Promise((resolve) => setTimeout(resolve, backoffDelay));

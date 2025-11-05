@@ -55,7 +55,7 @@ export default function Card({
         href: link,
         target: '_blank' as const,
         rel: 'noopener noreferrer',
-        'aria-label': `View ${typeof title === 'string' ? title : 'content'} (opens in new tab)`,
+        'aria-label': typeof title === 'string' ? `View ${title}` : 'View content',
         tabIndex: 0,
         onKeyDown: handleKeyDown,
       }
@@ -64,7 +64,12 @@ export default function Card({
         ...(isInteractive
           ? {
               tabIndex: 0,
-              'aria-label': `${typeof title === 'string' ? title : 'Card'} - ${typeof subtitle === 'string' ? subtitle : ''}`,
+              'aria-label':
+                typeof title === 'string' && typeof subtitle === 'string'
+                  ? `${title} - ${subtitle}`
+                  : typeof title === 'string'
+                    ? title
+                    : 'Card',
             }
           : {}),
       };

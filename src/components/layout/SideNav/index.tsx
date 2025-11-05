@@ -180,7 +180,7 @@ export default function SideNav() {
             <LinkButton
               type="github"
               href="https://github.com/aftongauntlett"
-              aria-label="Visit GitHub profile (opens in new tab)"
+              aria-label="Visit GitHub profile"
               variant="link"
               color="primary"
             />

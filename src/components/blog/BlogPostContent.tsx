@@ -221,7 +221,7 @@ function LinksSection({ links }: BlogPostSection) {
             variant="outline"
             color="secondary"
             icon={getLinkIcon(link.type as LinkIconType)}
-            aria-label={`${link.text}`}
+            aria-label={link.text}
           >
             {link.text}
           </Button>

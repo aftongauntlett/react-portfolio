@@ -112,7 +112,7 @@ export default function BlogCard({
                   <LinkButton
                     type="github"
                     href={game.links.find((link) => link.type === 'github')!.url}
-                    aria-label="View source code"
+                    aria-label={`View ${game.title} source code`}
                   />
                 )}
                 {/* Play Game button (second) */}

@@ -37,7 +37,7 @@ export function LinkButton({
         color={color}
         icon={icon}
         className={className}
-        aria-label={`View on ${type}`}
+        aria-label={`View ${type === 'github' ? 'GitHub repository' : type === 'figma' ? 'Figma design' : type === 'demo' ? 'live demo' : type}`}
         {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
       />
     );
