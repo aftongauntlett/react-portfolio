@@ -55,7 +55,10 @@ export default function Card({
         href: link,
         target: '_blank' as const,
         rel: 'noopener noreferrer',
-        'aria-label': typeof title === 'string' ? `View ${title}` : 'View content',
+        'aria-label':
+          typeof title === 'string'
+            ? `View ${title} (opens in new tab)`
+            : 'View content (opens in new tab)',
         tabIndex: 0,
         onKeyDown: handleKeyDown,
       }
