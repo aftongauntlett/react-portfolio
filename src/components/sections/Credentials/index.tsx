@@ -156,7 +156,7 @@ export default function CredentialsSection() {
         >
           {awards.map((award) => (
             <div
-              key={award.title}
+              key={`${award.title}-${award.date}`}
               role="listitem"
               tabIndex={0}
               aria-label={`${award.title} at ${award.organization}, ${award.date}`}
