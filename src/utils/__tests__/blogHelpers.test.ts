@@ -3,6 +3,7 @@ import {
   addSeparatorsToSections,
   validatePostMortemStructure,
   POST_MORTEM_STRUCTURE,
+  slugifyHeading,
 } from '../blogHelpers';
 import type { BlogPostSection } from '@/data/blog/types';
 
@@ -116,5 +117,80 @@ describe('validatePostMortemStructure', () => {
     const result = validatePostMortemStructure(sections);
 
     expect(result.valid).toBe(true);
+  });
+});
+
+describe('slugifyHeading', () => {
+  it('should create basic slug from text', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('Hello World', seen);
+
+    expect(result).toBe('hello-world');
+  });
+
+  it('should remove special characters', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('Hello, World! & More', seen);
+
+    expect(result).toBe('hello-world-more');
+  });
+
+  it('should handle duplicate slugs by appending numbers', () => {
+    const seen = new Map<string, number>();
+
+    const result1 = slugifyHeading('Introduction', seen);
+    const result2 = slugifyHeading('Introduction', seen);
+    const result3 = slugifyHeading('Introduction', seen);
+
+    expect(result1).toBe('introduction');
+    expect(result2).toBe('introduction-2');
+    expect(result3).toBe('introduction-3');
+  });
+
+  it('should replace multiple spaces with single hyphen', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('Hello    World', seen);
+
+    expect(result).toBe('hello-world');
+  });
+
+  it('should remove leading and trailing hyphens', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('---Hello World---', seen);
+
+    expect(result).toBe('hello-world');
+  });
+
+  it('should handle non-Latin characters by creating hash-based slug', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('你好世界', seen);
+
+    expect(result).toMatch(/^heading-\d+$/);
+  });
+
+  it('should handle mixed Latin and non-Latin by removing non-Latin', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('Hello 世界 World', seen);
+
+    expect(result).toBe('hello-world');
+  });
+
+  it('should handle empty string after cleanup', () => {
+    const seen = new Map<string, number>();
+    const result = slugifyHeading('!@#$%', seen);
+
+    expect(result).toMatch(/^heading-\d+$/);
+  });
+
+  it('should maintain separate counts for different base slugs', () => {
+    const seen = new Map<string, number>();
+
+    const result1 = slugifyHeading('Introduction', seen);
+    const result2 = slugifyHeading('Details', seen);
+    const result3 = slugifyHeading('Introduction', seen);
+
+    expect(result1).toBe('introduction');
+    expect(result2).toBe('details');
+    expect(result3).toBe('introduction-2');
   });
 });

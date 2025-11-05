@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import { m } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import MotionSection from '@/components/shared/MotionSection';
 import { Button } from '@/components/shared/Button';
+import { LinkButton } from '@/components/shared/LinkButton';
+import { getLinkIcon } from '@/components/shared/LinkIcons';
 import Tag from '@/components/shared/Tag';
 import { projects } from '@/data/projects';
 import {
@@ -13,8 +14,10 @@ import {
   TYPOGRAPHY,
   FOCUS_STYLES,
 } from '@/constants/styles';
+import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 
 export default function ProjectsSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
     const isProduction = status === 'Production';
     const isCollection = status === 'Collection';
@@ -33,7 +36,7 @@ export default function ProjectsSection() {
             backgroundColor: 'var(--color-muted)/10',
           }}
         >
-          {external && <FaExternalLinkAlt className="w-3 h-3" />}
+          {external && getLinkIcon('external')}
           Updated {lastUpdated}
         </span>
       );
@@ -60,13 +63,13 @@ export default function ProjectsSection() {
   };
 
   const projectVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: 'easeOut' as const, // Consistent with rest of app
+        duration: getMotionDuration(0.5, prefersReducedMotion),
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -81,15 +84,14 @@ export default function ProjectsSection() {
       viewport={{
         once: true,
         margin: '-100px',
-        amount: 0.1, // Performance optimization
+        amount: 0.1,
       }}
-      // Performance optimization
       style={{ willChange: 'auto' }}
       variants={{
         hidden: {},
         visible: {
           transition: {
-            staggerChildren: 0.08, // Slightly faster for better perceived performance
+            staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
           },
         },
       }}
@@ -161,22 +163,11 @@ export default function ProjectsSection() {
                 // If project has a post-mortem, show repo and post-mortem buttons
                 <>
                   {link && link !== '#' && (
-                    <Button
-                      href={link}
-                      variant="outline"
-                      color="primary"
-                      aria-label={`View ${title} source code on GitHub`}
-                    >
-                      <FaGithub className="w-4 h-4" />
+                    <LinkButton type="github" href={link} variant="outline" color="primary">
                       View Repo
-                    </Button>
+                    </LinkButton>
                   )}
-                  <Button
-                    href={postMortem}
-                    variant="solid"
-                    color="secondary"
-                    aria-label={`Read ${title} post-mortem`}
-                  >
+                  <Button href={postMortem} variant="solid" color="secondary">
                     Read Post-Mortem
                   </Button>
                 </>
@@ -184,15 +175,9 @@ export default function ProjectsSection() {
                 // If no post-mortem, show standard repo and demo buttons
                 <>
                   {link && link !== '#' ? (
-                    <Button
-                      href={link}
-                      variant="outline"
-                      color="primary"
-                      aria-label={`View ${title} source code on GitHub`}
-                    >
-                      <FaGithub className="w-4 h-4" />
+                    <LinkButton type="github" href={link} variant="outline" color="primary">
                       View Repo
-                    </Button>
+                    </LinkButton>
                   ) : link === '#' ? (
                     <Button
                       disabled
@@ -205,15 +190,9 @@ export default function ProjectsSection() {
                   ) : null}
 
                   {demo && demo !== '#' && (
-                    <Button
-                      variant="solid"
-                      color="secondary"
-                      href={demo}
-                      aria-label={`View live demo of ${title}`}
-                    >
-                      <FaExternalLinkAlt className="w-3 h-3" />
+                    <LinkButton type="external" href={demo} variant="solid" color="secondary">
                       {external ? 'View Collection' : 'View Live'}
-                    </Button>
+                    </LinkButton>
                   )}
                 </>
               )}

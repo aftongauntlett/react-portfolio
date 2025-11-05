@@ -75,12 +75,7 @@ export default function DevlogCard({
 
           {/* Read More button */}
           <div>
-            <Button
-              variant="outline"
-              color="primary"
-              href={`/blog/${post.metadata.slug}`}
-              aria-label={`Read ${post.metadata.title}`}
-            >
+            <Button variant="outline" color="primary" href={`/blog/${post.metadata.slug}`}>
               Read More
               <FaArrowRight className="w-3 h-3" />
             </Button>

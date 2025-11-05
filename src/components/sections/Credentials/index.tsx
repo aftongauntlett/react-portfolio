@@ -1,147 +1,231 @@
 import { education, awards } from '@/data/education';
 import MotionSection from '@/components/shared/MotionSection';
-import { TYPOGRAPHY, CARD_BASE_CLASSES } from '@/constants/styles';
+import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import clsx from 'clsx';
-
-interface CredentialCardProps {
-  title: string;
-  organization: string;
-  date: string;
-  description: string;
-  status?: 'active' | null;
-  link?: string;
-}
-
-function CredentialCard({
-  title,
-  organization,
-  date,
-  description,
-  status,
-  link,
-}: CredentialCardProps) {
-  const CardWrapper = link ? 'a' : 'div';
-  const cardProps = link
-    ? {
-        href: link,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-        'aria-label': `View ${title} credential (opens in new tab)`,
-      }
-    : {
-        role: 'article',
-        'aria-label': `${title} - ${organization}`,
-      };
-
-  return (
-    <CardWrapper
-      {...cardProps}
-      className={clsx(
-        CARD_BASE_CLASSES,
-        'group',
-        'transition-colors duration-300',
-        'hover:border-[var(--color-primary)]',
-        link && 'cursor-pointer',
-        'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-      )}
-    >
-      {/* Header: Title and Date */}
-      <div className="flex justify-between items-start gap-4 mb-1">
-        <h3
-          className={clsx(
-            TYPOGRAPHY.SUBTITLE,
-            'text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]',
-          )}
-        >
-          {title}
-          {status === 'active' && (
-            <span className={clsx('ml-2 text-xs font-normal text-[var(--color-primary)]')}>
-              • Active
-            </span>
-          )}
-        </h3>
-        <span
-          className={clsx(
-            TYPOGRAPHY.TEXT_SMALL,
-            'text-[var(--color-muted)] flex-shrink-0 transition-colors duration-300 group-hover:text-[var(--color-secondary)]',
-          )}
-        >
-          {date}
-        </span>
-      </div>
-
-      {/* Organization */}
-      <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'text-[var(--color-muted)] mb-4')}>
-        {organization}
-      </p>
-
-      {/* Description */}
-      <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'text-[var(--color-text-muted)] leading-relaxed')}>
-        {description}
-      </p>
-
-      {/* Link indicator */}
-      {link && (
-        <div
-          className={clsx(
-            'mt-4 pt-4 border-t border-[var(--color-line)]',
-            'text-sm font-medium text-[var(--color-primary)]',
-          )}
-        >
-          View Credential →
-        </div>
-      )}
-    </CardWrapper>
-  );
-}
 
 export default function CredentialsSection() {
   return (
-    <div className="space-y-10">
-      {/* Awards & Recognition */}
+    <div className="space-y-12">
+      {/* Education & Certifications Section */}
       <section>
         <h3
           className={clsx(
             TYPOGRAPHY.TEXT_SMALL,
-            'mb-5 text-[var(--color-text)] font-semibold tracking-wide uppercase',
-          )}
-        >
-          Awards & Recognition
-        </h3>
-        <MotionSection className="space-y-4">
-          {awards.map((award) => (
-            <CredentialCard
-              key={award.title}
-              title={award.title}
-              date={award.date}
-              organization={award.organization}
-              description={award.description}
-            />
-          ))}
-        </MotionSection>
-      </section>
-
-      {/* Education & Certifications */}
-      <section>
-        <h3
-          className={clsx(
-            TYPOGRAPHY.TEXT_SMALL,
-            'mb-5 text-[var(--color-text)] font-semibold tracking-wide uppercase',
+            'mb-6 text-[var(--color-text)] font-semibold tracking-wider uppercase border-b border-[var(--color-line)] pb-3',
           )}
         >
           Education & Certifications
         </h3>
-        <MotionSection className="space-y-4">
-          {education.map((cert) => (
-            <CredentialCard
-              key={cert.title}
-              title={cert.title}
-              date={cert.date}
-              organization={cert.institution}
-              description={cert.description || ''}
-              link={cert.link}
-              status={cert.status === 'active' ? 'active' : null}
-            />
+        <MotionSection
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          role="list"
+          aria-label="Education and certifications"
+        >
+          {education.map((cert) => {
+            const ItemWrapper = cert.link ? 'a' : 'div';
+            const wrapperProps = cert.link
+              ? {
+                  href: cert.link,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                }
+              : {
+                  tabIndex: 0,
+                };
+
+            return (
+              <ItemWrapper
+                key={cert.title}
+                {...wrapperProps}
+                role="listitem"
+                aria-label={`${cert.title} at ${cert.institution}, ${cert.date}`}
+                className={clsx(
+                  'group flex flex-col',
+                  'py-6 md:py-8 px-3 md:px-4',
+                  'rounded-md',
+                  'md:border-l-4 md:border-transparent',
+                  'transition-colors duration-300 ease-in-out',
+                  'md:hover:border-[var(--color-secondary)]',
+                  'active:bg-[var(--color-secondary)]/5 [@media(hover:hover)]:active:bg-transparent',
+                  cert.link ? 'no-underline' : '',
+                  FOCUS_STYLES.BUTTON,
+                )}
+              >
+                {/* Header with title, institution, and date */}
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="flex-1 min-w-0">
+                    <h3
+                      className={clsx(
+                        TYPOGRAPHY.SUBTITLE,
+                        'text-[var(--color-text)]',
+                        'group-hover:text-[var(--color-secondary)]',
+                        'transition-colors duration-300',
+                      )}
+                    >
+                      {cert.title}
+                    </h3>
+                    <p
+                      className={clsx(
+                        TYPOGRAPHY.TEXT_SMALL,
+                        'text-[var(--color-muted)]',
+                        'group-hover:text-[var(--color-text)]',
+                        'transition-colors duration-300',
+                        'mt-1',
+                      )}
+                    >
+                      {cert.institution}
+                    </p>
+                  </div>
+
+                  {/* Date badge and Active status */}
+                  <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                    <span
+                      className={clsx(
+                        'inline-flex items-center',
+                        'font-medium px-2 py-1',
+                        TYPOGRAPHY.TEXT_XS,
+                        'rounded border',
+                        'border-[var(--color-line)]',
+                        'text-[var(--color-secondary)]',
+                        'bg-[var(--color-secondary)]/10',
+                      )}
+                    >
+                      {cert.date}
+                    </span>
+                    {cert.status === 'Active' && (
+                      <span
+                        className={clsx(
+                          'inline-flex items-center font-medium rounded',
+                          'px-2 py-1 text-xs',
+                          'bg-[var(--color-primary)]/10 text-[var(--color-primary)]',
+                          'border border-[var(--color-primary)]/20',
+                        )}
+                      >
+                        Active
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p
+                  className={clsx(
+                    TYPOGRAPHY.TEXT_SMALL,
+                    'text-[var(--color-text-muted)]',
+                    'leading-relaxed',
+                    'mt-3',
+                  )}
+                >
+                  {cert.description}
+                </p>
+
+                {/* Credential link indicator */}
+                {cert.link && (
+                  <span
+                    className={clsx(
+                      'inline-flex items-center mt-2',
+                      'text-sm font-medium',
+                      'text-[var(--color-secondary)]',
+                      'group-hover:underline',
+                      'transition-colors duration-200',
+                    )}
+                  >
+                    View Credential →
+                  </span>
+                )}
+              </ItemWrapper>
+            );
+          })}
+        </MotionSection>
+      </section>
+
+      {/* Awards & Recognition Section */}
+      <section>
+        <h3
+          className={clsx(
+            TYPOGRAPHY.TEXT_SMALL,
+            'mb-6 text-[var(--color-text)] font-semibold tracking-wider uppercase border-b border-[var(--color-line)] pb-3',
+          )}
+        >
+          Awards & Recognition
+        </h3>
+        <MotionSection
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          role="list"
+          aria-label="Awards and recognition"
+        >
+          {awards.map((award) => (
+            <div
+              key={award.title}
+              role="listitem"
+              tabIndex={0}
+              aria-label={`${award.title} at ${award.organization}, ${award.date}`}
+              className={clsx(
+                'group flex flex-col',
+                'py-6 md:py-8 px-3 md:px-4',
+                'rounded-md',
+                'md:border-l-4 md:border-transparent',
+                'transition-colors duration-300 ease-in-out',
+                'md:hover:border-[var(--color-primary)]',
+                'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
+                FOCUS_STYLES.BUTTON,
+              )}
+            >
+              {/* Header with title, organization, and date */}
+              <div className="flex items-start justify-between gap-3 mb-2">
+                <div className="flex-1 min-w-0">
+                  <h3
+                    className={clsx(
+                      TYPOGRAPHY.SUBTITLE,
+                      'text-[var(--color-text)]',
+                      'group-hover:text-[var(--color-primary)]',
+                      'transition-colors duration-300',
+                    )}
+                  >
+                    {award.title}
+                  </h3>
+                  <p
+                    className={clsx(
+                      TYPOGRAPHY.TEXT_SMALL,
+                      'text-[var(--color-muted)]',
+                      'group-hover:text-[var(--color-text)]',
+                      'transition-colors duration-300',
+                      'mt-1',
+                    )}
+                  >
+                    {award.organization}
+                  </p>
+                </div>
+
+                {/* Date badge */}
+                <span
+                  className={clsx(
+                    'inline-flex items-center',
+                    'font-medium px-2 py-1',
+                    TYPOGRAPHY.TEXT_XS,
+                    'rounded border',
+                    'border-[var(--color-line)]',
+                    'flex-shrink-0',
+                    'text-[var(--color-primary)]',
+                    'bg-[var(--color-primary)]/10',
+                  )}
+                >
+                  {award.date}
+                </span>
+              </div>
+
+              {/* Description */}
+              <p
+                className={clsx(
+                  TYPOGRAPHY.TEXT_SMALL,
+                  'text-[var(--color-text-muted)]',
+                  'leading-relaxed',
+                  'mt-3',
+                )}
+              >
+                {award.description}
+              </p>
+            </div>
           ))}
         </MotionSection>
       </section>

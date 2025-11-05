@@ -8,6 +8,44 @@
 import type { BlogPostSection } from '@/data/blog/types';
 
 /**
+ * Slugify heading text with duplicate handling and non-Latin character support.
+ * Uses a Map to track seen slugs and appends -2, -3, etc. for duplicates.
+ * Falls back to a simple hash for non-Latin characters.
+ */
+export function slugifyHeading(text: string, seen: Map<string, number>): string {
+  // Basic slugification
+  let slug = text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove non-Latin chars
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single
+    .replace(/(^-|-$)/g, ''); // Remove leading/trailing hyphens
+
+  // If slug is empty (e.g., non-Latin chars only), create a hash-based slug
+  if (!slug) {
+    const hash = Math.abs(
+      text.split('').reduce((acc, char) => {
+        return ((acc << 5) - acc + char.charCodeAt(0)) | 0;
+      }, 0),
+    );
+    slug = `heading-${hash}`;
+  }
+
+  // Handle duplicates
+  const count = seen.get(slug);
+  if (count !== undefined) {
+    const newCount = count + 1;
+    seen.set(slug, newCount);
+    slug = `${slug}-${newCount}`;
+  } else {
+    seen.set(slug, 1);
+  }
+
+  return slug;
+}
+
+/**
  * Automatically inserts separators before level 2 headings.
  * Skips first heading and "Feedback" section.
  */

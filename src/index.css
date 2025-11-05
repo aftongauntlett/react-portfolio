@@ -250,7 +250,7 @@ textarea:-moz-autofill {
   /* Dark mode sidebar keeps dark background */
   html.dark .sticky-sidebar {
     background: hsl(220, 18%, 8%);
-    border-right: 1px solid hsla(188, 29%, 49%, 0.25);
+    border-right: none;
   }
 }
 

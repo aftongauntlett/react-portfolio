@@ -1,7 +1,8 @@
-import { FaCalendar, FaClock, FaArrowRight, FaGithub, FaPlay } from 'react-icons/fa';
+import { FaCalendar, FaClock, FaArrowRight, FaPlay } from 'react-icons/fa';
 import clsx from 'clsx';
 import Card from '@/components/shared/Card';
 import { Button } from '@/components/shared/Button';
+import { LinkButton } from '@/components/shared/LinkButton';
 import Tag from '@/components/shared/Tag';
 import HighlightText from '@/components/shared/HighlightText';
 import TruncatedText from '@/components/shared/TruncatedText';
@@ -108,45 +109,31 @@ export default function BlogCard({
               <>
                 {/* GitHub button (first) */}
                 {game.links.find((link) => link.type === 'github') && (
-                  <Button
-                    variant="outline"
-                    color="primary"
-                    href={game.links.find((link) => link.type === 'github')?.url}
-                    aria-label={`View ${game.title} source code`}
-                  >
-                    <FaGithub className="w-4 h-4" />
-                  </Button>
+                  <LinkButton
+                    type="github"
+                    href={game.links.find((link) => link.type === 'github')!.url}
+                    aria-label="View source code"
+                  />
                 )}
                 {/* Play Game button (second) */}
                 {game.links.find((link) => link.type === 'demo') && (
                   <Button
                     variant="solid"
                     color="secondary"
-                    href={game.links.find((link) => link.type === 'demo')?.url}
-                    aria-label={`Play ${game.title}`}
+                    href={game.links.find((link) => link.type === 'demo')!.url}
                   >
                     <FaPlay className="w-3 h-3" />
                     Play Game
                   </Button>
                 )}
                 {/* Post-Mortem button (third) */}
-                <Button
-                  variant="outline"
-                  color="primary"
-                  href={`/blog/${game.blogSlug}`}
-                  aria-label={`Read ${game.title} post-mortem`}
-                >
+                <Button variant="outline" color="primary" href={`/blog/${game.blogSlug}`}>
                   Post-Mortem
                   <FaArrowRight className="w-3 h-3" />
                 </Button>
               </>
             ) : (
-              <Button
-                variant="outline"
-                color="primary"
-                href={`/blog/${post!.metadata.slug}`}
-                aria-label={`Read ${post!.metadata.title}`}
-              >
+              <Button variant="outline" color="primary" href={`/blog/${post!.metadata.slug}`}>
                 Read More
                 <FaArrowRight className="w-3 h-3" />
               </Button>

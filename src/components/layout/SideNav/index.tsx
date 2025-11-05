@@ -1,41 +1,70 @@
 import type { MouseEvent, KeyboardEvent } from 'react';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useDetailView } from '@/context/DetailViewContext';
+import { useLenisContext } from '@/context/LenisContext';
 import { navItems } from '../../../constants/navigation';
 import { games } from '@/data/games';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { smoothScrollTo } from '@/utils/scroll';
+import { FaLinkedin } from 'react-icons/fa';
+import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
 import { HiSun, HiMoon } from 'react-icons/hi2';
+import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
-  const { detailView } = useDetailView();
+  const { detailView, setDetailView } = useDetailView();
+  const { lenis } = useLenisContext();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [announcement, setAnnouncement] = useState('');
+
+  // Announce section changes to screen readers
+  useEffect(() => {
+    if (activeSection) {
+      const navItem = navItems.find((item) => item.id === activeSection);
+      if (navItem) {
+        setAnnouncement(`Navigated to ${navItem.label} section`);
+        // Clear announcement after a delay to allow it to be read again next time
+        const timeout = setTimeout(() => setAnnouncement(''), 1000);
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [activeSection]);
 
   return (
     <m.div
       className="flex flex-col justify-between h-full pt-16 px-6 py-10"
-      initial={{ opacity: 0, x: -20 }}
+      initial={{ opacity: prefersReducedMotion ? 1 : 0, x: prefersReducedMotion ? 0 : -20 }}
       animate={{
         opacity: 1,
         x: 0,
         transition: {
-          duration: 0.6,
+          duration: getMotionDuration(0.6, prefersReducedMotion),
           ease: 'easeOut',
-          staggerChildren: 0.1,
+          staggerChildren: getMotionDuration(0.1, prefersReducedMotion),
         },
       }}
     >
+      {/* Screen reader announcement for active section */}
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {announcement}
+      </div>
+
       <m.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 }}
         animate={{
           opacity: 1,
           y: 0,
-          transition: { duration: 0.5, delay: 0.2 },
+          transition: {
+            duration: getMotionDuration(0.5, prefersReducedMotion),
+            delay: getMotionDuration(0.2, prefersReducedMotion),
+          },
         }}
       >
         <div className="text-xl font-bold leading-[1.3] capitalize text-[var(--color-text)]">
@@ -66,7 +95,22 @@ export default function SideNav() {
 
             // Helper function for navigation
             const navigateTo = (targetId: string) => {
-              window.location.hash = targetId;
+              // Close detail view when navigating to top-level section
+              setDetailView(null);
+
+              // Smooth scroll to target
+              smoothScrollTo({ target: targetId, offset: 80 }, lenis);
+
+              // Focus heading if it exists and is focusable
+              const headingElement = document.querySelector(
+                `#${targetId}-heading`,
+              ) as HTMLElement | null;
+              if (headingElement && headingElement.tabIndex === -1) {
+                headingElement.focus({ preventScroll: true });
+              }
+
+              // Update URL without triggering jump
+              window.history.replaceState(null, '', `#${targetId}`);
             };
 
             const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -133,14 +177,12 @@ export default function SideNav() {
 
         <div className="flex items-center justify-between">
           <div className="flex gap-4" aria-label="Social media links">
-            <Button
+            <LinkButton
+              type="github"
               href="https://github.com/aftongauntlett"
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="Visit GitHub profile (opens in new tab)"
               variant="link"
               color="primary"
-              icon={<FaGithub size={20} />}
             />
             <Button
               href="https://www.linkedin.com/in/afton-gauntlett/"

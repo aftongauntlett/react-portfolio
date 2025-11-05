@@ -1,5 +1,5 @@
-import { FaGithub, FaPlay } from 'react-icons/fa';
 import clsx from 'clsx';
+import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
 import HighlightText from '@/components/shared/HighlightText';
 import TruncatedText from '@/components/shared/TruncatedText';
@@ -94,26 +94,24 @@ export default function UnifiedGameCard({
             {/* Action Buttons - Bottom Right Above Divider */}
             <div className="flex justify-end gap-3 pt-2">
               {game.links.find((link) => link.type === 'github') && (
-                <Button
-                  href={game.links.find((link) => link.type === 'github')?.url}
+                <LinkButton
+                  type="github"
+                  href={game.links.find((link) => link.type === 'github')!.url}
                   variant="outline"
                   className="text-sm"
-                  aria-label={`View source code for ${gameTitle}`}
                 >
-                  <FaGithub className="w-3 h-3" />
                   Source
-                </Button>
+                </LinkButton>
               )}
               {game.links.find((link) => link.type === 'demo') && (
-                <Button
-                  href={game.links.find((link) => link.type === 'demo')?.url}
+                <LinkButton
+                  type="demo"
+                  href={game.links.find((link) => link.type === 'demo')!.url}
                   variant="solid"
                   className="text-sm"
-                  aria-label={`Play ${gameTitle}`}
                 >
-                  <FaPlay className="w-3 h-3" />
                   Play
-                </Button>
+                </LinkButton>
               )}
             </div>
           </div>

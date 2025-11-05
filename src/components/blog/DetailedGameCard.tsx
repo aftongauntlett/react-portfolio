@@ -1,7 +1,6 @@
-import { FaGithub, FaPlay } from 'react-icons/fa';
 import clsx from 'clsx';
 import Card from '@/components/shared/Card';
-import { Button } from '@/components/shared/Button';
+import { LinkButton } from '@/components/shared/LinkButton';
 import Tag from '@/components/shared/Tag';
 import HighlightText from '@/components/shared/HighlightText';
 import { TYPOGRAPHY, TEXT_COMBINATIONS } from '@/constants/styles';
@@ -98,30 +97,28 @@ export default function DetailedGameCard({
         <div className="flex gap-3 justify-end">
           {/* GitHub button */}
           {game.links.find((link) => link.type === 'github') && (
-            <Button
+            <LinkButton
+              type="github"
               variant="outline"
               color="primary"
-              href={game.links.find((link) => link.type === 'github')?.url}
-              aria-label={`View ${game.title} source code`}
+              href={game.links.find((link) => link.type === 'github')!.url}
               className="group-hover:border-[var(--color-primary)] transition-colors duration-300"
             >
-              <FaGithub className="w-4 h-4" />
               Source
-            </Button>
+            </LinkButton>
           )}
 
           {/* Play Game button */}
           {game.links.find((link) => link.type === 'demo') && (
-            <Button
+            <LinkButton
+              type="demo"
               variant="solid"
               color="secondary"
-              href={game.links.find((link) => link.type === 'demo')?.url}
-              aria-label={`Play ${game.title}`}
+              href={game.links.find((link) => link.type === 'demo')!.url}
               className="group-hover:shadow-lg transition-shadow duration-300"
             >
-              <FaPlay className="w-3 h-3" />
               Play Game
-            </Button>
+            </LinkButton>
           )}
         </div>
       </Card>

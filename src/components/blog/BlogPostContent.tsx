@@ -12,8 +12,10 @@ import {
   BLOG_H4_CLASSES,
   BLOG_PARAGRAPH_CLASSES,
   BLOG_LIST_ITEM_CLASSES,
+  FOCUS_STYLES,
 } from '@/constants/styles';
-import { addSeparatorsToSections } from '@/utils/blogHelpers';
+import { addSeparatorsToSections, slugifyHeading } from '@/utils/blogHelpers';
+import { getLinkIcon, type LinkIconType } from '@/components/shared/LinkIcons';
 
 interface BlogPostContentProps {
   sections: BlogPostSection[];
@@ -52,10 +54,12 @@ function HeadingSection({
   onMouseEnter,
   onMouseLeave,
   isDimmed,
+  seenSlugs,
 }: BlogPostSection & {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   isDimmed?: boolean;
+  seenSlugs?: Map<string, number>;
 }) {
   if (!content) return null;
 
@@ -66,10 +70,9 @@ function HeadingSection({
     4: BLOG_H4_CLASSES,
   };
 
-  const id = content
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '');
+  // Fallback to new Map if not provided (shouldn't happen in practice)
+  const slugMap = seenSlugs || new Map<string, number>();
+  const id = slugifyHeading(content, slugMap);
 
   const className = clsx(
     headingClasses[level as 1 | 2 | 3 | 4],
@@ -77,40 +80,25 @@ function HeadingSection({
     isDimmed && 'opacity-40',
   );
 
-  if (level === 1) {
-    return (
-      <h1 className={className} id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {content}
-      </h1>
-    );
-  }
-  if (level === 2) {
-    return (
-      <h2 className={className} id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {content}
-      </h2>
-    );
-  }
-  if (level === 3) {
-    return (
-      <h3 className={className} id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {content}
-      </h3>
-    );
-  }
-  if (level === 4) {
-    return (
-      <h4 className={className} id={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        {content}
-      </h4>
-    );
-  }
-
-  return (
-    <h2 className={headingClasses[2]} id={id}>
+  // Wrapper for heading to make it focusable
+  const headingContent = (Tag: 'h1' | 'h2' | 'h3' | 'h4') => (
+    <Tag
+      id={id}
+      className={clsx(className, FOCUS_STYLES.COMPACT)}
+      tabIndex={-1}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {content}
-    </h2>
+    </Tag>
   );
+
+  if (level === 1) return headingContent('h1');
+  if (level === 2) return headingContent('h2');
+  if (level === 3) return headingContent('h3');
+  if (level === 4) return headingContent('h4');
+
+  return headingContent('h2');
 }
 
 function ParagraphSection({ content }: BlogPostSection) {
@@ -221,61 +209,6 @@ function TechGridSection({ techStack }: BlogPostSection) {
 function LinksSection({ links }: BlogPostSection) {
   if (!links || links.length === 0) return null;
 
-  const getIconForType = (type: 'github' | 'demo' | 'external' | 'figma') => {
-    switch (type) {
-      case 'github':
-        return (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path
-              fillRule="evenodd"
-              d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        );
-      case 'figma':
-        return (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 12a4 4 0 1 1 8 0 4 4 0 0 1-8 0zm-4-4a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 0a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 12a4 4 0 1 0 0-8v8zm4-12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
-          </svg>
-        );
-      case 'demo':
-        return (
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
-        );
-      default:
-        return (
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
-        );
-    }
-  };
-
   return (
     <div className="my-8" role="group" aria-label="Related links">
       <div className="flex flex-wrap gap-4 justify-center">
@@ -287,8 +220,8 @@ function LinksSection({ links }: BlogPostSection) {
             rel="noopener noreferrer"
             variant="outline"
             color="secondary"
-            icon={getIconForType(link.type)}
-            aria-label={`${link.text} (opens in new tab)`}
+            icon={getLinkIcon(link.type as LinkIconType)}
+            aria-label={`${link.text}`}
           >
             {link.text}
           </Button>
@@ -568,6 +501,9 @@ export default function BlogPostContent({
   tableOfContents,
   metadata,
 }: BlogPostContentProps) {
+  // Create slug de-duplication map scoped to this post render
+  const seenSlugs = new Map<string, number>();
+
   const sectionsWithSeparators = addSeparatorsToSections(sections);
 
   let tocStartIndex = -1;
@@ -601,6 +537,7 @@ export default function BlogPostContent({
               <SectionComponent
                 key={stableKey}
                 {...section}
+                seenSlugs={seenSlugs}
                 {...(section.type === 'game-showcase' || section.type === 'design-showcase'
                   ? {
                       subtitle: metadata?.subtitle,
@@ -646,6 +583,7 @@ export default function BlogPostContent({
                 <SectionComponent
                   key={stableKey}
                   {...section}
+                  seenSlugs={seenSlugs}
                   {...(section.type === 'game-showcase' || section.type === 'design-showcase'
                     ? {
                         subtitle: metadata?.subtitle,
