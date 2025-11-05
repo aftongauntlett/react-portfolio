@@ -13,6 +13,19 @@ interface LinkButtonProps {
 }
 
 /**
+ * Generate descriptive aria-label for link buttons based on type
+ */
+function getDefaultAriaLabel(type: LinkIconType): string {
+  const labels: Record<LinkIconType, string> = {
+    github: 'View GitHub repository',
+    figma: 'View Figma design',
+    demo: 'View live demo',
+    external: 'View external link',
+  };
+  return labels[type];
+}
+
+/**
  * Factory component for link buttons with appropriate icons and security attributes.
  * Automatically adds target="_blank" and rel="noopener noreferrer" for external links.
  */
@@ -37,7 +50,7 @@ export function LinkButton({
         color={color}
         icon={icon}
         className={className}
-        aria-label={`View on ${type}`}
+        aria-label={getDefaultAriaLabel(type)}
         {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
       />
     );
