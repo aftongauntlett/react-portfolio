@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import ErrorBoundary from './components/shared/ErrorBoundary';
-import { JobContactProvider } from './context/JobContactContext';
 import { LenisProvider } from './context/LenisContext';
 import Layout from './components/layout/Layout';
 
@@ -29,29 +28,27 @@ export default function App() {
       <LazyMotion features={domAnimation} strict>
         <BrowserRouter>
           <LenisProvider>
-            <JobContactProvider>
-              <Suspense fallback={<LoadingFallback />}>
-                <Routes>
-                  {/* Main portfolio route with full layout */}
-                  <Route
-                    path="/"
-                    element={
-                      <Layout>
-                        <Home />
-                      </Layout>
-                    }
-                  />
-                  {/* Standalone post-mortem pages (no layout/sidenav - for external links only) */}
-                  <Route path="/blog/js13k-2025-post-mortem" element={<JS13kPostMortem />} />
-                  <Route
-                    path="/blog/orbital-order-post-mortem"
-                    element={<OrbitalOrderPostMortem />}
-                  />
-                  {/* All main navigation handled via hash routes in Home page */}
-                  {/* /#about, /#projects, etc. */}
-                </Routes>
-              </Suspense>
-            </JobContactProvider>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                {/* Main portfolio route with full layout */}
+                <Route
+                  path="/"
+                  element={
+                    <Layout>
+                      <Home />
+                    </Layout>
+                  }
+                />
+                {/* Standalone post-mortem pages (no layout/sidenav - for external links only) */}
+                <Route path="/blog/js13k-2025-post-mortem" element={<JS13kPostMortem />} />
+                <Route
+                  path="/blog/orbital-order-post-mortem"
+                  element={<OrbitalOrderPostMortem />}
+                />
+                {/* All main navigation handled via hash routes in Home page */}
+                {/* /#about, /#projects, etc. */}
+              </Routes>
+            </Suspense>
           </LenisProvider>
         </BrowserRouter>
       </LazyMotion>

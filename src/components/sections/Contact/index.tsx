@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, type ChangeEvent, type FormEvent } from 'react';
+import { useState, useRef, type ChangeEvent, type FormEvent } from 'react';
 import { m } from 'framer-motion';
 import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
-import { useJobContact } from '@/context/JobContactContext';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 
 interface FormData {
@@ -31,7 +30,6 @@ const FORM_SUBMIT_TIMEOUT_MS = 8000;
 const RETRY_BASE_DELAY_MS = 1000;
 
 export default function ContactSection() {
-  const { jobData, clearJobData } = useJobContact();
   const prefersReducedMotion = usePrefersReducedMotion();
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -49,24 +47,6 @@ export default function ContactSection() {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-
-  // Function to generate prefilled message for job inquiries
-  const generateJobMessage = (jobTitle: string, company: string) => {
-    return `Hello! I think you would be a great fit for the ${jobTitle} position at ${company}. I'd love to connect and see if there's an opportunity to chat.`;
-  };
-
-  // Handle job data prefilling
-  useEffect(() => {
-    if (jobData) {
-      const prefillMessage = generateJobMessage(jobData.jobTitle, jobData.company);
-      setFormData((prev) => ({
-        ...prev,
-        message: prefillMessage,
-      }));
-      // Clear the job data after prefilling
-      clearJobData();
-    }
-  }, [jobData, clearJobData]);
 
   // Simple email validation
   const isValidEmail = (email: string): boolean => {
