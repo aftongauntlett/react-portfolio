@@ -5,7 +5,6 @@ import SideNav from '../index';
 import * as ScrollUtils from '@/utils/scroll';
 import * as LenisContext from '@/context/LenisContext';
 import * as ThemeContext from '@/context/ThemeContext';
-import * as DetailViewContext from '@/context/DetailViewContext';
 import * as ActiveSectionHook from '@/hooks/useActiveSection';
 import type Lenis from 'lenis';
 
@@ -22,7 +21,6 @@ describe('SideNav', () => {
   let mockLenis: Lenis;
   let smoothScrollToSpy: ReturnType<typeof vi.spyOn>;
   let historyReplaceStateSpy: ReturnType<typeof vi.spyOn>;
-  let mockSetDetailView: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     // Mock Lenis instance
@@ -36,18 +34,11 @@ describe('SideNav', () => {
     // Spy on history.replaceState
     historyReplaceStateSpy = vi.spyOn(window.history, 'replaceState').mockImplementation(() => {});
 
-    // Mock setDetailView
-    mockSetDetailView = vi.fn();
-
     // Mock context hooks
     vi.spyOn(LenisContext, 'useLenisContext').mockReturnValue({ lenis: mockLenis });
     vi.spyOn(ThemeContext, 'useTheme').mockReturnValue({
       theme: 'light',
       toggleTheme: vi.fn(),
-    });
-    vi.spyOn(DetailViewContext, 'useDetailView').mockReturnValue({
-      detailView: null,
-      setDetailView: mockSetDetailView,
     });
     vi.spyOn(ActiveSectionHook, 'useActiveSection').mockReturnValue('about');
 
@@ -96,22 +87,7 @@ describe('SideNav', () => {
     expect(historyReplaceStateSpy).toHaveBeenCalledWith(null, '', '#projects');
   });
 
-  it('calls setDetailView(null) when navigating to close detail view', () => {
-    // Mock with detail view open
-    vi.spyOn(DetailViewContext, 'useDetailView').mockReturnValue({
-      detailView: { type: 'post-mortem', slug: 'test-game', title: 'Test Game' },
-      setDetailView: mockSetDetailView,
-    });
-
-    render(<SideNav />);
-
-    const contactLink = screen.getByText('Contact').closest('a');
-    fireEvent.click(contactLink!);
-
-    expect(mockSetDetailView).toHaveBeenCalledWith(null);
-  });
-
-  it('focuses heading element when it exists with tabIndex -1', () => {
+  it('handles keyboard navigation', () => {
     const mockHeading = document.createElement('h2');
     mockHeading.id = 'skills-heading';
     mockHeading.tabIndex = -1;

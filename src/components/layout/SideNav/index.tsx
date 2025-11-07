@@ -3,10 +3,8 @@ import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
-import { useDetailView } from '@/context/DetailViewContext';
 import { useLenisContext } from '@/context/LenisContext';
 import { navItems } from '../../../constants/navigation';
-import { games } from '@/data/games';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { smoothScrollTo } from '@/utils/scroll';
 import { FaLinkedin } from 'react-icons/fa';
@@ -19,7 +17,6 @@ import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersRe
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
-  const { detailView, setDetailView } = useDetailView();
   const { lenis } = useLenisContext();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [announcement, setAnnouncement] = useState('');
@@ -80,24 +77,9 @@ export default function SideNav() {
         <nav aria-label="Main navigation" className="mt-8 space-y-5">
           {navItems.map(({ id, label }) => {
             const isActive = activeSection === id;
-            const isProjectsSection = id === 'projects';
-            const showNestedItem = isProjectsSection && detailView;
-
-            // Get the nested item title based on detail view type
-            let nestedItemTitle = '';
-            if (showNestedItem && detailView) {
-              if (detailView.type === 'post-mortem') {
-                // Find game by blogSlug
-                const game = games.find((g) => g.blogSlug === detailView.slug);
-                nestedItemTitle = game?.title || detailView.title;
-              }
-            }
 
             // Helper function for navigation
             const navigateTo = (targetId: string) => {
-              // Close detail view when navigating to top-level section
-              setDetailView(null);
-
               // Smooth scroll to target
               smoothScrollTo({ target: targetId, offset: 80 }, lenis);
 
@@ -136,9 +118,9 @@ export default function SideNav() {
                     'relative group block pl-4 text-base',
                     TRANSITION_FAST,
                     // ::before indicator
-                    'before:content-["" ] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
+                    'before:content-[""] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
                     'before:opacity-0 before:transition-all before:duration-200',
-                    isActive || showNestedItem
+                    isActive
                       ? 'text-[var(--color-primary)] before:opacity-100 font-semibold'
                       : 'text-[var(--color-text)] before:opacity-0',
                     'md:hover:text-[var(--color-primary)] md:hover:before:opacity-100',
@@ -147,14 +129,6 @@ export default function SideNav() {
                 >
                   {label}
                 </a>
-
-                {showNestedItem && nestedItemTitle && (
-                  <div className="ml-6 mt-2">
-                    <span className="text-sm text-[var(--color-muted)] block pl-4 relative before:content-['→'] before:absolute before:left-0">
-                      {nestedItemTitle}
-                    </span>
-                  </div>
-                )}
               </div>
             );
           })}

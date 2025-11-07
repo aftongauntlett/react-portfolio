@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDetailView } from '@/context/DetailViewContext';
 
 let globalObserver: IntersectionObserver | null = null;
 let activeCallbacks = new Set<(id: string) => void>();
@@ -84,7 +83,6 @@ function initializeGlobalObserver() {
 
 export function useActiveSection() {
   const [activeSection, setActiveSection] = useState<string>('about');
-  const { detailView } = useDetailView();
 
   useEffect(() => {
     initializeGlobalObserver();
@@ -99,39 +97,6 @@ export function useActiveSection() {
       }
     };
   }, []);
-
-  // Pause the observer when detail view is open, resume when closed
-  useEffect(() => {
-    if (detailView) {
-      isPaused = true;
-      // Keep the active section as 'projects' when detail view is open
-      setActiveSection('projects');
-      return;
-    }
-
-    // When closing detail view, wait for scroll animation to complete, then resume observer
-    const resumeTimeout = setTimeout(() => {
-      // Set isPaused to false before re-observing sections
-      isPaused = false;
-
-      // Schedule re-observation after layout settles
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Disconnect and re-initialize for truly fresh observer state
-          if (globalObserver) {
-            globalObserver.disconnect();
-            globalObserver = null;
-            observedSections.clear();
-          }
-
-          // Re-initialize the observer with fresh state
-          initializeGlobalObserver();
-        });
-      });
-    }, 500);
-
-    return () => clearTimeout(resumeTimeout);
-  }, [detailView]);
 
   return activeSection;
 }

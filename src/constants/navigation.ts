@@ -26,6 +26,6 @@ export const externalNavItems: ExternalNavItem[] = [
     label: 'Game Development',
     href: '/gamedev',
     description:
-      'Interactive games and development insights. Features playable JS13k competition entries with detailed post-mortems covering game design, physics simulation, creative coding under constraints, and lessons learned.',
+      'Interactive games and development insights. Features playable JS13k competition entries covering game design, physics simulation, creative coding under constraints, and lessons learned.',
   },
 ];
