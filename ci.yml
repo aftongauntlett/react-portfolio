@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,3 +20,7 @@ jobs:
       - run: npm run lint
       - run: npm run test:run
       - run: npm run build
+      - run: npm run lighthouse
+        continue-on-error: true
+      - run: npm run lighthouse:mobile
+        continue-on-error: true

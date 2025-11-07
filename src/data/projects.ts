@@ -47,14 +47,14 @@ export const projects: Project[] = [
     demo: 'https://potomacdining.com/',
   },
   {
-    title: 'Nyx Felis & Lampyrus - JS13k Games Entry',
+    title: 'Nyx Felis & Lampyris - JS13k Games Entry',
     status: 'Production',
     description:
       'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game. Built to explore creative coding and constraint-driven development while demonstrating follow-through, polish, and efficient code craftsmanship.',
     tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Particle Systems'],
     link: 'https://github.com/aftongauntlett/js13k-2025',
-    gameDemo: 'https://nyx-felis.aftongauntlett.com',
-    demo: 'https://js13kgames.com/2025/games/nyx-felis-and-lampyrus',
+
+    demo: 'https://js13kgames.com/2025/games/nyx-felis-and-lampyris',
     external: true,
   },
 ];
