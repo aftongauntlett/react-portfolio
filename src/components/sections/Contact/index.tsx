@@ -149,11 +149,11 @@ export default function ContactSection() {
 
     setStatus({ type: 'loading', message: 'Sending message...' });
 
-    // Create AbortController for timeout
-    const abortController = new AbortController();
-    const timeoutId = setTimeout(() => abortController.abort(), FORM_SUBMIT_TIMEOUT_MS);
-
     const attemptSubmit = async (retryCount = 0): Promise<void> => {
+      // Create new AbortController and timeout for each attempt
+      const abortController = new AbortController();
+      const timeoutId = setTimeout(() => abortController.abort(), FORM_SUBMIT_TIMEOUT_MS);
+
       try {
         const response = await fetch('https://formspree.io/f/mpwldyrq', {
           method: 'POST',
@@ -169,8 +169,6 @@ export default function ContactSection() {
           }),
           signal: abortController.signal,
         });
-
-        clearTimeout(timeoutId);
 
         if (response.ok) {
           setStatus({
@@ -195,8 +193,6 @@ export default function ContactSection() {
           throw new Error(`Server error: ${response.status}`);
         }
       } catch (error) {
-        clearTimeout(timeoutId);
-
         // Handle abort (timeout)
         if (error instanceof Error && error.name === 'AbortError') {
           console.error('Form submission timeout');
@@ -222,6 +218,9 @@ export default function ContactSection() {
           type: 'error',
           message: 'Failed to send message. Please try again or email me directly.',
         });
+      } finally {
+        // Always clear timeout after attempt completes
+        clearTimeout(timeoutId);
       }
     };
 
