@@ -1,16 +1,20 @@
+import { useState } from 'react';
 import type { ChangeEvent } from 'react';
+import { m } from 'framer-motion';
 import clsx from 'clsx';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { TYPOGRAPHY } from '@/constants/typography';
 
 const inputBaseClass = `
   mt-1 block w-full rounded-md
-  border border-[var(--color-line)]
+  border-2 border-[var(--color-line)]
   px-3 py-2
   text-[var(--color-text)]
   placeholder-[var(--color-muted)]
-  focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]
+  focus:outline-none focus:border-[var(--color-primary)]
   disabled:opacity-50 disabled:cursor-not-allowed
   bg-[var(--color-surface)]
+  transition-colors duration-200
 `;
 
 interface FormFieldProps {
@@ -44,15 +48,38 @@ export function FormField({
   showCounter = true,
   spellCheck = false,
 }: FormFieldProps) {
+  const [isFocused, setIsFocused] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  // Label animation props
+  const labelMotionProps = prefersReducedMotion
+    ? {}
+    : {
+        animate: {
+          scale: isFocused ? 1.02 : 1,
+          color: isFocused ? 'var(--color-primary)' : 'var(--color-text)',
+        },
+        transition: { type: 'spring' as const, stiffness: 300, damping: 25 },
+      };
+
   return (
     <div className="space-y-1">
-      <label
+      <m.label
         htmlFor={name}
-        className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)]`}
+        className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium`}
+        {...labelMotionProps}
       >
         {label}
         {optional && <span className="text-[var(--color-muted)] font-normal"> (optional)</span>}
-      </label>
+      </m.label>
       <input
         type={type}
         id={name}
@@ -60,11 +87,13 @@ export function FormField({
         required={required}
         value={value}
         onChange={onChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         disabled={disabled}
         placeholder={placeholder}
         maxLength={maxLength}
         spellCheck={spellCheck}
-        className={clsx(inputBaseClass, error && 'border-red-500 focus:ring-red-500')}
+        className={clsx(inputBaseClass, error && 'border-red-500 focus:border-red-500')}
       />
       {error && <p className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}>{error}</p>}
       {showCounter && maxLength && (
@@ -103,14 +132,37 @@ export function TextAreaField({
   disabled = false,
   error,
 }: TextAreaFieldProps) {
+  const [isFocused, setIsFocused] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  // Label animation props
+  const labelMotionProps = prefersReducedMotion
+    ? {}
+    : {
+        animate: {
+          scale: isFocused ? 1.02 : 1,
+          color: isFocused ? 'var(--color-primary)' : 'var(--color-text)',
+        },
+        transition: { type: 'spring' as const, stiffness: 300, damping: 25 },
+      };
+
   return (
     <div className="space-y-1">
-      <label
+      <m.label
         htmlFor={name}
-        className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium text-[var(--color-text)]`}
+        className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium`}
+        {...labelMotionProps}
       >
         {label}
-      </label>
+      </m.label>
       <textarea
         id={name}
         name={name}
@@ -118,10 +170,12 @@ export function TextAreaField({
         required={required}
         value={value}
         onChange={onChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         disabled={disabled}
         placeholder={placeholder}
         maxLength={maxLength}
-        className={clsx(inputBaseClass, error && 'border-red-500 focus:ring-red-500')}
+        className={clsx(inputBaseClass, error && 'border-red-500 focus:border-red-500')}
       />
       {error && <p className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}>{error}</p>}
       {maxLength && (
