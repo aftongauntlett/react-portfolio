@@ -99,7 +99,7 @@ export default function ProjectsSection() {
       {/* All Projects */}
       {projects.map(
         (
-          { title, status, description, tech, link, demo, external, lastUpdated, postMortem },
+          { title, status, description, tech, link, demo, gameDemo, external, lastUpdated },
           idx,
         ) => (
           <MotionSection
@@ -159,42 +159,31 @@ export default function ProjectsSection() {
               role="group"
               aria-label="Project links"
             >
-              {postMortem ? (
-                // If project has a post-mortem, show repo and post-mortem buttons
-                <>
-                  {link && link !== '#' && (
-                    <LinkButton type="github" href={link} variant="outline" color="primary">
-                      View Repo
-                    </LinkButton>
-                  )}
-                  <Button href={postMortem} variant="solid" color="secondary">
-                    Read Post-Mortem
-                  </Button>
-                </>
-              ) : (
-                // If no post-mortem, show standard repo and demo buttons
-                <>
-                  {link && link !== '#' ? (
-                    <LinkButton type="github" href={link} variant="outline" color="primary">
-                      View Repo
-                    </LinkButton>
-                  ) : link === '#' ? (
-                    <Button
-                      disabled
-                      variant="outline"
-                      color="muted"
-                      aria-label="Source code not publicly available"
-                    >
-                      Private Repo
-                    </Button>
-                  ) : null}
+              {link && link !== '#' ? (
+                <LinkButton type="github" href={link} variant="outline" color="primary">
+                  View Repo
+                </LinkButton>
+              ) : link === '#' ? (
+                <Button
+                  disabled
+                  variant="outline"
+                  color="muted"
+                  aria-label="Source code not publicly available"
+                >
+                  Private Repo
+                </Button>
+              ) : null}
 
-                  {demo && demo !== '#' && (
-                    <LinkButton type="external" href={demo} variant="solid" color="secondary">
-                      {external ? 'View Collection' : 'View Live'}
-                    </LinkButton>
-                  )}
-                </>
+              {demo && demo !== '#' && (
+                <LinkButton type="external" href={demo} variant="outline" color="secondary">
+                  {external ? 'View Live' : 'View Live'}
+                </LinkButton>
+              )}
+
+              {gameDemo && (
+                <LinkButton type="external" href={gameDemo} variant="solid" color="secondary">
+                  Play Game
+                </LinkButton>
               )}
             </div>
           </MotionSection>

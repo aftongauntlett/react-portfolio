@@ -5,9 +5,9 @@ export type Project = {
   tech: string[];
   link?: string;
   demo?: string;
+  gameDemo?: string; // For standalone game demos (separate from competition pages)
   external?: boolean; // For projects that open in new tab
   lastUpdated?: string; // For external collections
-  postMortem?: string; // Link to blog post-mortem (for games)
 };
 
 export const projects: Project[] = [
@@ -47,23 +47,14 @@ export const projects: Project[] = [
     demo: 'https://potomacdining.com/',
   },
   {
-    title: 'Nyx Felis & Lampyrus',
+    title: 'Nyx Felis & Lampyrus - JS13k Games Entry',
     status: 'Production',
     description:
-      'JS13k 2025 competition entry - a calm, atmospheric collector with timing mechanics. Guide fireflies, evolve them with well-timed shields, and keep Nyx curious through the night. Built in vanilla JavaScript with Canvas 2D, procedural Web Audio, and particle effects under 13KB.',
+      'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game. Built to explore creative coding and constraint-driven development while demonstrating follow-through, polish, and efficient code craftsmanship.',
     tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Particle Systems'],
     link: 'https://github.com/aftongauntlett/js13k-2025',
-    demo: 'https://nyx-felis.aftongauntlett.com',
-    postMortem: '#projects/game-dev/js13k-2025-post-mortem',
-  },
-  {
-    title: 'Orbital Order',
-    status: 'Production',
-    description:
-      'JS13k 2025 practice project - a physics-based puzzle about guiding electrons into atomic orbitals following real chemistry rules. Features procedural audio, smooth particle motion, and orbital mechanics. Built in vanilla JavaScript under 13KB as a warm-up challenge.',
-    tech: ['JavaScript', 'Canvas 2D', 'Physics Simulation', 'Procedural Audio'],
-    link: 'https://github.com/aftongauntlett/js13k-demo',
-    demo: 'https://orbital-order.aftongauntlett.com',
-    postMortem: '#projects/game-dev/orbital-order-post-mortem',
+    gameDemo: 'https://nyx-felis.aftongauntlett.com',
+    demo: 'https://js13kgames.com/2025/games/nyx-felis-and-lampyrus',
+    external: true,
   },
 ];

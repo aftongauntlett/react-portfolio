@@ -409,6 +409,8 @@ div[role='button']:focus-visible {
 .btn--solid.btn--secondary:hover {
   background-color: var(--color-secondary-darker);
   border-color: var(--color-secondary-darker);
+  /* Invert text color on hover for better contrast: white in light mode, dark in dark mode */
+  color: var(--color-text) !important;
 }
 
 .btn--solid.btn--muted {

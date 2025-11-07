@@ -23,11 +23,3 @@ export const TEXT_SM_CLASSES = `${TYPOGRAPHY.TEXT_SMALL} transition-colors durat
 
 // Re-export typography constants for easy access
 export { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS };
-
-// Post-Mortem Content Typography Classes (using consistent typography system)
-export const BLOG_H1_CLASSES = `${TYPOGRAPHY.TITLE} mt-0 mb-8 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default`;
-export const BLOG_H2_CLASSES = `${TYPOGRAPHY.HEADING_2} mt-16 mb-6 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default`;
-export const BLOG_H3_CLASSES = `${TYPOGRAPHY.SUBTITLE} mt-12 mb-4 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default`;
-export const BLOG_H4_CLASSES = `${TYPOGRAPHY.TEXT_LARGE} font-medium mt-8 mb-3 text-[var(--color-text)] transition-colors duration-300 hover:text-[var(--color-secondary)] cursor-default`;
-export const BLOG_PARAGRAPH_CLASSES = `${TEXT_COMBINATIONS.BODY_RELAXED} text-[var(--color-text)] mb-8`;
-export const BLOG_LIST_ITEM_CLASSES = `${TEXT_COMBINATIONS.BODY_RELAXED} text-[var(--color-text)]`;
