@@ -4,7 +4,6 @@ import { m } from 'framer-motion';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
 import { fadeInUp, staggerContainer } from '@/constants/animations';
 import clsx from 'clsx';
-import headshotImage from '@/assets/afton-headshot.webp';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 const aboutParagraphs = [
@@ -79,7 +78,7 @@ export default function AboutSection() {
         >
           {/* Light Mode: Color Image */}
           <img
-            src={headshotImage}
+            src="/afton-headshot.webp"
             alt="Afton Gauntlett - Frontend Engineer"
             className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 dark:hidden"
             loading="eager"
@@ -90,7 +89,7 @@ export default function AboutSection() {
           <div className="hidden dark:block absolute inset-0">
             {/* Base Grayscale Image */}
             <img
-              src={headshotImage}
+              src="/afton-headshot.webp"
               alt="Afton Gauntlett - Frontend Engineer"
               className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 grayscale"
               loading="eager"
@@ -105,7 +104,7 @@ export default function AboutSection() {
               }}
             >
               <img
-                src={headshotImage}
+                src="/afton-headshot.webp"
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50"
                 loading="eager"

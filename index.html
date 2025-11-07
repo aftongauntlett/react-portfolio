@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Preload LCP image for better performance -->
-    <link rel="preload" as="image" href="/src/assets/afton-headshot.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/afton-headshot.webp" fetchpriority="high" />
 
     <!-- Optimized Google Fonts with font-display optional for no flash -->
     <link
@@ -188,16 +188,6 @@
     </style>
   </head>
   <body>
-    <!-- Prevent theme flash by setting theme before React loads -->
-    <script>
-      (function () {
-        const stored = localStorage.getItem('theme');
-        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-        const theme = stored || (prefersLight ? 'light' : 'dark');
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-      })();
-    </script>
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

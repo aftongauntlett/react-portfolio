@@ -78,17 +78,18 @@ export const Button: React.FC<ButtonProps> = (props) => {
   // Enhanced accessibility for icon-only buttons
   const isIconOnly = icon && !children;
 
-  // Require explicit aria-label for icon-only buttons in development
+  // Require explicit aria-label for icon-only buttons
   if (isIconOnly && !ariaLabel) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error(
-        'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.',
-      );
+    const errorMessage =
+      'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.';
+
+    if (process.env.NODE_ENV !== 'production') {
+      // Throw in development and test to catch issues early
+      throw new Error(errorMessage);
+    } else {
+      // Log error in production but don't throw to avoid runtime crashes
+      console.error(errorMessage);
     }
-    // Optionally, you could throw an error instead of just logging:
-    throw new Error(
-      'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.',
-    );
   }
 
   const effectiveAriaLabel = ariaLabel;

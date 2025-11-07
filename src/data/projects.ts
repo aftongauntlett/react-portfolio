@@ -15,7 +15,7 @@ export const projects: Project[] = [
     title: 'Personal Portfolio',
     status: 'Production',
     description:
-      'Built a fully accessible, custom-themed portfolio and reusable component library using React 19, Vite, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and modern development practices with comprehensive testing. Uses Claude Opus 4 and Sonnet 4 via GitHub Copilot Pro+ (2025 release) for deep code generation and debugging.',
+      'Built a fully accessible, custom-themed portfolio and reusable component library using React 19, Vite, TypeScript, and Tailwind CSS. Features dark/light mode, smooth animations, and modern development practices with comprehensive testing. Designed to showcase frontend architecture and component design patterns.',
     tech: ['React 19', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://github.com/aftongauntlett/react-portfolio',
   },
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     title: 'NPC Finder',
     status: 'In Development',
     description:
-      'Invite-only networking platform for connecting professionals through discoverable contact cards. Built with React 19, TypeScript, and Supabase featuring real-time updates, Row Level Security policies, and a custom theming system. Implements spec-driven development workflow using Traycer.AI for planning paired with Claude Sonnet 4.5 via GitHub Copilot for execution. Features forward-only database migrations, comprehensive test coverage with Vitest, and scalable architecture designed for production deployment.',
+      'Invite-only networking platform for connecting professionals through discoverable contact cards. Built with React 19, TypeScript, and Supabase featuring real-time updates, Row Level Security policies, and a custom theming system. Implements spec-driven development workflow with forward-only database migrations, comprehensive test coverage, and scalable architecture designed for production deployment.',
     tech: ['React 19', 'TypeScript', 'Supabase', 'PostgreSQL', 'Vite', 'Tailwind CSS', 'Vitest'],
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',

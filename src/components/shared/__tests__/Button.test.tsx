@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Button } from '@/components/shared/Button';
 import { FaGithub } from 'react-icons/fa';
 
@@ -40,11 +40,28 @@ describe('Button Component', () => {
       expect(button).toBeInTheDocument();
     });
 
-    it('should throw error when icon-only button lacks aria-label', () => {
-      expect(() => {
+    it('should throw error when icon-only button lacks aria-label in development', () => {
+      // Suppress React error boundary console output for this test
+      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      // The Button component throws during render, which React Testing Library catches
+      // We verify the error is thrown by checking that render fails
+      let didThrow = false;
+      try {
         // @ts-expect-error - Testing runtime error for missing aria-label
         render(<Button icon={<FaGithub />} />);
-      }).toThrow('Icon-only Button requires an explicit aria-label');
+      } catch (error) {
+        didThrow = true;
+        expect(error).toBeInstanceOf(Error);
+        expect((error as Error).message).toContain(
+          'Icon-only Button requires an explicit aria-label',
+        );
+      }
+
+      // Verify the error was thrown
+      expect(didThrow).toBe(true);
+
+      consoleError.mockRestore();
     });
 
     it('should not require aria-label when button has children', () => {

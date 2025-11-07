@@ -1,4 +1,4 @@
-import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type ChangeEvent, type FormEvent } from 'react';
 import { m } from 'framer-motion';
 import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
@@ -27,12 +27,13 @@ interface FormErrors {
 }
 
 // Constants for retry/timeout configuration
-const FORM_SUBMIT_TIMEOUT_MS = 12000;
+const FORM_SUBMIT_TIMEOUT_MS = 8000;
 const RETRY_BASE_DELAY_MS = 1000;
 
 export default function ContactSection() {
   const { jobData, clearJobData } = useJobContact();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -152,6 +153,7 @@ export default function ContactSection() {
     const attemptSubmit = async (retryCount = 0): Promise<void> => {
       // Create new AbortController and timeout for each attempt
       const abortController = new AbortController();
+      abortControllerRef.current = abortController;
       const timeoutId = setTimeout(() => abortController.abort(), FORM_SUBMIT_TIMEOUT_MS);
 
       try {
@@ -171,6 +173,7 @@ export default function ContactSection() {
         });
 
         if (response.ok) {
+          abortControllerRef.current = null;
           setStatus({
             type: 'success',
             message: "Message sent successfully! I'll get back to you soon.",
@@ -193,13 +196,22 @@ export default function ContactSection() {
           throw new Error(`Server error: ${response.status}`);
         }
       } catch (error) {
-        // Handle abort (timeout)
+        // Handle abort (timeout or user cancel)
         if (error instanceof Error && error.name === 'AbortError') {
+          // Check if it was user-initiated cancel
+          if (abortControllerRef.current === null) {
+            setStatus({
+              type: 'idle',
+              message: '',
+            });
+            return;
+          }
           console.error('Form submission timeout');
           setStatus({
             type: 'error',
             message: 'Request timed out. Please try again or email me directly.',
           });
+          abortControllerRef.current = null;
           return;
         }
 
@@ -208,12 +220,19 @@ export default function ContactSection() {
           const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // Exponential backoff: 1s for first retry, 2s for second retry
           console.log(`Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`);
 
+          // Update status with retry message
+          setStatus({
+            type: 'loading',
+            message: `Retrying (${retryCount + 2}/3)...`,
+          });
+
           await new Promise((resolve) => setTimeout(resolve, backoffDelay));
           return attemptSubmit(retryCount + 1);
         }
 
         // All retries exhausted
         console.error('Form submission error:', error);
+        abortControllerRef.current = null;
         setStatus({
           type: 'error',
           message: 'Failed to send message. Please try again or email me directly.',
@@ -225,6 +244,14 @@ export default function ContactSection() {
     };
 
     await attemptSubmit();
+  };
+
+  const handleCancel = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setStatus({ type: 'idle', message: '' });
   };
 
   const isLoading = status.type === 'loading';
@@ -386,7 +413,12 @@ export default function ContactSection() {
             </div>
           )}
 
-          <div className="flex justify-end pt-3">
+          <div className="flex justify-end gap-3 pt-3">
+            {isLoading && (
+              <Button type="button" onClick={handleCancel} variant="outline" color="muted">
+                Cancel
+              </Button>
+            )}
             <Button
               type="submit"
               disabled={isLoading || !isFormReady()}

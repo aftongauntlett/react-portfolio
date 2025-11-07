@@ -11,6 +11,11 @@ export function useLenis() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Guard against SSR - Lenis requires window/DOM
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     // Check if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
