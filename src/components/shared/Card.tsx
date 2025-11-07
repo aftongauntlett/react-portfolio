@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import type { ReactNode, KeyboardEvent } from 'react';
+import { m } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import {
   CARD_BASE_CLASSES,
   TITLE_HOVER_CLASSES,
@@ -39,6 +41,7 @@ export default function Card({
   onMouseLeave,
   subtitleColor = 'muted',
 }: CardProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const isInteractive = !!(link || className?.includes('cursor-pointer'));
 
   // Handle keyboard interaction for clickable cards
@@ -49,7 +52,23 @@ export default function Card({
     }
   };
 
-  const CardComponent = link ? 'a' : 'article';
+  // Micro-interaction animations (respects prefers-reduced-motion)
+  const motionProps = prefersReducedMotion
+    ? {}
+    : {
+        whileHover: {
+          y: -4,
+          transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
+        },
+        whileTap: isInteractive
+          ? {
+              scale: 0.98,
+              transition: { type: 'spring' as const, stiffness: 400, damping: 25 },
+            }
+          : undefined,
+      };
+
+  const CardComponent = link ? m.a : m.article;
   const cardProps = link
     ? {
         href: link,
@@ -91,6 +110,7 @@ export default function Card({
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      {...motionProps}
       {...cardProps}
     >
       <div className="flex flex-col justify-between h-full">
