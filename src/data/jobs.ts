@@ -64,15 +64,4 @@ export const jobs: Job[] = [
       'Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.',
     ],
   },
-  {
-    title: 'TechOps Manager',
-    company: 'MAGFest (Volunteer)',
-    dates: '01/2010 – 01/2020',
-    location: 'Hybrid',
-    description: [
-      'Managed technical operations for 20,000+ attendee gaming festival, managing a 200+ volunteer team across multiple venues and four-day events.',
-      'Coordinated schedules, logistics, and staff support to ensure seamless operation year after year.',
-      'Built and improved internal tools and microsites using HTML, CSS, and JavaScript, adapting to new themes each year.',
-    ],
-  },
 ];
