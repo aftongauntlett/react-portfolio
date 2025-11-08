@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import type { MouseEvent } from 'react';
 import { m } from 'framer-motion';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
@@ -54,6 +54,16 @@ export default function AboutSection() {
       rafRef.current = null;
     });
   };
+
+  // Cleanup RAF on unmount to prevent setState after unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, []);
 
   // Memoize rendered paragraphs since they don't change
   const renderedParagraphs = useMemo(
