@@ -14,7 +14,21 @@ vi.mock('framer-motion', () => ({
     div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
       <div {...props}>{children}</div>
     ),
+    button: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <button {...props}>{children}</button>
+    ),
+    a: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <a {...props}>{children}</a>
+    ),
+    article: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <article {...props}>{children}</article>
+    ),
+    label: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <label {...props}>{children}</label>
+    ),
   },
+  LazyMotion: ({ children }: PropsWithChildren) => <>{children}</>,
+  domAnimation: {},
 }));
 
 describe('SideNav', () => {

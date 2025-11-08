@@ -1,4 +1,6 @@
 import React from 'react';
+import { m } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type ButtonVariant = 'solid' | 'outline' | 'link';
 type ButtonColor = 'primary' | 'secondary' | 'muted';
@@ -75,6 +77,8 @@ export const Button: React.FC<ButtonProps> = (props) => {
     ...restProps
   } = props;
 
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   // Enhanced accessibility for icon-only buttons
   const isIconOnly = icon && !children;
 
@@ -111,6 +115,15 @@ export const Button: React.FC<ButtonProps> = (props) => {
     .filter(Boolean)
     .join(' ');
 
+  // Micro-interaction animations (respects prefers-reduced-motion)
+  const motionProps = prefersReducedMotion
+    ? {}
+    : {
+        whileHover: { scale: 1.02 },
+        whileTap: { scale: 0.98 },
+        transition: { type: 'spring' as const, stiffness: 250, damping: 30 },
+      };
+
   if ('href' in props && props.href && !disabled) {
     const { href, target, rel, ...linkProps } = restProps as
       | ButtonWithChildrenAsLink
@@ -121,32 +134,43 @@ export const Button: React.FC<ButtonProps> = (props) => {
     const defaultTarget = isExternal ? '_blank' : undefined;
     const defaultRel = isExternal ? 'noopener noreferrer' : undefined;
 
+    // Extract any conflicting drag props (unused but needed to exclude them)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { onDrag, onDragStart, onDragEnd, ...safeProps } = linkProps as Record<string, unknown>;
+
     return (
-      <a
+      <m.a
         href={href}
         target={target || defaultTarget}
         rel={rel || defaultRel}
         className={buttonClasses}
         aria-label={effectiveAriaLabel}
-        {...linkProps}
+        {...motionProps}
+        {...safeProps}
       >
         {icon && <span aria-hidden="true">{icon}</span>}
         {children}
-      </a>
+      </m.a>
     );
   }
 
-  const buttonProps = restProps as ButtonWithChildrenAsButton | IconOnlyButtonAsButton;
+  const buttonPropsRest = restProps as ButtonWithChildrenAsButton | IconOnlyButtonAsButton;
+  // Extract any conflicting drag props (unused but needed to exclude them)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { onDrag, onDragStart, onDragEnd, ...safeButtonProps } =
+    buttonPropsRest as unknown as Record<string, unknown>;
+
   return (
-    <button
+    <m.button
       className={buttonClasses}
       disabled={disabled}
       aria-label={effectiveAriaLabel}
-      {...buttonProps}
+      {...motionProps}
+      {...safeButtonProps}
     >
       {icon && <span aria-hidden="true">{icon}</span>}
       {children}
-    </button>
+    </m.button>
   );
 };
 

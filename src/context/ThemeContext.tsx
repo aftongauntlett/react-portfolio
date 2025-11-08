@@ -13,8 +13,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme') as Theme | null;
-      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      return stored ?? (prefersLight ? 'light' : 'dark');
+      // Default to dark mode unless user has explicitly chosen light
+      return stored ?? 'dark';
     }
     return 'dark';
   });

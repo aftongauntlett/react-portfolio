@@ -1,10 +1,19 @@
 // Shared style constants to reduce repetition across components
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from './typography';
 
+// Duration class mapping for Tailwind tree-shaking
+const DURATION_CLASSES = {
+  fast: 'duration-200',
+  normal: 'duration-300',
+  slow: 'duration-500',
+  verySlow: 'duration-[800ms]',
+} as const;
+
 // Animation & Transition Classes
-export const TRANSITION_COLORS = 'transition-colors duration-300';
-export const TRANSITION_FAST = 'transition-colors duration-200';
-export const TRANSITION_OPACITY = 'transition-opacity duration-300';
+export const TRANSITION_COLORS = `transition-colors ${DURATION_CLASSES.normal}`;
+export const TRANSITION_FAST = `transition-colors ${DURATION_CLASSES.fast}`;
+export const TRANSITION_OPACITY = `transition-opacity ${DURATION_CLASSES.normal}`;
+export const TRANSITION_CARD_HOVER = `transition-[colors,box-shadow] ${DURATION_CLASSES.normal} ease-out`;
 
 // Common Color Patterns
 export const TEXT_PRIMARY_HOVER =

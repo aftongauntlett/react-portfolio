@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import type { MouseEvent } from 'react';
 import { m } from 'framer-motion';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
@@ -31,17 +31,39 @@ export default function AboutSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Track mouse position relative to image
+  // Track mouse position relative to image (throttled with RAF)
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!imageRef.current) return;
-    const rect = imageRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+
+    // Cancel any pending RAF to prevent stacking
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    // Throttle updates to once per frame
+    rafRef.current = requestAnimationFrame(() => {
+      if (!imageRef.current) return;
+      const rect = imageRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+      rafRef.current = null;
     });
   };
+
+  // Cleanup RAF on unmount to prevent setState after unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, []);
 
   // Memoize rendered paragraphs since they don't change
   const renderedParagraphs = useMemo(
@@ -74,7 +96,14 @@ export default function AboutSection() {
           className="relative h-64 md:h-72 overflow-hidden -mx-4 sm:-mx-6 md:mx-0 md:rounded-lg dark:cursor-none"
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+          onMouseLeave={() => {
+            setIsHovering(false);
+            // Cancel any pending RAF on mouse leave
+            if (rafRef.current !== null) {
+              cancelAnimationFrame(rafRef.current);
+              rafRef.current = null;
+            }
+          }}
         >
           {/* Light Mode: Color Image */}
           <img

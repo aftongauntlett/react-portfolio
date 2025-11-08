@@ -75,7 +75,7 @@ export default function JS13kPostMortem() {
             type="external"
             href="https://nyx-felis.aftongauntlett.com"
             variant="solid"
-            color="secondary"
+            color="primary"
           >
             Play Game
           </LinkButton>

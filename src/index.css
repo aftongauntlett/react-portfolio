@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Subtle bounce animation for availability icon */
+@keyframes subtle-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
 /* Ensure Lenis doesn't conflict with native scroll */
 html.lenis {
   height: auto;
@@ -242,15 +253,6 @@ textarea:-moz-autofill {
     top: 0;
     height: 100vh;
     overflow-y: auto;
-    /* Add subtle sage green tint in light mode for visual separation */
-    background: linear-gradient(to bottom, hsl(177, 20%, 97%), hsl(177, 15%, 98%));
-    border-right: 1px solid hsl(177, 15%, 90%);
-  }
-
-  /* Dark mode sidebar keeps dark background */
-  html.dark .sticky-sidebar {
-    background: hsl(220, 18%, 8%);
-    border-right: none;
   }
 }
 
@@ -349,11 +351,16 @@ div[role='button']:focus-visible {
 /* Button Variants */
 .btn {
   @apply inline-flex items-center justify-center gap-2 rounded px-3 sm:px-4 py-2;
-  @apply font-medium text-sm sm:text-base transition-all duration-300 ease-out shrink-0;
+  @apply font-medium text-sm sm:text-base shrink-0;
   @apply focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2;
   @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
   position: relative;
   overflow: hidden;
+  /* Only transition background and border - avoid color transition for crisp text */
+  transition:
+    background-color 0.2s ease-out,
+    border-color 0.2s ease-out,
+    opacity 0.2s ease-out;
 }
 
 /* Shimmer effect for buttons (but not links) */
@@ -393,12 +400,13 @@ div[role='button']:focus-visible {
 /* Solid Variants */
 .btn--solid.btn--primary {
   @apply bg-[var(--color-primary)] border border-[var(--color-primary)];
-  color: white !important;
+  /* Use dark text for better contrast - especially in dark mode where primary is bright teal */
+  color: var(--color-background) !important;
 }
 
 .btn--solid.btn--primary:hover {
   @apply bg-[var(--color-primary-darker)] border-[var(--color-primary-darker)];
-  color: white !important;
+  color: var(--color-background) !important;
 }
 
 .btn--solid.btn--secondary {
@@ -407,10 +415,10 @@ div[role='button']:focus-visible {
 }
 
 .btn--solid.btn--secondary:hover {
-  background-color: var(--color-secondary-darker);
-  border-color: var(--color-secondary-darker);
-  /* Invert text color on hover for better contrast: white in light mode, dark in dark mode */
-  color: var(--color-text) !important;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  /* Keep white text for contrast */
+  color: white !important;
 }
 
 .btn--solid.btn--muted {
@@ -454,8 +462,8 @@ html.dark .btn--outline.btn--primary {
 
 .btn--outline.btn--secondary:hover {
   @apply bg-[var(--color-secondary)];
-  /* Use text color for contrast against secondary background */
-  color: var(--color-text) !important;
+  /* Dark text for better contrast - #0a0a0a in dark mode, dark gray in light mode */
+  color: var(--color-background) !important;
 }
 
 .btn--outline.btn--muted {
