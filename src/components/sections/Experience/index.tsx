@@ -1,34 +1,29 @@
 import { jobs } from '@/data/jobs';
 import TimelineItem from '@/components/Timeline/TimelineItem';
 import { BulletItem, BulletList } from '@/components/shared/BulletList';
-import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
-import { useLenisContext } from '@/context/LenisContext';
-import { smoothScrollTo } from '@/utils/scroll';
-import { HiCheckCircle, HiXCircle } from 'react-icons/hi2';
+import { HiCheckBadge, HiMinusCircle } from 'react-icons/hi2';
 
 export default function ExperienceSection() {
-  const { lenis } = useLenisContext();
-
   // Toggle this to change availability status
   const isAvailable = true;
 
   const availabilityConfig = {
     available: {
-      icon: HiCheckCircle,
-      iconColor: 'text-green-400',
+      icon: HiCheckBadge,
+      iconColor: 'text-emerald-500',
+      iconBg: 'bg-emerald-500/10',
       title: 'Open to New Opportunities',
       description:
         'Currently seeking frontend engineering roles where I can build scalable UIs, lead technical initiatives, and contribute to high-impact products.',
-      buttonText: 'Get in touch',
     },
     unavailable: {
-      icon: HiXCircle,
-      iconColor: 'text-red-400',
+      icon: HiMinusCircle,
+      iconColor: 'text-[var(--color-muted)]',
+      iconBg: 'bg-[var(--color-muted)]/10',
       title: 'Not Actively Looking',
       description:
         "Currently focused on my role, but I'm always happy to chat about interesting projects, collaboration opportunities, or just connect with fellow engineers.",
-      buttonText: "Let's connect",
     },
   };
 
@@ -39,25 +34,32 @@ export default function ExperienceSection() {
     <div className="space-y-8">
       {/* Availability Card - Above Timeline */}
       <MotionSection>
-        <div className="group rounded-lg bg-[var(--color-background)]/40 backdrop-blur-sm p-6 transition-all duration-300 hover:bg-[var(--color-background)]/60 hover:shadow-lg">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="group rounded-lg bg-[var(--color-background)]/40 backdrop-blur-sm p-6 transition-colors duration-300">
+          <div className="flex items-start gap-4">
+            {/* Icon with hover bounce animation */}
+            <div
+              className={`
+                flex items-center justify-center
+                w-10 h-10 rounded-lg
+                ${config.iconBg}
+                shrink-0
+                transition-transform duration-200 ease-out
+                group-hover:animate-[subtle-bounce_1.5s_ease-in-out_infinite]
+              `}
+            >
+              <StatusIcon
+                className={`w-5 h-5 ${config.iconColor} transition-colors duration-200`}
+              />
+            </div>
+
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2.5 mb-2">
-                <StatusIcon className={`w-5 h-5 ${config.iconColor} shrink-0`} />
-                <h3 className="text-lg font-semibold text-[var(--color-text)]">{config.title}</h3>
-              </div>
+              <h3 className="text-lg font-semibold text-[var(--color-text)] group-hover:text-[var(--color-secondary)] dark:group-hover:text-[var(--color-primary)] transition-colors duration-200 mb-2">
+                {config.title}
+              </h3>
               <p className="text-[var(--color-muted)] text-sm leading-relaxed">
                 {config.description}
               </p>
             </div>
-            <Button
-              onClick={() => smoothScrollTo({ target: 'contact' }, lenis)}
-              variant="outline"
-              color="primary"
-              className="shrink-0"
-            >
-              {config.buttonText}
-            </Button>
           </div>
         </div>
       </MotionSection>

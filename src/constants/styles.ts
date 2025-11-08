@@ -1,10 +1,22 @@
 // Shared style constants to reduce repetition across components
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from './typography';
+import { DURATION } from './animations';
+
+// Helper to map duration constants to Tailwind classes
+const getDurationClass = (duration: number): string => {
+  // Map seconds to Tailwind duration classes
+  if (duration === 0.2) return 'duration-200';
+  if (duration === 0.3) return 'duration-300';
+  if (duration === 0.5) return 'duration-500';
+  if (duration === 0.8) return 'duration-[800ms]';
+  return 'duration-300'; // fallback
+};
 
 // Animation & Transition Classes
-export const TRANSITION_COLORS = 'transition-colors duration-300';
-export const TRANSITION_FAST = 'transition-colors duration-200';
-export const TRANSITION_OPACITY = 'transition-opacity duration-300';
+export const TRANSITION_COLORS = `transition-colors ${getDurationClass(DURATION.normal)}`;
+export const TRANSITION_FAST = `transition-colors ${getDurationClass(DURATION.fast)}`;
+export const TRANSITION_OPACITY = `transition-opacity ${getDurationClass(DURATION.normal)}`;
+export const TRANSITION_CARD_HOVER = `transition-[colors,box-shadow] ${getDurationClass(DURATION.normal)} ease-out`;
 
 // Common Color Patterns
 export const TEXT_PRIMARY_HOVER =

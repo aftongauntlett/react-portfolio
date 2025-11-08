@@ -7,8 +7,10 @@
   --color-text: hsl(222, 14%, 25%);
   --color-muted: hsl(220, 15%, 45%); /* Darker for better contrast */
   --color-primary: hsl(177, 12%, 37%);
+  --color-primary-rgb: 80, 111, 110; /* RGB for primary color effects */
   --color-primary-darker: hsl(195, 9%, 44%);
   --color-secondary: hsl(206, 15%, 46%);
+  --color-secondary-rgb: 100, 123, 140; /* RGB for secondary color effects */
   --color-secondary-darker: hsl(209, 14%, 30%);
   --color-line: hsla(220, 7%, 84%, 0.865);
 
@@ -24,15 +26,17 @@
 }
 
 html.dark {
-  --color-background: hsl(220, 18%, 8%);
-  --color-surface: hsl(0, 3%, 7%); /* Slightly lighter than background for cards */
-  --color-text: hsl(45, 15%, 88%);
-  --color-muted: hsl(35, 10%, 65%);
+  --color-background: hsl(0, 0%, 4%); /* Sharper near-black #0a0a0a for modern look */
+  --color-surface: hsl(0, 0%, 7%); /* Higher contrast for cards */
+  --color-text: hsl(0, 0%, 95%); /* Crisper white text */
+  --color-muted: hsl(0, 0%, 60%); /* Cleaner neutral gray */
   --color-primary: hsl(188, 36%, 63%);
+  --color-primary-rgb: 130, 195, 202; /* RGB for primary color effects */
   --color-primary-darker: hsl(183, 20%, 65%);
   --color-secondary: hsl(20, 47%, 64%);
+  --color-secondary-rgb: 215, 140, 94; /* RGB for secondary color effects */
   --color-secondary-darker: hsl(20, 57%, 56%);
-  --color-line: hsla(188, 29%, 49%, 0.25);
+  --color-line: hsla(0, 0%, 30%, 0.3); /* Sharper line contrast */
 
   /* Chip colors for dark mode */
   --color-chip-muted-bg: hsla(220, 15%, 45%, 0.1);
