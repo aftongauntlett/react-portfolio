@@ -181,7 +181,7 @@ export default function ProjectsSection() {
               )}
 
               {gameDemo && (
-                <LinkButton type="external" href={gameDemo} variant="solid" color="secondary">
+                <LinkButton type="external" href={gameDemo} variant="solid" color="primary">
                   Play Game
                 </LinkButton>
               )}

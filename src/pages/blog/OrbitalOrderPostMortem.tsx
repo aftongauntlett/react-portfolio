@@ -64,7 +64,7 @@ export default function OrbitalOrderPostMortem() {
             type="external"
             href="https://orbital-order.aftongauntlett.com"
             variant="solid"
-            color="secondary"
+            color="primary"
           >
             Play Game
           </LinkButton>
