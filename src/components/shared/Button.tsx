@@ -121,7 +121,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     : {
         whileHover: { scale: 1.02 },
         whileTap: { scale: 0.98 },
-        transition: { type: 'spring' as const, stiffness: 400, damping: 25 },
+        transition: { type: 'spring' as const, stiffness: 250, damping: 30 },
       };
 
   if ('href' in props && props.href && !disabled) {

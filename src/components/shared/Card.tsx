@@ -58,12 +58,12 @@ export default function Card({
     : {
         whileHover: {
           y: -4,
-          transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
+          transition: { type: 'spring' as const, stiffness: 200, damping: 25 },
         },
         whileTap: isInteractive
           ? {
               scale: 0.98,
-              transition: { type: 'spring' as const, stiffness: 400, damping: 25 },
+              transition: { type: 'spring' as const, stiffness: 250, damping: 30 },
             }
           : undefined,
       };
