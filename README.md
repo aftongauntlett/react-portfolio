@@ -144,4 +144,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-[Afton Gauntlett](https://github.com/aftongauntlett)
+Built by [Afton Gauntlett](https://www.aftongauntlett.com/)

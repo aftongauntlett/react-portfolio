@@ -12,6 +12,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: 'NPC Finder',
+    status: 'In Development',
+    description:
+      'Invite-only networking platform for connecting professionals through discoverable contact cards. Built with React 19, TypeScript, and Supabase featuring real-time updates, Row Level Security policies, and a custom theming system. Implements spec-driven development workflow with forward-only database migrations, comprehensive test coverage, and scalable architecture designed for production deployment.',
+    tech: ['React 19', 'TypeScript', 'Supabase', 'PostgreSQL', 'Vite', 'Tailwind CSS', 'Vitest'],
+    link: 'https://github.com/aftongauntlett/npcfinder',
+    demo: 'https://npcfinder.com',
+  },
+  {
     title: 'Personal Portfolio',
     status: 'Production',
     description:
@@ -27,15 +36,6 @@ export const projects: Project[] = [
     tech: ['Vue 3', 'Vite', 'TypeScript', 'Tailwind CSS', 'CSS Custom Properties', 'Vercel'],
     link: 'https://github.com/gauntletdesigns/gauntlet-designs-vue',
     demo: 'https://gauntletdesigns.com/',
-  },
-  {
-    title: 'NPC Finder',
-    status: 'In Development',
-    description:
-      'Invite-only networking platform for connecting professionals through discoverable contact cards. Built with React 19, TypeScript, and Supabase featuring real-time updates, Row Level Security policies, and a custom theming system. Implements spec-driven development workflow with forward-only database migrations, comprehensive test coverage, and scalable architecture designed for production deployment.',
-    tech: ['React 19', 'TypeScript', 'Supabase', 'PostgreSQL', 'Vite', 'Tailwind CSS', 'Vitest'],
-    link: 'https://github.com/aftongauntlett/npcfinder',
-    demo: 'https://npcfinder.com',
   },
   {
     title: 'Potomac Family Dining',
