@@ -9,7 +9,6 @@ export const BulletList = ({ children }: { children: ReactNode }) => (
       TYPOGRAPHY.TEXT_BODY,
       'text-[var(--color-text-muted)]',
     )}
-    role="list"
     aria-label="Job responsibilities and achievements"
   >
     {children}
@@ -23,7 +22,6 @@ export const BulletItem = ({ children }: { children: ReactNode }) => (
       FOCUS_STYLES.PRIMARY,
     )}
     tabIndex={0}
-    role="listitem"
   >
     <span
       className={clsx(
