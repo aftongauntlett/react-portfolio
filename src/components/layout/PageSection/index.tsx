@@ -22,7 +22,7 @@ export default function PageSection({ id, title, children, className }: Props) {
       aria-labelledby={title ? headingId : undefined}
     >
       <MotionSection>
-        <div className="w-full space-y-6">
+        <div className="w-full space-y-4 sm:space-y-6">
           {title && (
             <div
               id={headingId}
