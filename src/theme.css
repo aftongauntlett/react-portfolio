@@ -74,3 +74,32 @@ html.dark {
     background-position: 100% 50%;
   }
 }
+
+/* Twinkle animation for sparkles in light mode */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reduced motion: disable animations, show static gradient */
+@media (prefers-reduced-motion: reduce) {
+  .hello-gradient {
+    animation: none;
+    background-position: 50% 50%;
+  }
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+}
