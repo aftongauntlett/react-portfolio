@@ -164,11 +164,13 @@ export default function ContactSection() {
           // Don't retry 4xx errors (client errors)
           if (response.status >= 400 && response.status < 500) {
             const errorText = await response.text();
-            console.error('Formspree error response:', {
-              status: response.status,
-              statusText: response.statusText,
-              body: errorText,
-            });
+            if (import.meta.env.DEV) {
+              console.error('Formspree error response:', {
+                status: response.status,
+                statusText: response.statusText,
+                body: errorText,
+              });
+            }
             throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
           }
 
@@ -186,7 +188,9 @@ export default function ContactSection() {
             });
             return;
           }
-          console.error('Form submission timeout');
+          if (import.meta.env.DEV) {
+            console.error('Form submission timeout');
+          }
           setStatus({
             type: 'error',
             message: 'Request timed out. Please try again or email me directly.',
@@ -198,7 +202,11 @@ export default function ContactSection() {
         // Retry logic for network errors only (up to 2 retries)
         if (retryCount < 2) {
           const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // Exponential backoff: 1s for first retry, 2s for second retry
-          console.log(`Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`);
+          if (import.meta.env.DEV) {
+            console.log(
+              `Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`,
+            );
+          }
 
           // Update status with retry message
           setStatus({
@@ -211,7 +219,9 @@ export default function ContactSection() {
         }
 
         // All retries exhausted
-        console.error('Form submission error:', error);
+        if (import.meta.env.DEV) {
+          console.error('Form submission error:', error);
+        }
         abortControllerRef.current = null;
         setStatus({
           type: 'error',
