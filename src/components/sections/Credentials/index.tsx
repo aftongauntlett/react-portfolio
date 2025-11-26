@@ -18,7 +18,6 @@ export default function CredentialsSection() {
         </h3>
         <MotionSection
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          role="list"
           aria-label="Education and certifications"
         >
           {education.map((cert) => {
@@ -37,8 +36,6 @@ export default function CredentialsSection() {
               <ItemWrapper
                 key={cert.title}
                 {...wrapperProps}
-                role="listitem"
-                aria-label={`${cert.title} at ${cert.institution}, ${cert.date}`}
                 className={clsx(
                   'group flex flex-col',
                   'py-6 md:py-8 px-3 md:px-4',
@@ -139,15 +136,12 @@ export default function CredentialsSection() {
         </h3>
         <MotionSection
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          role="list"
           aria-label="Awards and recognition"
         >
           {awards.map((award) => (
             <div
               key={`${award.title}-${award.date}`}
-              role="listitem"
               tabIndex={0}
-              aria-label={`${award.title} at ${award.organization}, ${award.date}`}
               className={clsx(
                 'group flex flex-col',
                 'py-6 md:py-8 px-3 md:px-4',

@@ -56,7 +56,6 @@ export default function Accordion({
                   'group-hover:bg-[var(--color-primary)]/20',
                   'transition-colors duration-200',
                 )}
-                aria-label={`${badge} items`}
               >
                 {badge}
               </span>

@@ -1,4 +1,4 @@
-import type { MouseEvent, KeyboardEvent } from 'react';
+import type { MouseEvent } from 'react';
 import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
@@ -100,19 +100,11 @@ export default function SideNav() {
               navigateTo(id);
             };
 
-            const handleKeyDown = (e: KeyboardEvent<HTMLAnchorElement>) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                navigateTo(id);
-              }
-            };
-
             return (
               <div key={id}>
                 <a
                   href={`#${id}`}
                   onClick={handleClick}
-                  onKeyDown={handleKeyDown}
                   aria-current={isActive ? 'location' : undefined}
                   className={clsx(
                     'relative group block pl-4 text-base',

@@ -14,10 +14,12 @@ import {
   TYPOGRAPHY,
   FOCUS_STYLES,
 } from '@/constants/styles';
+import { createMotionVariants } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 
 export default function ProjectsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { projectCard: projectVariants } = createMotionVariants(prefersReducedMotion);
   const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
     const isProduction = status === 'Production';
     const isCollection = status === 'Collection';
@@ -62,22 +64,9 @@ export default function ProjectsSection() {
     );
   };
 
-  const projectVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: getMotionDuration(0.5, prefersReducedMotion),
-        ease: 'easeOut' as const,
-      },
-    },
-  };
-
   return (
-    <m.div
-      className="space-y-6"
-      role="list"
+    <m.ul
+      className="space-y-6 list-none"
       aria-label="Portfolio projects"
       initial="hidden"
       whileInView="visible"
@@ -104,6 +93,7 @@ export default function ProjectsSection() {
         ) => (
           <MotionSection
             key={title}
+            as="li"
             variants={projectVariants}
             className={clsx(
               'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md ',
@@ -114,7 +104,6 @@ export default function ProjectsSection() {
               // Add subtle touch feedback for mobile
               'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
             )}
-            role="listitem"
             aria-labelledby={`project-title-${idx}`}
           >
             <h3
@@ -189,6 +178,6 @@ export default function ProjectsSection() {
           </MotionSection>
         ),
       )}
-    </m.div>
+    </m.ul>
   );
 }

@@ -1,10 +1,11 @@
-import { useMemo, useState, useRef, useEffect } from 'react';
-import type { MouseEvent } from 'react';
-import { m } from 'framer-motion';
+import { useMemo, useState, lazy, Suspense, useRef, useEffect } from 'react';
+import { useTheme } from '@/context/ThemeContext';
 import { TYPOGRAPHY, FOCUS_STYLES, TEXT_COMBINATIONS } from '@/constants/styles';
-import { fadeInUp, staggerContainer } from '@/constants/animations';
-import clsx from 'clsx';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import clsx from 'clsx';
+
+// Lazy load the Lottie animation only when needed
+const LottieHello = lazy(() => import('./LottieHello'));
 
 const aboutParagraphs = [
   "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
@@ -28,41 +29,44 @@ const renderHighlightedText = (text: string) => {
 };
 
 export default function AboutSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
+  const [planetColor] = useState<'secondary' | 'muted'>('secondary');
+  const [shouldLoadLottie, setShouldLoadLottie] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Track mouse position relative to image (throttled with RAF)
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!imageRef.current) return;
+  // Memoize sparkle positions to prevent recreation on every render
+  const sparkles = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => ({
+        key: i,
+        left: `${50 + Math.cos((i * 30 * Math.PI) / 180) * (120 + Math.random() * 60)}px`,
+        top: `${50 + Math.sin((i * 30 * Math.PI) / 180) * (120 + Math.random() * 60)}px`,
+        duration: `${2 + Math.random() * 3}s`,
+        delay: `${Math.random() * 2}s`,
+      })),
+    [],
+  );
 
-    // Cancel any pending RAF to prevent stacking
-    if (rafRef.current !== null) {
-      cancelAnimationFrame(rafRef.current);
+  // Lazy load Lottie animation when hero section comes into view for better initial page load performance
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadLottie(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: '100px' },
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
     }
 
-    // Throttle updates to once per frame
-    rafRef.current = requestAnimationFrame(() => {
-      if (!imageRef.current) return;
-      const rect = imageRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-      rafRef.current = null;
-    });
-  };
-
-  // Cleanup RAF on unmount to prevent setState after unmount
-  useEffect(() => {
-    return () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   // Memoize rendered paragraphs since they don't change
@@ -82,95 +86,74 @@ export default function AboutSection() {
   );
 
   return (
-    <m.div
-      className="w-full pt-8 md:pt-12"
-      variants={prefersReducedMotion ? {} : staggerContainer}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
-    >
-      {/* Hero Banner - Interactive color reveal */}
-      <m.div variants={prefersReducedMotion ? {} : fadeInUp} className="space-y-12">
-        <div
-          ref={imageRef}
-          className="relative h-64 md:h-72 overflow-hidden -mx-4 sm:-mx-6 md:mx-0 md:rounded-lg dark:cursor-none"
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => {
-            setIsHovering(false);
-            // Cancel any pending RAF on mouse leave
-            if (rafRef.current !== null) {
-              cancelAnimationFrame(rafRef.current);
-              rafRef.current = null;
-            }
-          }}
-        >
-          {/* Light Mode: Color Image */}
-          <img
-            src="/afton-headshot.webp"
-            alt="Afton Gauntlett - Frontend Engineer"
-            className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 dark:hidden"
-            loading="eager"
-            fetchPriority="high"
-          />
-
-          {/* Dark Mode: Grayscale Image with Interactive Color Reveal */}
-          <div className="hidden dark:block absolute inset-0">
-            {/* Base Grayscale Image */}
-            <img
-              src="/afton-headshot.webp"
-              alt="Afton Gauntlett - Frontend Engineer"
-              className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50 grayscale"
-              loading="eager"
-              fetchPriority="high"
-            />
-
-            {/* Color Image with Radial Mask */}
-            <div
-              className="absolute inset-0 transition-opacity duration-300"
-              style={{
-                opacity: isHovering ? 1 : 0,
-              }}
-            >
-              <img
-                src="/afton-headshot.webp"
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-50"
-                loading="eager"
-                style={{
-                  maskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
-                  WebkitMaskImage: `radial-gradient(circle 150px at ${mousePosition.x}px ${mousePosition.y}px, black, transparent)`,
-                }}
-                aria-hidden="true"
-              />
+    <div className="w-full">
+      {/* Hero Section with Lottie Animation - Responsive spacing */}
+      <div
+        ref={heroRef}
+        className="relative flex justify-center items-center h-56 sm:h-64 md:h-80 lg:h-96 w-full mb-12 sm:mb-16 md:mb-20 lg:mb-24"
+      >
+        {theme === 'light' && !prefersReducedMotion && (
+          <>
+            {/* Twinkling Sparkles */}
+            <div className="absolute inset-0 flex justify-center items-center" aria-hidden="true">
+              {sparkles.map((sparkle) => (
+                <div
+                  key={sparkle.key}
+                  className="absolute w-1 h-1 bg-white rounded-full opacity-0"
+                  style={{
+                    left: sparkle.left,
+                    top: sparkle.top,
+                    animation: `twinkle ${sparkle.duration} ease-in-out infinite`,
+                    animationDelay: sparkle.delay,
+                  }}
+                />
+              ))}
             </div>
-          </div>
+          </>
+        )}
 
-          {/* Gradient Overlay - Different for light/dark mode */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/55 to-background/35 dark:from-background/75 dark:via-background/50 dark:to-background/30" />
-
-          {/* Hero Content with Montserrat */}
-          <div className="relative h-full flex items-center px-4 sm:px-6 md:px-8">
-            <div className="max-w-2xl">
-              <m.h2
-                variants={prefersReducedMotion ? {} : fadeInUp}
-                className={clsx(
-                  'text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight',
-                  'font-[family-name:var(--font-heading)]',
-                  'text-[#4a4a4a] dark:text-[#e8e8e8]',
-                  'leading-tight',
-                )}
-                style={{ letterSpacing: '0.01em' }}
-              >
-                About Me
-              </m.h2>
-            </div>
+        {/* Background Lottie Animation - Only load when visible */}
+        <div className="absolute inset-0 flex justify-center items-center z-10">
+          <div className="w-full h-full max-w-[280px] sm:max-w-[320px] md:max-w-md lg:max-w-lg aspect-square mx-auto">
+            {shouldLoadLottie ? (
+              <Suspense fallback={<div className="w-full h-full" aria-hidden="true" />}>
+                <LottieHello
+                  opacity={0.15}
+                  speed={0.3}
+                  planetColor={planetColor}
+                  className="w-full h-full"
+                />
+              </Suspense>
+            ) : (
+              <div className="w-full h-full" aria-hidden="true" />
+            )}
           </div>
         </div>
 
-        {/* Bio Content */}
-        <div className="space-y-6 max-w-4xl">{renderedParagraphs}</div>
-      </m.div>
-    </m.div>
+        {/* Foreground Hello Text */}
+        <div className="relative z-20 text-center px-4">
+          {/* Subtle backdrop for improved contrast */}
+          <div
+            className="absolute inset-0 -m-4 bg-[var(--color-background)]/40 backdrop-blur-sm rounded-2xl"
+            aria-hidden="true"
+          />
+          <h1
+            className={clsx(TYPOGRAPHY.TITLE, 'hello-gradient', 'relative')}
+            style={{
+              textShadow:
+                '0 2px 10px rgba(0, 0, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.12), 0 8px 32px rgba(0, 0, 0, 0.08)',
+            }}
+          >
+            Hello
+          </h1>
+        </div>
+      </div>
+
+      {/* Story Content Section */}
+      <div className="mx-auto">
+        <h2 className="sr-only">About Me</h2>
+        <div className="space-y-6">{renderedParagraphs}</div>
+      </div>
+    </div>
   );
 }

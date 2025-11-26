@@ -136,26 +136,6 @@ describe('SideNav', () => {
     expect(focusSpy).not.toHaveBeenCalled();
   });
 
-  it('handles keyboard navigation with Enter key', () => {
-    render(<SideNav />);
-
-    const aboutLink = screen.getByText('About').closest('a');
-    fireEvent.keyDown(aboutLink!, { key: 'Enter' });
-
-    expect(smoothScrollToSpy).toHaveBeenCalledWith({ target: 'about', offset: 80 }, mockLenis);
-    expect(historyReplaceStateSpy).toHaveBeenCalledWith(null, '', '#about');
-  });
-
-  it('handles keyboard navigation with Space key', () => {
-    render(<SideNav />);
-
-    const skillsLink = screen.getByText('Skills').closest('a');
-    fireEvent.keyDown(skillsLink!, { key: ' ' });
-
-    expect(smoothScrollToSpy).toHaveBeenCalledWith({ target: 'skills', offset: 80 }, mockLenis);
-    expect(historyReplaceStateSpy).toHaveBeenCalledWith(null, '', '#skills');
-  });
-
   it('marks active section with aria-current', () => {
     vi.spyOn(ActiveSectionHook, 'useActiveSection').mockReturnValue('projects');
 

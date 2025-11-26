@@ -28,7 +28,6 @@ export default function TimelineItem({
 
   return (
     <div
-      role="listitem"
       tabIndex={0}
       aria-label={`${title}${company ? ` at ${company}` : ''}${dates ? `, ${dates}` : ''}`}
       aria-current={isActive ? 'step' : undefined}
