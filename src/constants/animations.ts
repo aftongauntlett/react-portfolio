@@ -3,7 +3,35 @@
  * Reduces code duplication across components
  */
 
-// Base animation variants
+import { getMotionDuration } from '@/hooks/usePrefersReducedMotion';
+
+// Helper to create motion-safe variants
+export const createMotionVariants = (prefersReducedMotion: boolean) => ({
+  fadeInUp: {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: getMotionDuration(0.5, prefersReducedMotion),
+        ease: 'easeOut' as const,
+      },
+    },
+  },
+  projectCard: {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: getMotionDuration(0.5, prefersReducedMotion),
+        ease: 'easeOut' as const,
+      },
+    },
+  },
+});
+
+// Base animation variants (without reduced motion)
 export const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: {

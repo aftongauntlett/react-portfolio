@@ -1,10 +1,11 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, ElementType } from 'react';
 import { m, type Variants } from 'framer-motion';
 import clsx from 'clsx';
 
 export type MotionSectionProps = {
   children: ReactNode;
   className?: string;
+  as?: ElementType;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   onClick?: () => void;
@@ -21,32 +22,36 @@ export type MotionSectionProps = {
 export default function MotionSection({
   children,
   className,
+  as: Component = 'div',
   delay = 0,
   duration = 0.4,
   disableAnimation = false,
   variants,
   ...props
 }: MotionSectionProps) {
+  // Use a type-safe approach for motion components
+  const MotionComponent = (Component === 'li' ? m.li : m.div) as typeof m.div;
+
   if (disableAnimation) {
     return (
-      <div className={clsx('opacity-100', className)} {...props}>
+      <Component className={clsx('opacity-100', className)} {...props}>
         {children}
-      </div>
+      </Component>
     );
   }
 
   // If variants are provided, use them (for stagger animations)
   if (variants) {
     return (
-      <m.div variants={variants} className={clsx('opacity-100', className)} {...props}>
+      <MotionComponent variants={variants} className={clsx('opacity-100', className)} {...props}>
         {children}
-      </m.div>
+      </MotionComponent>
     );
   }
 
   // Otherwise use the default reveal animation
   return (
-    <m.div
+    <MotionComponent
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
@@ -59,6 +64,6 @@ export default function MotionSection({
       {...props}
     >
       {children}
-    </m.div>
+    </MotionComponent>
   );
 }
