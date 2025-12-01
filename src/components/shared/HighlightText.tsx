@@ -9,30 +9,52 @@ export default function HighlightText({ text, searchQuery, className = '' }: Hig
     return <span className={className}>{text}</span>;
   }
 
-  // Escape special regex characters in search query
-  const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // Build parts array using indexOf to avoid stateful regex
+  const parts: Array<{ text: string; isMatch: boolean }> = [];
+  const lowerText = text.toLowerCase();
+  const lowerQuery = searchQuery.toLowerCase();
+  let currentIndex = 0;
 
-  // Create regex for case-insensitive matching
-  const regex = new RegExp(`(${escapedQuery})`, 'gi');
+  while (currentIndex < text.length) {
+    const matchIndex = lowerText.indexOf(lowerQuery, currentIndex);
 
-  // Split text by matches
-  const parts = text.split(regex);
+    if (matchIndex === -1) {
+      // No more matches, add remaining text
+      parts.push({
+        text: text.slice(currentIndex),
+        isMatch: false,
+      });
+      break;
+    }
+
+    // Add non-match segment before the match (if any)
+    if (matchIndex > currentIndex) {
+      parts.push({
+        text: text.slice(currentIndex, matchIndex),
+        isMatch: false,
+      });
+    }
+
+    // Add match segment
+    parts.push({
+      text: text.slice(matchIndex, matchIndex + searchQuery.length),
+      isMatch: true,
+    });
+
+    currentIndex = matchIndex + searchQuery.length;
+  }
 
   return (
     <span className={className}>
-      {parts.map((part, index) => {
-        // Check if this part matches the search query
-        const isMatch = regex.test(part);
-        regex.lastIndex = 0; // Reset regex for next iteration
-
-        return isMatch ? (
+      {parts.map((part, index) =>
+        part.isMatch ? (
           <mark key={index} className="text-[var(--color-primary)] font-medium bg-transparent">
-            {part}
+            {part.text}
           </mark>
         ) : (
-          <span key={index}>{part}</span>
-        );
-      })}
+          <span key={index}>{part.text}</span>
+        ),
+      )}
     </span>
   );
 }
