@@ -240,10 +240,7 @@ export default function ContactSection() {
 
     // Retry once for network errors (5xx or network issues) with fixed 1s delay
     if (!result.success && result.reason === 'network-error') {
-      if (import.meta.env.DEV) {
-        console.log(`Retrying submission after ${RETRY_DELAY_MS}ms`);
-      }
-
+      // Schedule retry with fixed 1s delay before second attempt
       setStatus({ type: 'loading', message: 'Retrying...' });
 
       await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
