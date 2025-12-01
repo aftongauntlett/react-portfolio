@@ -2,7 +2,7 @@
 
 [![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/aftongauntlett/react-portfolio?style=flat&logo=github)](https://github.com/aftongauntlett/react-portfolio/commits)
-![Tests](https://img.shields.io/badge/tests-26%20passing-success)
+![Tests](https://img.shields.io/badge/tests-passing-success)
 
 ## What This Is
 
@@ -96,13 +96,15 @@ npm run preview      # Preview production build locally
 # Code quality
 npm run type-check   # TypeScript validation
 npm run lint         # ESLint with auto-fix
-npm run test         # Run all tests
+npm run test         # Run Vitest in watch mode
+npm run test:run     # Run tests once (CI-friendly)
+npm run test:coverage # Run tests with coverage report
 npm run test:ui      # Interactive test UI
-npm run test:watch   # Watch mode for development
+npm run test:watch   # Watch mode for development (alias for test)
 
 # Analysis
 npm run analyze      # Interactive bundle analyzer
-npm run health:check # Run all checks (type-check, lint, test, build)
+npm run health:check # Run all checks (type-check, lint, test:run, build)
 ```
 
 ## Maintenance
