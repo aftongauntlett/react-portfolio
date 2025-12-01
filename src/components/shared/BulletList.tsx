@@ -4,11 +4,7 @@ import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 
 export const BulletList = ({ children }: { children: ReactNode }) => (
   <ul
-    className={clsx(
-      'group mt-2 list-none space-y-2',
-      TYPOGRAPHY.TEXT_BODY,
-      'text-[var(--color-text-muted)]',
-    )}
+    className={clsx('group mt-2 list-none space-y-2', TYPOGRAPHY.TEXT_BODY, TYPOGRAPHY.TEXT_MUTED)}
     aria-label="Job responsibilities and achievements"
   >
     {children}
