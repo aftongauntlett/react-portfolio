@@ -256,7 +256,7 @@ describe('ContactSection', () => {
   it('shows error message on network failure', async () => {
     const user = userEvent.setup();
 
-    // Mock network error for all retry attempts (3 total)
+    // Mock network error for both initial attempt and retry (2 total)
     fetchSpy.mockRejectedValue(new Error('Network error'));
 
     render(<ContactSection />);
@@ -272,7 +272,7 @@ describe('ContactSection', () => {
     // Submit form
     await user.click(submitButton);
 
-    // Wait for error message after all retries complete
+    // Wait for error message after retry completes
     await waitFor(
       () => {
         expect(screen.getByText(/failed to send message/i)).toBeInTheDocument();

@@ -27,7 +27,12 @@ interface FormErrors {
 
 // Constants for retry/timeout configuration
 const FORM_SUBMIT_TIMEOUT_MS = 8000;
-const RETRY_BASE_DELAY_MS = 1000;
+const RETRY_DELAY_MS = 1000; // Fixed 1s delay for single retry attempt
+
+// Submission result types
+type SubmitResult =
+  | { success: true }
+  | { success: false; reason: 'timeout' | 'client-error' | 'network-error'; message?: string };
 
 export default function ContactSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -115,6 +120,74 @@ export default function ContactSection() {
     }
   };
 
+  /**
+   * Helper to submit form data with timeout handling.
+   * Returns a typed result instead of throwing, simplifying caller logic.
+   */
+  const submitContactForm = async (
+    data: FormData,
+    controller: AbortController,
+  ): Promise<SubmitResult> => {
+    const timeoutId = setTimeout(() => controller.abort(), FORM_SUBMIT_TIMEOUT_MS);
+
+    try {
+      const response = await fetch('https://formspree.io/f/mpwldyrq', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          message: data.message,
+          _gotcha: data._gotcha,
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        return { success: true };
+      }
+
+      // 4xx errors (client errors) - don't retry
+      if (response.status >= 400 && response.status < 500) {
+        const errorText = await response.text();
+        if (import.meta.env.DEV) {
+          console.error('Formspree error response:', {
+            status: response.status,
+            statusText: response.statusText,
+            body: errorText,
+          });
+        }
+        return {
+          success: false,
+          reason: 'client-error',
+          message: `Server responded with ${response.status}: ${response.statusText}`,
+        };
+      }
+
+      // 5xx errors (server errors) - can retry
+      return {
+        success: false,
+        reason: 'network-error',
+        message: `Server error: ${response.status}`,
+      };
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      // Handle abort (timeout or user cancel)
+      if (error instanceof Error && error.name === 'AbortError') {
+        return { success: false, reason: 'timeout' };
+      }
+
+      // Network errors - can retry
+      return { success: false, reason: 'network-error' };
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -130,110 +203,82 @@ export default function ContactSection() {
 
     setStatus({ type: 'loading', message: 'Sending message...' });
 
-    const attemptSubmit = async (retryCount = 0): Promise<void> => {
-      // Create new AbortController and timeout for each attempt
-      const abortController = new AbortController();
-      abortControllerRef.current = abortController;
-      const timeoutId = setTimeout(() => abortController.abort(), FORM_SUBMIT_TIMEOUT_MS);
+    // First attempt
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
 
-      try {
-        const response = await fetch('https://formspree.io/f/mpwldyrq', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            message: formData.message,
-            _gotcha: formData._gotcha,
-          }),
-          signal: abortController.signal,
-        });
+    let result = await submitContactForm(formData, abortController);
 
-        if (response.ok) {
-          abortControllerRef.current = null;
-          setStatus({
-            type: 'success',
-            message: "Message sent successfully! I'll get back to you soon.",
-          });
+    // Early return: user-initiated cancel (controller was nulled during submit)
+    if (abortControllerRef.current === null) {
+      setStatus({ type: 'idle', message: '' });
+      return;
+    }
 
-          setFormData({ name: '', email: '', phone: '', message: '', _gotcha: '' });
-        } else {
-          // Don't retry 4xx errors (client errors)
-          if (response.status >= 400 && response.status < 500) {
-            const errorText = await response.text();
-            if (import.meta.env.DEV) {
-              console.error('Formspree error response:', {
-                status: response.status,
-                statusText: response.statusText,
-                body: errorText,
-              });
-            }
-            throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
-          }
-
-          // Retry 5xx errors (server errors)
-          throw new Error(`Server error: ${response.status}`);
-        }
-      } catch (error) {
-        // Handle abort (timeout or user cancel)
-        if (error instanceof Error && error.name === 'AbortError') {
-          // Check if it was user-initiated cancel
-          if (abortControllerRef.current === null) {
-            setStatus({
-              type: 'idle',
-              message: '',
-            });
-            return;
-          }
-          if (import.meta.env.DEV) {
-            console.error('Form submission timeout');
-          }
-          setStatus({
-            type: 'error',
-            message: 'Request timed out. Please try again or email me directly.',
-          });
-          abortControllerRef.current = null;
-          return;
-        }
-
-        // Retry logic for network errors only (up to 2 retries)
-        if (retryCount < 2) {
-          const backoffDelay = Math.pow(2, retryCount) * RETRY_BASE_DELAY_MS; // Exponential backoff: 1s for first retry, 2s for second retry
-          if (import.meta.env.DEV) {
-            console.log(
-              `Retrying submission (attempt ${retryCount + 2}/3) after ${backoffDelay}ms`,
-            );
-          }
-
-          // Update status with retry message
-          setStatus({
-            type: 'loading',
-            message: `Retrying (${retryCount + 2}/3)...`,
-          });
-
-          await new Promise((resolve) => setTimeout(resolve, backoffDelay));
-          return attemptSubmit(retryCount + 1);
-        }
-
-        // All retries exhausted
-        if (import.meta.env.DEV) {
-          console.error('Form submission error:', error);
-        }
-        abortControllerRef.current = null;
-        setStatus({
-          type: 'error',
-          message: 'Failed to send message. Please try again or email me directly.',
-        });
-      } finally {
-        // Always clear timeout after attempt completes
-        clearTimeout(timeoutId);
+    // Early return: timeout
+    if (!result.success && result.reason === 'timeout') {
+      if (import.meta.env.DEV) {
+        console.error('Form submission timeout');
       }
-    };
+      abortControllerRef.current = null;
+      setStatus({
+        type: 'error',
+        message: 'Request timed out. Please try again or email me directly.',
+      });
+      return;
+    }
 
-    await attemptSubmit();
+    // Early return: client error (4xx) - no retry
+    if (!result.success && result.reason === 'client-error') {
+      abortControllerRef.current = null;
+      setStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again or email me directly.',
+      });
+      return;
+    }
+
+    // Retry once for network errors (5xx or network issues) with fixed 1s delay
+    if (!result.success && result.reason === 'network-error') {
+      if (import.meta.env.DEV) {
+        console.log(`Retrying submission after ${RETRY_DELAY_MS}ms`);
+      }
+
+      setStatus({ type: 'loading', message: 'Retrying...' });
+
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+
+      // Create new controller for retry attempt
+      const retryController = new AbortController();
+      abortControllerRef.current = retryController;
+
+      result = await submitContactForm(formData, retryController);
+
+      // Check for user cancel during retry
+      if (abortControllerRef.current === null) {
+        setStatus({ type: 'idle', message: '' });
+        return;
+      }
+    }
+
+    // Update final status based on result
+    abortControllerRef.current = null;
+
+    if (result.success) {
+      setStatus({
+        type: 'success',
+        message: "Message sent successfully! I'll get back to you soon.",
+      });
+      setFormData({ name: '', email: '', phone: '', message: '', _gotcha: '' });
+    } else {
+      if (import.meta.env.DEV) {
+        console.error('Form submission failed:', result.reason, result.message);
+      }
+      setStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again or email me directly.',
+      });
+    }
   };
 
   const handleCancel = () => {

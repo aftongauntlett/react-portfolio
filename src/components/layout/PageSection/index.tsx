@@ -24,13 +24,9 @@ export default function PageSection({ id, title, children, className }: Props) {
       <MotionSection>
         <div className="w-full space-y-4 sm:space-y-6">
           {title && (
-            <div
-              id={headingId}
-              tabIndex={-1}
-              className={clsx('outline-none', FOCUS_STYLES.COMPACT)}
-            >
-              <PaintSplashText tag="h2">{title}</PaintSplashText>
-            </div>
+            <PaintSplashText tag="h2" id={headingId} className={FOCUS_STYLES.COMPACT}>
+              {title}
+            </PaintSplashText>
           )}
           {children}
         </div>

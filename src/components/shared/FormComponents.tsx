@@ -93,9 +93,19 @@ export function FormField({
         placeholder={placeholder}
         maxLength={maxLength}
         spellCheck={spellCheck}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${name}-error` : undefined}
         className={clsx(inputBaseClass, error && 'border-red-500 focus:border-red-500')}
       />
-      {error && <p className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}>{error}</p>}
+      {error && (
+        <p
+          id={`${name}-error`}
+          role="alert"
+          className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}
+        >
+          {error}
+        </p>
+      )}
       {showCounter && maxLength && (
         <div className="flex justify-end">
           <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
@@ -175,9 +185,19 @@ export function TextAreaField({
         disabled={disabled}
         placeholder={placeholder}
         maxLength={maxLength}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${name}-error` : undefined}
         className={clsx(inputBaseClass, error && 'border-red-500 focus:border-red-500')}
       />
-      {error && <p className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}>{error}</p>}
+      {error && (
+        <p
+          id={`${name}-error`}
+          role="alert"
+          className={`text-red-500 ${TYPOGRAPHY.TEXT_SMALL} mt-1`}
+        >
+          {error}
+        </p>
+      )}
       {maxLength && (
         <div className="flex justify-end">
           <span className={`${TYPOGRAPHY.TEXT_XS} text-[var(--color-muted)]`}>
