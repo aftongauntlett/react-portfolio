@@ -10,12 +10,11 @@ export default function SkillsSectionContent() {
     skills: skills.filter((skill) => skill.category === key),
   }));
   return (
-    <div className="space-y-6" role="list" aria-label="Technical skills by category">
+    <ul className="space-y-6" aria-label="Technical skills by category">
       {skillsByCategory.map(({ key, label, skills: categorySkills }, categoryIdx) => (
-        <div
+        <li
           key={key}
           tabIndex={0}
-          role="listitem"
           aria-labelledby={`skills-category-${categoryIdx}`}
           className={clsx(
             'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-colors duration-300 group',
@@ -90,8 +89,8 @@ export default function SkillsSectionContent() {
               ))}
             </ul>
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

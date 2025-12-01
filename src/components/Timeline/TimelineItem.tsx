@@ -32,7 +32,7 @@ export default function TimelineItem({
       className={clsx(
         'group transition-colors duration-300',
         // Desktop: timeline grid layout
-        'md:grid md:grid-cols-[2.5rem_1fr] md:gap-x-4 md:items-start',
+        'md:grid md:grid-cols-[2.5rem_1fr] md:gap-x-4',
         // Mobile: simple stack layout without timeline
         'block space-y-2',
         !isFirst && 'mt-3',
@@ -44,7 +44,7 @@ export default function TimelineItem({
       )}
     >
       {/* Timeline dot - only show on desktop */}
-      <div className="relative hidden md:flex justify-center items-start pt-0.5 z-10">
+      <div className="relative hidden md:flex justify-center pt-[0.4rem] z-10">
         {isNextRoleItem ? (
           <div
             className="w-5 h-5 rounded-full bg-[var(--color-background)] flex items-center justify-center border-2 border-[var(--color-primary)] relative z-10"

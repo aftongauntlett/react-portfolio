@@ -19,9 +19,9 @@ export default function SkillsSection() {
   }));
 
   return (
-    <div className="space-y-12" role="list" aria-label="Technical skills by category">
+    <ul className="space-y-12" aria-label="Technical skills by category">
       {skillsByCategory.map(({ key, label, skills: categorySkills, description }) => (
-        <div key={key} role="listitem">
+        <li key={key}>
           <div className="mb-6">
             <h3 className={clsx(TYPOGRAPHY.HEADING_3, 'mb-2', TEXT_PRIMARY_HOVER)}>{label}</h3>
             <p className={clsx(TEXT_COMBINATIONS.SMALL_MUTED, 'max-w-2xl leading-relaxed')}>
@@ -36,8 +36,8 @@ export default function SkillsSection() {
               </Tag>
             ))}
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

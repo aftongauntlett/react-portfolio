@@ -72,28 +72,27 @@ export default function ExperienceSection() {
           style={{ zIndex: 1 }}
           aria-hidden="true"
         />
-        <MotionSection
-          className="space-y-6 md:space-y-8"
-          role="list"
-          aria-label="Professional experience timeline"
-        >
-          {jobs.map((job, i) => (
-            <TimelineItem
-              key={`${job.title}-${i}`}
-              title={job.title}
-              company={job.company}
-              dates={job.dates}
-              location={job.location}
-              isFirst={i === 0}
-              isActive={false}
-            >
-              <BulletList>
-                {job.description.map((line, idx) => (
-                  <BulletItem key={idx}>{line}</BulletItem>
-                ))}
-              </BulletList>
-            </TimelineItem>
-          ))}
+        <MotionSection className="space-y-6 md:space-y-8">
+          <ul className="space-y-6 md:space-y-8" aria-label="Professional experience timeline">
+            {jobs.map((job, i) => (
+              <li key={`${job.title}-${i}`}>
+                <TimelineItem
+                  title={job.title}
+                  company={job.company}
+                  dates={job.dates}
+                  location={job.location}
+                  isFirst={i === 0}
+                  isActive={false}
+                >
+                  <BulletList>
+                    {job.description.map((line, idx) => (
+                      <BulletItem key={idx}>{line}</BulletItem>
+                    ))}
+                  </BulletList>
+                </TimelineItem>
+              </li>
+            ))}
+          </ul>
         </MotionSection>
       </div>
     </div>

@@ -37,6 +37,7 @@ export default defineConfig({
           vendor: ['react', 'react-dom'],
           motion: ['framer-motion'],
           icons: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
+          lottie: ['lottie-react'],
         },
       },
     },
