@@ -9,8 +9,8 @@ const LottieHello = lazy(() => import('./LottieHello'));
 
 const aboutParagraphs = [
   "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
-  "I've shipped large {React} apps, migrated legacy {Angular} and {Node.js} systems, built reusable {component libraries}, and improved {accessibility} and {performance} across distributed teams. I'm known for simplifying complex UI problems and supporting teammates through clear {communication} and {documentation}.",
-  'Before web development I worked in places that taught me how to learn fast. I spent time in law offices, a {biohazard lab}, and a vintage shop that ran on {century-old machinery}. I once had to figure out an old {IBM AS/400} system from scratch, translating manuals line by line just to keep it running. That same curiosity and persistence still guide how I build today.',
+  "I've shipped large React apps, migrated legacy Angular and Node.js systems, built reusable component libraries, and improved accessibility and performance across distributed teams. I'm known for simplifying complex UI problems and supporting teammates through clear communication and documentation.",
+  'Before web development I worked in places that taught me how to learn fast. I spent time in law offices, a biohazard lab, and a vintage shop that ran on century-old machinery. I once had to figure out an old IBM AS/400 system from scratch, translating manuals line by line just to keep it running. That same curiosity and persistence still guide how I build today.',
 ];
 
 // Move outside component to prevent recreation on every render

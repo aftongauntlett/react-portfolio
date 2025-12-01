@@ -123,7 +123,12 @@ export default function ProjectsSection() {
               tabIndex={0}
               aria-label={`Project description: ${description}`}
               role="text"
-              className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'mt-3 mb-3', FOCUS_STYLES.COMPACT)}
+              className={clsx(
+                TYPOGRAPHY.TEXT_DESCRIPTION,
+                'mt-3 mb-3',
+                FOCUS_STYLES.COMPACT,
+                'transition-colors duration-300 group-hover:text-[var(--color-text)]',
+              )}
             >
               {description}
             </div>
