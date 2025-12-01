@@ -147,4 +147,28 @@ describe('SideNav', () => {
     const aboutLink = screen.getByText('About').closest('a');
     expect(aboutLink).not.toHaveAttribute('aria-current');
   });
+
+  it('updates screen reader announcement when active section changes', async () => {
+    const { rerender } = render(<SideNav />);
+
+    // Initially on 'about' section
+    let announcement = screen.getByRole('status');
+    expect(announcement).toHaveAttribute('aria-live', 'polite');
+    expect(announcement).toHaveAttribute('aria-atomic', 'true');
+    expect(announcement).toHaveTextContent('Navigated to About section');
+
+    // Change to 'skills' section
+    vi.spyOn(ActiveSectionHook, 'useActiveSection').mockReturnValue('skills');
+    rerender(<SideNav />);
+
+    announcement = screen.getByRole('status');
+    expect(announcement).toHaveTextContent('Navigated to Skills section');
+  });
+
+  it('screen reader announcement is visually hidden', () => {
+    render(<SideNav />);
+
+    const announcement = screen.getByRole('status');
+    expect(announcement).toHaveClass('sr-only');
+  });
 });
