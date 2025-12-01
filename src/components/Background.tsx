@@ -1,6 +1,21 @@
+import { useEffect, useState } from 'react';
 import StarryBackground from './StarryBackground';
 
 export default function Background() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   return (
     <>
       {/* Solid background */}
@@ -11,8 +26,8 @@ export default function Background() {
           backgroundColor: 'var(--color-background)',
         }}
       />
-      {/* Starry animation */}
-      <StarryBackground />
+      {/* Starry animation - skip mounting if user prefers reduced motion */}
+      {!prefersReducedMotion && <StarryBackground />}
     </>
   );
 }
