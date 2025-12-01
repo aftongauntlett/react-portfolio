@@ -157,7 +157,6 @@ export default function LottieHello({
         preserveAspectRatio: 'xMidYMid meet',
         progressiveLoad: true,
         hideOnTransparent: true,
-        clearCanvas: true,
       }}
     />
   );
