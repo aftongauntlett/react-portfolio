@@ -80,7 +80,6 @@ export default function ExperienceSection() {
           {jobs.map((job, i) => (
             <TimelineItem
               key={`${job.title}-${i}`}
-              idx={i}
               title={job.title}
               company={job.company}
               dates={job.dates}

@@ -4,7 +4,6 @@ import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import { HiQuestionMarkCircle } from 'react-icons/hi2';
 
 export interface TimelineItemProps {
-  idx: number;
   title: string;
   company?: string;
   dates?: string;
@@ -15,7 +14,6 @@ export interface TimelineItemProps {
 }
 
 export default function TimelineItem({
-  idx: _idx,
   title,
   company,
   dates,
