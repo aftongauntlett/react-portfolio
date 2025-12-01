@@ -31,8 +31,7 @@ export const skills: Skill[] = [
   { name: 'GSAP', category: 'tools' },
   { name: 'Framer', category: 'tools' },
   { name: 'Agile', category: 'tools' },
-  { name: 'GitHub Copilot Pro+', category: 'tools' },
-  { name: 'Claude Sonnet 4', category: 'tools' },
+  { name: 'AI-Assisted Development', category: 'tools' },
 ];
 
 export const skillCategories = {
