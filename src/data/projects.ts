@@ -24,7 +24,6 @@ export const projects: Project[] = [
       'Vite',
       'Tailwind CSS',
       'Framer Motion',
-      'Vitest',
     ],
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
