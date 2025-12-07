@@ -3,8 +3,10 @@ import PageSection from '@/components/layout/PageSection';
 import { useLenisContext } from '@/context/LenisContext';
 import { smoothScrollTo } from '@/utils/scroll';
 
-// Lazy load sections for better code splitting
-const AboutSection = lazy(() => import('@/components/sections/About'));
+// Eager load About section - it's above the fold and critical for LCP
+import AboutSection from '@/components/sections/About';
+
+// Lazy load remaining sections for better code splitting
 const ContactSection = lazy(() => import('@/components/sections/Contact'));
 const ExperienceSection = lazy(() => import('@/components/sections/Experience'));
 const ProjectsSection = lazy(() => import('@/components/sections/Projects'));
@@ -93,9 +95,7 @@ export default function Home() {
   return (
     <>
       <PageSection id="about">
-        <Suspense fallback={<SectionLoader />}>
-          <AboutSection />
-        </Suspense>
+        <AboutSection />
       </PageSection>
       <PageSection id="skills" title="Technical Skills">
         <Suspense fallback={<SectionLoader />}>

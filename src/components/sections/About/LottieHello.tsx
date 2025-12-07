@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
+import type { LottieRefCurrentProps } from 'lottie-react';
 import { useTheme } from '@/context/ThemeContext';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+
+// Lazy load lottie-react to reduce initial bundle size
+import { lazy, Suspense } from 'react';
+const Lottie = lazy(() => import('lottie-react').then((module) => ({ default: module.default })));
 
 // Type for Lottie animation data structure
 type LottieObject = {
@@ -25,11 +29,37 @@ export default function LottieHello({
   planetColor = 'secondary',
 }: LottieHelloProps) {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const [animationData, setAnimationData] = useState<LottieObject | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
+  // Use Intersection Observer to only load animation when visible
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '50px', // Load slightly before it comes into view
+      },
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // Only load animation data when visible
+    if (!isVisible) return;
+
     const createThemedAnimation = async () => {
       try {
         // Import the base animation
@@ -59,7 +89,7 @@ export default function LottieHello({
     };
 
     createThemedAnimation();
-  }, [theme, planetColor]);
+  }, [theme, planetColor, isVisible]);
 
   useEffect(() => {
     const lottie = lottieRef.current;
@@ -129,6 +159,7 @@ export default function LottieHello({
   if (!animationData) {
     return (
       <div
+        ref={containerRef}
         className={`${className} rounded`}
         style={{ backgroundColor: 'transparent' }}
         aria-hidden="true"
@@ -137,27 +168,39 @@ export default function LottieHello({
   }
 
   return (
-    <Lottie
-      lottieRef={lottieRef}
-      animationData={animationData}
-      loop={!prefersReducedMotion}
-      autoplay={!prefersReducedMotion}
-      className={`lottie-smooth lottie-themed ${className}`}
-      style={{
-        width: '100%',
-        height: '100%',
-        opacity: opacity,
-        pointerEvents: 'none',
-        filter: 'blur(0.2px)',
-        backgroundColor: 'transparent',
-        willChange: prefersReducedMotion ? 'auto' : 'opacity',
-        contain: 'layout style paint',
-      }}
-      rendererSettings={{
-        preserveAspectRatio: 'xMidYMid meet',
-        progressiveLoad: true,
-        hideOnTransparent: true,
-      }}
-    />
+    <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
+      <Suspense
+        fallback={
+          <div
+            className={`${className} rounded`}
+            style={{ backgroundColor: 'transparent' }}
+            aria-hidden="true"
+          />
+        }
+      >
+        <Lottie
+          lottieRef={lottieRef}
+          animationData={animationData}
+          loop={!prefersReducedMotion}
+          autoplay={!prefersReducedMotion}
+          className={`lottie-smooth lottie-themed ${className}`}
+          style={{
+            width: '100%',
+            height: '100%',
+            opacity: opacity,
+            pointerEvents: 'none',
+            filter: 'blur(0.2px)',
+            backgroundColor: 'transparent',
+            willChange: prefersReducedMotion ? 'auto' : 'opacity',
+            contain: 'layout style paint',
+          }}
+          rendererSettings={{
+            preserveAspectRatio: 'xMidYMid meet',
+            progressiveLoad: true,
+            hideOnTransparent: true,
+          }}
+        />
+      </Suspense>
+    </div>
   );
 }
