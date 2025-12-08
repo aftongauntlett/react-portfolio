@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { PropsWithChildren, ChangeEvent } from 'react';
@@ -119,12 +119,12 @@ vi.mock('@/hooks/usePrefersReducedMotion', () => ({
 }));
 
 describe('ContactSection', () => {
-  let fetchSpy: ReturnType<typeof vi.fn>;
+  let fetchSpy: Mock;
 
   beforeEach(() => {
     // Mock fetch
     fetchSpy = vi.fn();
-    global.fetch = fetchSpy;
+    global.fetch = fetchSpy as typeof global.fetch;
 
     // Mock matchMedia for prefers-reduced-motion
     window.matchMedia = vi.fn().mockReturnValue({

@@ -50,8 +50,8 @@
     "security:fix": "npm audit fix",
     "deps:check": "npm outdated",
     "deps:update": "ncu -u && npm install",
-    "lighthouse": "npm run build && npx lhci autorun",
-    "lighthouse:mobile": "npm run build && npx lhci autorun --collect.settings.preset=mobile",
+    "lighthouse": "npm run build && npx lighthouse http://localhost:4173 --view",
+    "lighthouse:mobile": "npm run build && npx lighthouse http://localhost:4173 --preset=mobile --view",
     "health:check": "npm run type-check && npm run lint && npm run test:run && npm run build && npm run security:audit"
   },
   "dependencies": {
@@ -68,7 +68,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
-    "@lhci/cli": "^0.15.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
@@ -79,16 +78,17 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@vitejs/plugin-react": "^5.1.2",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.3.0",
     "husky": "^9.1.7",
-    "jsdom": "^26.1.0",
+    "jsdom": "^27.3.0",
+    "lighthouse": "^12.8.2",
     "lint-staged": "^16.2.4",
     "npm-check-updates": "^19.1.1",
     "postcss": "^8.5.6",
@@ -99,6 +99,6 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.3",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.15"
   }
 }

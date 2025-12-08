@@ -5,11 +5,13 @@ import { useLenis } from '../useLenis';
 // Mock Lenis
 vi.mock('lenis', () => {
   return {
-    default: vi.fn().mockImplementation(() => ({
-      raf: vi.fn(),
-      destroy: vi.fn(),
-      scrollTo: vi.fn(),
-    })),
+    default: vi.fn(function () {
+      return {
+        raf: vi.fn(),
+        destroy: vi.fn(),
+        scrollTo: vi.fn(),
+      };
+    }),
   };
 });
 
@@ -41,7 +43,7 @@ describe('useLenis', () => {
     });
 
     const { getByText } = render(<TestComponent />);
-    
+
     waitFor(() => {
       expect(getByText('Lenis initialized')).toBeInTheDocument();
     });
@@ -64,7 +66,7 @@ describe('useLenis', () => {
     });
 
     const { getByText } = render(<TestComponent />);
-    
+
     expect(getByText('No Lenis')).toBeInTheDocument();
   });
 });

@@ -40,7 +40,7 @@ vi.mock('@/components/shared/Button', () => ({
 
 describe('MobileNav - Accessibility', () => {
   let mockLenis: Lenis;
-  let onCloseMock: ReturnType<typeof vi.fn>;
+  let onCloseMock: () => void;
   let smoothScrollToSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {

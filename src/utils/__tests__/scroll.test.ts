@@ -1,11 +1,11 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import { smoothScrollTo, scrollToTop } from '../scroll';
 import type Lenis from 'lenis';
 
 describe('scroll utilities', () => {
   let mockLenis: Lenis;
   let scrollToSpy: ReturnType<typeof vi.spyOn>;
-  let matchMediaMock: ReturnType<typeof vi.fn>;
+  let matchMediaMock: Mock;
 
   beforeEach(() => {
     // Mock Lenis instance
@@ -22,7 +22,7 @@ describe('scroll utilities', () => {
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
     });
-    window.matchMedia = matchMediaMock;
+    window.matchMedia = matchMediaMock as typeof window.matchMedia;
 
     // Mock document.querySelector
     vi.spyOn(document, 'querySelector').mockReturnValue(null);
