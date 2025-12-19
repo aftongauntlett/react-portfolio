@@ -1,138 +1,41 @@
 # React Portfolio
 
-[![CI/CD](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aftongauntlett/react-portfolio/actions/workflows/ci.yml)
-[![Last Commit](https://img.shields.io/github/last-commit/aftongauntlett/react-portfolio?style=flat&logo=github)](https://github.com/aftongauntlett/react-portfolio/commits)
-![Tests](https://img.shields.io/badge/tests-passing-success)
-
-## What This Is
-
-A portfolio site built with React 19, TypeScript, and Vite. Uses hash-based navigation for a single-page experience with smooth scrolling between sections. Includes a working contact form, dark/light themes, and responsive design.
-
-**[Live Site →](https://aftongauntlett.com)**
-
-![Portfolio Preview - Dark Mode](./docs/dark.png)
-
-## Stack
-
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat&logo=vite&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript_5.8-3178C6?style=flat&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
-![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
 
-- React 19
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- Vite 7
-- Vitest
-- Hash-based navigation
-- ESLint
-- Prettier
+**[View Live Site →](https://aftongauntlett.com)**
 
-## Architecture
+Modern portfolio site showcasing clean React architecture and accessibility-first development.
 
-Uses TypeScript interfaces, custom hooks, and CSS custom properties for theming. Includes error boundaries for error handling. Main content is organized into component folders (layout, sections, shared), with constants, context providers, data files, custom hooks, and utility functions.
+## Key Features
 
-## Highlights
+- **Type-Safe Architecture** — Strict TypeScript with no `any` types in production code
+- **Accessibility First** — ARIA labels, keyboard navigation, reduced motion support, and semantic HTML
+- **Tested** — 77 passing tests covering components, hooks, and utilities with Vitest + React Testing Library
+- **Performance** — Lazy loading, code splitting, smooth scrolling with Lenis
+- **Responsive Design** — Mobile-first approach with Tailwind CSS utilities
 
-- Dark/light mode with system preference detection
-- Responsive design with mobile-first approach
-- Smooth animations with reduced-motion support
-- Working contact form (Formspree)
-- Comprehensive testing (Vitest + React Testing Library)
-- WCAG AA compliance
+## Tech Stack
 
-## Accessibility
+- React 19 with functional components and modern hooks patterns
+- TypeScript 5.8 with strict mode enabled
+- Vite for fast builds and HMR
+- Framer Motion for animations
+- Tailwind CSS for styling
+- Vitest + React Testing Library for testing
 
-- Full keyboard navigation with visible focus indicators
-- WCAG AA compliant color contrast
-- Reduced-motion support for animations
-- Screen reader announcements for navigation changes
-- Semantic HTML with proper ARIA labels
+## Project Structure
 
-## Performance
+Clean separation of concerns with reusable components, custom hooks, and utility functions:
 
-Typical Lighthouse scores: ~95% Performance, 100% Accessibility, 100% Best Practices, 100% SEO. Scores vary by network and device conditions.
+- [src/components/](src/components/) — UI components organized by domain (layout, sections, shared)
+- [src/hooks/](src/hooks/) — Custom React hooks (`useActiveSection`, `useLenis`, `usePrefersReducedMotion`)
+- [src/utils/](src/utils/) — Helper functions for dates, scrolling, and formatting
+- [src/data/](src/data/) — Centralized content configuration
 
-![Performance](https://img.shields.io/badge/Performance-95%25-brightgreen?style=flat&logo=lighthouse)
-![Accessibility](https://img.shields.io/badge/Accessibility-100%25-brightgreen?style=flat&logo=lighthouse)
-![Best Practices](https://img.shields.io/badge/Best_Practices-100%25-brightgreen?style=flat&logo=lighthouse)
-![SEO](https://img.shields.io/badge/SEO-100%25-brightgreen?style=flat&logo=lighthouse)
 
-**Technical optimizations:**
-
-- Font loading with `display=swap`
-- Code splitting (vendor, motion, icons)
-- Tree-shaking and selective imports
-- Strategic resource hints (preconnect, DNS prefetch)
-- esbuild minification
-
-## Getting Started
-
-```bash
-# Clone and install
-git clone https://github.com/aftongauntlett/react-portfolio.git
-cd react-portfolio
-npm install
-
-# Start development server
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) to view locally.
-
-## Scripts
-
-```bash
-# Development
-npm run dev          # Start development server with HMR
-
-# Production
-npm run build        # Build for production
-npm run preview      # Preview production build locally
-
-# Code quality
-npm run type-check   # TypeScript validation
-npm run lint         # ESLint with auto-fix
-npm run test         # Run Vitest in watch mode
-npm run test:run     # Run tests once (CI-friendly)
-npm run test:coverage # Run tests with coverage report
-npm run test:ui      # Interactive test UI
-npm run test:watch   # Watch mode for development (alias for test)
-
-# Analysis
-npm run analyze      # Interactive bundle analyzer
-npm run health:check # Run all checks (type-check, lint, test:run, build)
-```
-
-## Maintenance
-
-**Automated updates:** Dependabot runs monthly for patches and minor versions. CI/CD validates all PRs. Security monitoring via npm audit.
-
-**Manual tasks:** Review Dependabot PRs monthly. Major version updates quarterly as needed.
-
-## Deployment
-
-Deployed on Vercel with automatic deployments from the main branch.
-
-**Production optimizations:**
-
-- Bundle splitting for optimal loading
-- Asset optimization and compression
-- Aggressive caching for static assets
-- Web Vitals tracking
-- SEO meta tags and structured data
-
-**Environment Variables:**  
-None required. Contact form uses Formspree's client-side integration.
-
-**Build Process:**
-
-- TypeScript compilation with strict mode
-- Bundle size monitoring
-- Optimized image loading and lazy loading
 
 ## License
 

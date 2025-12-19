@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Optimized Google Fonts with font-display optional for no flash -->
+    <!-- Optimized Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=optional"
       rel="stylesheet"
@@ -29,28 +29,9 @@
       />
     </noscript>
 
-    <!-- Critical CSS for LCP optimization -->
     <style>
-      /* Prevent theme flash by setting initial theme before React loads */
       :root {
         color-scheme: light dark;
-      }
-
-      /* Critical styles for Hello text (LCP element) */
-      .hello-gradient {
-        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-align: center;
-        font-weight: bold;
-        line-height: 1.1;
-      }
-
-      /* Ensure fonts load immediately for critical text */
-      h1,
-      .hello-gradient {
-        font-display: swap;
       }
     </style>
 
@@ -137,65 +118,28 @@
       }
     </script>
 
-    <!-- Immediate theme detection and styling to prevent ANY flash -->
+    <!-- Theme detection to prevent flash of unstyled content -->
     <script>
       (function () {
         try {
           const stored = localStorage.getItem('theme');
-          const prefersDark =
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const theme = stored || (prefersDark ? 'dark' : 'light');
-
-          // Apply theme class immediately
+          const theme = stored ?? 'dark';
           if (theme === 'dark') {
             document.documentElement.classList.add('dark');
           }
         } catch (e) {
-          // Silent fallback to light mode
+          // Fallback to default theme
         }
       })();
     </script>
 
-    <!-- Critical CSS to prevent any visual flash -->
     <style>
-      /* Immediate background and text styling */
-      html {
-        background-color: var(--color-background, transparent) !important;
-        color: var(--color-text, hsl(215, 15%, 15%)) !important;
-      }
-
-      html.dark {
-        background-color: var(--color-background, transparent) !important;
-        color: var(--color-text, hsl(210, 19%, 88%)) !important;
-      }
-
       body {
-        background-color: inherit !important;
-        color: inherit !important;
         margin: 0;
         padding: 0;
       }
-
-      /* Ensure all text uses correct colors immediately */
-      * {
-        color: inherit;
-      }
-
-      /* Override any blue link colors before CSS loads */
-      a {
-        color: inherit !important;
-        text-decoration: none !important;
-      }
-
-      /* Loading state styling */
       #root {
         min-height: 100vh;
-        background-color: inherit;
-      }
-
-      /* Prevent any content from showing during load */
-      #root:empty {
-        opacity: 0;
       }
     </style>
   </head>
