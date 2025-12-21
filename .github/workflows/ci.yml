@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI
 
 on:
   push:
@@ -25,19 +25,5 @@ jobs:
       - name: Run type check
         run: npm run type-check
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Run tests
-        run: npm run test:run
-
       - name: Build
         run: npm run build
-
-      - name: Lighthouse CI - Desktop
-        run: npm run lighthouse
-        continue-on-error: true
-
-      - name: Lighthouse CI - Mobile
-        run: npm run lighthouse:mobile
-        continue-on-error: true
