@@ -133,7 +133,7 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <h4
+                <h3
                   className={clsx(
                     TYPOGRAPHY.SUBTITLE,
                     'text-[var(--color-text)] transition-colors duration-300',
@@ -141,7 +141,7 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
                   )}
                 >
                   {item.title}
-                </h4>
+                </h3>
 
                 {item.status ? (
                   <span
