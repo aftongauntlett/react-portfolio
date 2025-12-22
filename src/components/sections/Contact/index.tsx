@@ -319,8 +319,7 @@ export default function ContactSection() {
       >
         <div className="space-y-4">
           <p className="text-description transition-colors duration-300 group-hover:text-[var(--color-text)] group-focus-within:text-[var(--color-text)]">
-            Whether you want to chat about a job opening, a project, collaboration, or just say hi &mdash;
-            my inbox is always open. I&apos;ll try to respond as soon as I can!
+            Have a role, a project, or a question in mind? Feel free to reach out. I’m always open to thoughtful conversations and new opportunities.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">

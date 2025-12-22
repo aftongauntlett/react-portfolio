@@ -64,7 +64,7 @@ export function FormField({
     ? {}
     : {
         animate: {
-          scale: isFocused ? 1.02 : 1,
+          scale: 1,
           color: isFocused ? 'var(--color-primary)' : 'var(--color-text)',
         },
         transition: { type: 'spring' as const, stiffness: 300, damping: 25 },
@@ -158,7 +158,7 @@ export function TextAreaField({
     ? {}
     : {
         animate: {
-          scale: isFocused ? 1.02 : 1,
+          scale: 1,
           color: isFocused ? 'var(--color-primary)' : 'var(--color-text)',
         },
         transition: { type: 'spring' as const, stiffness: 300, damping: 25 },
