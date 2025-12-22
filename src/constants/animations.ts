@@ -3,33 +3,11 @@
  * Reduces code duplication across components
  */
 
-import { getMotionDuration } from '@/hooks/usePrefersReducedMotion';
-
-// Helper to create motion-safe variants
-export const createMotionVariants = (prefersReducedMotion: boolean) => ({
-  fadeInUp: {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: getMotionDuration(0.5, prefersReducedMotion),
-        ease: 'easeOut' as const,
-      },
-    },
-  },
-  projectCard: {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: getMotionDuration(0.5, prefersReducedMotion),
-        ease: 'easeOut' as const,
-      },
-    },
-  },
-});
+export const VIEWPORT_CONFIG = {
+  once: true,
+  margin: '-80px 0px -80px 0px',
+  amount: 0.2,
+} as const;
 
 // Base animation variants (without reduced motion)
 export const fadeInUp = {
@@ -54,8 +32,8 @@ export const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
+      staggerChildren: 0.05,
+      delayChildren: 0.05,
     },
   },
 };
@@ -108,4 +86,22 @@ export const DURATION = {
   normal: 0.3,
   slow: 0.5,
   verySlow: 0.8,
+} as const;
+
+export const ANIMATION_PRESET_FAST = {
+  duration: DURATION.fast,
+  ease: EASING.easeOut,
+  viewport: VIEWPORT_CONFIG,
+} as const;
+
+export const ANIMATION_PRESET_NORMAL = {
+  duration: DURATION.normal,
+  ease: EASING.easeOut,
+  viewport: VIEWPORT_CONFIG,
+} as const;
+
+export const ANIMATION_PRESET_SLOW = {
+  duration: DURATION.slow,
+  ease: EASING.easeInOut,
+  viewport: VIEWPORT_CONFIG,
 } as const;
