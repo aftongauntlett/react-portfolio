@@ -31,13 +31,16 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
+    cssCodeSplit: true,
+    modulePreload: true,
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
           motion: ['framer-motion'],
+          scroll: ['lenis'],
           icons: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
-          lottie: ['lottie-react'],
         },
       },
     },
@@ -46,6 +49,9 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
+    esbuildOptions: {
+      target: 'es2020',
+    },
   },
   test: {
     globals: true,
