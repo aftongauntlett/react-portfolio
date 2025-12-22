@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import type { PropsWithChildren } from 'react';
 import SideNav from '../index';
-import * as ScrollUtils from '@/utils/scroll';
+import * as ScrollUtils from '@/utils/domScroll';
 import * as LenisContext from '@/context/LenisContext';
 import * as ThemeContext from '@/context/ThemeContext';
 import * as ActiveSectionHook from '@/hooks/useActiveSection';

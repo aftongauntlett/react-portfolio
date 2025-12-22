@@ -38,7 +38,15 @@ export default function OrbitalOrderPostMortem() {
                 JS13k 2025 Practice Project
               </p>
             </div>
-            <span className="px-3 py-1 bg-green-500/10 border border-green-500/30 rounded text-green-500 text-sm font-medium whitespace-nowrap">
+            <span
+              className={clsx(
+                TYPOGRAPHY.TEXT_SMALL,
+                'px-3 py-1 rounded font-medium whitespace-nowrap',
+                'border border-[var(--color-line)]',
+                'text-[var(--color-status-production)]',
+              )}
+              style={{ backgroundColor: 'var(--color-status-production-bg)' }}
+            >
               Complete
             </span>
           </div>
@@ -85,7 +93,7 @@ export default function OrbitalOrderPostMortem() {
           <section className="mb-12">
             <h2 className={clsx(TYPOGRAPHY.HEADING_2, 'mb-4')}>Technical Overview</h2>
             <p className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'leading-relaxed mb-4')}>
-              The palette came from science class memories and Portal's blue and orange. They read
+              The palette came from science class memories and Portal&apos;s blue and orange. They read
               as charge and polarity, which fit the theme. The sound sits in the background as a
               low, calm bed so the focus stays on motion and light.
             </p>
@@ -121,7 +129,7 @@ export default function OrbitalOrderPostMortem() {
             <p className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'leading-relaxed mb-4')}>
               The 13KB limit forced clear choices. No libraries. No waste. I watched allocations,
               reused what I could, and kept the update loop simple. Seeing Terser compress things
-              was oddly satisfying. "Golfing" made sense once I saw it work in practice.
+              was oddly satisfying. &ldquo;Golfing&rdquo; made sense once I saw it work in practice.
             </p>
             <ul className="space-y-3 pl-1">
               <li className="flex gap-3 text-[var(--color-text)]">

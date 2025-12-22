@@ -28,7 +28,37 @@ export const projects: Project[] = [
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
   },
-  {
+    {
+    title: 'Potomac Family Dining',
+    status: 'Production',
+    description:
+      'Enterprise client website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Built comprehensive web platform featuring employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic loads with robust performance optimization.',
+    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
+    link: '#',
+    demo: 'https://potomacdining.com/',
+  },
+
+    {
+    title: 'Nyx Felis & Lampyris - JS13k Games Entry',
+    status: 'Production',
+    description:
+      'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game. Built to explore creative coding and constraint-driven development while demonstrating follow-through, polish, and efficient code craftsmanship.',
+    tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Particle Systems'],
+    link: 'https://github.com/aftongauntlett/js13k-2025',
+    demo: 'https://nyx-felis.aftongauntlett.com/',
+    external: true,
+  },
+      {
+    title: 'Orbital Order (Aufbau) - JS13k Games Demo',
+    status: 'Production',
+    description:
+      'Built for JS13K competition practice with vanilla JavaScript and Canvas 2D. Focused on core gameplay mechanics, level design, and intuitive controls within strict size constraints. Showcases efficient coding techniques and creative problem-solving under limitations.',
+    tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Physics Simulation'],
+    link: 'https://github.com/aftongauntlett/js13k-demo',
+    demo: 'https://orbital-order.aftongauntlett.com/',
+    external: true,
+  },
+    {
     title: 'Personal Portfolio',
     status: 'Production',
     description:
@@ -45,24 +75,6 @@ export const projects: Project[] = [
     link: 'https://github.com/gauntletdesigns/gauntlet-designs-vue',
     demo: 'https://gauntletdesigns.com/',
   },
-  {
-    title: 'Potomac Family Dining',
-    status: 'Production',
-    description:
-      'Enterprise client website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Built comprehensive web platform featuring employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic loads with robust performance optimization.',
-    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
-    link: '#',
-    demo: 'https://potomacdining.com/',
-  },
-  {
-    title: 'Nyx Felis & Lampyris - JS13k Games Entry',
-    status: 'Production',
-    description:
-      'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game. Built to explore creative coding and constraint-driven development while demonstrating follow-through, polish, and efficient code craftsmanship.',
-    tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Particle Systems'],
-    link: 'https://github.com/aftongauntlett/js13k-2025',
 
-    demo: 'https://js13kgames.com/2025/games/nyx-felis-and-lampyris',
-    external: true,
-  },
+
 ];

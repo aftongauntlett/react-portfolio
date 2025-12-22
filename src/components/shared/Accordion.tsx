@@ -38,11 +38,10 @@ export default function Accordion({
           onClick={() => setIsOpen(!isOpen)}
           className={clsx(
             'w-full text-left py-4 flex items-center justify-between gap-4',
-            'text-[var(--color-text)] hover:text-[var(--color-primary)]',
+            'text-[var(--color-text)]',
             TRANSITION_FAST,
             'focus:outline-none focus:text-[var(--color-primary)]',
             'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-            'group',
           )}
           aria-expanded={isOpen}
         >
@@ -51,9 +50,11 @@ export default function Accordion({
             {badge !== undefined && (
               <span
                 className={clsx(
-                  'px-2.5 py-1 rounded-full text-xs font-medium',
+                  'inline-flex items-center justify-center',
+                  'h-6 min-w-6 px-1.5',
+                  'rounded-full text-xs font-medium leading-none',
+                  'border border-[var(--color-line)]',
                   'bg-[var(--color-primary)]/10 text-[var(--color-primary)]',
-                  'group-hover:bg-[var(--color-primary)]/20',
                   'transition-colors duration-200',
                 )}
               >
@@ -64,18 +65,16 @@ export default function Accordion({
           <HiChevronDown
             className={clsx(
               'transition-transform duration-300 text-[var(--color-muted)]',
-              'group-hover:text-[var(--color-secondary)]',
               'flex-shrink-0',
               isOpen && 'rotate-180',
             )}
             size={20}
           />
         </button>
-        {subtitle && (
+        {subtitle && isOpen && (
           <p
             className={clsx(
               'text-sm text-[var(--color-muted)] mt-1 mb-2',
-              !isOpen && 'line-clamp-2',
             )}
           >
             {subtitle}

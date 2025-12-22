@@ -2,9 +2,20 @@ import { type ReactNode } from 'react';
 import clsx from 'clsx';
 import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 
-export const BulletList = ({ children }: { children: ReactNode }) => (
+export const BulletList = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => (
   <ul
-    className={clsx('group mt-2 list-none space-y-2', TYPOGRAPHY.TEXT_BODY, TYPOGRAPHY.TEXT_MUTED)}
+    className={clsx(
+      'list-none space-y-2 transition-colors duration-300',
+      TYPOGRAPHY.TEXT_DESCRIPTION,
+      'text-[var(--color-muted)] group-hover:text-[var(--color-text)]',
+      className,
+    )}
     aria-label="Job responsibilities and achievements"
   >
     {children}
@@ -14,7 +25,7 @@ export const BulletList = ({ children }: { children: ReactNode }) => (
 export const BulletItem = ({ children }: { children: ReactNode }) => (
   <li
     className={clsx(
-      'bullet-item relative pl-5 flex items-start gap-2 rounded-sm',
+      'bullet-item relative pl-5 flex items-start rounded-sm',
       FOCUS_STYLES.PRIMARY,
     )}
     tabIndex={0}

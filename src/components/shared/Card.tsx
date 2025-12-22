@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import type { ReactNode, KeyboardEvent } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { m } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useWillChange } from '@/hooks/useWillChange';
 import {
   CARD_BASE_CLASSES,
   TITLE_HOVER_CLASSES,
@@ -9,6 +11,7 @@ import {
   TEXT_SM_CLASSES,
 } from '@/constants/styles';
 import { TYPOGRAPHY } from '@/constants/typography';
+import { Text } from '@/components/shared/Text';
 
 interface CardProps {
   title: string | ReactNode;
@@ -24,6 +27,7 @@ interface CardProps {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   subtitleColor?: 'muted' | 'primary';
+  disableMotion?: boolean;
 }
 
 export default function Card({
@@ -40,9 +44,18 @@ export default function Card({
   onMouseEnter,
   onMouseLeave,
   subtitleColor = 'muted',
+  disableMotion = false,
 }: CardProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const isInteractive = !!(link || className?.includes('cursor-pointer'));
+  const [isHovering, setIsHovering] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(true);
+  const ref = useRef<HTMLElement | null>(null);
+  const willChangeStyle = useWillChange(['transform'], isHovering);
+
+  const setCardRef = (node: HTMLElement | null) => {
+    ref.current = node;
+  };
 
   // Handle keyboard interaction for clickable cards
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -52,21 +65,45 @@ export default function Card({
     }
   };
 
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        const nextInView = Boolean(entry?.isIntersecting);
+        setIsInViewport(nextInView);
+        if (!nextInView) setIsHovering(false);
+      },
+      { root: null, rootMargin: '100px 0px 100px 0px', threshold: 0 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   // Micro-interaction animations (respects prefers-reduced-motion)
-  const motionProps = prefersReducedMotion
-    ? {}
-    : {
-        whileHover: {
-          y: -4,
-          transition: { type: 'spring' as const, stiffness: 200, damping: 25 },
-        },
-        whileTap: isInteractive
-          ? {
-              scale: 0.98,
-              transition: { type: 'spring' as const, stiffness: 250, damping: 30 },
-            }
-          : undefined,
-      };
+  const motionProps = useMemo(() => {
+    if (disableMotion || prefersReducedMotion || !isInViewport) {
+      return {};
+    }
+
+    return {
+      whileHover: {
+        y: -2,
+        transition: { type: 'spring' as const, stiffness: 150, damping: 25 },
+      },
+      whileTap: isInteractive
+        ? {
+            scale: 0.98,
+            transition: { type: 'spring' as const, stiffness: 250, damping: 30 },
+          }
+        : undefined,
+      onHoverStart: () => setIsHovering(true),
+      onHoverEnd: () => setIsHovering(false),
+    };
+  }, [disableMotion, prefersReducedMotion, isInViewport, isInteractive]);
 
   const CardComponent = link ? m.a : m.article;
   const cardProps = link
@@ -98,8 +135,10 @@ export default function Card({
 
   return (
     <CardComponent
+      ref={setCardRef}
       className={clsx(
         CARD_BASE_CLASSES,
+        'gpu-accelerate',
         link && 'cursor-pointer',
         isDimmed && 'opacity-50',
         isHovered && 'z-10',
@@ -110,6 +149,8 @@ export default function Card({
       )}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      style={willChangeStyle}
+      layoutId={typeof title === 'string' ? `card-${title}` : undefined}
       {...motionProps}
       {...cardProps}
     >
@@ -144,15 +185,20 @@ export default function Card({
               'mb-2',
               typeof subtitle === 'string' &&
                 (subtitleColor === 'primary'
-                  ? 'text-[var(--color-primary)] group-hover:text-[var(--color-text)]'
-                  : 'text-[var(--color-muted)] group-hover:text-[var(--color-text)]'),
+                  ? 'text-[var(--color-muted)] group-hover:text-[var(--color-primary)]'
+                  : 'text-[var(--color-muted)] group-hover:text-[var(--color-secondary)]'),
             )}
           >
             {subtitle}
           </div>
 
           {description && (
-            <p className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)]`}>{description}</p>
+            <Text
+              variant="description"
+              className="transition-colors duration-300 group-hover:text-[var(--color-text)]"
+            >
+              {description}
+            </Text>
           )}
 
           {children}

@@ -38,7 +38,15 @@ export default function JS13kPostMortem() {
                 JS13k Games 2025 Competition Entry
               </p>
             </div>
-            <span className="px-3 py-1 bg-green-500/10 border border-green-500/30 rounded text-green-500 text-sm font-medium whitespace-nowrap">
+            <span
+              className={clsx(
+                TYPOGRAPHY.TEXT_SMALL,
+                'px-3 py-1 rounded font-medium whitespace-nowrap',
+                'border border-[var(--color-line)]',
+                'text-[var(--color-status-production)]',
+              )}
+              style={{ backgroundColor: 'var(--color-status-production-bg)' }}
+            >
               Production
             </span>
           </div>

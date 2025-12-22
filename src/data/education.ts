@@ -28,10 +28,11 @@ export const education: Education[] = [
     title: 'CompTIA Security+ Certification',
     institution: 'CompTIA',
     date: '11/2022',
+    status: 'Active',
     type: 'certification',
     link: 'https://www.credly.com/badges/90402bb7-7fdf-4945-aea3-b20fd916f1b4',
     description:
-      'Foundation in security principles, access control, network defense, and risk management.',
+      'Foundation in security principles including access control, identity management, network defense, and risk assessment.',
   },
   {
     title: 'User Experience Design',
@@ -49,20 +50,20 @@ export const awards: Award[] = [
     organization: 'Booz Allen Hamilton',
     date: '2024',
     description:
-      'Redesigned and rebuilt a high-visibility enterprise app adopted across multiple client teams, earning recognition from Amazon Developers for design quality.',
+      'Built and shipped a custom registration and scheduling platform for a large multi-day convention with 100+ attendees. The platform centralized session sign-ups, reduced manual coordination, and was actively used throughout the event.',
   },
   {
     title: 'Gold Award',
     organization: 'Booz Allen Hamilton',
     date: '2023',
     description:
-      'Multiple iterations of design won leadership buy-in over a competing proposal, directly influencing a multi-year contract.',
+      'Produced multiple design iterations for stakeholder review, incorporating leadership feedback at each stage. The final direction was selected over a competing proposal and directly influenced a multi-year contract decision.',
   },
   {
     title: 'Gold Award',
     organization: 'Booz Allen Hamilton',
     date: '2022',
     description:
-      'Built a registration and scheduling platform for the annual convention, enabling 100+ attendees to coordinate sessions seamlessly.',
+      'Led the redesign and rebuild of a high-visibility enterprise application used across multiple client teams. The improved usability and visual clarity drove adoption and earned recognition from Amazon Developers for design quality.',
   },
 ];

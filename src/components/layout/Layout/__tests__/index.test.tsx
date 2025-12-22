@@ -20,10 +20,6 @@ vi.mock('../../MobileHeader', () => ({
   default: () => <div data-testid="mobile-header">MobileHeader</div>,
 }));
 
-vi.mock('../../Background', () => ({
-  default: () => <div data-testid="background">Background</div>,
-}));
-
 vi.mock('../../../shared/Footer', () => ({
   default: () => <footer data-testid="footer">Footer</footer>,
 }));

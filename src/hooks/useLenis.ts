@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 
 /**
@@ -8,7 +8,10 @@ import Lenis from 'lenis';
  * @returns Lenis instance for programmatic scroll control
  */
 export function useLenis() {
+  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const reducedMotionRef = useRef<boolean>(false);
 
   useEffect(() => {
     // Guard against SSR - Lenis requires window/DOM
@@ -16,42 +19,81 @@ export function useLenis() {
       return;
     }
 
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reducedMotionRef.current = mediaQuery.matches;
 
-    // Skip Lenis initialization if reduced motion is preferred
-    if (prefersReducedMotion) {
-      return;
+    const stopAndDestroy = () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+
+      setLenisInstance(null);
+    };
+
+    const initLenis = () => {
+      if (reducedMotionRef.current) return;
+      if (lenisRef.current) return;
+
+      const lenis = new Lenis({
+        duration: 0.6,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.8,
+        touchMultiplier: 2,
+        syncTouch: true,
+        infinite: false,
+      });
+
+      lenisRef.current = lenis;
+      queueMicrotask(() => setLenisInstance(lenis));
+
+      // Keep RAF running so programmatic scroll (SideNav/MobileNav) always works.
+      const loop = (time: number) => {
+        if (reducedMotionRef.current) {
+          stopAndDestroy();
+          return;
+        }
+        if (lenisRef.current !== lenis) {
+          return;
+        }
+
+        lenis.raf(time);
+        rafIdRef.current = requestAnimationFrame(loop);
+      };
+
+      rafIdRef.current = requestAnimationFrame(loop);
+    };
+
+    const handleChange = (event: MediaQueryListEvent) => {
+      reducedMotionRef.current = event.matches;
+      if (event.matches) {
+        stopAndDestroy();
+      } else {
+        initLenis();
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    if (mediaQuery.matches) {
+      stopAndDestroy();
+    } else {
+      initLenis();
     }
 
-    // Initialize Lenis with optimized settings
-    const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    lenisRef.current = lenis;
-
-    // Animation loop
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Cleanup
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
+      mediaQuery.removeEventListener('change', handleChange);
+      stopAndDestroy();
     };
   }, []);
 
-  return lenisRef.current;
+  return lenisInstance;
 }

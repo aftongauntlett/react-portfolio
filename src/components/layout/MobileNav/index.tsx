@@ -1,14 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { navItems } from '@/constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useLenisContext } from '@/context/LenisContext';
 import { useTheme } from '@/context/ThemeContext';
-import { smoothScrollTo } from '@/utils/scroll';
+import { smoothScrollTo } from '@/utils/domScroll';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import clsx from 'clsx';
 import { HiXMark, HiSun, HiMoon } from 'react-icons/hi2';
 import { Button } from '@/components/shared/Button';
+import { useWillChange } from '@/hooks/useWillChange';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -22,6 +23,8 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const menuRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
 
   // Focus trap: Focus close button when menu opens
   useEffect(() => {
@@ -103,7 +106,8 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            className="fixed inset-0 z-40 lg:hidden"
+            style={{ background: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'none' }}
             onClick={onClose}
             aria-hidden="true"
           />
@@ -111,11 +115,14 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           {/* Slide-over Menu */}
           <m.div
             ref={menuRef}
-            initial={{ x: prefersReducedMotion ? 0 : '100%' }}
+            initial={{ x: prefersReducedMotion ? 0 : 300 }}
             animate={{ x: 0 }}
-            exit={{ x: prefersReducedMotion ? 0 : '100%' }}
+            exit={{ x: prefersReducedMotion ? 0 : 300 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: 'easeInOut' }}
-            className="fixed top-0 right-0 bottom-0 w-[280px] bg-[var(--color-background)] border-l border-[var(--color-line)] z-50 lg:hidden overflow-y-auto"
+            className="fixed top-0 right-0 bottom-0 w-[280px] bg-[var(--color-background)] border-l border-[var(--color-line)] z-50 lg:hidden overflow-y-auto gpu-accelerate"
+            style={{ ...willChangeStyle, contain: 'layout style paint' }}
+            onAnimationStart={() => setIsAnimating(true)}
+            onAnimationComplete={() => setIsAnimating(false)}
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation menu"

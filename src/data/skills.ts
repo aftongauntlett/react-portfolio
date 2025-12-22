@@ -1,41 +1,39 @@
 export interface Skill {
   name: string;
-  category: 'frontend' | 'backend' | 'tools';
+  category: 'frontend' | 'supporting';
 }
 
 export const skills: Skill[] = [
-  { name: 'React.js', category: 'frontend' },
+  { name: 'React', category: 'frontend' },
   { name: 'Next.js', category: 'frontend' },
   { name: 'TypeScript', category: 'frontend' },
   { name: 'JavaScript (ES6+)', category: 'frontend' },
   { name: 'Tailwind CSS', category: 'frontend' },
-  { name: 'HTML5/CSS3', category: 'frontend' },
+  { name: 'HTML/CSS', category: 'frontend' },
   { name: 'Responsive Design', category: 'frontend' },
-  { name: 'Accessibility (WCAG/508)', category: 'frontend' },
+  { name: 'Accessibility (WCAG)', category: 'frontend' },
   { name: 'Design Systems', category: 'frontend' },
+  { name: 'Component Architecture', category: 'frontend' },
+  { name: 'TanStack', category: 'frontend' },
+  { name: 'Storybook', category: 'frontend' },
+  { name: 'Jest', category: 'frontend' },
 
-  { name: 'REST APIs', category: 'backend' },
-  { name: 'GraphQL', category: 'backend' },
-  { name: 'PostgreSQL', category: 'backend' },
-  { name: 'Python', category: 'backend' },
-  { name: 'TanStack Query', category: 'backend' },
-  { name: 'Swagger', category: 'backend' },
-  { name: 'Jest', category: 'backend' },
-  { name: 'JSdoc', category: 'backend' },
+  { name: 'REST APIs', category: 'supporting' },
+  { name: 'GraphQL', category: 'supporting' },
+  { name: 'PostgreSQL', category: 'supporting' },
+  { name: 'Swagger', category: 'supporting' },
+  { name: 'JSDoc', category: 'supporting' },
 
-  { name: 'Git', category: 'tools' },
-  { name: 'Docker', category: 'tools' },
-  { name: 'Storybook', category: 'tools' },
-  { name: 'Figma', category: 'tools' },
-  { name: 'Adobe XD', category: 'tools' },
-  { name: 'GSAP', category: 'tools' },
-  { name: 'Framer', category: 'tools' },
-  { name: 'Agile', category: 'tools' },
-  { name: 'AI-Assisted Development', category: 'tools' },
+  { name: 'Git', category: 'supporting' },
+  { name: 'Docker', category: 'supporting' },
+  { name: 'Figma', category: 'supporting' },
+  { name: 'GSAP', category: 'supporting' },
+  { name: 'Framer', category: 'supporting' },
+  { name: 'Agile', category: 'supporting' },
+  { name: 'AI-Assisted Workflow', category: 'supporting' },
 ];
 
 export const skillCategories = {
-  frontend: 'Frontend & UI Development',
-  backend: 'Backend & Data',
-  tools: 'Development & Design Tools',
+  frontend: 'Frontend Engineering & UI',
+  supporting: 'Supporting Technologies & Workflow',
 } as const;

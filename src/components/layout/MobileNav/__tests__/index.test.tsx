@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { PropsWithChildren } from 'react';
 import MobileNav from '../index';
-import * as ScrollUtils from '@/utils/scroll';
+import * as ScrollUtils from '@/utils/domScroll';
 import * as LenisContext from '@/context/LenisContext';
 import * as ThemeContext from '@/context/ThemeContext';
 import * as ActiveSectionHook from '@/hooks/useActiveSection';

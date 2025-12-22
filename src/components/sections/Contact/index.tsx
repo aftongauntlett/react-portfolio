@@ -4,6 +4,7 @@ import { Button } from '@/components/shared/Button';
 import MotionSection from '@/components/shared/MotionSection';
 import { FormField, TextAreaField } from '@/components/shared/FormComponents';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
+import { VIEWPORT_CONFIG } from '@/constants/animations';
 
 interface FormData {
   name: string;
@@ -290,10 +291,10 @@ export default function ContactSection() {
 
   return (
     <m.div
-      className="space-y-6"
+      className="group space-y-6"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
+      viewport={VIEWPORT_CONFIG}
       variants={{
         hidden: {},
         visible: {
@@ -317,9 +318,9 @@ export default function ContactSection() {
         }}
       >
         <div className="space-y-4">
-          <p className="text-[var(--color-muted)]">
-            Whether you want to chat about a job opening, a project, collaboration, or just say hi -
-            my inbox is always open. I'll try to respond as soon as I can!
+          <p className="text-description transition-colors duration-300 group-hover:text-[var(--color-text)] group-focus-within:text-[var(--color-text)]">
+            Whether you want to chat about a job opening, a project, collaboration, or just say hi &mdash;
+            my inbox is always open. I&apos;ll try to respond as soon as I can!
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">

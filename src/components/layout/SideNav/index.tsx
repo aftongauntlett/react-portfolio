@@ -1,37 +1,52 @@
 import type { MouseEvent } from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useLenisContext } from '@/context/LenisContext';
 import { navItems } from '../../../constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { smoothScrollTo } from '@/utils/scroll';
+import { smoothScrollTo } from '@/utils/domScroll';
 import { FaLinkedin } from 'react-icons/fa';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
 import { HiSun, HiMoon } from 'react-icons/hi2';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
+import { useWillChange } from '@/hooks/useWillChange';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
   const { lenis } = useLenisContext();
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [announcement, setAnnouncement] = useState('');
+  const [isAnimating, setIsAnimating] = useState(false);
+  const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
+  const announcementRef = useRef<HTMLDivElement | null>(null);
 
   // Announce section changes to screen readers
   useEffect(() => {
-    if (activeSection) {
-      const navItem = navItems.find((item) => item.id === activeSection);
-      if (navItem) {
-        setAnnouncement(`Navigated to ${navItem.label} section`);
-        // Clear announcement after a delay to allow it to be read again next time
-        const timeout = setTimeout(() => setAnnouncement(''), 1000);
-        return () => clearTimeout(timeout);
-      }
+    const el = announcementRef.current;
+    if (!el) return;
+
+    if (!activeSection) {
+      el.textContent = '';
+      return;
     }
+
+    const navItem = navItems.find((item) => item.id === activeSection);
+    if (!navItem) return;
+
+    el.textContent = `Navigated to ${navItem.label} section`;
+    const clearTimeoutId = window.setTimeout(() => {
+      if (announcementRef.current) {
+        announcementRef.current.textContent = '';
+      }
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(clearTimeoutId);
+    };
   }, [activeSection]);
 
   return (
@@ -47,11 +62,18 @@ export default function SideNav() {
           staggerChildren: getMotionDuration(0.1, prefersReducedMotion),
         },
       }}
+      onAnimationStart={() => setIsAnimating(true)}
+      onAnimationComplete={() => setIsAnimating(false)}
+      style={willChangeStyle}
     >
       {/* Screen reader announcement for active section */}
-      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {announcement}
-      </div>
+      <div
+        ref={announcementRef}
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      />
 
       <m.div
         initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 }}
@@ -148,7 +170,7 @@ export default function SideNav() {
               href="https://github.com/aftongauntlett"
               aria-label="Visit GitHub profile"
               variant="link"
-              color="primary"
+              color="muted"
             />
             <Button
               href="https://www.linkedin.com/in/afton-gauntlett/"
@@ -156,7 +178,7 @@ export default function SideNav() {
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn profile (opens in new tab)"
               variant="link"
-              color="primary"
+              color="muted"
               icon={<FaLinkedin size={20} />}
             />
           </div>

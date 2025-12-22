@@ -1,5 +1,5 @@
-import { useRef, useCallback } from 'react';
-import type { MouseEvent, ElementType, JSX } from 'react';
+import type { ElementType, JSX } from 'react';
+import { m } from 'framer-motion';
 
 type AllowedTags = keyof JSX.IntrinsicElements;
 
@@ -8,62 +8,53 @@ interface PaintSplashTextProps {
   tag?: AllowedTags;
   className?: string;
   id?: string;
+  isActive?: boolean;
+  scrollProgress?: number;
+  prefersReducedMotion?: boolean;
   'aria-labelledby'?: string;
   'aria-describedby'?: string;
 }
 
 /**
- * PaintSplashText renders a hoverable text element with a radial splash effect.
- * On hover, the mouse position is tracked and passed as CSS variables to the pseudo-element.
+ * PaintSplashText renders a styled heading/label.
  */
 export default function PaintSplashText({
   children,
   tag = 'span',
   className = '',
+  isActive = false,
+  scrollProgress = 0,
+  prefersReducedMotion = false,
   ...additionalProps
 }: PaintSplashTextProps) {
-  const ref = useRef<HTMLElement>(null);
-
-  /**
-   * Handles mouse movement to update CSS variables (--mx, --my)
-   * These control the position of the splash effect.
-   */
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-
-    const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    el.style.setProperty('--mx', `${x}%`);
-    el.style.setProperty('--my', `${y}%`);
-  }, []);
-
-  /**
-   * Resets the CSS variables on mouse leave
-   * Prevents the last splash position from persisting.
-   */
-  const handleMouseLeave = useCallback(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    el.style.removeProperty('--mx');
-    el.style.removeProperty('--my');
-  }, []);
-
   const Tag = tag as ElementType;
+
+  const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
+  const activeProgress = isActive ? (prefersReducedMotion ? 1 : clampedProgress) : 0;
+
+  const underlineTransition = {
+    duration: prefersReducedMotion ? 0 : 0.25,
+    ease: 'easeOut',
+  } as const;
 
   return (
     <Tag
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`paint-splash font-heading text-4xl font-bold leading-tight tracking-tight ${className}`}
-      data-splash={children}
+      className={`font-heading text-4xl font-semibold leading-[1.3] ${className}`}
+      tabIndex={-1}
       {...additionalProps}
     >
-      {children}
+      <span className="relative inline-block">
+        <span className="relative inline-block">{children}</span>
+
+        {/* Active underline */}
+        <m.span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full rounded bg-[var(--color-primary)]"
+          style={{ transformOrigin: 'left' }}
+          animate={{ scaleX: activeProgress }}
+          transition={underlineTransition}
+        />
+      </span>
     </Tag>
   );
 }

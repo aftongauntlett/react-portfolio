@@ -5,6 +5,7 @@ import { LazyMotion, domAnimation } from 'framer-motion';
 import ErrorBoundary from './components/shared/ErrorBoundary';
 import { LenisProvider } from './context/LenisContext';
 import Layout from './components/layout/Layout';
+import { usePerformanceMonitor } from '@/hooks/usePerformanceMonitor';
 
 // Eager load home page - it's the main route and critical for LCP
 import Home from './pages/Home';
@@ -23,8 +24,21 @@ function LoadingFallback() {
 }
 
 export default function App() {
+  const { enabled, fps, longTaskCount, scrollEventsPerSecond } = usePerformanceMonitor();
+
   return (
     <ErrorBoundary>
+      {enabled && (
+        <div
+          className="fixed bottom-3 right-3 z-[100] rounded border border-[var(--color-line)] bg-[var(--color-background)]/80 px-3 py-2 text-xs text-[var(--color-text)] backdrop-blur-sm"
+          role="status"
+          aria-live="polite"
+        >
+          <div>FPS: {fps}</div>
+          <div>Long tasks: {longTaskCount}</div>
+          <div>Scroll events/s: {scrollEventsPerSecond}</div>
+        </div>
+      )}
       <LazyMotion features={domAnimation} strict>
         <BrowserRouter>
           <LenisProvider>

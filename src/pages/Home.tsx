@@ -1,7 +1,7 @@
 import { useEffect, Suspense, lazy } from 'react';
 import PageSection from '@/components/layout/PageSection';
 import { useLenisContext } from '@/context/LenisContext';
-import { smoothScrollTo } from '@/utils/scroll';
+import { smoothScrollTo } from '@/utils/domScroll';
 
 // Eager load About section - it's above the fold and critical for LCP
 import AboutSection from '@/components/sections/About';
@@ -11,7 +11,7 @@ const ContactSection = lazy(() => import('@/components/sections/Contact'));
 const ExperienceSection = lazy(() => import('@/components/sections/Experience'));
 const ProjectsSection = lazy(() => import('@/components/sections/Projects'));
 const SkillsSection = lazy(() => import('@/components/sections/Skills'));
-const CredentialsSection = lazy(() => import('@/components/sections/Credentials'));
+const EducationSection = lazy(() => import('@/components/sections/Education'));
 
 // Loading component for sections
 function SectionLoader() {
@@ -94,10 +94,10 @@ export default function Home() {
 
   return (
     <>
-      <PageSection id="about">
+      <PageSection id="about" title="About" hideTitle={true}>
         <AboutSection />
       </PageSection>
-      <PageSection id="skills" title="Technical Skills">
+      <PageSection id="skills" title="Skills">
         <Suspense fallback={<SectionLoader />}>
           <SkillsSection />
         </Suspense>
@@ -112,9 +112,9 @@ export default function Home() {
           <ProjectsSection />
         </Suspense>
       </PageSection>
-      <PageSection id="credentials" title="Credentials">
+      <PageSection id="education" title="Education">
         <Suspense fallback={<SectionLoader />}>
-          <CredentialsSection />
+          <EducationSection />
         </Suspense>
       </PageSection>
       <PageSection id="contact" title="Get in Touch">
