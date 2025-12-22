@@ -40,6 +40,8 @@ export function useLenis() {
       if (reducedMotionRef.current) return;
       if (lenisRef.current) return;
 
+      const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
       const lenis = new Lenis({
         duration: 0.6,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
@@ -47,8 +49,8 @@ export function useLenis() {
         gestureOrientation: 'vertical',
         smoothWheel: true,
         wheelMultiplier: 0.8,
-        touchMultiplier: 2,
-        syncTouch: true,
+        touchMultiplier: isTouchDevice ? 1 : 2,
+        syncTouch: !isTouchDevice,
         infinite: false,
       });
 
