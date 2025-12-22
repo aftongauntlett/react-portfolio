@@ -1,7 +1,7 @@
 import { jobs } from '@/data/jobs';
 import TimelineItem from '@/components/Timeline/TimelineItem';
 import { BulletItem, BulletList } from '@/components/shared/BulletList';
-import { AnimatePresence, m } from 'framer-motion';
+import { m } from 'framer-motion';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
@@ -145,49 +145,50 @@ export default function ExperienceSection() {
           <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
         </div>
 
-        <AnimatePresence initial={false}>
-          {isOpen ? (
-            <m.div
-              id={controlsId}
-              role="region"
-              aria-label="Awards"
-              initial={prefersReducedMotion ? false : 'closed'}
-              animate={prefersReducedMotion ? undefined : 'open'}
-              exit={prefersReducedMotion ? undefined : 'closed'}
-              transition={
-                prefersReducedMotion
-                  ? undefined
-                  : {
+        <m.div
+          id={controlsId}
+          role="region"
+          aria-label="Awards"
+          initial={prefersReducedMotion ? undefined : 'closed'}
+          animate={prefersReducedMotion ? undefined : (isOpen ? 'open' : 'closed')}
+          transition={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  duration: 0.28,
+                  ease: [0.22, 1, 0.36, 1],
+                }
+          }
+          style={{ overflow: 'hidden', transformOrigin: 'top' }}
+          variants={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  open: {
+                    opacity: 1,
+                    scaleY: 1,
+                    height: 'auto',
+                    transition: {
                       duration: 0.28,
                       ease: [0.22, 1, 0.36, 1],
-                    }
-              }
-              style={{ overflow: 'hidden' }}
-              variants={
-                prefersReducedMotion
-                  ? undefined
-                  : {
-                      open: {
-                        height: 'auto',
-                        opacity: 1,
-                        transition: {
-                          duration: 0.28,
-                          ease: [0.22, 1, 0.36, 1],
-                          when: 'beforeChildren',
-                        },
-                      },
-                      closed: {
-                        height: 0,
-                        opacity: 0,
-                        transition: {
-                          duration: 0.22,
-                          ease: [0.22, 1, 0.36, 1],
-                          when: 'afterChildren',
-                        },
-                      },
-                    }
-              }
-            >
+                      when: 'beforeChildren',
+                      height: { duration: 0 },
+                    },
+                  },
+                  closed: {
+                    opacity: 0,
+                    scaleY: 0,
+                    height: 0,
+                    transition: {
+                      duration: 0.22,
+                      ease: [0.22, 1, 0.36, 1],
+                      when: 'afterChildren',
+                      height: { duration: 0 },
+                    },
+                  },
+                }
+          }
+        >
               <div>
                 <div className="relative">
                   {/* Nested timeline rail */}
@@ -264,8 +265,6 @@ export default function ExperienceSection() {
                 </div>
               </div>
             </m.div>
-          ) : null}
-        </AnimatePresence>
       </div>
     );
   };

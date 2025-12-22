@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-import { AnimatePresence, m } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Button } from '@/components/shared/Button';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { getLinkIcon } from '@/components/shared/LinkIcons';
@@ -222,43 +222,46 @@ export default function ProjectsSection() {
             <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
           </div>
 
-          <AnimatePresence initial={false}>
-            {showAllProjects ? (
-              <m.div
-                id="more-projects"
-                initial="closed"
-                animate="open"
-                exit="closed"
-                style={{ overflow: 'hidden' }}
-                variants={{
-                  open: {
-                    height: 'auto',
-                    opacity: 1,
-                    marginTop: 24,
-                    transition: {
-                      duration: prefersReducedMotion ? 0 : 0.25,
-                      ease: 'easeOut',
-                      when: 'beforeChildren',
+          <m.div
+            id="more-projects"
+            className="mt-6"
+            initial={prefersReducedMotion ? undefined : 'closed'}
+            animate={prefersReducedMotion ? undefined : (showAllProjects ? 'open' : 'closed')}
+            style={{ overflow: 'hidden', transformOrigin: 'top' }}
+            variants={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    open: {
+                      opacity: 1,
+                      scaleY: 1,
+                      height: 'auto',
+                      transition: {
+                        duration: 0.25,
+                        ease: 'easeOut',
+                        when: 'beforeChildren',
+                        height: { duration: 0 },
+                      },
                     },
-                  },
-                  closed: {
-                    height: 0,
-                    opacity: 0,
-                    marginTop: 0,
-                    transition: {
-                      duration: prefersReducedMotion ? 0 : 0.22,
-                      ease: 'easeOut',
-                      when: 'afterChildren',
+                    closed: {
+                      opacity: 0,
+                      scaleY: 0,
+                      height: 0,
+                      transition: {
+                        duration: 0.22,
+                        ease: 'easeOut',
+                        when: 'afterChildren',
+                        height: { duration: 0 },
+                      },
                     },
-                  },
-                }}
-              >
+                  }
+            }
+          >
                 <m.ul
                   className="space-y-6 list-none"
                   aria-label="Additional portfolio projects"
                   initial="hidden"
                   animate="visible"
-                  exit="exit"
                   variants={{
                     hidden: {},
                     visible: {
@@ -266,19 +269,11 @@ export default function ProjectsSection() {
                         staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
                       },
                     },
-                    exit: {
-                      transition: {
-                        staggerChildren: getMotionDuration(0.06, prefersReducedMotion),
-                        staggerDirection: -1,
-                      },
-                    },
                   }}
                 >
                   {additionalProjects.map((project, idx) => renderProject(project, idx + 3))}
                 </m.ul>
               </m.div>
-            ) : null}
-          </AnimatePresence>
         </div>
       ) : null}
     </div>
