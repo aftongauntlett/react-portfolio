@@ -193,14 +193,15 @@ export default function ProjectsSection() {
               aria-expanded={showAllProjects}
               className={clsx(
                 'group mx-3 inline-flex items-center gap-2 rounded-md px-3 py-2',
-                'text-sm font-semibold text-[var(--color-primary)]',
+                'text-sm font-semibold',
+                showAllProjects ? 'text-[var(--color-secondary)]' : 'text-[var(--color-primary)]',
                 'border border-transparent transition-[color,background-color,border-color] duration-200',
                 'bg-transparent hover:bg-[var(--color-line)]/35',
                 'hover:border-[var(--color-primary)]/35',
                 'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
               )}
             >
-              <span className="transition-colors duration-200">{showAllProjects ? 'See less' : 'See more'}</span>
+              <span className="transition-colors duration-200 font-heading">{showAllProjects ? 'See less' : 'See more'}</span>
               <m.span
                 className="grid place-items-center"
                 animate={

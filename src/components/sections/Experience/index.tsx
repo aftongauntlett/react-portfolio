@@ -6,16 +6,15 @@ import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { awards } from '@/data/education';
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
-import { HiChevronDown } from 'react-icons/hi2';
-import { TYPOGRAPHY } from '@/constants/styles';
+import AwardsBranch from '@/components/shared/AwardsBranch';
 
 export default function ExperienceSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { fadeInUp } = createMotionVariants(prefersReducedMotion);
-  const [areLeadAwardsOpen, setAreLeadAwardsOpen] = useState(false);
-  const [areSoftwareAwardsOpen, setAreSoftwareAwardsOpen] = useState(false);
+  const [leadAwardsOpen, setLeadAwardsOpen] = useState(false);
+  const [softwareAwardsOpen, setSoftwareAwardsOpen] = useState(false);
 
   const timelineListStagger = {
     hidden: {},
@@ -49,225 +48,12 @@ export default function ExperienceSection() {
   const isSoftwareEngineerAwardAnchor = (title: string, company: string) =>
     title === 'Software Engineer' && company === 'Booz Allen Hamilton';
 
-  const boozAllenAwards = awards.filter((award) => award.organization === 'Booz Allen Hamilton');
-  const leadEngineerAwards = boozAllenAwards.filter((award) => award.date !== '2022');
-  const softwareEngineerAwards = boozAllenAwards.filter((award) => award.date === '2022');
+  const boozAllenAwards = useMemo(() => awards.filter((award) => award.organization === 'Booz Allen Hamilton'), []);
+  const leadEngineerAwards = useMemo(() => boozAllenAwards.filter((award) => award.date !== '2022'), [boozAllenAwards]);
+  const softwareEngineerAwards = useMemo(() => boozAllenAwards.filter((award) => award.date === '2022'), [boozAllenAwards]);
 
-  const AwardsBranch = ({
-    awardsForRole,
-    isOpen,
-    onToggle,
-    controlsId,
-  }: {
-    awardsForRole: typeof awards;
-    isOpen: boolean;
-    onToggle: () => void;
-    controlsId: string;
-  }) => {
-    const label = isOpen ? 'Hide awards' : 'See awards';
-
-    const shouldStaggerAwards = awardsForRole.length >= 6;
-    const staggerIn = shouldStaggerAwards
-      ? getMotionDuration(0.06, prefersReducedMotion)
-      : getMotionDuration(0.02, prefersReducedMotion);
-    const delayIn = shouldStaggerAwards
-      ? getMotionDuration(0.04, prefersReducedMotion)
-      : getMotionDuration(0, prefersReducedMotion);
-    const staggerOut = shouldStaggerAwards
-      ? getMotionDuration(0.05, prefersReducedMotion)
-      : getMotionDuration(0.02, prefersReducedMotion);
-
-    const awardsListVariants = {
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: staggerIn,
-          delayChildren: delayIn,
-        },
-      },
-      exit: {
-        transition: {
-          staggerChildren: staggerOut,
-          staggerDirection: -1,
-        },
-      },
-    } as const;
-
-    const awardItemVariants = {
-      hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          duration: getMotionDuration(0.28, prefersReducedMotion),
-          ease: 'easeOut' as const,
-        },
-      },
-      exit: {
-        opacity: 0,
-        transition: {
-          duration: getMotionDuration(0.18, prefersReducedMotion),
-          ease: 'easeOut' as const,
-        },
-      },
-    } as const;
-
-    return (
-      <div className="mt-3">
-        <div className="flex items-center">
-          <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
-          <m.button
-            type="button"
-            onClick={onToggle}
-            aria-expanded={isOpen}
-            aria-controls={controlsId}
-            className={clsx(
-              'group mx-3 inline-flex items-center gap-2 rounded-md px-3 py-2',
-              TYPOGRAPHY.TEXT_SMALL,
-              'text-[var(--color-primary)] font-semibold',
-              'border border-transparent transition-[color,background-color,border-color] duration-200',
-              'bg-transparent hover:bg-[var(--color-line)]/35 hover:border-[var(--color-primary)]/35',
-              'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-            )}
-          >
-            <span className="transition-colors duration-200">{label}</span>
-            <m.span
-              className="grid place-items-center"
-              animate={prefersReducedMotion ? undefined : { rotate: isOpen ? 180 : 0 }}
-              transition={
-                prefersReducedMotion
-                  ? undefined
-                  : { type: 'spring', stiffness: 240, damping: 20 }
-              }
-            >
-              <HiChevronDown className="h-4 w-4 transition-colors duration-200" />
-            </m.span>
-          </m.button>
-          <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
-        </div>
-
-        <m.div
-          id={controlsId}
-          role="region"
-          aria-label="Awards"
-          initial={prefersReducedMotion ? undefined : 'closed'}
-          animate={prefersReducedMotion ? undefined : (isOpen ? 'open' : 'closed')}
-          transition={
-            prefersReducedMotion
-              ? undefined
-              : {
-                  duration: 0.28,
-                  ease: [0.22, 1, 0.36, 1],
-                }
-          }
-          style={{ overflow: 'hidden', transformOrigin: 'top' }}
-          variants={
-            prefersReducedMotion
-              ? undefined
-              : {
-                  open: {
-                    opacity: 1,
-                    scaleY: 1,
-                    height: 'auto',
-                    transition: {
-                      duration: 0.28,
-                      ease: [0.22, 1, 0.36, 1],
-                      when: 'beforeChildren',
-                      height: { duration: 0 },
-                    },
-                  },
-                  closed: {
-                    opacity: 0,
-                    scaleY: 0,
-                    height: 0,
-                    transition: {
-                      duration: 0.22,
-                      ease: [0.22, 1, 0.36, 1],
-                      when: 'afterChildren',
-                      height: { duration: 0 },
-                    },
-                  },
-                }
-          }
-        >
-              <div>
-                <div className="relative">
-                  {/* Nested timeline rail */}
-                  <div
-                    className="absolute left-[0.625rem] top-[0.85rem] bottom-2 w-px bg-[var(--color-line)] hidden sm:block"
-                    style={{ zIndex: 0 }}
-                    aria-hidden="true"
-                  />
-                  <m.ul
-                    className="space-y-3"
-                    aria-label="Awards list"
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    variants={awardsListVariants}
-                  >
-                    {awardsForRole.map((award) => (
-                      <m.li
-                        className="group/award sm:grid sm:grid-cols-[1.25rem_1fr] sm:gap-x-3"
-                        key={`${award.title}-${award.date}`}
-                        variants={awardItemVariants}
-                      >
-                        <div className="hidden sm:flex justify-center pt-[0.45rem]" aria-hidden="true">
-                          <span
-                            className={clsx(
-                              'h-2 w-2 rounded-full transition-[background-color,box-shadow] duration-200 z-10',
-                              'bg-[var(--color-muted)]',
-                              'ring-2 ring-[var(--color-background)]',
-                              'group-hover/award:bg-[var(--color-primary)] group-hover/award:shadow-[0_0_10px_var(--color-primary)]',
-                            )}
-                          />
-                        </div>
-                        <div
-                          className={clsx(
-                            'min-w-0 rounded-md px-3',
-                            'bg-[var(--color-surface)]/30',
-                            'transition-colors duration-200',
-                            'hover:bg-[var(--color-primary)]/5',
-                          )}
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0">
-                              <div
-                                className={clsx(
-                                  TYPOGRAPHY.TEXT_SMALL, TYPOGRAPHY.TEXT_PRIMARY, TYPOGRAPHY.TEXT_RELAXED,
-                                  'transition-colors duration-200',
-                                )}
-                              >
-                                {award.title}
-                              </div>
-                            </div>
-                            <span
-                              className={clsx(
-                                TYPOGRAPHY.TEXT_XS,
-                                'text-[var(--color-muted)] flex-shrink-0',
-                                'group-hover/award:text-[var(--color-secondary)]',
-                              )}
-                            >
-                              {award.date}
-                            </span>
-                          </div>
-                          <div
-                            className={clsx(
-                              TYPOGRAPHY.TEXT_DESCRIPTION,
-                              '!text-[var(--color-text)] mt-1 transition-colors duration-200',
-                            )}
-                          >
-                            {award.description}
-                          </div>
-                        </div>
-                      </m.li>
-                    ))}
-                  </m.ul>
-                </div>
-              </div>
-            </m.div>
-      </div>
-    );
-  };
+  const setLeadAwardsOpenCallback = useCallback(() => setLeadAwardsOpen((prev) => !prev), []);
+  const setSoftwareAwardsOpenCallback = useCallback(() => setSoftwareAwardsOpen((prev) => !prev), []);
 
   if (prefersReducedMotion) {
     return (
@@ -291,7 +77,7 @@ export default function ExperienceSection() {
                 >
                   <BulletList
                     className={clsx(
-                      isLeadEngineerAwardAnchor(job.title, job.company) && areLeadAwardsOpen
+                      isLeadEngineerAwardAnchor(job.title, job.company) && leadAwardsOpen
                         ? '!text-[var(--color-text)]'
                         : undefined,
                     )}
@@ -303,18 +89,20 @@ export default function ExperienceSection() {
 
                   {isLeadEngineerAwardAnchor(job.title, job.company) ? (
                     <AwardsBranch
+                      prefersReducedMotion={prefersReducedMotion}
                       awardsForRole={leadEngineerAwards}
-                      isOpen={areLeadAwardsOpen}
-                      onToggle={() => setAreLeadAwardsOpen((prev) => !prev)}
+                      isOpen={leadAwardsOpen}
+                      onToggle={setLeadAwardsOpenCallback}
                       controlsId={LEAD_AWARDS_REGION_ID}
                     />
                   ) : null}
 
                   {isSoftwareEngineerAwardAnchor(job.title, job.company) ? (
                     <AwardsBranch
+                      prefersReducedMotion={prefersReducedMotion}
                       awardsForRole={softwareEngineerAwards}
-                      isOpen={areSoftwareAwardsOpen}
-                      onToggle={() => setAreSoftwareAwardsOpen((prev) => !prev)}
+                      isOpen={softwareAwardsOpen}
+                      onToggle={setSoftwareAwardsOpenCallback}
                       controlsId={SOFTWARE_AWARDS_REGION_ID}
                     />
                   ) : null}
@@ -358,7 +146,7 @@ export default function ExperienceSection() {
               >
                 <BulletList
                   className={clsx(
-                    isLeadEngineerAwardAnchor(job.title, job.company) && areLeadAwardsOpen
+                    isLeadEngineerAwardAnchor(job.title, job.company) && leadAwardsOpen
                       ? '!text-[var(--color-text)]'
                       : undefined,
                   )}
@@ -370,18 +158,20 @@ export default function ExperienceSection() {
 
                 {isLeadEngineerAwardAnchor(job.title, job.company) ? (
                   <AwardsBranch
+                    prefersReducedMotion={prefersReducedMotion}
                     awardsForRole={leadEngineerAwards}
-                    isOpen={areLeadAwardsOpen}
-                    onToggle={() => setAreLeadAwardsOpen((prev) => !prev)}
+                    isOpen={leadAwardsOpen}
+                    onToggle={setLeadAwardsOpenCallback}
                     controlsId={LEAD_AWARDS_REGION_ID}
                   />
                 ) : null}
 
                 {isSoftwareEngineerAwardAnchor(job.title, job.company) ? (
                   <AwardsBranch
+                    prefersReducedMotion={prefersReducedMotion}
                     awardsForRole={softwareEngineerAwards}
-                    isOpen={areSoftwareAwardsOpen}
-                    onToggle={() => setAreSoftwareAwardsOpen((prev) => !prev)}
+                    isOpen={softwareAwardsOpen}
+                    onToggle={setSoftwareAwardsOpenCallback}
                     controlsId={SOFTWARE_AWARDS_REGION_ID}
                   />
                 ) : null}
