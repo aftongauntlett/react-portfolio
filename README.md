@@ -5,15 +5,14 @@
 ![Vite](https://img.shields.io/badge/Vite_7-646CFF?style=flat&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 
-**[View Live Site →](https://aftongauntlett.com)**
-
 Modern portfolio site showcasing clean React architecture and accessibility-first development.
 
+**[View Live Site →](https://aftongauntlett.com)**
 ## Key Features
 
 - **Type-Safe Architecture** — Strict TypeScript with no `any` types in production code
 - **Accessibility First** — ARIA labels, keyboard navigation, reduced motion support, and semantic HTML
-- **Tested** — 77 passing tests covering components, hooks, and utilities with Vitest + React Testing Library
+- **Tested** — 85 passing tests covering components, hooks, and utilities with Vitest + React Testing Library
 - **Performance** — Lazy loading, code splitting, smooth scrolling with Lenis
 - **Responsive Design** — Mobile-first approach with Tailwind CSS utilities
 
