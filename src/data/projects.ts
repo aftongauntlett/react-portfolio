@@ -28,7 +28,17 @@ export const projects: Project[] = [
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
   },
-    {
+  {
+    title: 'Bloop Museum',
+    status: 'In Development',
+    description:
+      'A retro-styled static website for the Bloop Museum, presenting museum information, collections, visiting and contact pages, and donor content. Optimized to render on vintage setups (Netscape 4.0 / Pentium 90) while maintaining modern browser compatibility through progressive enhancement. Built with Eleventy, Nunjucks templates, HTML 4.0 Transitional, and conservative CSS, featuring a table-based 760px layout and custom image optimization via Node.js.',
+    tech: ['Eleventy', 'Nunjucks', 'HTML 4.0 Transitional', 'CSS', 'Node.js'],
+    link: 'https://github.com/aftongauntlett/bloop-demo',
+    demo: 'https://bloop-demo.vercel.app/',
+    external: true,
+  },
+  {
     title: 'Potomac Family Dining',
     status: 'Production',
     description:
@@ -38,7 +48,7 @@ export const projects: Project[] = [
     demo: 'https://potomacdining.com/',
   },
 
-    {
+  {
     title: 'Nyx Felis & Lampyris - JS13k Games Entry',
     status: 'Production',
     description:
@@ -48,7 +58,7 @@ export const projects: Project[] = [
     demo: 'https://nyx-felis.aftongauntlett.com/',
     external: true,
   },
-      {
+  {
     title: 'Orbital Order (Aufbau) - JS13k Games Demo',
     status: 'Production',
     description:
@@ -58,7 +68,7 @@ export const projects: Project[] = [
     demo: 'https://orbital-order.aftongauntlett.com/',
     external: true,
   },
-    {
+  {
     title: 'Personal Portfolio',
     status: 'Production',
     description:
@@ -75,6 +85,4 @@ export const projects: Project[] = [
     link: 'https://github.com/gauntletdesigns/gauntlet-designs-vue',
     demo: 'https://gauntletdesigns.com/',
   },
-
-
 ];

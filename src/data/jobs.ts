@@ -48,7 +48,7 @@ export const jobs: Job[] = [
     dates: '12/2021 – 03/2022',
     location: 'Remote',
     description: [
-      'Evaluated and recommended frontend frameworks to help shape the next generation of scalable web apps for DIA.',
+      'Evaluated and recommended frontend frameworks used to modernize scalable web applications for DIA (Defense Intelligence Agency).',
       'Designed and delivered detailed Figma wireframes, laying the foundation for modern, accessible UI architecture.',
       'Authored documentation and design standards that set clear expectations for accessibility, usability, and consistency across teams.',
     ],
@@ -59,7 +59,7 @@ export const jobs: Job[] = [
     dates: '08/2021 – 12/2021',
     location: 'On-site',
     description: [
-      'Facilitated alignment between design and development, translating vision into practical, developer-friendly guidelines.',
+      'Facilitated alignment between design and development, translating design vision into practical, developer-friendly guidelines for NGA (National Geospatial-Intelligence Agency) ',  
       'Drove accessibility improvements by partnering with design and compliance experts, delivering interfaces ready for 508/WCAG audits.',
       'Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.',
     ],
