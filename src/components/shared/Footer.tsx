@@ -5,9 +5,13 @@ import { smoothScrollTo, scrollToTop } from '@/utils/domScroll';
 
 interface FooterProps {
   scrollTarget?: string;
+  showStandaloneDivider?: boolean;
 }
 
-export default function Footer({ scrollTarget = '#about' }: FooterProps) {
+export default function Footer({
+  scrollTarget = '#about',
+  showStandaloneDivider = false,
+}: FooterProps) {
   const { lenis } = useLenisContext();
 
   const handleScrollToTop = () => {
@@ -25,8 +29,15 @@ export default function Footer({ scrollTarget = '#about' }: FooterProps) {
 
   return (
     <footer className={`${TYPOGRAPHY.TEXT_SMALL} text-[var(--color-muted)] py-10 mt-8`}>
+      {showStandaloneDivider && (
+        <div aria-hidden="true" className="max-w-2xl mx-auto">
+          <div className="h-px bg-[var(--color-line)] opacity-60" />
+        </div>
+      )}
       {/* Footer Content */}
-      <div className="flex items-center justify-between gap-4">
+      <div
+        className={`flex items-center justify-between gap-4${showStandaloneDivider ? ' mt-8' : ''}`}
+      >
         <div />
         <p className="text-center flex-1">
           © {new Date().getFullYear()} Afton Gauntlett. All rights reserved.
