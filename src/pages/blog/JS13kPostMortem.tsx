@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
 import { LinkButton } from '@/components/shared/LinkButton';
-import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
+import { StandalonePageHeader } from '@/components/shared/StandalonePageHeader';
+import Footer from '@/components/shared/Footer';
+import { TYPOGRAPHY } from '@/constants/styles';
 import clsx from 'clsx';
 
 export default function JS13kPostMortem() {
@@ -16,23 +16,13 @@ export default function JS13kPostMortem() {
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
       <main className="max-w-4xl mx-auto px-4 py-12">
-        {/* Back to Portfolio Navigation */}
-        <Link
-          to="/#projects"
-          className={clsx(
-            'inline-flex items-center gap-2 mb-8 text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors',
-            FOCUS_STYLES.COMPACT,
-          )}
-        >
-          <FaArrowLeft />
-          <span>View Portfolio</span>
-        </Link>
+        <StandalonePageHeader />
         {/* Header */}
         <header className="mb-12">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
               <h1 ref={headingRef} tabIndex={-1} className={clsx(TYPOGRAPHY.HEADING_1, 'mb-2')}>
-                Nyx Felis & Lampyrus
+                Nyx Felis & Lampyris
               </h1>
               <p className={clsx(TYPOGRAPHY.TEXT_LARGE, 'text-[var(--color-muted)]')}>
                 JS13k Games 2025 Competition Entry
@@ -58,6 +48,25 @@ export default function JS13kPostMortem() {
           </p>
         </header>
 
+        <figure className="mb-12 max-w-2xl mx-auto">
+          <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-3 sm:p-4">
+            <div className="rounded-md overflow-hidden">
+              <img
+                src="/games/nyx-felis.png"
+                alt="Nyx Felis & Lampyris screenshot"
+                width={558}
+                height={514}
+                decoding="async"
+                loading="eager"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+          <figcaption className={clsx(TYPOGRAPHY.TEXT_SMALL, 'text-[var(--color-muted)] mt-2')}>
+            Screenshot captured in a modern browser.
+          </figcaption>
+        </figure>
+
         {/* Links - Right Aligned, matching portfolio card exactly */}
         {/* Links - Right Aligned, matching portfolio card exactly */}
         <div className="flex flex-wrap gap-3 mb-12 pb-12 border-b border-[var(--color-line)] justify-end">
@@ -72,7 +81,7 @@ export default function JS13kPostMortem() {
 
           <LinkButton
             type="external"
-            href="https://js13kgames.com/2025/games/nyx-felis-and-lampyrus"
+            href="https://js13kgames.com/2025/games/nyx-felis-and-lampyris"
             variant="outline"
             color="secondary"
           >
@@ -161,7 +170,7 @@ export default function JS13kPostMortem() {
           <section className="mb-12">
             <h2 className={clsx(TYPOGRAPHY.HEADING_2, 'mb-4')}>Reflections</h2>
             <p className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'leading-relaxed')}>
-              I missed the submission deadline because I mixed up CST and CT. It stung, but I
+              I missed the submission deadline because I mixed up CET and CT. It stung, but I
               finished the enhanced version anyway and felt better about it. Making two games in a
               row taught me to keep scope tight, fix what confuses players, and move on. Next I want
               to try Unity. I might rebuild one of these ideas or return to the lightning concept
@@ -169,6 +178,8 @@ export default function JS13kPostMortem() {
             </p>
           </section>
         </article>
+
+        <Footer scrollTarget="top" showStandaloneDivider={true} />
       </main>
     </div>
   );

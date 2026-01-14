@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
 import { LinkButton } from '@/components/shared/LinkButton';
-import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
+import { StandalonePageHeader } from '@/components/shared/StandalonePageHeader';
+import Footer from '@/components/shared/Footer';
+import { TYPOGRAPHY } from '@/constants/styles';
 import clsx from 'clsx';
 
 export default function OrbitalOrderPostMortem() {
@@ -16,17 +16,7 @@ export default function OrbitalOrderPostMortem() {
   return (
     <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)]">
       <main className="max-w-4xl mx-auto px-4 py-12">
-        {/* Back to Portfolio Navigation */}
-        <Link
-          to="/#projects"
-          className={clsx(
-            'inline-flex items-center gap-2 mb-8 text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors',
-            FOCUS_STYLES.COMPACT,
-          )}
-        >
-          <FaArrowLeft />
-          <span>View Portfolio</span>
-        </Link>
+        <StandalonePageHeader />
         {/* Header */}
         <header className="mb-12">
           <div className="flex items-start justify-between gap-4 mb-4">
@@ -56,6 +46,25 @@ export default function OrbitalOrderPostMortem() {
             feel alive. It was my first finished game.
           </p>
         </header>
+
+        <figure className="mb-12 max-w-2xl mx-auto">
+          <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-3 sm:p-4">
+            <div className="rounded-md overflow-hidden">
+              <img
+                src="/games/orbital-order.png"
+                alt="Orbital Order screenshot"
+                width={401}
+                height={426}
+                decoding="async"
+                loading="eager"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+          <figcaption className={clsx(TYPOGRAPHY.TEXT_SMALL, 'text-[var(--color-muted)] mt-2')}>
+            Screenshot captured in a modern browser.
+          </figcaption>
+        </figure>
 
         {/* Links - Right Aligned, matching portfolio card exactly */}
         <div className="flex flex-wrap gap-3 mb-12 pb-12 border-b border-[var(--color-line)] justify-end">
@@ -93,9 +102,9 @@ export default function OrbitalOrderPostMortem() {
           <section className="mb-12">
             <h2 className={clsx(TYPOGRAPHY.HEADING_2, 'mb-4')}>Technical Overview</h2>
             <p className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'leading-relaxed mb-4')}>
-              The palette came from science class memories and Portal&apos;s blue and orange. They read
-              as charge and polarity, which fit the theme. The sound sits in the background as a
-              low, calm bed so the focus stays on motion and light.
+              The palette came from science class memories and Portal&apos;s blue and orange. They
+              read as charge and polarity, which fit the theme. The sound sits in the background as
+              a low, calm bed so the focus stays on motion and light.
             </p>
             <ul className="space-y-3 pl-1">
               <li className="flex gap-3 text-[var(--color-text)]">
@@ -174,6 +183,8 @@ export default function OrbitalOrderPostMortem() {
             </p>
           </section>
         </article>
+
+        <Footer scrollTarget="top" showStandaloneDivider={true} />
       </main>
     </div>
   );
