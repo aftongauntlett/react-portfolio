@@ -4,6 +4,7 @@ export type Project = {
   description: string;
   tech: string[];
   link?: string;
+  caseStudy?: string;
   demo?: string;
   gameDemo?: string; // For standalone game demos (separate from competition pages)
   external?: boolean; // For projects that open in new tab
@@ -34,7 +35,7 @@ export const projects: Project[] = [
     description:
       'A retro-styled static website for the Bloop Museum, presenting museum information, collections, visiting and contact pages, and donor content. Optimized to render on vintage setups (Netscape 4.0 / Pentium 90) while maintaining modern browser compatibility through progressive enhancement. Built with Eleventy, Nunjucks templates, HTML 4.0 Transitional, and conservative CSS, featuring a table-based 760px layout and custom image optimization via Node.js.',
     tech: ['Eleventy', 'Nunjucks', 'HTML 4.0 Transitional', 'CSS', 'Node.js'],
-    link: 'https://github.com/aftongauntlett/bloop-demo',
+    caseStudy: '/projects/bloop-museum-design-process',
     demo: 'https://bloop-demo.vercel.app/',
     external: true,
   },
@@ -54,8 +55,8 @@ export const projects: Project[] = [
     description:
       'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game. Built to explore creative coding and constraint-driven development while demonstrating follow-through, polish, and efficient code craftsmanship.',
     tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Particle Systems'],
+    caseStudy: '/blog/js13k-2025-post-mortem',
     link: 'https://github.com/aftongauntlett/js13k-2025',
-    demo: 'https://nyx-felis.aftongauntlett.com/',
     external: true,
   },
   {
@@ -64,8 +65,8 @@ export const projects: Project[] = [
     description:
       'Built for JS13K competition practice with vanilla JavaScript and Canvas 2D. Focused on core gameplay mechanics, level design, and intuitive controls within strict size constraints. Showcases efficient coding techniques and creative problem-solving under limitations.',
     tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Physics Simulation'],
+    caseStudy: '/blog/orbital-order-post-mortem',
     link: 'https://github.com/aftongauntlett/js13k-demo',
-    demo: 'https://orbital-order.aftongauntlett.com/',
     external: true,
   },
   {

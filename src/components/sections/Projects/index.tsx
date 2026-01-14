@@ -32,7 +32,18 @@ export default function ProjectsSection() {
   const additionalProjects = projects.slice(3);
 
   const renderProject = (
-    { title, status, description, tech, link, demo, gameDemo, external, lastUpdated }: ProjectItem,
+    {
+      title,
+      status,
+      description,
+      tech,
+      link,
+      caseStudy,
+      demo,
+      gameDemo,
+      external,
+      lastUpdated,
+    }: ProjectItem,
     idx: number,
   ) => (
     <m.li
@@ -92,13 +103,29 @@ export default function ProjectsSection() {
           </Tag>
         ))}
       </div>
-      <div className="flex flex-wrap gap-3 justify-end mt-4" role="group" aria-label="Project links">
+      <div
+        className="flex flex-wrap gap-3 justify-end mt-4"
+        role="group"
+        aria-label="Project links"
+      >
+        {caseStudy ? (
+          <LinkButton
+            type="external"
+            href={caseStudy}
+            variant="outline"
+            color="primary"
+            openInNewTab
+          >
+            Design Process
+          </LinkButton>
+        ) : null}
+
         {link && link !== '#' ? (
           <LinkButton type="github" href={link} variant="outline" color="primary">
             View Repo
           </LinkButton>
         ) : link === '#' ? (
-          <Button disabled variant="outline" color="muted" aria-label="Source code not publicly available">
+          <Button disabled variant="outline" color="muted">
             Private Repo
           </Button>
         ) : null}
@@ -201,7 +228,9 @@ export default function ProjectsSection() {
                 'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
               )}
             >
-              <span className="transition-colors duration-200 font-heading">{showAllProjects ? 'See less' : 'See more'}</span>
+              <span className="transition-colors duration-200 font-heading">
+                {showAllProjects ? 'See less' : 'See more'}
+              </span>
               <m.span
                 className="grid place-items-center"
                 animate={
@@ -212,9 +241,7 @@ export default function ProjectsSection() {
                       }
                 }
                 transition={
-                  prefersReducedMotion
-                    ? undefined
-                    : { type: 'spring', stiffness: 240, damping: 20 }
+                  prefersReducedMotion ? undefined : { type: 'spring', stiffness: 240, damping: 20 }
                 }
               >
                 <HiChevronDown className="h-4 w-4 transition-colors duration-200" />
@@ -227,7 +254,7 @@ export default function ProjectsSection() {
             id="more-projects"
             className="mt-6"
             initial={prefersReducedMotion ? undefined : 'closed'}
-            animate={prefersReducedMotion ? undefined : (showAllProjects ? 'open' : 'closed')}
+            animate={prefersReducedMotion ? undefined : showAllProjects ? 'open' : 'closed'}
             style={{ overflow: 'hidden', transformOrigin: 'top' }}
             variants={
               prefersReducedMotion
@@ -258,23 +285,23 @@ export default function ProjectsSection() {
                   }
             }
           >
-                <m.ul
-                  className="space-y-6 list-none"
-                  aria-label="Additional portfolio projects"
-                  initial="hidden"
-                  animate="visible"
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
-                      },
-                    },
-                  }}
-                >
-                  {additionalProjects.map((project, idx) => renderProject(project, idx + 3))}
-                </m.ul>
-              </m.div>
+            <m.ul
+              className="space-y-6 list-none"
+              aria-label="Additional portfolio projects"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
+                  },
+                },
+              }}
+            >
+              {additionalProjects.map((project, idx) => renderProject(project, idx + 3))}
+            </m.ul>
+          </m.div>
         </div>
       ) : null}
     </div>

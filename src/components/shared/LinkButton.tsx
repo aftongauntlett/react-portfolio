@@ -10,6 +10,7 @@ interface LinkButtonProps {
   color?: 'primary' | 'secondary' | 'muted';
   className?: string;
   'aria-label'?: string;
+  openInNewTab?: boolean;
 }
 
 /**
@@ -24,8 +25,10 @@ export function LinkButton({
   color = 'primary',
   className,
   'aria-label': ariaLabel,
+  openInNewTab = false,
 }: LinkButtonProps) {
   const isExternal = href.startsWith('http');
+  const shouldOpenInNewTab = openInNewTab || isExternal;
   const icon = getLinkIcon(type);
 
   // Icon-only buttons require aria-label
@@ -38,7 +41,7 @@ export function LinkButton({
         icon={icon}
         className={className}
         aria-label={`View ${type === 'github' ? 'GitHub repository' : type === 'figma' ? 'Figma design' : type === 'demo' ? 'live demo' : type}`}
-        {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
+        {...(shouldOpenInNewTab && { target: '_blank', rel: 'noopener noreferrer' })}
       />
     );
   }
@@ -51,7 +54,7 @@ export function LinkButton({
       icon={icon}
       className={className}
       aria-label={ariaLabel}
-      {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
+      {...(shouldOpenInNewTab && { target: '_blank', rel: 'noopener noreferrer' })}
     >
       {children}
     </Button>
