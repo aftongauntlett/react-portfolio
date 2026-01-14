@@ -13,6 +13,7 @@ import Home from './pages/Home';
 // Lazy load standalone post-mortem pages (for external links only)
 const JS13kPostMortem = lazy(() => import('./pages/blog/JS13kPostMortem'));
 const OrbitalOrderPostMortem = lazy(() => import('./pages/blog/OrbitalOrderPostMortem'));
+const BloopMuseumDesignProcess = lazy(() => import('./pages/projects/BloopMuseumDesignProcess'));
 
 // Loading component for code splitting
 function LoadingFallback() {
@@ -66,6 +67,14 @@ export default function App() {
                 element={
                   <Suspense fallback={<LoadingFallback />}>
                     <OrbitalOrderPostMortem />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/projects/bloop-museum-design-process"
+                element={
+                  <Suspense fallback={<LoadingFallback />}>
+                    <BloopMuseumDesignProcess />
                   </Suspense>
                 }
               />
