@@ -40,16 +40,6 @@ export const projects: Project[] = [
     external: true,
   },
   {
-    title: 'Potomac Family Dining',
-    status: 'Production',
-    description:
-      'Enterprise client website for Potomac Family Dining Group, a $300M annual revenue restaurant franchise operating across 5 states. Built comprehensive web platform featuring employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic loads with robust performance optimization.',
-    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
-    link: '#',
-    demo: 'https://potomacdining.com/',
-  },
-
-  {
     title: 'Nyx Felis & Lampyris - JS13k Games Entry',
     status: 'Production',
     description:

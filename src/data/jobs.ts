@@ -38,7 +38,7 @@ export const jobs: Job[] = [
     location: 'Hybrid',
     description: [
       'Delivered custom web platforms for clients ranging from small businesses to major restaurant groups, handling every phase from requirements through long-term support.',
-      'Built and maintained a robust employee portal and fundraising scheduler for Potomac Dining, ensuring five years of smooth operation and seamless legacy data migration.',
+      'Built and maintained a robust employee portal and fundraising scheduler for Potomac Family Dining, ensuring five years of smooth operation and seamless legacy data migration.',
       'Standardized modern frontends using React, Next.js, and Vue, launching fast, accessible sites on platforms like Firebase and Vercel.',
     ],
   },
@@ -59,7 +59,7 @@ export const jobs: Job[] = [
     dates: '08/2021 – 12/2021',
     location: 'On-site',
     description: [
-      'Facilitated alignment between design and development, translating design vision into practical, developer-friendly guidelines for NGA (National Geospatial-Intelligence Agency) ',  
+      'Facilitated alignment between design and development, translating design vision into practical, developer-friendly guidelines for NGA (National Geospatial-Intelligence Agency) ',
       'Drove accessibility improvements by partnering with design and compliance experts, delivering interfaces ready for 508/WCAG audits.',
       'Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.',
     ],

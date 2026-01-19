@@ -8,14 +8,20 @@ vi.mock('@/hooks/usePrefersReducedMotion', () => ({
 }));
 
 describe('ProjectsSection', () => {
+  const getProjectScoped = (name: RegExp) => {
+    const heading = screen.getByRole('heading', { name });
+    const projectItem = heading.closest('li');
+    if (!projectItem) {
+      throw new Error(`Expected project list item for heading: ${String(name)}`);
+    }
+
+    return within(projectItem);
+  };
+
   it('renders a design process link for Bloop Museum (no GitHub link)', () => {
     render(<ProjectsSection />);
 
-    const heading = screen.getByRole('heading', { name: /bloop museum/i });
-    const projectItem = heading.closest('li');
-    expect(projectItem).not.toBeNull();
-
-    const scoped = within(projectItem as HTMLElement);
+    const scoped = getProjectScoped(/bloop museum/i);
 
     const designProcessLink = scoped.getByRole('link', { name: /design process/i });
     expect(designProcessLink).toHaveAttribute('href', '/projects/bloop-museum-design-process');
@@ -26,29 +32,10 @@ describe('ProjectsSection', () => {
     expect(scoped.queryByRole('link', { name: /view repo/i })).not.toBeInTheDocument();
   });
 
-  it('renders a private repo notice for Potomac (existing behavior)', () => {
-    render(<ProjectsSection />);
-
-    const heading = screen.getByRole('heading', { name: /potomac family dining/i });
-    const projectItem = heading.closest('li');
-    expect(projectItem).not.toBeNull();
-
-    const scoped = within(projectItem as HTMLElement);
-
-    const privateButton = scoped.getByRole('button', { name: /private repo/i });
-    expect(privateButton).toBeDisabled();
-
-    expect(scoped.queryByRole('link', { name: /view repo/i })).not.toBeInTheDocument();
-  });
-
   it('renders a design process link for Nyx Felis and hides View Live on the portfolio card', () => {
     render(<ProjectsSection />);
 
-    const heading = screen.getByRole('heading', { name: /nyx felis/i });
-    const projectItem = heading.closest('li');
-    expect(projectItem).not.toBeNull();
-
-    const scoped = within(projectItem as HTMLElement);
+    const scoped = getProjectScoped(/nyx felis/i);
 
     const designProcessLink = scoped.getByRole('link', { name: /design process/i });
     expect(designProcessLink).toHaveAttribute('href', '/blog/js13k-2025-post-mortem');
@@ -60,11 +47,7 @@ describe('ProjectsSection', () => {
   it('renders a design process link for Orbital Order and hides View Live on the portfolio card', () => {
     render(<ProjectsSection />);
 
-    const heading = screen.getByRole('heading', { name: /orbital order/i });
-    const projectItem = heading.closest('li');
-    expect(projectItem).not.toBeNull();
-
-    const scoped = within(projectItem as HTMLElement);
+    const scoped = getProjectScoped(/orbital order/i);
 
     const designProcessLink = scoped.getByRole('link', { name: /design process/i });
     expect(designProcessLink).toHaveAttribute('href', '/blog/orbital-order-post-mortem');
