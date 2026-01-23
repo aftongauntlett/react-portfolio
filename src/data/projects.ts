@@ -30,6 +30,16 @@ export const projects: Project[] = [
     demo: 'https://npcfinder.com',
   },
   {
+    title: 'No Whiteboard Jobs Dashboard',
+    status: 'Production',
+    description:
+      'A production-grade frontend dashboard built on top of the open-source Hiring Without Whiteboards dataset, transforming a large markdown-based company list into a fast, accessible, searchable web experience. Features full-text search, multi-filtering, responsive card and list views, pagination, dark and light themes, and mobile-first navigation. Built to make alternative interview processes easy to discover while preserving the original community-maintained data source.',
+    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/no-whiteboard-jobs-dashboard',
+    demo: 'https://no-wb.org',
+    external: true,
+  },
+  {
     title: 'Bloop Museum',
     status: 'In Development',
     description:
