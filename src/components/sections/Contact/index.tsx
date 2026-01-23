@@ -291,7 +291,7 @@ export default function ContactSection() {
 
   return (
     <m.div
-      className="group space-y-6"
+      className="group space-y-4"
       initial="hidden"
       whileInView="visible"
       viewport={VIEWPORT_CONFIG}
@@ -319,10 +319,11 @@ export default function ContactSection() {
       >
         <div className="space-y-4">
           <p className="text-description transition-colors duration-300 group-hover:text-[var(--color-text)] group-focus-within:text-[var(--color-text)]">
-            Have a role, a project, or a question in mind? Feel free to reach out. I’m always open to thoughtful conversations and new opportunities.
+            Have a role, a project, or a question in mind? Feel free to reach out. I’m always open
+            to thoughtful conversations and new opportunities.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="text-left">
               <Button
                 variant="link"

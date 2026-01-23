@@ -21,7 +21,7 @@ export default function Tag({
   'aria-label': ariaLabel,
 }: TagProps) {
   const baseClasses = clsx(
-    'inline-flex items-center font-medium rounded transition-colors duration-300',
+    'inline-flex items-center font-medium rounded transition-colors duration-300 leading-none whitespace-nowrap',
     onClick ? 'cursor-pointer' : 'cursor-default',
   );
 

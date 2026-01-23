@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { m } from 'framer-motion';
 import { skills, skillCategories } from '@/data/skills';
-import Tag from '@/components/shared/Tag';
+import TechTag from '@/components/shared/TechTag';
 import { TYPOGRAPHY } from '@/constants/styles';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
@@ -51,9 +51,7 @@ export default function SkillsSection() {
 
             <div className="flex flex-wrap gap-2">
               {categorySkills.map((skill) => (
-                <Tag key={skill.name} variant="muted" size="small">
-                  {skill.name}
-                </Tag>
+                <TechTag key={skill.name} tech={skill.name} size="small" />
               ))}
             </div>
           </m.li>

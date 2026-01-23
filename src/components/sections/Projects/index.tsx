@@ -4,8 +4,9 @@ import { m } from 'framer-motion';
 import { Button } from '@/components/shared/Button';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { getLinkIcon } from '@/components/shared/LinkIcons';
-import Tag from '@/components/shared/Tag';
+import TechTag from '@/components/shared/TechTag';
 import { projects } from '@/data/projects';
+import { sortTechLabels } from '@/constants/techChips';
 import { HiChevronDown } from 'react-icons/hi2';
 import {
   TRANSITION_COLORS,
@@ -97,10 +98,8 @@ export default function ProjectsSection() {
         role="group"
         aria-label={`Technologies used in ${title}`}
       >
-        {tech.map((t) => (
-          <Tag key={t} variant="muted" size="xs">
-            {t}
-          </Tag>
+        {sortTechLabels(tech).map((t) => (
+          <TechTag key={t} tech={t} size="xs" />
         ))}
       </div>
       <div
