@@ -50,6 +50,21 @@ export const projects: Project[] = [
     external: true,
   },
   {
+    title: 'Water App (Hydration Tracker)',
+    status: 'In Progress',
+    description:
+      'A calm, mobile-first hydration tracker built with React Native + Expo. Users start a “drink moment” with a short countdown, log water intake when complete, and see a daily summary including drink count, total milliliters, and recent entries. Data is stored locally for a fast, offline-friendly experience, with a clean architecture separating UI, hooks, domain services, and storage. Includes a token-based dark theme, typed navigation, and accessibility-minded UI components.',
+    tech: [
+      'Expo (SDK 54)',
+      'React Native',
+      'TypeScript',
+      'AsyncStorage',
+    ],
+    link: 'https://github.com/aftongauntlett/water-app',
+    demo: '',
+    external: true,
+  },
+  {
     title: 'Nyx Felis & Lampyris - JS13k Games Entry',
     status: 'Production',
     description:
