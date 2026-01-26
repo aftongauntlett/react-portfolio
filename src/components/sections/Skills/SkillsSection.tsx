@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { m } from 'framer-motion';
-import { skills, skillCategories } from '@/data/skills';
+import { skillGroups } from '@/data/skills';
 import TechTag from '@/components/shared/TechTag';
 import { TYPOGRAPHY } from '@/constants/styles';
 import { createMotionVariants } from '@/utils/motionHelpers';
@@ -10,12 +10,6 @@ import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersRe
 export default function SkillsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { fadeInUp } = createMotionVariants(prefersReducedMotion);
-
-  const skillsByCategory = Object.entries(skillCategories).map(([key, label]) => ({
-    key,
-    label,
-    skills: skills.filter((skill) => skill.category === key),
-  }));
 
   return (
     <div>
@@ -35,8 +29,8 @@ export default function SkillsSection() {
           },
         }}
       >
-        {skillsByCategory.map(({ key, label, skills: categorySkills }) => (
-          <m.li key={key} variants={fadeInUp}>
+        {skillGroups.map(({ title, skills }) => (
+          <m.li key={title} variants={fadeInUp}>
             <div className="mb-3">
               <h3
                 className={clsx(
@@ -45,13 +39,13 @@ export default function SkillsSection() {
                   'transition-colors duration-300 hover:text-[var(--color-secondary)]',
                 )}
               >
-                {label}
+                {title}
               </h3>
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {categorySkills.map((skill) => (
-                <TechTag key={skill.name} tech={skill.name} size="small" />
+              {skills.map((skill) => (
+                <TechTag key={skill} tech={skill} size="small" useBrandStyles={false} />
               ))}
             </div>
           </m.li>

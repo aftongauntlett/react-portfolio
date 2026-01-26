@@ -1,39 +1,57 @@
-export interface Skill {
-  name: string;
-  category: 'frontend' | 'supporting';
+export interface SkillGroup {
+  title: string;
+  skills: string[];
 }
 
-export const skills: Skill[] = [
-  { name: 'React', category: 'frontend' },
-  { name: 'Next.js', category: 'frontend' },
-  { name: 'TypeScript', category: 'frontend' },
-  { name: 'JavaScript (ES6+)', category: 'frontend' },
-  { name: 'Tailwind CSS', category: 'frontend' },
-  { name: 'HTML/CSS', category: 'frontend' },
-  { name: 'Responsive Design', category: 'frontend' },
-  { name: 'Accessibility (WCAG)', category: 'frontend' },
-  { name: 'Design Systems', category: 'frontend' },
-  { name: 'Component Architecture', category: 'frontend' },
-  { name: 'TanStack', category: 'frontend' },
-  { name: 'Storybook', category: 'frontend' },
-  { name: 'Jest', category: 'frontend' },
-
-  { name: 'REST APIs', category: 'supporting' },
-  { name: 'GraphQL', category: 'supporting' },
-  { name: 'PostgreSQL', category: 'supporting' },
-  { name: 'Swagger', category: 'supporting' },
-  { name: 'JSDoc', category: 'supporting' },
-
-  { name: 'Git', category: 'supporting' },
-  { name: 'Docker', category: 'supporting' },
-  { name: 'Figma', category: 'supporting' },
-  { name: 'GSAP', category: 'supporting' },
-  { name: 'Framer', category: 'supporting' },
-  { name: 'Agile', category: 'supporting' },
-  { name: 'AI-Assisted Workflow', category: 'supporting' },
+export const skillGroups: SkillGroup[] = [
+  {
+    title: 'Frontend Engineering & UI',
+    skills: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript (ES6+)',
+      'Tailwind CSS',
+      'HTML/CSS',
+      'Responsive Design',
+      'Accessibility (WCAG)',
+      'Design Systems',
+      'Component Architecture',
+      'TanStack',
+      'Storybook',
+      'Jest',
+    ],
+  },
+  {
+    title: 'Motion & Interactive Systems',
+    skills: [
+      'Framer Motion',
+      'GSAP',
+      'Three.js',
+      'CSS Animations',
+      'Layout Transitions',
+      'SVG Animation',
+      'Canvas',
+      'WebGL',
+      'Interaction Design',
+    ],
+  },
+  {
+    title: 'Frameworks, APIs & Tooling',
+    skills: [
+      'REST APIs',
+      'GraphQL',
+      'PostgreSQL',
+      'Swagger',
+      'JSDoc',
+      'Git',
+      'Docker',
+      'Figma',
+      'Astro',
+      'Vue',
+      'Angular',
+      'Agile',
+      'AI-Augmented Engineering',
+    ],
+  },
 ];
-
-export const skillCategories = {
-  frontend: 'Frontend Engineering & UI',
-  supporting: 'Supporting Technologies & Workflow',
-} as const;

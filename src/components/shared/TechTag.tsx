@@ -8,9 +8,23 @@ interface TechTagProps {
   tech: string;
   size?: TechTagSize;
   className?: string;
+  useBrandStyles?: boolean;
 }
 
-export default function TechTag({ tech, size = 'small', className }: TechTagProps) {
+export default function TechTag({
+  tech,
+  size = 'small',
+  className,
+  useBrandStyles = true,
+}: TechTagProps) {
+  if (!useBrandStyles) {
+    return (
+      <Tag variant="muted" size={size} className={className}>
+        {tech}
+      </Tag>
+    );
+  }
+
   const techClasses = getTechChipClassName(tech);
 
   if (!techClasses) {
