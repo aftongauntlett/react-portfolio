@@ -32,15 +32,54 @@ export default defineConfig({
   build: {
     sourcemap: true,
     cssCodeSplit: true,
-    modulePreload: true,
+    modulePreload: {
+      // Keep modulepreload generally enabled, but avoid preloading non-critical chunks.
+      // In particular, we don't want to fetch/parse animation/scroll/icon chunks on initial load.
+      resolveDependencies: (_filename: string, deps: readonly string[]) =>
+        deps.filter(
+          (dep) =>
+            !dep.includes('motion-') &&
+            !dep.includes('scroll-') &&
+            !dep.includes('icons-') &&
+            !dep.includes('useWillChange-') &&
+            !dep.includes('motionHelpers-') &&
+            !dep.includes('animations-'),
+        ),
+    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          motion: ['framer-motion'],
-          scroll: ['lenis'],
-          icons: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
+        manualChunks: (id: string) => {
+          if (!id.includes('node_modules')) return;
+
+          // Keep React + its JSX runtime together.
+          if (
+            id.includes('/node_modules/react/') ||
+            id.includes('/node_modules/react-dom/') ||
+            id.includes('/node_modules/scheduler/')
+          ) {
+            return 'vendor';
+          }
+
+          if (id.includes('/node_modules/react-router-dom/')) {
+            return 'router';
+          }
+
+          // Keep framer-motion isolated so it's only fetched when needed.
+          if (id.includes('/node_modules/framer-motion/')) {
+            return 'motion';
+          }
+
+          if (id.includes('/node_modules/lenis/')) {
+            return 'scroll';
+          }
+
+          if (
+            id.includes('/node_modules/react-icons/hi/') ||
+            id.includes('/node_modules/react-icons/hi2/') ||
+            id.includes('/node_modules/react-icons/fa/')
+          ) {
+            return 'icons';
+          }
         },
       },
     },

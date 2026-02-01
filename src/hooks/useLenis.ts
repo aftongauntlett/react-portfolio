@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import Lenis from 'lenis';
+import type Lenis from 'lenis';
 
 /**
  * Custom hook to initialize and manage Lenis smooth scroll
@@ -10,8 +10,10 @@ import Lenis from 'lenis';
 export function useLenis() {
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
-  const rafIdRef = useRef<number | null>(null);
   const reducedMotionRef = useRef<boolean>(false);
+  const idleCallbackIdRef = useRef<number | null>(null);
+  const initTimeoutIdRef = useRef<number | null>(null);
+  const initInFlightRef = useRef<boolean>(false);
 
   useEffect(() => {
     // Guard against SSR - Lenis requires window/DOM
@@ -23,9 +25,21 @@ export function useLenis() {
     reducedMotionRef.current = mediaQuery.matches;
 
     const stopAndDestroy = () => {
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
+      if (idleCallbackIdRef.current !== null) {
+        try {
+          // requestIdleCallback is not in TS DOM libs by default.
+          (window as unknown as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(
+            idleCallbackIdRef.current,
+          );
+        } catch {
+          // ignore
+        }
+        idleCallbackIdRef.current = null;
+      }
+
+      if (initTimeoutIdRef.current !== null) {
+        window.clearTimeout(initTimeoutIdRef.current);
+        initTimeoutIdRef.current = null;
       }
 
       if (lenisRef.current) {
@@ -33,45 +47,96 @@ export function useLenis() {
         lenisRef.current = null;
       }
 
+      initInFlightRef.current = false;
+
       setLenisInstance(null);
     };
 
-    const initLenis = () => {
+    const initLenis = async () => {
+      if (reducedMotionRef.current) return;
+      if (lenisRef.current) return;
+      if (initInFlightRef.current) return;
+      initInFlightRef.current = true;
+
+      try {
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        const { default: LenisCtor } = await import('lenis');
+
+        if (reducedMotionRef.current) return;
+        if (lenisRef.current) return;
+
+        const lenis = new LenisCtor({
+          duration: 0.6,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 0.8,
+          touchMultiplier: isTouchDevice ? 1 : 2,
+          syncTouch: !isTouchDevice,
+          infinite: false,
+          autoRaf: true,
+        });
+
+        lenisRef.current = lenis;
+        queueMicrotask(() => setLenisInstance(lenis));
+      } finally {
+        initInFlightRef.current = false;
+      }
+    };
+
+    const scheduleIdleInit = () => {
+      if (reducedMotionRef.current) return;
+      if (lenisRef.current) return;
+      if (idleCallbackIdRef.current !== null) return;
+      if (initTimeoutIdRef.current !== null) return;
+
+      const withIdleCallback = (
+        window as unknown as {
+          requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number;
+        }
+      ).requestIdleCallback;
+
+      if (typeof withIdleCallback === 'function') {
+        idleCallbackIdRef.current = withIdleCallback(
+          () => {
+            idleCallbackIdRef.current = null;
+            void initLenis();
+          },
+          { timeout: 2000 },
+        );
+      } else {
+        initTimeoutIdRef.current = window.setTimeout(() => {
+          initTimeoutIdRef.current = null;
+          void initLenis();
+        }, 1000);
+      }
+    };
+
+    const setupOnDemandInit = () => {
       if (reducedMotionRef.current) return;
       if (lenisRef.current) return;
 
-      const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
-      const lenis = new Lenis({
-        duration: 0.6,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 0.8,
-        touchMultiplier: isTouchDevice ? 1 : 2,
-        syncTouch: !isTouchDevice,
-        infinite: false,
-      });
-
-      lenisRef.current = lenis;
-      queueMicrotask(() => setLenisInstance(lenis));
-
-      // Keep RAF running so programmatic scroll (SideNav/MobileNav) always works.
-      const loop = (time: number) => {
-        if (reducedMotionRef.current) {
-          stopAndDestroy();
-          return;
-        }
-        if (lenisRef.current !== lenis) {
-          return;
-        }
-
-        lenis.raf(time);
-        rafIdRef.current = requestAnimationFrame(loop);
+      const trigger = () => {
+        cleanup();
+        void initLenis();
       };
 
-      rafIdRef.current = requestAnimationFrame(loop);
+      const opts = { passive: true } as const;
+
+      const cleanup = () => {
+        window.removeEventListener('wheel', trigger);
+        window.removeEventListener('touchstart', trigger);
+        window.removeEventListener('pointerdown', trigger);
+        window.removeEventListener('keydown', trigger);
+      };
+
+      window.addEventListener('wheel', trigger, opts);
+      window.addEventListener('touchstart', trigger, opts);
+      window.addEventListener('pointerdown', trigger, opts);
+      window.addEventListener('keydown', trigger);
+
+      return cleanup;
     };
 
     const handleChange = (event: MediaQueryListEvent) => {
@@ -79,20 +144,41 @@ export function useLenis() {
       if (event.matches) {
         stopAndDestroy();
       } else {
-        initLenis();
+        setupCleanupRef.current?.();
+        setupCleanupRef.current = setupOnDemandInit() ?? null;
+        setupLoadInit();
       }
     };
+
+    const setupLoadInit = () => {
+      if (document.readyState === 'complete') {
+        scheduleIdleInit();
+        return;
+      }
+
+      window.addEventListener(
+        'load',
+        () => {
+          scheduleIdleInit();
+        },
+        { once: true },
+      );
+    };
+
+    const setupCleanupRef = { current: null as null | (() => void) };
 
     mediaQuery.addEventListener('change', handleChange);
 
     if (mediaQuery.matches) {
       stopAndDestroy();
     } else {
-      initLenis();
+      setupCleanupRef.current = setupOnDemandInit() ?? null;
+      setupLoadInit();
     }
 
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
+      setupCleanupRef.current?.();
       stopAndDestroy();
     };
   }, []);

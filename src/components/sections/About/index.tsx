@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
-import MotionSection from '@/components/shared/MotionSection';
 import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import clsx from 'clsx';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 const aboutParagraphs = [
   "I'm {Afton} - a frontend engineer with {5+ years} of experience building scalable, accessible UIs using {React}, {TypeScript}, and {Tailwind}. I've led frontend architecture at {Fortune 500} firms like {Booz Allen Hamilton} and built custom web platforms for clients through my business, {Gauntlet Designs}.",
@@ -26,15 +24,17 @@ const renderHighlightedText = (text: string) => {
 };
 
 export default function AboutSection() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
   // Memoize rendered paragraphs since they don't change
   const renderedParagraphs = useMemo(
     () =>
       aboutParagraphs.map((paragraph, index) => (
         <p
           key={index}
-          className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION, 'text-description-strong', FOCUS_STYLES.PRIMARY)}
+          className={clsx(
+            TYPOGRAPHY.TEXT_DESCRIPTION,
+            'text-description-strong',
+            FOCUS_STYLES.PRIMARY,
+          )}
           tabIndex={0}
           aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
         >
@@ -47,10 +47,7 @@ export default function AboutSection() {
   return (
     <div className="w-full">
       {/* Hero Section - Responsive spacing */}
-      <MotionSection
-        disableAnimation={prefersReducedMotion}
-        className="relative flex flex-col justify-center items-center w-full mb-8 sm:mb-10"
-      >
+      <div className="relative flex flex-col justify-center items-center w-full mb-8 sm:mb-10">
         {/* Foreground Hello Text */}
         <div className="relative text-center px-4 py-8 sm:py-12 md:py-16">
           {/* Subtle backdrop for improved contrast */}
@@ -71,18 +68,15 @@ export default function AboutSection() {
             Hello
           </h1>
         </div>
-        
+
         {/* Gradient border below Hello */}
-        <div 
-          className="hello-gradient h-1 rounded-full w-[min(60%,300px)]"
-          aria-hidden="true"
-        />
-      </MotionSection>
+        <div className="hello-gradient h-1 rounded-full w-[min(60%,300px)]" aria-hidden="true" />
+      </div>
 
       {/* About Section */}
-      <MotionSection disableAnimation={prefersReducedMotion} delay={0.05} className="mx-auto">
+      <div className="mx-auto">
         <div className="space-y-6">{renderedParagraphs}</div>
-      </MotionSection>
+      </div>
     </div>
   );
 }

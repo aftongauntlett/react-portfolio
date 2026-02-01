@@ -1,5 +1,4 @@
 import React from 'react';
-import { m } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type ButtonVariant = 'solid' | 'outline' | 'link';
@@ -17,7 +16,8 @@ interface BaseButtonProps {
 
 // Button with children (text/content)
 interface ButtonWithChildrenAsButton
-  extends BaseButtonProps,
+  extends
+    BaseButtonProps,
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
   children: React.ReactNode;
   icon?: React.ReactNode;
@@ -28,7 +28,8 @@ interface ButtonWithChildrenAsButton
 }
 
 interface ButtonWithChildrenAsLink
-  extends BaseButtonProps,
+  extends
+    BaseButtonProps,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
   children: React.ReactNode;
   icon?: React.ReactNode;
@@ -38,7 +39,8 @@ interface ButtonWithChildrenAsLink
 
 // Icon-only button (requires aria-label)
 interface IconOnlyButtonAsButton
-  extends BaseButtonProps,
+  extends
+    BaseButtonProps,
     Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, keyof BaseButtonProps> {
   children?: never;
   icon: React.ReactNode;
@@ -49,7 +51,8 @@ interface IconOnlyButtonAsButton
 }
 
 interface IconOnlyButtonAsLink
-  extends BaseButtonProps,
+  extends
+    BaseButtonProps,
     Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
   children?: never;
   icon: React.ReactNode;
@@ -115,14 +118,9 @@ export const Button: React.FC<ButtonProps> = (props) => {
     .filter(Boolean)
     .join(' ');
 
-  // Micro-interaction animations (respects prefers-reduced-motion)
-  const motionProps = prefersReducedMotion
-    ? {}
-    : {
-        whileHover: { scale: 1.02 },
-        whileTap: { scale: 0.98 },
-        transition: { type: 'spring' as const, stiffness: 250, damping: 30 },
-      };
+  const motionLikeClasses = prefersReducedMotion
+    ? ''
+    : 'transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]';
 
   if ('href' in props && props.href && !disabled) {
     const { href, target, rel, ...linkProps } = restProps as
@@ -139,18 +137,17 @@ export const Button: React.FC<ButtonProps> = (props) => {
     const { onDrag, onDragStart, onDragEnd, ...safeProps } = linkProps as Record<string, unknown>;
 
     return (
-      <m.a
+      <a
         href={href}
         target={target || defaultTarget}
         rel={rel || defaultRel}
-        className={buttonClasses}
+        className={[buttonClasses, motionLikeClasses].filter(Boolean).join(' ')}
         aria-label={effectiveAriaLabel}
-        {...motionProps}
         {...safeProps}
       >
         {icon && <span aria-hidden="true">{icon}</span>}
         {children}
-      </m.a>
+      </a>
     );
   }
 
@@ -161,16 +158,15 @@ export const Button: React.FC<ButtonProps> = (props) => {
     buttonPropsRest as unknown as Record<string, unknown>;
 
   return (
-    <m.button
-      className={buttonClasses}
+    <button
+      className={[buttonClasses, motionLikeClasses].filter(Boolean).join(' ')}
       disabled={disabled}
       aria-label={effectiveAriaLabel}
-      {...motionProps}
       {...safeButtonProps}
     >
       {icon && <span aria-hidden="true">{icon}</span>}
       {children}
-    </m.button>
+    </button>
   );
 };
 

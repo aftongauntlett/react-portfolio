@@ -1,27 +1,20 @@
 import type { MouseEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
-import { m } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useLenisContext } from '@/context/LenisContext';
 import { navItems } from '../../../constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { smoothScrollTo } from '@/utils/domScroll';
-import { FaLinkedin } from 'react-icons/fa';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
-import { HiSun, HiMoon } from 'react-icons/hi2';
-import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
-import { useWillChange } from '@/hooks/useWillChange';
+import { IconLinkedIn, IconMoon, IconSun } from '@/components/shared/InlineIcons';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
   const { theme, toggleTheme } = useTheme();
   const { lenis } = useLenisContext();
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [isAnimating, setIsAnimating] = useState(false);
-  const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
   const announcementRef = useRef<HTMLDivElement | null>(null);
 
   // Announce section changes to screen readers
@@ -50,22 +43,7 @@ export default function SideNav() {
   }, [activeSection]);
 
   return (
-    <m.div
-      className="flex flex-col justify-between h-full pt-16 px-6 py-10"
-      initial={{ opacity: prefersReducedMotion ? 1 : 0, x: prefersReducedMotion ? 0 : -20 }}
-      animate={{
-        opacity: 1,
-        x: 0,
-        transition: {
-          duration: getMotionDuration(0.6, prefersReducedMotion),
-          ease: 'easeOut',
-          staggerChildren: getMotionDuration(0.1, prefersReducedMotion),
-        },
-      }}
-      onAnimationStart={() => setIsAnimating(true)}
-      onAnimationComplete={() => setIsAnimating(false)}
-      style={willChangeStyle}
-    >
+    <div className="flex flex-col justify-between h-full pt-16 px-6 py-10">
       {/* Screen reader announcement for active section */}
       <div
         ref={announcementRef}
@@ -75,17 +53,7 @@ export default function SideNav() {
         className="sr-only"
       />
 
-      <m.div
-        initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 }}
-        animate={{
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: getMotionDuration(0.5, prefersReducedMotion),
-            delay: getMotionDuration(0.2, prefersReducedMotion),
-          },
-        }}
-      >
+      <div>
         <div className="text-xl font-bold leading-[1.3] capitalize text-[var(--color-text)]">
           Afton Gauntlett
         </div>
@@ -147,17 +115,9 @@ export default function SideNav() {
             );
           })}
         </nav>
-      </m.div>
+      </div>
 
-      <m.div
-        className="flex flex-col gap-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.5, delay: 0.4 },
-        }}
-      >
+      <div className="flex flex-col gap-6">
         <Button href="https://aftongauntlett.github.io/resume/" variant="outline" color="primary">
           View Resume
         </Button>
@@ -179,19 +139,19 @@ export default function SideNav() {
               aria-label="Visit LinkedIn profile (opens in new tab)"
               variant="link"
               color="muted"
-              icon={<FaLinkedin size={20} />}
+              icon={<IconLinkedIn size={20} />}
             />
           </div>
 
           <Button
             onClick={toggleTheme}
-            icon={theme === 'dark' ? <HiSun size={20} /> : <HiMoon size={18} />}
+            icon={theme === 'dark' ? <IconSun size={20} /> : <IconMoon size={18} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             variant="link"
             color="muted"
           />
         </div>
-      </m.div>
-    </m.div>
+      </div>
+    </div>
   );
 }

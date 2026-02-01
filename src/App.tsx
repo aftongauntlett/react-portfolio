@@ -1,11 +1,9 @@
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import { LazyMotion, domAnimation } from 'framer-motion';
 import ErrorBoundary from './components/shared/ErrorBoundary';
 import { LenisProvider } from './context/LenisContext';
 import Layout from './components/layout/Layout';
-import { usePerformanceMonitor } from '@/hooks/usePerformanceMonitor';
 
 // Eager load home page - it's the main route and critical for LCP
 import Home from './pages/Home';
@@ -14,6 +12,10 @@ import Home from './pages/Home';
 const JS13kPostMortem = lazy(() => import('./pages/blog/JS13kPostMortem'));
 const OrbitalOrderPostMortem = lazy(() => import('./pages/blog/OrbitalOrderPostMortem'));
 const BloopMuseumDesignProcess = lazy(() => import('./pages/projects/BloopMuseumDesignProcess'));
+
+const DevPerformanceOverlay = import.meta.env.DEV
+  ? lazy(() => import('@/components/dev/PerformanceOverlay'))
+  : null;
 
 // Loading component for code splitting
 function LoadingFallback() {
@@ -25,65 +27,55 @@ function LoadingFallback() {
 }
 
 export default function App() {
-  const { enabled, fps, longTaskCount, scrollEventsPerSecond } = usePerformanceMonitor();
-
   return (
     <ErrorBoundary>
-      {enabled && (
-        <div
-          className="fixed bottom-3 right-3 z-[100] rounded border border-[var(--color-line)] bg-[var(--color-background)]/80 px-3 py-2 text-xs text-[var(--color-text)] backdrop-blur-sm"
-          role="status"
-          aria-live="polite"
-        >
-          <div>FPS: {fps}</div>
-          <div>Long tasks: {longTaskCount}</div>
-          <div>Scroll events/s: {scrollEventsPerSecond}</div>
-        </div>
+      {DevPerformanceOverlay && (
+        <Suspense fallback={null}>
+          <DevPerformanceOverlay />
+        </Suspense>
       )}
-      <LazyMotion features={domAnimation} strict>
-        <BrowserRouter>
-          <LenisProvider>
-            <Routes>
-              {/* Main portfolio route with full layout */}
-              <Route
-                path="/"
-                element={
-                  <Layout>
-                    <Home />
-                  </Layout>
-                }
-              />
-              {/* Standalone post-mortem pages (no layout/sidenav - for external links only) */}
-              <Route
-                path="/blog/js13k-2025-post-mortem"
-                element={
-                  <Suspense fallback={<LoadingFallback />}>
-                    <JS13kPostMortem />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="/blog/orbital-order-post-mortem"
-                element={
-                  <Suspense fallback={<LoadingFallback />}>
-                    <OrbitalOrderPostMortem />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="/projects/bloop-museum-design-process"
-                element={
-                  <Suspense fallback={<LoadingFallback />}>
-                    <BloopMuseumDesignProcess />
-                  </Suspense>
-                }
-              />
-              {/* All main navigation handled via hash routes in Home page */}
-              {/* /#about, /#projects, etc. */}
-            </Routes>
-          </LenisProvider>
-        </BrowserRouter>
-      </LazyMotion>
+      <BrowserRouter>
+        <LenisProvider>
+          <Routes>
+            {/* Main portfolio route with full layout */}
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <Home />
+                </Layout>
+              }
+            />
+            {/* Standalone post-mortem pages (no layout/sidenav - for external links only) */}
+            <Route
+              path="/blog/js13k-2025-post-mortem"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <JS13kPostMortem />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/orbital-order-post-mortem"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <OrbitalOrderPostMortem />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/projects/bloop-museum-design-process"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <BloopMuseumDesignProcess />
+                </Suspense>
+              }
+            />
+            {/* All main navigation handled via hash routes in Home page */}
+            {/* /#about, /#projects, etc. */}
+          </Routes>
+        </LenisProvider>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }

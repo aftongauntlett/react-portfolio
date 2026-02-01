@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { HiBars3 } from 'react-icons/hi2';
+import { Suspense, lazy, useState } from 'react';
 import { Button } from '@/components/shared/Button';
-import MobileNav from '../MobileNav';
+import { IconBars3 } from '@/components/shared/InlineIcons';
+
+const MobileNav = lazy(() => import('../MobileNav'));
 
 export default function MobileHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function MobileHeader() {
         <div className="text-xl font-medium text-[var(--color-text)]">Afton Gauntlett</div>
         <Button
           onClick={() => setIsMenuOpen(true)}
-          icon={<HiBars3 size={20} />}
+          icon={<IconBars3 size={20} />}
           aria-label="Open navigation menu"
           aria-expanded={isMenuOpen}
           variant="link"
@@ -23,7 +24,11 @@ export default function MobileHeader() {
         />
       </header>
 
-      <MobileNav isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      {isMenuOpen && (
+        <Suspense fallback={null}>
+          <MobileNav isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+        </Suspense>
+      )}
     </>
   );
 }

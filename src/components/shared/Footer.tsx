@@ -1,7 +1,7 @@
-import { HiArrowUp } from 'react-icons/hi2';
 import { TYPOGRAPHY } from '@/constants/typography';
 import { useLenisContext } from '@/context/LenisContext';
 import { smoothScrollTo, scrollToTop } from '@/utils/domScroll';
+import { IconArrowUp } from '@/components/shared/InlineIcons';
 
 interface FooterProps {
   scrollTarget?: string;
@@ -47,7 +47,7 @@ export default function Footer({
           className="hover:text-[var(--color-secondary)] transition flex items-center gap-1"
           aria-label="Scroll to top"
         >
-          <HiArrowUp size={16} /> Top
+          <IconArrowUp size={16} /> Top
         </button>
       </div>
     </footer>

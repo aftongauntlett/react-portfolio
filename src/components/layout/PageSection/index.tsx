@@ -26,6 +26,10 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
   const [isInView, setIsInView] = useState(false);
   const [isUnderlineFilled, setIsUnderlineFilled] = useState(false);
 
+  const shouldRenderDecorativeTitle = Boolean(title) && !hideTitle;
+  const shouldRenderHiddenHeading = Boolean(title) && hideTitle;
+  const titleText = title ?? '';
+
   const debugStateRef = useRef<{ lastBucket: number; wasActive: boolean }>({
     lastBucket: -1,
     wasActive: false,
@@ -35,7 +39,9 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
     import.meta.env.DEV &&
     // Opt-in toggle: set `window.__DEBUG_SECTION_UNDERLINE__ = true` in devtools.
     // We keep this Experience-only by default to reduce noise.
-    Boolean((window as unknown as { __DEBUG_SECTION_UNDERLINE__?: boolean }).__DEBUG_SECTION_UNDERLINE__) &&
+    Boolean(
+      (window as unknown as { __DEBUG_SECTION_UNDERLINE__?: boolean }).__DEBUG_SECTION_UNDERLINE__,
+    ) &&
     id === 'experience';
 
   useEffect(() => {
@@ -43,7 +49,7 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
   }, [isActive]);
 
   useEffect(() => {
-    if (!title) return;
+    if (!shouldRenderDecorativeTitle) return;
     const el = sectionEl;
     if (!el) return;
 
@@ -72,7 +78,7 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [title, sectionEl]);
+  }, [title, sectionEl, shouldRenderDecorativeTitle]);
 
   const computeProgress = useMemo(() => {
     return () => {
@@ -92,7 +98,7 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
   }, [prefersReducedMotion]);
 
   useEffect(() => {
-    if (!title) return;
+    if (!shouldRenderDecorativeTitle) return;
 
     let rafId: number | null = null;
 
@@ -153,7 +159,16 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
     };
-  }, [title, isInView, prefersReducedMotion, computeProgress, shouldDebugUnderline, id, isUnderlineFilled]);
+  }, [
+    title,
+    isInView,
+    prefersReducedMotion,
+    computeProgress,
+    shouldDebugUnderline,
+    id,
+    isUnderlineFilled,
+    shouldRenderDecorativeTitle,
+  ]);
 
   return (
     <section
@@ -167,16 +182,21 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
       aria-labelledby={title ? headingId : undefined}
     >
       <div className="w-full space-y-5 sm:space-y-7">
-        {title && (
+        {shouldRenderHiddenHeading && (
+          <h2 id={headingId} tabIndex={-1} className={clsx(FOCUS_STYLES.COMPACT, 'sr-only')}>
+            {titleText}
+          </h2>
+        )}
+        {shouldRenderDecorativeTitle && (
           <PaintSplashText
             tag="h2"
             id={headingId}
-            className={clsx(FOCUS_STYLES.COMPACT, 'px-0', hideTitle && 'sr-only')}
+            className={clsx(FOCUS_STYLES.COMPACT, 'px-0')}
             isActive={isInView}
             scrollProgress={scrollProgress}
             prefersReducedMotion={prefersReducedMotion}
           >
-            {title}
+            {titleText}
           </PaintSplashText>
         )}
         {children}

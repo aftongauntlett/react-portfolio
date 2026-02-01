@@ -1,15 +1,75 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, ComponentType } from 'react';
+import { useEffect, useState } from 'react';
 import SideNav from '../SideNav';
 import MobileHeader from '../MobileHeader';
 import Footer from '../../shared/Footer';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 
 type LayoutProps = {
   children: ReactNode;
 };
 
 export default function Layout({ children }: LayoutProps) {
+  const [vercel, setVercel] = useState<null | {
+    Analytics: ComponentType;
+    SpeedInsights: ComponentType;
+  }>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadVercel = async () => {
+      try {
+        const [{ Analytics }, { SpeedInsights }] = await Promise.all([
+          import('@vercel/analytics/react'),
+          import('@vercel/speed-insights/react'),
+        ]);
+
+        if (!cancelled) {
+          setVercel({ Analytics, SpeedInsights });
+        }
+      } catch {
+        // If the dynamic import fails for any reason, we silently skip.
+        // Analytics/insights should never block rendering.
+      }
+    };
+
+    const scheduleLoad = () => {
+      const ric = (
+        window as unknown as {
+          requestIdleCallback?: (cb: () => void, opts?: { timeout?: number }) => number;
+        }
+      ).requestIdleCallback;
+
+      if (typeof ric === 'function') {
+        ric(
+          () => {
+            void loadVercel();
+          },
+          { timeout: 2000 },
+        );
+      } else {
+        // Fallback: next tick after load
+        window.setTimeout(() => {
+          void loadVercel();
+        }, 0);
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      scheduleLoad();
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    window.addEventListener('load', scheduleLoad, { once: true });
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener('load', scheduleLoad);
+    };
+  }, []);
+
   return (
     <div className="text-[var(--color-text)] min-h-screen bg-[var(--color-background)]">
       {/* Skip to main content link for accessibility */}
@@ -36,10 +96,15 @@ export default function Layout({ children }: LayoutProps) {
           >
             {children}
             <Footer />
-            {/* Move analytics to end to reduce initial load impact */}
-            <Analytics />
-            <SpeedInsights />
           </main>
+
+          {/* Loaded after `load`/idle so it doesn't affect first paint/LCP */}
+          {vercel ? (
+            <>
+              <vercel.Analytics />
+              <vercel.SpeedInsights />
+            </>
+          ) : null}
         </div>
       </div>
     </div>

@@ -22,6 +22,13 @@ function TestComponent() {
   return <div>{lenis ? 'Lenis initialized' : 'No Lenis'}</div>;
 }
 
+function triggerLenisInit() {
+  // useLenis now initializes on first user interaction (or after window load).
+  act(() => {
+    window.dispatchEvent(new Event('wheel'));
+  });
+}
+
 describe('useLenis', () => {
   let originalMatchMedia: typeof window.matchMedia;
 
@@ -62,6 +69,8 @@ describe('useLenis', () => {
     });
 
     const { getByText } = render(<TestComponent />);
+
+    triggerLenisInit();
 
     await waitFor(() => {
       expect(getByText('Lenis initialized')).toBeInTheDocument();
@@ -129,6 +138,8 @@ describe('useLenis', () => {
 
     const { getByText } = render(<TestComponent />);
 
+    triggerLenisInit();
+
     await waitFor(() => {
       expect(getByText('Lenis initialized')).toBeInTheDocument();
     });
@@ -151,6 +162,9 @@ describe('useLenis', () => {
     act(() => {
       listeners.forEach((cb) => cb({ matches: false } as MediaQueryListEvent));
     });
+
+    // Re-init is also deferred; trigger another interaction.
+    triggerLenisInit();
 
     await waitFor(() => {
       expect(getByText('Lenis initialized')).toBeInTheDocument();

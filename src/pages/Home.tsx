@@ -94,7 +94,7 @@ export default function Home() {
 
   return (
     <>
-      <PageSection id="about" title="About" hideTitle={true}>
+      <PageSection id="about" title="About" hideTitle={true} className="section-content--critical">
         <AboutSection />
       </PageSection>
       <PageSection id="skills" title="Skills">

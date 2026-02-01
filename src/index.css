@@ -248,6 +248,12 @@ textarea:-moz-autofill {
   contain-intrinsic-size: auto 500px;
 }
 
+/* Above-the-fold content should never be delayed by content-visibility. */
+.section-content--critical {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
+}
+
 /* Ensure sticky navigation works properly */
 @media (min-width: 1024px) {
   .lg\:sticky {
