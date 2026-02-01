@@ -11,6 +11,12 @@ import type Lenis from 'lenis';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <div {...props}>{children}</div>
+    ),
+  },
+  // Back-compat: some tests/components may still import `m`.
   m: {
     div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
       <div {...props}>{children}</div>

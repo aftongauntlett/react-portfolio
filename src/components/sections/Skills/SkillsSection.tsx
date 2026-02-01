@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { skillGroups } from '@/data/skills';
 import TechTag from '@/components/shared/TechTag';
 import { TYPOGRAPHY } from '@/constants/styles';
@@ -13,7 +13,7 @@ export default function SkillsSection() {
 
   return (
     <div>
-      <m.ul
+      <motion.ul
         className="space-y-12"
         aria-label="Technical skills by category"
         initial="hidden"
@@ -30,7 +30,7 @@ export default function SkillsSection() {
         }}
       >
         {skillGroups.map(({ title, skills }) => (
-          <m.li key={title} variants={fadeInUp}>
+          <motion.li key={title} variants={fadeInUp}>
             <div className="mb-3">
               <h3
                 className={clsx(
@@ -48,9 +48,9 @@ export default function SkillsSection() {
                 <TechTag key={skill} tech={skill} size="small" useBrandStyles={false} />
               ))}
             </div>
-          </m.li>
+          </motion.li>
         ))}
-      </m.ul>
+      </motion.ul>
     </div>
   );
 }

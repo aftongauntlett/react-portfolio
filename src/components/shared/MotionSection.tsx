@@ -1,6 +1,6 @@
 import type { ReactNode, ElementType, CSSProperties } from 'react';
 import { useState } from 'react';
-import { m, type Variants } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import clsx from 'clsx';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { useWillChange } from '@/hooks/useWillChange';
@@ -39,7 +39,7 @@ export default function MotionSection({
   ...props
 }: MotionSectionProps) {
   // Use a type-safe approach for motion components
-  const MotionComponent = (Component === 'li' ? m.li : m.div) as typeof m.div;
+  const MotionComponent = (Component === 'li' ? motion.li : motion.div) as typeof motion.div;
   const [isAnimating, setIsAnimating] = useState(false);
   const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
   const baseStyle: CSSProperties = {
@@ -50,7 +50,11 @@ export default function MotionSection({
 
   if (disableAnimation) {
     return (
-      <Component style={{ ...style, contain: 'layout style paint' }} className={clsx('opacity-100', className)} {...props}>
+      <Component
+        style={{ ...style, contain: 'layout style paint' }}
+        className={clsx('opacity-100', className)}
+        {...props}
+      >
         {children}
       </Component>
     );

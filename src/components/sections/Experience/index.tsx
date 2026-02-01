@@ -1,7 +1,7 @@
 import { jobs } from '@/data/jobs';
 import TimelineItem from '@/components/Timeline/TimelineItem';
 import { BulletItem, BulletList } from '@/components/shared/BulletList';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
@@ -48,12 +48,24 @@ export default function ExperienceSection() {
   const isSoftwareEngineerAwardAnchor = (title: string, company: string) =>
     title === 'Software Engineer' && company === 'Booz Allen Hamilton';
 
-  const boozAllenAwards = useMemo(() => awards.filter((award) => award.organization === 'Booz Allen Hamilton'), []);
-  const leadEngineerAwards = useMemo(() => boozAllenAwards.filter((award) => award.date !== '2022'), [boozAllenAwards]);
-  const softwareEngineerAwards = useMemo(() => boozAllenAwards.filter((award) => award.date === '2022'), [boozAllenAwards]);
+  const boozAllenAwards = useMemo(
+    () => awards.filter((award) => award.organization === 'Booz Allen Hamilton'),
+    [],
+  );
+  const leadEngineerAwards = useMemo(
+    () => boozAllenAwards.filter((award) => award.date !== '2022'),
+    [boozAllenAwards],
+  );
+  const softwareEngineerAwards = useMemo(
+    () => boozAllenAwards.filter((award) => award.date === '2022'),
+    [boozAllenAwards],
+  );
 
   const setLeadAwardsOpenCallback = useCallback(() => setLeadAwardsOpen((prev) => !prev), []);
-  const setSoftwareAwardsOpenCallback = useCallback(() => setSoftwareAwardsOpen((prev) => !prev), []);
+  const setSoftwareAwardsOpenCallback = useCallback(
+    () => setSoftwareAwardsOpen((prev) => !prev),
+    [],
+  );
 
   if (prefersReducedMotion) {
     return (
@@ -116,7 +128,7 @@ export default function ExperienceSection() {
   }
 
   return (
-    <m.div
+    <motion.div
       className="space-y-8"
       initial="hidden"
       whileInView="visible"
@@ -129,13 +141,13 @@ export default function ExperienceSection() {
           style={{ zIndex: 1 }}
           aria-hidden="true"
         />
-        <m.ul
+        <motion.ul
           className="space-y-6 md:space-y-8"
           aria-label="Professional experience timeline"
           variants={timelineListStagger}
         >
           {jobs.map((job, i) => (
-            <m.li key={`${job.title}-${i}`} variants={timelineStaggerItem}>
+            <motion.li key={`${job.title}-${i}`} variants={timelineStaggerItem}>
               <TimelineItem
                 title={job.title}
                 company={job.company}
@@ -176,10 +188,10 @@ export default function ExperienceSection() {
                   />
                 ) : null}
               </TimelineItem>
-            </m.li>
+            </motion.li>
           ))}
-        </m.ul>
+        </motion.ul>
       </div>
-    </m.div>
+    </motion.div>
   );
 }

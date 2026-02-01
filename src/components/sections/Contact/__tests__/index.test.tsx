@@ -6,6 +6,30 @@ import ContactSection from '../index';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <div {...props}>{children}</div>
+    ),
+    section: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <section {...props}>{children}</section>
+    ),
+    button: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <button {...props}>{children}</button>
+    ),
+    a: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <a {...props}>{children}</a>
+    ),
+    label: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <label {...props}>{children}</label>
+    ),
+    ul: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <ul {...props}>{children}</ul>
+    ),
+    li: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <li {...props}>{children}</li>
+    ),
+  },
+  // Back-compat: some tests/components may still import `m`.
   m: {
     div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
       <div {...props}>{children}</div>

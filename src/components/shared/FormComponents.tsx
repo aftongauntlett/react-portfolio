@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { TYPOGRAPHY } from '@/constants/typography';
@@ -72,14 +72,14 @@ export function FormField({
 
   return (
     <div className="space-y-1">
-      <m.label
+      <motion.label
         htmlFor={name}
         className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium`}
         {...labelMotionProps}
       >
         {label}
         {optional && <span className="text-[var(--color-muted)] font-normal"> (optional)</span>}
-      </m.label>
+      </motion.label>
       <input
         type={type}
         id={name}
@@ -166,13 +166,13 @@ export function TextAreaField({
 
   return (
     <div className="space-y-1">
-      <m.label
+      <motion.label
         htmlFor={name}
         className={`block ${TYPOGRAPHY.TEXT_SMALL} font-medium`}
         {...labelMotionProps}
       >
         {label}
-      </m.label>
+      </motion.label>
       <textarea
         id={name}
         name={name}

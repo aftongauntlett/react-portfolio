@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { ReactNode, KeyboardEvent } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { useWillChange } from '@/hooks/useWillChange';
 import {
@@ -105,7 +105,7 @@ export default function Card({
     };
   }, [disableMotion, prefersReducedMotion, isInViewport, isInteractive]);
 
-  const CardComponent = link ? m.a : m.article;
+  const CardComponent = link ? motion.a : motion.article;
   const cardProps = link
     ? {
         href: link,

@@ -1,5 +1,4 @@
 import type { ElementType, JSX } from 'react';
-import { m } from 'framer-motion';
 
 type AllowedTags = keyof JSX.IntrinsicElements;
 
@@ -32,10 +31,7 @@ export default function PaintSplashText({
   const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
   const activeProgress = isActive ? (prefersReducedMotion ? 1 : clampedProgress) : 0;
 
-  const underlineTransition = {
-    duration: prefersReducedMotion ? 0 : 0.25,
-    ease: 'easeOut',
-  } as const;
+  const underlineTransition = prefersReducedMotion ? 'none' : 'transform 250ms ease-out';
 
   return (
     <Tag
@@ -47,12 +43,14 @@ export default function PaintSplashText({
         <span className="relative inline-block">{children}</span>
 
         {/* Active underline */}
-        <m.span
+        <span
           aria-hidden="true"
           className="pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full rounded bg-[var(--color-primary)]"
-          style={{ transformOrigin: 'left' }}
-          animate={{ scaleX: activeProgress }}
-          transition={underlineTransition}
+          style={{
+            transformOrigin: 'left',
+            transform: `scaleX(${activeProgress})`,
+            transition: underlineTransition,
+          }}
         />
       </span>
     </Tag>

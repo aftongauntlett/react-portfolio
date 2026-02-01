@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/shared/Button';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { getLinkIcon } from '@/components/shared/LinkIcons';
@@ -47,7 +47,7 @@ export default function ProjectsSection() {
     }: ProjectItem,
     idx: number,
   ) => (
-    <m.li
+    <motion.li
       key={title}
       variants={projectVariants}
       exit="hidden"
@@ -141,7 +141,7 @@ export default function ProjectsSection() {
           </LinkButton>
         )}
       </div>
-    </m.li>
+    </motion.li>
   );
   const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
     const isProduction = status === 'Production';
@@ -187,7 +187,7 @@ export default function ProjectsSection() {
 
   return (
     <div className="space-y-6">
-      <m.ul
+      <motion.ul
         className="space-y-6 list-none"
         aria-label="Portfolio projects"
         initial="hidden"
@@ -206,13 +206,13 @@ export default function ProjectsSection() {
         }}
       >
         {primaryProjects.map((project, idx) => renderProject(project, idx))}
-      </m.ul>
+      </motion.ul>
 
       {additionalProjects.length > 0 ? (
         <div aria-hidden={false}>
           <div className="flex items-center">
             <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
-            <m.button
+            <motion.button
               type="button"
               onClick={() => setShowAllProjects((prev) => !prev)}
               aria-controls="more-projects"
@@ -230,7 +230,7 @@ export default function ProjectsSection() {
               <span className="transition-colors duration-200 font-heading">
                 {showAllProjects ? 'See less' : 'See more'}
               </span>
-              <m.span
+              <motion.span
                 className="grid place-items-center"
                 animate={
                   prefersReducedMotion
@@ -244,12 +244,12 @@ export default function ProjectsSection() {
                 }
               >
                 <HiChevronDown className="h-4 w-4 transition-colors duration-200" />
-              </m.span>
-            </m.button>
+              </motion.span>
+            </motion.button>
             <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
           </div>
 
-          <m.div
+          <motion.div
             id="more-projects"
             className="mt-6"
             initial={prefersReducedMotion ? undefined : 'closed'}
@@ -284,7 +284,7 @@ export default function ProjectsSection() {
                   }
             }
           >
-            <m.ul
+            <motion.ul
               className="space-y-6 list-none"
               aria-label="Additional portfolio projects"
               initial="hidden"
@@ -299,8 +299,8 @@ export default function ProjectsSection() {
               }}
             >
               {additionalProjects.map((project, idx) => renderProject(project, idx + 3))}
-            </m.ul>
-          </m.div>
+            </motion.ul>
+          </motion.div>
         </div>
       ) : null}
     </div>

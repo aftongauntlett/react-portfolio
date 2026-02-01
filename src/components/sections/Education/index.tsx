@@ -1,15 +1,12 @@
 import { education, type Education } from '@/data/education';
 import clsx from 'clsx';
 import { TYPOGRAPHY } from '@/constants/styles';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { createElement } from 'react';
 import type { IconType } from 'react-icons';
 import { FaFigma, FaReact } from 'react-icons/fa6';
 import { BsShieldPlus } from 'react-icons/bs';
-import {
-  HiAcademicCap,
-  HiArrowTopRightOnSquare,
-} from 'react-icons/hi2';
+import { HiAcademicCap, HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { getMotionDuration, usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -57,7 +54,7 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
       };
 
   const isLink = Boolean(item.link);
-  const Wrapper = isLink ? m.a : m.div;
+  const Wrapper = isLink ? motion.a : motion.div;
 
   return (
     <Wrapper
@@ -83,7 +80,7 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
       <div className="grid items-center gap-4 md:gap-6 sm:grid-cols-[7.5rem_1fr]">
         <div className="relative hidden sm:grid place-items-center" aria-hidden="true">
           {/* FeatureBlock-inspired glow layers (no icon container/border) */}
-          <m.div
+          <motion.div
             className="absolute inset-0 rounded-full blur-2xl"
             style={{ backgroundColor: 'rgba(var(--color-primary-rgb), 0.12)' }}
             variants={
@@ -93,11 +90,16 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
                     hover: { opacity: 0.45, scale: 1.08 },
                   }
             }
-            transition={prefersReducedMotion ? undefined : { duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            transition={
+              prefersReducedMotion ? undefined : { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+            }
           />
-          <m.div
+          <motion.div
             className="absolute inset-8 rounded-full"
-            style={{ background: 'radial-gradient(circle, rgba(var(--color-primary-rgb), 0.10), transparent 70%)' }}
+            style={{
+              background:
+                'radial-gradient(circle, rgba(var(--color-primary-rgb), 0.10), transparent 70%)',
+            }}
             variants={
               prefersReducedMotion
                 ? undefined
@@ -109,7 +111,7 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
           />
 
           <div className="relative [perspective:900px]">
-            <m.span
+            <motion.span
               className="inline-flex"
               variants={iconVariants}
               onPointerMove={tilt.onPointerMove}
@@ -125,7 +127,7 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
                 ),
                 'aria-hidden': true,
               })}
-            </m.span>
+            </motion.span>
           </div>
         </div>
 
@@ -240,7 +242,7 @@ function EducationGrid({ items }: { items: readonly Education[] }) {
   const { fadeInUp } = createMotionVariants(prefersReducedMotion);
 
   return (
-    <m.ul
+    <motion.ul
       className="space-y-4"
       aria-label="Education"
       initial="hidden"
@@ -257,16 +259,14 @@ function EducationGrid({ items }: { items: readonly Education[] }) {
       }}
     >
       {items.map((item, idx) => (
-        <m.li key={`${item.title}-${idx}`} variants={fadeInUp}>
+        <motion.li key={`${item.title}-${idx}`} variants={fadeInUp}>
           <EducationCard item={item} idx={idx} />
-        </m.li>
+        </motion.li>
       ))}
-    </m.ul>
+    </motion.ul>
   );
 }
 
 export default function EducationSection() {
-  return (
-    <EducationGrid items={education} />
-  );
+  return <EducationGrid items={education} />;
 }

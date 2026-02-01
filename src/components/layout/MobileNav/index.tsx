@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { navItems } from '@/constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useLenisContext } from '@/context/LenisContext';
@@ -101,7 +101,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <m.div
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -113,7 +113,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           />
 
           {/* Slide-over Menu */}
-          <m.div
+          <motion.div
             ref={menuRef}
             initial={{ x: prefersReducedMotion ? 0 : 300 }}
             animate={{ x: 0 }}
@@ -206,7 +206,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 </button>
               </div>
             </div>
-          </m.div>
+          </motion.div>
         </>
       )}
     </AnimatePresence>
