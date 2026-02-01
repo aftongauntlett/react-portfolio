@@ -8,6 +8,7 @@ import * as LenisContext from '@/context/LenisContext';
 import * as ThemeContext from '@/context/ThemeContext';
 import * as ActiveSectionHook from '@/hooks/useActiveSection';
 import type Lenis from 'lenis';
+import type { RefObject } from 'react';
 
 // Mock framer-motion
 vi.mock('framer-motion', () => ({
@@ -48,6 +49,7 @@ describe('MobileNav - Accessibility', () => {
   let mockLenis: Lenis;
   let onCloseMock: () => void;
   let smoothScrollToSpy: ReturnType<typeof vi.spyOn>;
+  let openerRef: RefObject<HTMLButtonElement | null>;
 
   beforeEach(() => {
     // Mock Lenis instance
@@ -56,6 +58,8 @@ describe('MobileNav - Accessibility', () => {
     } as unknown as Lenis;
 
     onCloseMock = vi.fn();
+
+    openerRef = { current: document.createElement('button') };
 
     // Spy on smoothScrollTo
     smoothScrollToSpy = vi.spyOn(ScrollUtils, 'smoothScrollTo').mockImplementation(() => {});
@@ -89,13 +93,15 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('focuses the close button when menu opens', async () => {
-    const { rerender } = render(<MobileNav isOpen={false} onClose={onCloseMock} />);
+    const { rerender } = render(
+      <MobileNav isOpen={false} onClose={onCloseMock} openerRef={openerRef} />,
+    );
 
     // Menu is closed, should not render anything
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
     // Open the menu
-    rerender(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    rerender(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     // Wait for focus to be set
     await waitFor(() => {
@@ -105,7 +111,7 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('closes menu when ESC key is pressed', async () => {
-    render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const menuDialog = screen.getByRole('dialog');
     expect(menuDialog).toBeInTheDocument();
@@ -117,7 +123,9 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('prevents body scroll when menu is open', () => {
-    const { unmount } = render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    const { unmount } = render(
+      <MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />,
+    );
 
     expect(document.body.style.overflow).toBe('hidden');
 
@@ -128,12 +136,14 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('restores body overflow when menu closes', () => {
-    const { rerender } = render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    const { rerender } = render(
+      <MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />,
+    );
 
     expect(document.body.style.overflow).toBe('hidden');
 
     // Close menu
-    rerender(<MobileNav isOpen={false} onClose={onCloseMock} />);
+    rerender(<MobileNav isOpen={false} onClose={onCloseMock} openerRef={openerRef} />);
 
     expect(document.body.style.overflow).toBe('');
   });
@@ -141,7 +151,7 @@ describe('MobileNav - Accessibility', () => {
   it('implements simple focus trap keeping tab within menu', async () => {
     const user = userEvent.setup();
 
-    render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const closeButton = screen.getByLabelText(/close navigation menu/i);
 
@@ -186,7 +196,7 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('calls smoothScrollTo with correct target and offset when nav link is clicked', () => {
-    render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const aboutLink = screen.getByRole('link', { name: /about/i });
     fireEvent.click(aboutLink);
@@ -195,7 +205,7 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('closes menu after navigation link is clicked', () => {
-    render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const skillsLink = screen.getByRole('link', { name: /skills/i });
     fireEvent.click(skillsLink);
@@ -206,7 +216,7 @@ describe('MobileNav - Accessibility', () => {
   it('marks active section with aria-current', () => {
     vi.spyOn(ActiveSectionHook, 'useActiveSection').mockReturnValue('experience');
 
-    render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const experienceLink = screen.getByRole('link', { name: /experience/i });
     expect(experienceLink).toHaveAttribute('aria-current', 'location');
@@ -216,7 +226,7 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('has proper ARIA attributes for dialog', () => {
-    render(<MobileNav isOpen={true} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const dialog = screen.getByRole('dialog');
     expect(dialog).toHaveAttribute('aria-modal', 'true');
@@ -224,7 +234,7 @@ describe('MobileNav - Accessibility', () => {
   });
 
   it('does not render when closed', () => {
-    render(<MobileNav isOpen={false} onClose={onCloseMock} />);
+    render(<MobileNav isOpen={false} onClose={onCloseMock} openerRef={openerRef} />);
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });

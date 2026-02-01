@@ -1,4 +1,5 @@
-import React from 'react';
+import type * as React from 'react';
+import { forwardRef } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type ButtonVariant = 'solid' | 'outline' | 'link';
@@ -66,108 +67,112 @@ export type ButtonProps =
   | IconOnlyButtonAsButton
   | IconOnlyButtonAsLink;
 
-export const Button: React.FC<ButtonProps> = (props) => {
-  const {
-    children,
-    variant = 'solid',
-    color = 'primary',
-    textColor,
-    hoverTextColor,
-    icon,
-    disabled = false,
-    className,
-    'aria-label': ariaLabel,
-    ...restProps
-  } = props;
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  (props, ref) => {
+    const {
+      children,
+      variant = 'solid',
+      color = 'primary',
+      textColor,
+      hoverTextColor,
+      icon,
+      disabled = false,
+      className,
+      'aria-label': ariaLabel,
+      ...restProps
+    } = props;
 
-  const prefersReducedMotion = usePrefersReducedMotion();
+    const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Enhanced accessibility for icon-only buttons
-  const isIconOnly = icon && !children;
+    // Enhanced accessibility for icon-only buttons
+    const isIconOnly = icon && !children;
 
-  // Require explicit aria-label for icon-only buttons
-  if (isIconOnly && !ariaLabel) {
-    const errorMessage =
-      'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.';
+    // Require explicit aria-label for icon-only buttons
+    if (isIconOnly && !ariaLabel) {
+      const errorMessage =
+        'Accessibility error: Icon-only Button requires an explicit aria-label prop describing its action.';
 
-    if (process.env.NODE_ENV !== 'production') {
-      // Throw in development and test to catch issues early
-      throw new Error(errorMessage);
-    } else {
-      // Log error in production but don't throw to avoid runtime crashes
-      console.error(errorMessage);
+      if (process.env.NODE_ENV !== 'production') {
+        // Throw in development and test to catch issues early
+        throw new Error(errorMessage);
+      } else {
+        // Log error in production but don't throw to avoid runtime crashes
+        console.error(errorMessage);
+      }
     }
-  }
 
-  const effectiveAriaLabel = ariaLabel;
+    const effectiveAriaLabel = ariaLabel;
 
-  // Class generation includes variant, color, textColor, hoverTextColor, icon-only state, disabled state, and additional className
-  const buttonClasses = [
-    'btn',
-    `btn--${variant}`,
-    `btn--${color}`,
-    // Add text color class if specified
-    textColor && `btn--text-${textColor}`,
-    // Add hover text color class if specified
-    hoverTextColor && `btn--hover-text-${hoverTextColor}`,
-    // Add icon-only class when there's an icon but no children (text)
-    isIconOnly && 'btn--icon-only',
-    disabled && 'btn--disabled',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+    // Class generation includes variant, color, textColor, hoverTextColor, icon-only state, disabled state, and additional className
+    const buttonClasses = [
+      'btn',
+      `btn--${variant}`,
+      `btn--${color}`,
+      // Add text color class if specified
+      textColor && `btn--text-${textColor}`,
+      // Add hover text color class if specified
+      hoverTextColor && `btn--hover-text-${hoverTextColor}`,
+      // Add icon-only class when there's an icon but no children (text)
+      isIconOnly && 'btn--icon-only',
+      disabled && 'btn--disabled',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-  const motionLikeClasses = prefersReducedMotion
-    ? ''
-    : 'transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]';
+    const motionLikeClasses = prefersReducedMotion
+      ? ''
+      : 'transition-transform duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]';
 
-  if ('href' in props && props.href && !disabled) {
-    const { href, target, rel, ...linkProps } = restProps as
-      | ButtonWithChildrenAsLink
-      | IconOnlyButtonAsLink;
+    if ('href' in props && props.href && !disabled) {
+      const { href, target, rel, ...linkProps } = restProps as
+        | ButtonWithChildrenAsLink
+        | IconOnlyButtonAsLink;
 
-    // Enhanced security and accessibility for external links
-    const isExternal = href.startsWith('http');
-    const defaultTarget = isExternal ? '_blank' : undefined;
-    const defaultRel = isExternal ? 'noopener noreferrer' : undefined;
+      // Enhanced security and accessibility for external links
+      const isExternal = href.startsWith('http');
+      const defaultTarget = isExternal ? '_blank' : undefined;
+      const defaultRel = isExternal ? 'noopener noreferrer' : undefined;
 
+      // Extract any conflicting drag props (unused but needed to exclude them)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { onDrag, onDragStart, onDragEnd, ...safeProps } = linkProps as Record<string, unknown>;
+
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          target={target || defaultTarget}
+          rel={rel || defaultRel}
+          className={[buttonClasses, motionLikeClasses].filter(Boolean).join(' ')}
+          aria-label={effectiveAriaLabel}
+          {...safeProps}
+        >
+          {icon && <span aria-hidden="true">{icon}</span>}
+          {children}
+        </a>
+      );
+    }
+
+    const buttonPropsRest = restProps as ButtonWithChildrenAsButton | IconOnlyButtonAsButton;
     // Extract any conflicting drag props (unused but needed to exclude them)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { onDrag, onDragStart, onDragEnd, ...safeProps } = linkProps as Record<string, unknown>;
+    const { onDrag, onDragStart, onDragEnd, ...safeButtonProps } =
+      buttonPropsRest as unknown as Record<string, unknown>;
 
     return (
-      <a
-        href={href}
-        target={target || defaultTarget}
-        rel={rel || defaultRel}
+      <button
+        ref={ref as React.Ref<HTMLButtonElement>}
         className={[buttonClasses, motionLikeClasses].filter(Boolean).join(' ')}
+        disabled={disabled}
         aria-label={effectiveAriaLabel}
-        {...safeProps}
+        {...safeButtonProps}
       >
         {icon && <span aria-hidden="true">{icon}</span>}
         {children}
-      </a>
+      </button>
     );
-  }
-
-  const buttonPropsRest = restProps as ButtonWithChildrenAsButton | IconOnlyButtonAsButton;
-  // Extract any conflicting drag props (unused but needed to exclude them)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { onDrag, onDragStart, onDragEnd, ...safeButtonProps } =
-    buttonPropsRest as unknown as Record<string, unknown>;
-
-  return (
-    <button
-      className={[buttonClasses, motionLikeClasses].filter(Boolean).join(' ')}
-      disabled={disabled}
-      aria-label={effectiveAriaLabel}
-      {...safeButtonProps}
-    >
-      {icon && <span aria-hidden="true">{icon}</span>}
-      {children}
-    </button>
-  );
-};
+  },
+);
 
 export default Button;

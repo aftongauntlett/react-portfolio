@@ -1,4 +1,3 @@
-import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import ErrorBoundary from './components/shared/ErrorBoundary';

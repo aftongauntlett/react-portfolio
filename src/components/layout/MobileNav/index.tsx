@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navItems } from '@/constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
@@ -14,9 +15,10 @@ import { useWillChange } from '@/hooks/useWillChange';
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
+  openerRef: RefObject<HTMLButtonElement | null>;
 }
 
-export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
+export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps) {
   const activeSection = useActiveSection();
   const { lenis } = useLenisContext();
   const { theme, toggleTheme } = useTheme();
@@ -25,6 +27,11 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
+
+  const handleClose = useCallback(() => {
+    onClose();
+    openerRef.current?.focus();
+  }, [onClose, openerRef]);
 
   // Focus trap: Focus close button when menu opens
   useEffect(() => {
@@ -37,7 +44,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   useEffect(() => {
     const handleEscape = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -51,7 +58,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   const handleNavClick = (targetId: string) => {
     smoothScrollTo({ target: targetId, offset: 80 }, lenis);
@@ -63,7 +70,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
       heading.focus({ preventScroll: true });
     }
 
-    onClose();
+    handleClose();
   };
 
   // Focus trap within menu
@@ -108,7 +115,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
             className="fixed inset-0 z-40 lg:hidden"
             style={{ background: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'none' }}
-            onClick={onClose}
+            onClick={handleClose}
             aria-hidden="true"
           />
 
@@ -132,7 +139,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <div className="flex justify-end mb-8">
                 <button
                   ref={closeButtonRef}
-                  onClick={onClose}
+                  onClick={handleClose}
                   className={clsx(
                     'p-2 rounded-lg',
                     'text-[var(--color-muted)] hover:text-[var(--color-text)]',

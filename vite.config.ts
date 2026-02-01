@@ -60,8 +60,14 @@ export default defineConfig({
             return 'vendor';
           }
 
-          if (id.includes('/node_modules/react-router-dom/')) {
-            return 'router';
+          // Bundle router packages into vendor to avoid circular chunk imports.
+          if (
+            id.includes('/node_modules/react-router-dom/') ||
+            id.includes('/node_modules/react-router/') ||
+            id.includes('/node_modules/@remix-run/router/') ||
+            id.includes('/node_modules/history/')
+          ) {
+            return 'vendor';
           }
 
           // Keep framer-motion isolated so it's only fetched when needed.
