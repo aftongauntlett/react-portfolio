@@ -8,7 +8,9 @@ import { useTheme } from '@/context/ThemeContext';
 import { smoothScrollTo } from '@/utils/domScroll';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import clsx from 'clsx';
-import { HiXMark, HiSun, HiMoon } from 'react-icons/hi2';
+import { HiXMark } from 'react-icons/hi2';
+import { IconSun } from '@/components/shared/InlineIcons';
+import { BsMoonFill } from 'react-icons/bs';
 import { Button } from '@/components/shared/Button';
 import { useWillChange } from '@/hooks/useWillChange';
 
@@ -208,7 +210,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
                   )}
                   aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 >
-                  {theme === 'dark' ? <HiSun size={18} /> : <HiMoon size={18} />}
+                  {theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
                   <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
                 </button>
               </div>

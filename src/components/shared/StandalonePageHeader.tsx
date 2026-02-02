@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { FaArrowLeft } from 'react-icons/fa';
-import { HiMoon, HiSun } from 'react-icons/hi2';
 import { Button } from '@/components/shared/Button';
+import { IconSun } from '@/components/shared/InlineIcons';
+import { BsMoonFill } from 'react-icons/bs';
 import { useTheme } from '@/context/ThemeContext';
 import { FOCUS_STYLES } from '@/constants/styles';
 
@@ -34,7 +35,7 @@ export function StandalonePageHeader({
 
       <Button
         onClick={toggleTheme}
-        icon={theme === 'dark' ? <HiSun size={20} /> : <HiMoon size={18} />}
+        icon={theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         variant="link"
         color="muted"

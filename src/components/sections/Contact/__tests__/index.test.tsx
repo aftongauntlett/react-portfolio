@@ -5,63 +5,28 @@ import type { PropsWithChildren, ChangeEvent } from 'react';
 import ContactSection from '../index';
 
 // Mock framer-motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <div {...props}>{children}</div>
-    ),
-    section: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <section {...props}>{children}</section>
-    ),
-    button: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <button {...props}>{children}</button>
-    ),
-    a: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <a {...props}>{children}</a>
-    ),
-    label: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <label {...props}>{children}</label>
-    ),
-    ul: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <ul {...props}>{children}</ul>
-    ),
-    li: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <li {...props}>{children}</li>
-    ),
-  },
-  // Back-compat: some tests/components may still import `m`.
-  m: {
-    div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <div {...props}>{children}</div>
-    ),
-    section: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <section {...props}>{children}</section>
-    ),
-    button: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <button {...props}>{children}</button>
-    ),
-    a: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <a {...props}>{children}</a>
-    ),
-  },
-  LazyMotion: ({ children }: PropsWithChildren) => <>{children}</>,
-  domAnimation: {},
-}));
+vi.mock('framer-motion', async () => {
+  const { createMotionProxy } = await import('@/test/framerMotionTestUtils');
+
+  return {
+    motion: createMotionProxy(['div', 'section', 'button', 'a', 'label', 'ul', 'li']),
+    // Back-compat: some tests/components may still import `m`.
+    m: createMotionProxy(['div', 'section', 'button', 'a']),
+    LazyMotion: ({ children }: PropsWithChildren) => <>{children}</>,
+    domAnimation: {},
+  };
+});
 
 // Mock MotionSection to render as plain div
-vi.mock('@/components/shared/MotionSection', () => ({
-  default: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-    <div {...props}>{children}</div>
-  ),
-}));
+vi.mock('@/components/shared/MotionSection', async () => {
+  const { stripMotionProps } = await import('@/test/framerMotionTestUtils');
 
-// Mock lucide-react icons
-vi.mock('lucide-react', () => ({
-  Send: () => <span>Send Icon</span>,
-  X: () => <span>X Icon</span>,
-  CheckCircle: () => <span>Check Icon</span>,
-  AlertCircle: () => <span>Alert Icon</span>,
-}));
+  return {
+    default: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
+      <div {...stripMotionProps(props)}>{children}</div>
+    ),
+  };
+});
 
 // Mock FormComponents
 vi.mock('@/components/shared/FormComponents', () => ({
@@ -280,6 +245,8 @@ describe('ContactSection', () => {
   it('shows error message on network failure', async () => {
     const user = userEvent.setup();
 
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+
     // Mock network error for both initial attempt and retry (2 total)
     fetchSpy.mockRejectedValue(new Error('Network error'));
 
@@ -308,6 +275,8 @@ describe('ContactSection', () => {
 
   it('shows timeout error message when request takes too long', async () => {
     const user = userEvent.setup();
+
+    vi.spyOn(console, 'error').mockImplementation(() => {});
 
     // Mock a request that triggers abort
     fetchSpy.mockImplementationOnce(

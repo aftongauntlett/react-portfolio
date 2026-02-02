@@ -9,7 +9,8 @@ import { smoothScrollTo } from '@/utils/domScroll';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
-import { IconLinkedIn, IconMoon, IconSun } from '@/components/shared/InlineIcons';
+import { IconLinkedIn, IconSun } from '@/components/shared/InlineIcons';
+import { BsMoonFill } from 'react-icons/bs';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
@@ -145,7 +146,7 @@ export default function SideNav() {
 
           <Button
             onClick={toggleTheme}
-            icon={theme === 'dark' ? <IconSun size={20} /> : <IconMoon size={18} />}
+            icon={theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             variant="link"
             color="muted"

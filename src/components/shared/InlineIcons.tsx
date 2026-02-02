@@ -58,16 +58,13 @@ export function IconSun(props: BaseIconProps) {
 
 export function IconMoon(props: BaseIconProps) {
   return (
-    <Svg
-      aria-hidden="true"
-      focusable="false"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M21 12.8A8.5 8.5 0 0 1 11.2 3a6.5 6.5 0 1 0 9.8 9.8Z" />
+    <Svg aria-hidden="true" focusable="false" {...props}>
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2.5a9.5 9.5 0 1 0 0 19a9.5 9.5 0 0 0 0-19ZM14 4.5a7.5 7.5 0 1 1 0 15a7.5 7.5 0 0 1 0-15Z"
+      />
     </Svg>
   );
 }

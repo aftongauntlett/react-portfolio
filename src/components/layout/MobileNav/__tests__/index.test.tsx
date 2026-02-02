@@ -11,26 +11,20 @@ import type Lenis from 'lenis';
 import type { RefObject } from 'react';
 
 // Mock framer-motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <div {...props}>{children}</div>
-    ),
-  },
-  // Back-compat: some tests/components may still import `m`.
-  m: {
-    div: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <div {...props}>{children}</div>
-    ),
-  },
-  AnimatePresence: ({ children }: PropsWithChildren) => <>{children}</>,
-}));
+vi.mock('framer-motion', async () => {
+  const { createMotionProxy } = await import('@/test/framerMotionTestUtils');
+
+  return {
+    motion: createMotionProxy(['div']),
+    // Back-compat: some tests/components may still import `m`.
+    m: createMotionProxy(['div']),
+    AnimatePresence: ({ children }: PropsWithChildren) => <>{children}</>,
+  };
+});
 
 // Mock icons
 vi.mock('react-icons/hi2', () => ({
   HiXMark: () => <span>Close Icon</span>,
-  HiSun: () => <span>Sun Icon</span>,
-  HiMoon: () => <span>Moon Icon</span>,
 }));
 
 // Mock Button component
