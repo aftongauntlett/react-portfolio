@@ -56,7 +56,8 @@ export default function BloopMuseumDesignProcess() {
                 width={2180}
                 height={1548}
                 decoding="async"
-                loading="eager"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-auto"
               />
             </div>

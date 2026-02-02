@@ -56,7 +56,8 @@ export default function OrbitalOrderPostMortem() {
                 width={401}
                 height={426}
                 decoding="async"
-                loading="eager"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-auto"
               />
             </div>

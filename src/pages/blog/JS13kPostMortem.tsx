@@ -57,7 +57,8 @@ export default function JS13kPostMortem() {
                 width={558}
                 height={514}
                 decoding="async"
-                loading="eager"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="w-full h-auto"
               />
             </div>

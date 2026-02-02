@@ -2,23 +2,44 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
-import { visualizer } from 'rollup-plugin-visualizer';
 import path from 'path';
+import { createRequire } from 'node:module';
+import type { PluginOption } from 'vite';
+
+type VisualizerOptions = {
+  filename: string;
+  open: boolean;
+  gzipSize: boolean;
+  brotliSize: boolean;
+};
+
+type VisualizerFactory = (options: VisualizerOptions) => PluginOption;
+
+function getBundleVisualizerPlugin(): PluginOption | undefined {
+  if (!process.env.ANALYZE) return undefined;
+
+  try {
+    const require = createRequire(import.meta.url);
+    const mod = require('rollup-plugin-visualizer') as { visualizer?: VisualizerFactory };
+    const visualizer = mod.visualizer;
+
+    if (!visualizer) return undefined;
+
+    return visualizer({
+      filename: 'dist/stats.html',
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+    });
+  } catch {
+    return undefined;
+  }
+}
+
+const visualizerPlugin = getBundleVisualizerPlugin();
 
 export default defineConfig({
-  plugins: [
-    react(),
-    ...(process.env.ANALYZE
-      ? [
-          visualizer({
-            filename: 'dist/stats.html',
-            open: true,
-            gzipSize: true,
-            brotliSize: true,
-          }),
-        ]
-      : []),
-  ],
+  plugins: [react(), ...(visualizerPlugin ? [visualizerPlugin] : [])],
   server: {
     watch: {
       usePolling: true,
