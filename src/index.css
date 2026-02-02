@@ -244,8 +244,8 @@ textarea:-moz-autofill {
 
 .section-content {
   @apply px-4 sm:px-6 md:px-8 lg:pl-[56px] max-w-4xl mx-auto w-full;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
 }
 
 /* Above-the-fold content should never be delayed by content-visibility. */
