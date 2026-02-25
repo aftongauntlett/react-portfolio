@@ -13,23 +13,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'NPC Finder',
-    status: 'In Development',
-    description:
-      'A full-stack application that manages media libraries, task systems, recipe workflows, and friend recommendations under a unified, privacy-focused architecture. Built with React 19, TypeScript, Vite, Tailwind, Framer Motion, and Supabase with PostgreSQL Row-Level Security. Implements forward-only migrations, React Query caching layers, reusable UI primitives, accessibility auditing, and a growing Vitest testing suite. Designed for self-hosting and long-term maintainability.',
-    tech: [
-      'React 19',
-      'TypeScript',
-      'Supabase',
-      'PostgreSQL',
-      'Vite',
-      'Tailwind CSS',
-      'Framer Motion',
-    ],
-    link: 'https://github.com/aftongauntlett/npcfinder',
-    demo: 'https://npcfinder.com',
-  },
-  {
     title: 'No Whiteboard Jobs Dashboard',
     status: 'Production',
     description:
@@ -40,6 +23,16 @@ export const projects: Project[] = [
     external: true,
   },
   {
+    title: 'Astrid Beauty',
+    status: 'Production',
+    description:
+      'A production website for Astrid Beauty Salon, delivered for a client and used by real customers at scale. Focused on clear service presentation, pricing guidance, and a low-friction path to booking and contact. Implemented with a performance-first, mobile-responsive layout and accessibility-minded UI patterns, with an SEO-friendly structure and maintainable content updates to support ongoing iteration as offerings evolve.',
+    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'SEO', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/astrid-beauty',
+    demo: 'https://www.byastridbeautysalon.com/',
+    external: true,
+  },
+  {
     title: 'Bloop Museum',
     status: 'In Development',
     description:
@@ -47,21 +40,6 @@ export const projects: Project[] = [
     tech: ['Eleventy', 'Nunjucks', 'HTML 4.0 Transitional', 'CSS', 'Node.js'],
     caseStudy: '/projects/bloop-museum-design-process',
     demo: 'https://bloop-demo.vercel.app/',
-    external: true,
-  },
-  {
-    title: 'Water App (Hydration Tracker)',
-    status: 'In Progress',
-    description:
-      'A calm, mobile-first hydration tracker built with React Native + Expo. Users start a “drink moment” with a short countdown, log water intake when complete, and see a daily summary including drink count, total milliliters, and recent entries. Data is stored locally for a fast, offline-friendly experience, with a clean architecture separating UI, hooks, domain services, and storage. Includes a token-based dark theme, typed navigation, and accessibility-minded UI components.',
-    tech: [
-      'Expo (SDK 54)',
-      'React Native',
-      'TypeScript',
-      'AsyncStorage',
-    ],
-    link: 'https://github.com/aftongauntlett/water-app',
-    demo: '',
     external: true,
   },
   {
@@ -93,12 +71,20 @@ export const projects: Project[] = [
     link: 'https://github.com/aftongauntlett/react-portfolio',
   },
   {
-    title: 'Gauntlet Designs',
-    status: 'Production',
+    title: 'NPC Finder',
+    status: 'In Development',
     description:
-      'Professional closure website for Gauntlet Designs business, originally built with Vue 2 and evolved through many iterations over several years. Final version rebuilt with Vue 3, Vite, and Tailwind CSS featuring modern composition API, dark/light theme system, and accessible design. Serves as a graceful farewell while promoting ongoing freelance services.',
-    tech: ['Vue 3', 'Vite', 'TypeScript', 'Tailwind CSS', 'CSS Custom Properties', 'Vercel'],
-    link: 'https://github.com/gauntletdesigns/gauntlet-designs-vue',
-    demo: 'https://gauntletdesigns.com/',
+      'A full-stack application that manages media libraries, task systems, recipe workflows, and friend recommendations under a unified, privacy-focused architecture. Built with React 19, TypeScript, Vite, Tailwind, Framer Motion, and Supabase with PostgreSQL Row-Level Security. Implements forward-only migrations, React Query caching layers, reusable UI primitives, accessibility auditing, and a growing Vitest testing suite. Designed for self-hosting and long-term maintainability.',
+    tech: [
+      'React 19',
+      'TypeScript',
+      'Supabase',
+      'PostgreSQL',
+      'Vite',
+      'Tailwind CSS',
+      'Framer Motion',
+    ],
+    link: 'https://github.com/aftongauntlett/npcfinder',
+    demo: 'https://npcfinder.com',
   },
 ];
