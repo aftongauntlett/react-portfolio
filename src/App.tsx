@@ -7,23 +7,9 @@ import Layout from './components/layout/Layout';
 // Eager load home page - it's the main route and critical for LCP
 import Home from './pages/Home';
 
-// Lazy load standalone post-mortem pages (for external links only)
-const JS13kPostMortem = lazy(() => import('./pages/blog/JS13kPostMortem'));
-const OrbitalOrderPostMortem = lazy(() => import('./pages/blog/OrbitalOrderPostMortem'));
-const BloopMuseumDesignProcess = lazy(() => import('./pages/projects/BloopMuseumDesignProcess'));
-
 const DevPerformanceOverlay = import.meta.env.DEV
   ? lazy(() => import('@/components/dev/PerformanceOverlay'))
   : null;
-
-// Loading component for code splitting
-function LoadingFallback() {
-  return (
-    <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--color-primary)]"></div>
-    </div>
-  );
-}
 
 export default function App() {
   return (
@@ -43,31 +29,6 @@ export default function App() {
                 <Layout>
                   <Home />
                 </Layout>
-              }
-            />
-            {/* Standalone post-mortem pages (no layout/sidenav - for external links only) */}
-            <Route
-              path="/blog/js13k-2025-post-mortem"
-              element={
-                <Suspense fallback={<LoadingFallback />}>
-                  <JS13kPostMortem />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/blog/orbital-order-post-mortem"
-              element={
-                <Suspense fallback={<LoadingFallback />}>
-                  <OrbitalOrderPostMortem />
-                </Suspense>
-              }
-            />
-            <Route
-              path="/projects/bloop-museum-design-process"
-              element={
-                <Suspense fallback={<LoadingFallback />}>
-                  <BloopMuseumDesignProcess />
-                </Suspense>
               }
             />
             {/* All main navigation handled via hash routes in Home page */}

@@ -18,41 +18,58 @@ describe('ProjectsSection', () => {
     return within(projectItem);
   };
 
-  it('renders a design process link for Bloop Museum (no GitHub link)', () => {
+  it('renders disabled Coming Soon and disabled Private button for Bloop Museum', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/bloop museum/i);
 
-    const designProcessLink = scoped.getByRole('link', { name: /design process/i });
-    expect(designProcessLink).toHaveAttribute('href', '/projects/bloop-museum-design-process');
-    expect(designProcessLink).toHaveAttribute('target', '_blank');
+    expect(scoped.queryByRole('link', { name: /design process/i })).not.toBeInTheDocument();
+    expect(scoped.queryByRole('link', { name: /view live/i })).not.toBeInTheDocument();
 
-    expect(scoped.queryByRole('button', { name: /private repo/i })).not.toBeInTheDocument();
+    const comingSoonButton = scoped.getByRole('button', { name: /coming soon/i });
+    expect(comingSoonButton).toBeDisabled();
 
-    expect(scoped.queryByRole('link', { name: /view repo/i })).not.toBeInTheDocument();
+    const privateButton = scoped.getByRole('button', { name: /private/i });
+    expect(privateButton).toBeDisabled();
   });
 
-  it('renders a design process link for Nyx Felis and hides View Live on the portfolio card', () => {
+  it('renders active View Repo and active Play Game for Nyx Felis', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/nyx felis/i);
 
-    const designProcessLink = scoped.getByRole('link', { name: /design process/i });
-    expect(designProcessLink).toHaveAttribute('href', '/blog/js13k-2025-post-mortem');
-    expect(designProcessLink).toHaveAttribute('target', '_blank');
+    expect(scoped.queryByRole('link', { name: /design process/i })).not.toBeInTheDocument();
 
-    expect(scoped.queryByRole('link', { name: /view live/i })).not.toBeInTheDocument();
+    const viewRepoLink = scoped.getByRole('link', { name: /view repo/i });
+    expect(viewRepoLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/js13k-2025');
+
+    const playLink = scoped.getByRole('link', { name: /play game/i });
+    expect(playLink).toHaveAttribute('href', 'https://nyx-felis.aftongauntlett.com/');
   });
 
-  it('renders a design process link for Orbital Order and hides View Live on the portfolio card', () => {
+  it('renders active View Repo and active Play Game for Orbital Order', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/orbital order/i);
 
-    const designProcessLink = scoped.getByRole('link', { name: /design process/i });
-    expect(designProcessLink).toHaveAttribute('href', '/blog/orbital-order-post-mortem');
-    expect(designProcessLink).toHaveAttribute('target', '_blank');
+    expect(scoped.queryByRole('link', { name: /design process/i })).not.toBeInTheDocument();
 
-    expect(scoped.queryByRole('link', { name: /view live/i })).not.toBeInTheDocument();
+    const viewRepoLink = scoped.getByRole('link', { name: /view repo/i });
+    expect(viewRepoLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/js13k-demo');
+
+    const playLink = scoped.getByRole('link', { name: /play game/i });
+    expect(playLink).toHaveAttribute('href', 'https://orbital-order.aftongauntlett.com/');
+  });
+
+  it('renders an active View Live link and active View Repo when both exist', () => {
+    render(<ProjectsSection />);
+
+    const scoped = getProjectScoped(/astrid beauty/i);
+
+    const liveLink = scoped.getByRole('link', { name: /view live/i });
+    expect(liveLink).toHaveAttribute('href', 'https://www.byastridbeautysalon.com/');
+
+    const repoLink = scoped.getByRole('link', { name: /view repo/i });
+    expect(repoLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/astrid-beauty');
   });
 });

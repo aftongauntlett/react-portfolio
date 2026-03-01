@@ -33,18 +33,7 @@ export default function ProjectsSection() {
   const additionalProjects = projects.slice(3);
 
   const renderProject = (
-    {
-      title,
-      status,
-      description,
-      tech,
-      link,
-      caseStudy,
-      demo,
-      gameDemo,
-      external,
-      lastUpdated,
-    }: ProjectItem,
+    { title, status, description, tech, link, demo, playable, external, lastUpdated }: ProjectItem,
     idx: number,
   ) => (
     <motion.li
@@ -107,38 +96,24 @@ export default function ProjectsSection() {
         role="group"
         aria-label="Project links"
       >
-        {caseStudy ? (
-          <LinkButton
-            type="external"
-            href={caseStudy}
-            variant="outline"
-            color="primary"
-            openInNewTab
-          >
-            Design Process
-          </LinkButton>
-        ) : null}
-
-        {link && link !== '#' ? (
+        {link ? (
           <LinkButton type="github" href={link} variant="outline" color="primary">
             View Repo
           </LinkButton>
-        ) : link === '#' ? (
-          <Button disabled variant="outline" color="muted">
-            Private Repo
+        ) : (
+          <Button disabled variant="outline" color="muted" icon={getLinkIcon('github')}>
+            Private
           </Button>
-        ) : null}
-
-        {demo && demo !== '#' && (
-          <LinkButton type="external" href={demo} variant="outline" color="secondary">
-            {external ? 'View Live' : 'View Live'}
-          </LinkButton>
         )}
 
-        {gameDemo && (
-          <LinkButton type="external" href={gameDemo} variant="solid" color="primary">
-            Play Game
+        {demo ? (
+          <LinkButton type="external" href={demo} variant="outline" color="secondary">
+            {playable ? 'Play Game' : 'View Live'}
           </LinkButton>
+        ) : (
+          <Button disabled variant="outline" color="secondary">
+            Coming Soon
+          </Button>
         )}
       </div>
     </motion.li>
