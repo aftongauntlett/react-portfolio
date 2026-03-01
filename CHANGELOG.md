@@ -5,6 +5,68 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-03-01
+
+### Added
+
+- **🎬 Lottie Hero Animation**: Replaced headshot hero with theme-aware Lottie solar system animation
+  - Custom color mapping tied to active theme
+  - Deferred load to protect LCP
+  - Reduced-motion safe
+
+- **🌊 Lenis Smooth Scroll**: Premium scroll experience across the portfolio
+  - Touch device handling guarded to avoid conflicts
+  - Context-based integration via `LenisContext`
+
+- **📱 Mobile Navigation Drawer**: Accessible slide-in nav for small screens
+  - Focus trap and keyboard support
+  - Smooth open/close animation with reduced-motion respect
+
+- **✨ Micro-interactions**: Subtle interaction polish across core components
+  - Button press/hover scale animations
+  - Card hover lift effect
+  - Form field focus animations
+
+- **🔗 Open Graph / Social Sharing**: Enhanced meta tag coverage for sharing
+
+### Changed
+
+- **🗂️ Projects Section Overhaul**: Cleaner, consistent button system
+  - Always-visible View Repo + View Live buttons — no conditional hiding
+  - Disabled repo button shows GitHub icon + "Private" when no repo URL
+  - Disabled live button shows "Coming Soon" when no demo URL
+  - JS13k game projects render "Play Game" instead of "View Live" via `playable` flag
+  - Repo on left, Live/Play on right
+  - Added live demo URLs for Nyx Felis and Orbital Order
+  - Added No Whiteboard Jobs Dashboard and Bloop Museum projects
+  - Removed Potomac Family Dining
+
+- **⚙️ Skills Data**: Updated to evergreen categories
+
+- **🧪 Testing**: Migrated to Vitest v4; updated project button tests to match new behavior
+
+- **🎞️ Framer Motion**: Standardized all animations on `motion` import; removed deprecated patterns
+
+### Removed
+
+- ❌ Design process / case study pages (JS13k post-mortems, Bloop Museum)
+- ❌ Standalone blog route infrastructure and `LoadingFallback` from `App.tsx`
+- ❌ `caseStudy`, `liveComingSoon`, `gameDemo` fields from `Project` type
+- ❌ Personal monitoring workflow and Lighthouse CI from CI pipeline
+
+### Fixed
+
+- CLS reduced in Experience and Projects sections via reserved space and instant height changes
+- Bundle chunk cycle resolved for production builds
+- Focus restore after navigation interactions
+- Lottie `clearCanvas` invalid property warning removed
+
+### Performance
+
+- Deferred non-critical JS to reduce critical-path work
+- Content images optimized and unused assets removed
+- Font-swap CLS mitigated with section placeholders
+
 ## [2.1.0] - 2025-10-16
 
 ### Added
