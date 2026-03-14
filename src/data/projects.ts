@@ -21,14 +21,6 @@ export const projects: Project[] = [
     external: true,
   },
   {
-    title: 'Bloop Museum',
-    status: 'In Development',
-    description:
-      'A retro-styled static website for The Bloop Museum, presenting museum information, collections, visiting and contact pages, and donor content. Optimized to render on vintage setups (Netscape 4.0/Pentium 90) while maintaining modern browser compatibility through progressive enhancement. Built with Eleventy, Nunjucks templates, HTML 4.0 Transitional, and conservative CSS.',
-    tech: ['Eleventy', 'Nunjucks', 'HTML 4.0 Transitional', 'CSS', 'Node.js'],
-    external: true,
-  },
-  {
     title: 'Astrid Beauty',
     status: 'Production',
     description:
