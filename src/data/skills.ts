@@ -19,6 +19,7 @@ export const skillGroups: SkillGroup[] = [
       'Component Architecture',
       'TanStack',
       'Storybook',
+      'Vitest',
       'Jest',
     ],
   },
@@ -28,6 +29,7 @@ export const skillGroups: SkillGroup[] = [
       'Framer Motion',
       'GSAP',
       'Three.js',
+      'Phaser.js',
       'CSS Animations',
       'Layout Transitions',
       'SVG Animation',
@@ -39,6 +41,7 @@ export const skillGroups: SkillGroup[] = [
   {
     title: 'Frameworks, APIs & Tooling',
     skills: [
+      'Supabase',
       'REST APIs',
       'GraphQL',
       'PostgreSQL',
@@ -51,7 +54,7 @@ export const skillGroups: SkillGroup[] = [
       'Vue',
       'Angular',
       'Agile',
-      'AI-Augmented Engineering',
+      'AI Workflows & Agents',
     ],
   },
 ];

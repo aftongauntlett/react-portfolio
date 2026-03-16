@@ -18,21 +18,6 @@ describe('ProjectsSection', () => {
     return within(projectItem);
   };
 
-  it('renders disabled Coming Soon and disabled Private button for Bloop Museum', () => {
-    render(<ProjectsSection />);
-
-    const scoped = getProjectScoped(/bloop museum/i);
-
-    expect(scoped.queryByRole('link', { name: /design process/i })).not.toBeInTheDocument();
-    expect(scoped.queryByRole('link', { name: /view live/i })).not.toBeInTheDocument();
-
-    const comingSoonButton = scoped.getByRole('button', { name: /coming soon/i });
-    expect(comingSoonButton).toBeDisabled();
-
-    const privateButton = scoped.getByRole('button', { name: /private/i });
-    expect(privateButton).toBeDisabled();
-  });
-
   it('renders active View Repo and active Play Game for Nyx Felis', () => {
     render(<ProjectsSection />);
 

@@ -37,9 +37,10 @@ export const jobs: Job[] = [
     dates: '07/2020 – 01/2025',
     location: 'Hybrid',
     description: [
-      'Delivered custom web platforms for clients ranging from small businesses to major restaurant groups, handling every phase from requirements through long-term support.',
-      'Built and maintained a robust employee portal and fundraising scheduler for Potomac Family Dining, ensuring five years of smooth operation and seamless legacy data migration.',
-      'Standardized modern frontends using React, Next.js, and Vue, launching fast, accessible sites on platforms like Firebase and Vercel.',
+      'Ran a small studio delivering production websites for startups, non-profits, and restaurant groups, handling every phase from requirements through long-term support.',
+      'Led a full web redesign for a non-profit client, improving accessibility, mobile responsiveness, and content structure to better serve their audience.',
+      'Built and maintained an employee portal and fundraising scheduler for Potomac Family Dining, keeping it running smoothly across five years of daily use.',
+      'Shipped modern frontends with React, Next.js, TypeScript, and Vue on Firebase and Vercel, with a focus on performance and clean component architecture.',
     ],
   },
   {

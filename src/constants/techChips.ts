@@ -37,6 +37,10 @@ const TECH_CHIP_KEY_ALIASES: Record<TechChipKey, TechChipKey> = {
   nunjucks: 'nunjucks',
 
   asyncstorage: 'asyncstorage',
+  phaserjs: 'phaserjs',
+  phaser: 'phaserjs',
+  vitest: 'vitest',
+  aiworkflowsagents: 'aiworkflowsagents',
 };
 
 const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
@@ -96,6 +100,12 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
 
   asyncstorage:
     'border-red-500/30 bg-red-500/10 hover:bg-red-500/15 hover:border-red-500/45 dark:border-red-300/30 dark:bg-red-400/10',
+  phaserjs:
+    'border-[#c73659]/30 bg-[#c73659]/10 hover:bg-[#c73659]/15 hover:border-[#c73659]/45 dark:border-[#f9a8d4]/30 dark:bg-[#ec4899]/10',
+  vitest:
+    'border-[#729b1b]/30 bg-[#729b1b]/10 hover:bg-[#729b1b]/15 hover:border-[#729b1b]/45 dark:border-[#a3e635]/30 dark:bg-[#84cc16]/10',
+  aiworkflowsagents:
+    'border-[#6366f1]/30 bg-[#6366f1]/10 hover:bg-[#6366f1]/15 hover:border-[#6366f1]/45 dark:border-[#a5b4fc]/30 dark:bg-[#818cf8]/10',
 };
 
 const toTechChipKey = (label: string): TechChipKey => {
@@ -145,6 +155,9 @@ const TECH_CHIP_PRIORITY: Readonly<Record<TechChipKey, number>> = {
   asyncstorage: 92,
   accessibleuipatterns: 94,
   html40transitional: 96,
+  phaserjs: 72,
+  vitest: 35,
+  aiworkflowsagents: 98,
 } as const;
 
 const getTechChipPriority = (label: string): number => {

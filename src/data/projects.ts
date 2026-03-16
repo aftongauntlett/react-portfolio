@@ -12,25 +12,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'Potomac Family Dining',
-    status: 'Production',
-    description:
-      'Enterprise client website for Potomac Family Dining Group, a multi-state restaurant franchise. Built a comprehensive web platform featuring an employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic reliability with performance optimization and long-term maintainability.',
-    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
-    demo: 'https://potomacdining.com/',
-    external: true,
-  },
-  {
-    title: 'Astrid Beauty',
-    status: 'Production',
-    description:
-      'A production website for Astrid Beauty Salon, delivered for a client and used by real customers at scale. Focused on clear service presentation, pricing guidance, and a low-friction path to booking and contact. Implemented with a performance-first, mobile-responsive layout and accessibility-minded UI patterns, with an SEO-friendly structure and maintainable content updates to support ongoing iteration as offerings evolve.',
-    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'SEO', 'Vercel'],
-    link: 'https://github.com/aftongauntlett/astrid-beauty',
-    demo: 'https://www.byastridbeautysalon.com/',
-    external: true,
-  },
-  {
     title: 'No Whiteboard Jobs Dashboard',
     status: 'Production',
     description:
@@ -56,6 +37,25 @@ export const projects: Project[] = [
     ],
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
+  },
+  {
+    title: 'Potomac Family Dining',
+    status: 'Production',
+    description:
+      'Enterprise client website for Potomac Family Dining Group, a multi-state restaurant franchise. Built a comprehensive web platform featuring an employee portal, career management system, multi-location directory, and contact forms. Engineered for high-traffic reliability with performance optimization and long-term maintainability.',
+    tech: ['Vue.js', 'JavaScript', 'Firebase', 'HTML/CSS', 'Responsive Design'],
+    demo: 'https://potomacdining.com/',
+    external: true,
+  },
+  {
+    title: 'Astrid Beauty',
+    status: 'Production',
+    description:
+      'A production website for Astrid Beauty Salon, delivered for a client and used by real customers at scale. Focused on clear service presentation, pricing guidance, and a low-friction path to booking and contact. Implemented with a performance-first, mobile-responsive layout and accessibility-minded UI patterns, with an SEO-friendly structure and maintainable content updates to support ongoing iteration as offerings evolve.',
+    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'SEO', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/astrid-beauty',
+    demo: 'https://www.byastridbeautysalon.com/',
+    external: true,
   },
   {
     title: 'Nyx Felis & Lampyris - JS13k Games Entry',
