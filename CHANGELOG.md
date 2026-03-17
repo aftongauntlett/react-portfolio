@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - JS13k game projects render "Play Game" instead of "View Live" via `playable` flag
   - Repo on left, Live/Play on right
   - Added live demo URLs for Nyx Felis and Orbital Order
-  - Added No Whiteboard Jobs Dashboard and Bloop Museum projects
+  - Added No Whiteboard Jobs Dashboard and legacy museum projects
   - Removed Potomac Family Dining
 
 - **Skills Data**: Updated to evergreen categories
@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Design process / case study pages (JS13k post-mortems, Bloop Museum)
+- Design process / case study pages (JS13k post-mortems, legacy museum project)
 - Standalone blog route infrastructure and `LoadingFallback` from `App.tsx`
 - `caseStudy`, `liveComingSoon`, `gameDemo` fields from `Project` type
 - Personal monitoring workflow and Lighthouse CI from CI pipeline
@@ -290,6 +290,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Strategic resource hints and preconnect
 - Code splitting for optimal loading
 - Image optimization and lazy loading
+
+## [2.2.1] - 2026-03-16
+
+### Changed
+
+- Updated migration handoff language in `docs/retro-portfolio-content-handoff.md` to remove legacy project naming references while keeping instructions generic and reusable
+- Regenerated production build artifacts after content cleanup
+
+### Removed
+
+- Removed legacy museum route entry from `public/sitemap.xml`
+- Removed legacy project naming references from changelog copy and migration handoff documentation
 
 ## [Unreleased]
 

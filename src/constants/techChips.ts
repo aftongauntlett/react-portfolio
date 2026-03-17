@@ -41,6 +41,12 @@ const TECH_CHIP_KEY_ALIASES: Record<TechChipKey, TechChipKey> = {
   phaser: 'phaserjs',
   vitest: 'vitest',
   aiworkflowsagents: 'aiworkflowsagents',
+
+  vuejs: 'vue',
+  firebase: 'firebase',
+  htmlcss: 'htmlcss',
+  responsivedesign: 'responsivedesign',
+  seo: 'seo',
 };
 
 const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
@@ -106,6 +112,14 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
     'border-[#729b1b]/30 bg-[#729b1b]/10 hover:bg-[#729b1b]/15 hover:border-[#729b1b]/45 dark:border-[#a3e635]/30 dark:bg-[#84cc16]/10',
   aiworkflowsagents:
     'border-[#6366f1]/30 bg-[#6366f1]/10 hover:bg-[#6366f1]/15 hover:border-[#6366f1]/45 dark:border-[#a5b4fc]/30 dark:bg-[#818cf8]/10',
+
+  firebase:
+    'border-amber-500/35 bg-amber-500/15 hover:bg-amber-500/20 hover:border-amber-500/55 dark:border-amber-300/35 dark:bg-amber-400/10',
+  htmlcss:
+    'border-[#e34c26]/30 bg-[#e34c26]/10 hover:bg-[#e34c26]/15 hover:border-[#e34c26]/45 dark:border-[#f97316]/30 dark:bg-[#f97316]/10',
+  responsivedesign:
+    'border-cyan-600/30 bg-cyan-600/10 hover:bg-cyan-600/15 hover:border-cyan-600/45 dark:border-cyan-400/30 dark:bg-cyan-400/10',
+  seo: 'border-[#7e22ce]/30 bg-[#7e22ce]/10 hover:bg-[#7e22ce]/15 hover:border-[#7e22ce]/45 dark:border-[#c084fc]/30 dark:bg-[#a855f7]/10',
 };
 
 const toTechChipKey = (label: string): TechChipKey => {
@@ -158,6 +172,11 @@ const TECH_CHIP_PRIORITY: Readonly<Record<TechChipKey, number>> = {
   phaserjs: 72,
   vitest: 35,
   aiworkflowsagents: 98,
+
+  firebase: 60,
+  htmlcss: 46,
+  responsivedesign: 95,
+  seo: 97,
 } as const;
 
 const getTechChipPriority = (label: string): number => {

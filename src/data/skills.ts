@@ -54,7 +54,19 @@ export const skillGroups: SkillGroup[] = [
       'Vue',
       'Angular',
       'Agile',
-      'AI Workflows & Agents',
+    ],
+  },
+  {
+    title: 'AI Workflows & Tooling',
+    skills: [
+      'Claude',
+      'GitHub Copilot Pro+',
+      'Traycer',
+      'OpenAI',
+      'Coder',
+      'Multi-Agent Workflows',
+      'PRD-Driven Development',
+      'AI-Assisted CI/CD',
     ],
   },
 ];

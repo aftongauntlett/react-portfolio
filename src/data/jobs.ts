@@ -16,8 +16,8 @@ export const jobs: Job[] = [
     location: 'Hybrid',
     description: [
       'Championed modern frontend practices as lead engineer across 7 React apps, standardizing shared components and themes for a unified user experience.',
+      'Built a secure, air-gapped LLM-powered chatbot that automated onboarding and daily developer workflows, getting new team members productive faster through guided VSCode scripting and contextual documentation.',
       'Led the design and rollout of a guided, stepper-style data portal, facilitating stakeholder alignment and outperforming competing internal concepts.',
-      'Automated onboarding and workflow with a custom, secure LLM-powered chatbot, improving developer ramp-up using air-gapped VSCode scripting.',
     ],
   },
   {

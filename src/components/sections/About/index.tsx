@@ -4,8 +4,9 @@ import clsx from 'clsx';
 
 const aboutParagraphs = [
   "I'm {Afton}, a frontend engineer with {6+ years} of experience building clean, accessible interfaces with {React}, {TypeScript}, and {Tailwind}. I've led frontend work at {Booz Allen Hamilton}, shipped production apps at startups, and delivered web redesigns for non-profits through {Gauntlet Designs}.",
-  "Most of my time goes into {React}, {Next.js}, {TypeScript}, and {Supabase}, building full production apps where performance and structure matter. I've led migrations off legacy systems, built shared design systems, and improved accessibility standards across distributed teams. More recently I've been working with {AI workflows and agents} as part of how I build and ship.",
-  'Outside of work I spend time on animation and interaction design through small game projects and UI prototypes. Before web development I worked in places that taught me how to learn fast, from a biohazard lab to a vintage shop running century-old machinery. That same curiosity still guides how I build today.',
+  "My core stack includes {React}, {Next.js}, {TypeScript}, and {Supabase}, and I focus on building production applications where performance, accessibility, and maintainable architecture matter. I've led frontend migrations, developed design systems, and improved accessibility across distributed teams.",
+  'I also incorporate AI into my workflow to move faster and more intentionally, using tools like {Claude}, {GitHub Copilot}, and agent-based systems to support development, documentation, and architecture planning. I write clear PRDs and structured docs to guide this work and ensure outputs stay consistent and reliable.',
+  "Outside of work, I explore animation and interaction design through small game projects and UI prototypes. Before moving into tech, I worked in medical environments where precision, documentation, and accountability were non-negotiable. That experience shaped how I work today. I'm comfortable operating in high-stakes situations, making decisions quickly, and owning outcomes.",
 ];
 
 // Move outside component to prevent recreation on every render
