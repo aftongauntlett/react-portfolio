@@ -3,10 +3,9 @@ import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import clsx from 'clsx';
 
 const aboutParagraphs = [
-  "I'm {Afton}, a frontend engineer with {6+ years} of experience building clean, accessible interfaces with {React}, {TypeScript}, and {Tailwind}. I've led frontend work at {Booz Allen Hamilton}, shipped production apps at startups, and delivered web redesigns for non-profits through {Gauntlet Designs}.",
-  "My core stack includes {React}, {Next.js}, {TypeScript}, and {Supabase}, and I focus on building production applications where performance, accessibility, and maintainable architecture matter. I've led frontend migrations, developed design systems, and improved accessibility across distributed teams.",
-  'I also incorporate AI into my workflow to move faster and more intentionally, using tools like {Claude}, {GitHub Copilot}, and agent-based systems to support development, documentation, and architecture planning. I write clear PRDs and structured docs to guide this work and ensure outputs stay consistent and reliable.',
-  "Outside of work, I explore animation and interaction design through small game projects and UI prototypes. Before moving into tech, I worked in medical environments where precision, documentation, and accountability were non-negotiable. That experience shaped how I work today. I'm comfortable operating in high-stakes situations, making decisions quickly, and owning outcomes.",
+  "I'm {Afton}, a frontend engineer with {6+ years} building clean, accessible interfaces. I've led frontend work at {Booz Allen Hamilton} across React and TypeScript codebases, shipped production apps at startups, and delivered web redesigns for nonprofits through {Gauntlet Designs}.",
+  "My stack is {React}, {Next.js}, {TypeScript}, and {Supabase}. I've led platform migrations, built design systems, and worked accessibility and 508 compliance into projects across distributed teams. I use {Claude} and {GitHub Copilot} with structured prompting workflows as part of how I build and plan. Every output goes through the same review process I'd apply to any code.",
+  "Before tech, I worked in medical environments where precision and accountability weren't optional. That stuck. Outside of work I build small games and UI prototypes, mostly to test interaction ideas I can't always try in production.",
 ];
 
 // Move outside component to prevent recreation on every render

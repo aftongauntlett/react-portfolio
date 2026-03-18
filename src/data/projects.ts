@@ -15,7 +15,7 @@ export const projects: Project[] = [
     title: 'No Whiteboard Jobs Dashboard',
     status: 'Production',
     description:
-      'A production-grade frontend dashboard built on top of the open-source Hiring Without Whiteboards dataset, transforming a large markdown-based company list into a fast, accessible, searchable web experience. Features full-text search, multi-filtering, responsive card and list views, pagination, dark and light themes, and mobile-first navigation. Built using AI agent workflows with Claude and GitHub Copilot for rapid development and consistent architecture.',
+      'A production-grade frontend dashboard built on top of the open-source Hiring Without Whiteboards dataset, transforming a large markdown-based company list into a fast, accessible, searchable web experience. Features full-text search, multi-filtering, responsive card and list views, pagination, dark and light themes, and mobile-first navigation. Built with Traycer and GitHub Copilot Pro+ for architecture planning, component scaffolding, and faster implementation while maintaining consistent patterns.',
     tech: [
       'Astro',
       'TypeScript',
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     title: 'NPC Finder',
     status: 'Maintenance',
     description:
-      'A large full-stack application for managing media libraries, task systems, recipe workflows, and friend recommendations under a privacy-focused architecture. Built with React 19, TypeScript, Vite, Tailwind, Framer Motion, and Supabase with PostgreSQL Row-Level Security. Includes forward-only migrations, React Query caching layers, reusable UI primitives, and accessibility-focused patterns. Developed using AI agent workflows for architecture planning, code generation, and iteration. Currently in maintenance mode while serving as a flagship architecture and systems-design project.',
+      'A large full-stack application for managing media libraries, task systems, recipe workflows, and friend recommendations under a privacy-focused architecture. Built with React 19, TypeScript, Vite, Tailwind, Framer Motion, and Supabase with PostgreSQL Row-Level Security. Includes forward-only migrations, React Query caching layers, reusable UI primitives, and accessibility-focused patterns. Used AI-assisted workflows for schema planning, implementation iteration, and technical documentation. Currently in maintenance mode while serving as a flagship architecture and systems-design project.',
     tech: [
       'React 19',
       'TypeScript',
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     title: 'Astrid Beauty',
     status: 'Production',
     description:
-      'A production website for Astrid Beauty Salon, originally hand-built for a client and used by real customers at scale. Rebuilt in 2026 using AI agent workflows as a full refactor and redesign on the original foundation. Focused on clear service presentation, pricing guidance, and a low-friction path to booking and contact. Built with a performance-first, mobile-responsive layout, accessibility-minded UI, SEO-friendly structure, and maintainable content updates.',
+      'A production website for Astrid Beauty Salon, originally hand-built for a client and used by real customers at scale. Rebuilt in 2026 with AI-assisted planning and implementation as a full refactor and redesign on the original foundation. Focused on clear service presentation, pricing guidance, and a low-friction path to booking and contact. Built with a performance-first, mobile-responsive layout, accessibility-minded UI, SEO-friendly structure, and maintainable content updates.',
     tech: [
       'Astro',
       'TypeScript',
@@ -77,7 +77,7 @@ export const projects: Project[] = [
     title: 'Nyx Felis & Lampyris - JS13k Games Entry',
     status: 'Production',
     description:
-      'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game. Developed with AI agent workflows to accelerate iteration within strict constraint-driven limits.',
+      'Created for the JS13k Games 2025 competition, this browser-based experience was engineered entirely under a 13 KB limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design, it uses Canvas 2D rendering, procedural particle systems, and Web Audio API sound design to deliver an expressive, optimized micro-game.',
     tech: [
       'JavaScript',
       'Canvas 2D',
@@ -95,7 +95,7 @@ export const projects: Project[] = [
     title: 'Orbital Order (Aufbau) - JS13k Games Demo',
     status: 'Production',
     description:
-      'Built for JS13K competition practice with vanilla JavaScript and Canvas 2D. Focused on core gameplay mechanics, level design, and intuitive controls within strict size constraints. Developed with AI agent workflows for rapid iteration and creative problem-solving under limitations.',
+      'Built for JS13K competition practice with vanilla JavaScript and Canvas 2D. Focused on core gameplay mechanics, level design, and intuitive controls within strict size constraints.',
     tech: [
       'JavaScript',
       'Canvas 2D',
