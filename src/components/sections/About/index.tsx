@@ -3,8 +3,8 @@ import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
 import clsx from 'clsx';
 
 const aboutParagraphs = [
-  "I'm {Afton}, a frontend engineer with {6+ years} building clean, accessible interfaces. I've led frontend work at {Booz Allen Hamilton} across React and TypeScript codebases, shipped production apps at startups, and delivered web redesigns for nonprofits through {Gauntlet Designs}.",
-  "My stack is {React}, {Next.js}, {TypeScript}, and {Supabase}. I've led platform migrations, built design systems, and worked accessibility and 508 compliance into projects across distributed teams. I use {Claude} and {GitHub Copilot} with structured prompting workflows as part of how I build and plan. Every output goes through the same review process I'd apply to any code.",
+  "I'm {Afton}, a frontend engineer with {6+ years} building clean, accessible interfaces. I've led frontend work at {Booz Allen Hamilton} across {React} and {TypeScript} codebases, delivered web redesigns for nonprofits through {Gauntlet Designs}, and built for government clients across the {DC area}.",
+  "I work primarily in {React}, {Next.js}, and {TypeScript} but move between frameworks depending on what a project needs — {Vue}, {Angular}, {Astro}, and {Phaser} have all shown up in production work. I've led {platform migrations}, built {design systems}, and worked {accessibility} and {508 compliance} into projects across distributed teams.",
   "Before tech, I worked in medical environments where precision and accountability weren't optional. That stuck. Outside of work I build small games and UI prototypes, mostly to test interaction ideas I can't always try in production.",
 ];
 
