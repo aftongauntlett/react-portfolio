@@ -40,7 +40,7 @@ export const education: Education[] = [
     date: '12/2022',
     type: 'certificate',
     description:
-      'Hands-on UX immersion covering research, information architecture, wireframing, prototyping, and usability testing.',
+      'Hands-on UX immersion covering research, information architecture, wireframing, prototyping (including Figma), and usability testing.',
   },
 ];
 

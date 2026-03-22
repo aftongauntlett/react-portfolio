@@ -51,9 +51,9 @@ const TECH_CHIP_KEY_ALIASES: Record<TechChipKey, TechChipKey> = {
 
 const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
   react:
-    'border-[#9333ea]/30 bg-[#9333ea]/10 hover:bg-[#9333ea]/15 hover:border-[#9333ea]/45 dark:border-[#c4b5fd]/30 dark:bg-[#a78bfa]/10',
-  reactnative:
     'border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/15 hover:border-cyan-500/45 dark:border-cyan-300/30 dark:bg-cyan-400/10',
+  reactnative:
+    'border-blue-400/30 bg-blue-400/10 hover:bg-blue-400/15 hover:border-blue-400/45 dark:border-blue-200/30 dark:bg-blue-300/10',
   expo: 'border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/15 hover:border-indigo-500/45 dark:border-indigo-300/30 dark:bg-indigo-400/10',
   typescript:
     'border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/15 hover:border-blue-500/45 dark:border-blue-300/30 dark:bg-blue-400/10',
@@ -71,7 +71,7 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
     'border-[#7c3aed]/30 bg-[#7c3aed]/10 hover:bg-[#7c3aed]/15 hover:border-[#7c3aed]/45 dark:border-[#c4b5fd]/30 dark:bg-[#a78bfa]/10',
 
   accessibleuipatterns:
-    'border-[#0f766e]/30 bg-[#0f766e]/10 hover:bg-[#0f766e]/15 hover:border-[#0f766e]/45 dark:border-[#5eead4]/30 dark:bg-[#2dd4bf]/10',
+    'border-cyan-700/30 bg-cyan-700/10 hover:bg-cyan-700/15 hover:border-cyan-700/45 dark:border-cyan-300/30 dark:bg-cyan-400/10',
   html40transitional:
     'border-gray-500/30 bg-gray-500/10 hover:bg-gray-500/15 hover:border-gray-500/45 dark:border-gray-300/30 dark:bg-gray-400/10',
 
@@ -82,7 +82,7 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
   supabase:
     'border-lime-500/35 bg-lime-500/15 hover:bg-lime-500/20 hover:border-lime-500/55 dark:border-lime-300/35 dark:bg-lime-400/10',
   postgresql:
-    'border-slate-500/35 bg-slate-500/10 hover:bg-slate-500/15 hover:border-slate-500/55 dark:border-slate-300/30 dark:bg-slate-400/10',
+    'border-indigo-600/35 bg-indigo-600/10 hover:bg-indigo-600/15 hover:border-indigo-600/55 dark:border-indigo-300/30 dark:bg-indigo-400/10',
 
   framermotion:
     'border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/15 hover:border-pink-500/45 dark:border-pink-300/30 dark:bg-pink-400/10',
@@ -102,7 +102,7 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
   eleventy:
     'border-[#db2777]/35 bg-[#db2777]/10 hover:bg-[#db2777]/15 hover:border-[#db2777]/55 dark:border-[#fbcfe8]/30 dark:bg-[#f472b6]/10',
   nunjucks:
-    'border-fuchsia-500/35 bg-fuchsia-500/15 hover:bg-fuchsia-500/20 hover:border-fuchsia-500/55 dark:border-fuchsia-300/35 dark:bg-fuchsia-400/10',
+    'border-pink-700/35 bg-pink-700/10 hover:bg-pink-700/15 hover:border-pink-700/55 dark:border-pink-300/30 dark:bg-pink-400/10',
 
   asyncstorage:
     'border-red-500/30 bg-red-500/10 hover:bg-red-500/15 hover:border-red-500/45 dark:border-red-300/30 dark:bg-red-400/10',
@@ -111,7 +111,7 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
   vitest:
     'border-[#729b1b]/30 bg-[#729b1b]/10 hover:bg-[#729b1b]/15 hover:border-[#729b1b]/45 dark:border-[#a3e635]/30 dark:bg-[#84cc16]/10',
   aiworkflowsagents:
-    'border-[#6366f1]/30 bg-[#6366f1]/10 hover:bg-[#6366f1]/15 hover:border-[#6366f1]/45 dark:border-[#a5b4fc]/30 dark:bg-[#818cf8]/10',
+    'border-[#1d4ed8]/35 bg-[#1d4ed8]/10 hover:bg-[#1d4ed8]/15 hover:border-[#1d4ed8]/55 dark:border-[#93c5fd]/30 dark:bg-[#3b82f6]/10',
 
   firebase:
     'border-amber-500/35 bg-amber-500/15 hover:bg-amber-500/20 hover:border-amber-500/55 dark:border-amber-300/35 dark:bg-amber-400/10',

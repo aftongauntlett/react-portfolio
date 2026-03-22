@@ -16,7 +16,7 @@ export const jobs: Job[] = [
     location: 'Hybrid',
     description: [
       'Championed modern frontend practices across 7 React apps, standardizing shared components and themes for a unified user experience.',
-      'Led the redesign and standalone deployment of an internal LLM chatbot. Designed the UI in Figma and built the frontend after adapting the original codebase for the team.',
+      'Led the redesign and standalone deployment of an internal LLM chatbot. Used Figma for early flow and layout planning, then built the frontend after adapting the original codebase for the team.',
       'Coordinated with the MLOps team to stand up the model environment and set up backend infrastructure to get the team access. Built one-pass local setup scripts and onboarding docs to shorten ramp-up for new developers.',
       'Led the design and rollout of a guided, stepper-style data portal, facilitating stakeholder alignment and outperforming competing internal concepts.',
     ],

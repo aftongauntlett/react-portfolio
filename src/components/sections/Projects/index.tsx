@@ -119,7 +119,7 @@ export default function ProjectsSection() {
     </motion.li>
   );
   const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
-    const isProduction = status === 'Production';
+    const isProduction = status === 'Live';
     const isCollection = status === 'Collection';
 
     // For external collections, show last updated instead of status
