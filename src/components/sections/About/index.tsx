@@ -1,27 +1,12 @@
 import { useMemo } from 'react';
-import { TYPOGRAPHY, FOCUS_STYLES } from '@/constants/styles';
+import { TYPOGRAPHY } from '@/constants/styles';
 import clsx from 'clsx';
 
 const aboutParagraphs = [
-  "I'm {Afton}, a frontend engineer with {6+ years} building clean, accessible interfaces. I've led frontend work at {Booz Allen Hamilton} across {React} and {TypeScript} codebases, delivered web redesigns for nonprofits through {Gauntlet Designs}, and built for government clients across the {DC area}.",
-  "I work primarily in {React}, {Next.js}, and {TypeScript} but move between frameworks depending on what a project needs — {Vue}, {Angular}, {Astro}, and {Phaser} have all shown up in production work. I've led {platform migrations}, built {design systems}, and worked {accessibility} and {508 compliance} into projects across distributed teams.",
+  "I'm Afton, a frontend engineer with 6+ years building clean, accessible interfaces. I've led frontend work at Booz Allen Hamilton across React and TypeScript codebases, delivered web redesigns for non-profits through Gauntlet Designs, and built for government clients across the DC area.",
+  "I work primarily in React, Next.js, and TypeScript but move between frameworks depending on what a project needs. I've led platform migrations, built design systems, and worked accessibility and 508 compliance into projects across distributed teams.",
   "Before tech, I worked in medical environments where precision and accountability weren't optional. That stuck. Outside of work I build small games and UI prototypes, mostly to test interaction ideas I can't always try in production.",
 ];
-
-// Move outside component to prevent recreation on every render
-const renderHighlightedText = (text: string) => {
-  return text.split(/(\{[^}]+\})/).map((part, index) => {
-    if (part.startsWith('{') && part.endsWith('}')) {
-      const content = part.slice(1, -1);
-      return (
-        <span key={index} className={clsx('font-semibold', TYPOGRAPHY.TEXT_PRIMARY)}>
-          {content}
-        </span>
-      );
-    }
-    return part;
-  });
-};
 
 export default function AboutSection() {
   // Memoize rendered paragraphs since they don't change
@@ -30,15 +15,11 @@ export default function AboutSection() {
       aboutParagraphs.map((paragraph, index) => (
         <p
           key={index}
-          className={clsx(
-            TYPOGRAPHY.TEXT_DESCRIPTION,
-            'text-description-strong',
-            FOCUS_STYLES.PRIMARY,
-          )}
+          className="text-white font-normal"
           tabIndex={0}
           aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
         >
-          {renderHighlightedText(paragraph)}
+          {paragraph}
         </p>
       )),
     [],
