@@ -57,7 +57,7 @@ export const skillGroups: SkillGroup[] = [
       'Docker',
       'Git',
       'GitHub Copilot',
-      'AI-Assisted Development',
+      'Claude',
     ],
   },
 ];
