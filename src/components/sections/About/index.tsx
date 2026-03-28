@@ -3,7 +3,7 @@ import { TYPOGRAPHY } from '@/constants/styles';
 import clsx from 'clsx';
 
 const aboutParagraphs = [
-  "I'm Afton, a frontend engineer with 6+ years building clean, accessible interfaces. I've led frontend work at Booz Allen Hamilton across React and TypeScript codebases, delivered web redesigns for non-profits through Gauntlet Designs, and built for government clients across the DC area.",
+  "I'm Afton, a senior frontend developer with 6+ years building clean, accessible interfaces. I've led frontend work at Booz Allen Hamilton across React and TypeScript codebases, delivered web redesigns for non-profits through Gauntlet Designs, and built for government clients across the DC area.",
   "I work primarily in React, Next.js, and TypeScript but move between frameworks depending on what a project needs. I've led platform migrations, built design systems, and worked accessibility and 508 compliance into projects across distributed teams.",
   "Before tech, I worked in medical environments where precision and accountability weren't optional. That stuck. Outside of work I build small games and UI prototypes, mostly to test interaction ideas I can't always try in production.",
 ];
