@@ -15,7 +15,7 @@ export default function AboutSection() {
       aboutParagraphs.map((paragraph, index) => (
         <p
           key={index}
-          className="text-white font-normal"
+          className="text-slate-900 dark:text-white font-normal"
           tabIndex={0}
           aria-label={`About paragraph ${index + 1} of ${aboutParagraphs.length}`}
         >
