@@ -12,6 +12,25 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: 'Pretty Pretty Pretty Good - Freelance Studio',
+    status: 'Live',
+    description:
+      'A frontend dashboard built on the open-source Hiring Without Whiteboards dataset, turning a large markdown company list into a fast, searchable web experience. Includes full-text search, multi-filtering, card and list view modes, pagination, dark and light themes, and mobile-first navigation. Built with Astro and Canvas for motion, deployed on Vercel.',
+    tech: ['Astro', 'TypeScript', 'Canvas', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/prettyprettyprettygood',
+    demo: 'https://www.prettyprettyprettygood.org/',
+    external: true,
+  },
+  {
+    title: 'Siren Song Shop',
+    status: 'In Development',
+    description:
+      'A curated recommendation platform built as an editorial-first alternative to affiliate storefronts, where every listing is hand-vetted for trust, ethics, and practical usefulness. Includes structured content collections, admin-authenticated publishing workflows, accessible component architecture, and lightweight atmospheric motion that respects reduced-motion preferences. Built with Astro and TypeScript, with Keystatic-powered content modeling and validation via Zod.',
+    tech: ['Astro', 'TypeScript', 'Keystatic', 'Zod', 'React Islands', 'Vitest', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/siren-song-shop',
+    demo: 'https://www.sirensongshop.com/',
+  },
+  {
     title: 'No Whiteboard Jobs Dashboard',
     status: 'Live',
     description:
@@ -19,6 +38,16 @@ export const projects: Project[] = [
     tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Vercel'],
     link: 'https://github.com/aftongauntlett/no-whiteboard-jobs-dashboard',
     demo: 'https://no-wb.org',
+    external: true,
+  },
+  {
+    title: 'Astrid Beauty Hair Salon',
+    status: 'Live',
+    description:
+      'A production website for Astrid Beauty Salon, originally hand-built for a client with real customers. Rebuilt in 2026 as a full refactor and redesign on the original foundation. Focused on clear service presentation, pricing guidance, and a low-friction path to booking. Built with Astro and Tailwind on a performance-first, mobile-responsive layout with accessible markup and SEO-friendly structure.',
+    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'SEO', 'Vercel'],
+    link: 'https://github.com/aftongauntlett/astrid-beauty',
+    demo: 'https://www.byastridbeautysalon.com/',
     external: true,
   },
   {
@@ -66,27 +95,6 @@ export const projects: Project[] = [
     ],
     link: 'https://github.com/aftongauntlett/retro-portfolio',
     demo: 'https://afton-retro-portfolio.vercel.app/',
-    external: true,
-  },
-  {
-    title: 'Astrid Beauty Hair Salon',
-    status: 'Live',
-    description:
-      'A production website for Astrid Beauty Salon, originally hand-built for a client with real customers. Rebuilt in 2026 as a full refactor and redesign on the original foundation. Focused on clear service presentation, pricing guidance, and a low-friction path to booking. Built with Astro and Tailwind on a performance-first, mobile-responsive layout with accessible markup and SEO-friendly structure.',
-    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'SEO', 'Vercel'],
-    link: 'https://github.com/aftongauntlett/astrid-beauty',
-    demo: 'https://www.byastridbeautysalon.com/',
-    external: true,
-  },
-  {
-    title: 'Nyx Felis & Lampyris - JS13k Games Entry',
-    status: 'Live',
-    description:
-      'Built for the JS13k Games 2025 competition under a strict 13 KB size limit using pure HTML, CSS, and JavaScript. Focused on atmosphere and motion design through Canvas 2D rendering, procedural particle systems, and Web Audio API sound. The size constraint shaped every decision toward tight, expressive code.',
-    tech: ['JavaScript', 'Canvas 2D', 'Web Audio API', 'Game Design', 'Particle Systems', 'Vercel'],
-    link: 'https://github.com/aftongauntlett/js13k-2025',
-    demo: 'https://nyx-felis.aftongauntlett.com/',
-    playable: true,
     external: true,
   },
   {
