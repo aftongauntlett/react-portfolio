@@ -4,6 +4,7 @@
 
   --color-background: hsl(0, 0%, 96%);
   --color-surface: hsl(0, 0%, 98%);
+  --color-surface-sunken: hsl(0, 0%, 96%);
   --color-text: hsl(222, 22%, 15%);
   --color-muted: hsl(226, 7%, 35%);
   --color-primary: hsl(194, 62%, 42%);
@@ -20,21 +21,21 @@
   --color-award-accent-3: color-mix(in oklab, var(--color-primary) 65%, var(--color-text) 35%);
 
   /* Education icon accents */
-  --color-education-icon-fullstack: hsl(276, 73%, 71%); 
+  --color-education-icon-fullstack: hsl(276, 73%, 71%);
   --color-education-icon-security: hsl(206, 100%, 67%);
-  --color-education-icon-figma: hsl(173, 66%, 56%); 
+  --color-education-icon-figma: hsl(173, 66%, 56%);
 
   /* Chip colors for light mode */
   --color-chip-muted-bg: hsl(194, 45%, 96%);
   --color-chip-muted-border: hsl(194, 25%, 86%);
 
   /* Status chip colors for light mode */
-  --color-status-production: hsl(194, 62%, 36%);
-  --color-status-production-bg: hsl(194, 45%, 95%);
-  --color-status-development: hsl(268, 32%, 38%);
-  --color-status-development-bg: hsl(268, 40%, 95%);
+  --color-status-production: hsl(152, 59%, 32%);
+  --color-status-production-bg: hsl(149, 45%, 93%);
+  --color-status-development: hsl(25, 71%, 42%);
+  --color-status-development-bg: hsl(28, 60%, 94%);
 
-    /* Location chip colors for light mode  */
+  /* Location chip colors for light mode  */
   --color-status-remote: hsl(167, 32%, 38%);
   --color-status-remote-bg: hsl(168, 38%, 95%);
   --color-status-hybrid: hsl(217, 54%, 35%);
@@ -45,16 +46,17 @@
 
 html.dark {
   --color-background: hsl(0, 2%, 8%);
-  --color-surface: hsl(0, 0%, 7%); 
-  --color-text: hsl(0, 0%, 95%); 
-  --color-muted: hsl(198, 21%, 77%); 
+  --color-surface: hsl(0, 0%, 7%);
+  --color-surface-sunken: hsl(0, 2%, 4%);
+  --color-text: hsl(0, 0%, 95%);
+  --color-muted: hsl(198, 21%, 77%);
   --color-primary: hsl(188, 65%, 64%);
-  --color-primary-rgb: 130, 195, 202; 
+  --color-primary-rgb: 130, 195, 202;
   --color-primary-darker: hsl(183, 20%, 65%);
   --color-secondary: hsl(20, 73%, 73%);
-  --color-secondary-rgb: 215, 140, 94; 
+  --color-secondary-rgb: 215, 140, 94;
   --color-secondary-darker: hsl(20, 57%, 56%);
-  --color-line: hsla(0, 0%, 30%, 0.3); 
+  --color-line: hsla(0, 0%, 30%, 0.3);
 
   /* Award icon accents (derived from existing theme colors) */
   --color-award-accent-1: color-mix(in oklab, var(--color-primary) 65%, var(--color-secondary) 35%);
@@ -71,9 +73,9 @@ html.dark {
   --color-chip-muted-border: hsla(220, 7%, 84%, 0.2);
 
   /* Status colors for dark mode */
-  --color-status-production: hsl(152, 71%, 68%); 
+  --color-status-production: hsl(152, 71%, 68%);
   --color-status-production-bg: hsl(152, 37%, 12%);
-  --color-status-development: hsl(25, 71%, 75%); 
+  --color-status-development: hsl(25, 71%, 75%);
   --color-status-development-bg: hsl(25, 50%, 12%);
 
   /* Location chip colors for dark mode  */

@@ -30,6 +30,7 @@ function SectionLoader() {
 
 export default function Home() {
   const { lenis } = useLenisContext();
+  const sectionSpacingClass = 'pt-8 sm:pt-10';
 
   // Parse hash to determine what section to scroll to
   useEffect(() => {
@@ -97,27 +98,31 @@ export default function Home() {
       <PageSection id="about" title="About" hideTitle={true} className="section-content--critical">
         <AboutSection />
       </PageSection>
-      <PageSection id="skills" title="Skills">
+      <PageSection id="skills" title="Skills" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <SkillsSection />
         </Suspense>
       </PageSection>
-      <PageSection id="experience" title="Experience">
+      <PageSection id="experience" title="Experience" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ExperienceSection />
         </Suspense>
       </PageSection>
-      <PageSection id="projects" title="Projects">
+      <PageSection id="projects" title="Projects" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
         </Suspense>
       </PageSection>
-      <PageSection id="education" title="Education">
+      <PageSection id="education" title="Education" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <EducationSection />
         </Suspense>
       </PageSection>
-      <PageSection id="contact" title="Get in Touch">
+      <PageSection
+        id="contact"
+        title="Get in Touch"
+        className={`${sectionSpacingClass} text-center`}
+      >
         <Suspense fallback={<SectionLoader />}>
           <ContactSection />
         </Suspense>

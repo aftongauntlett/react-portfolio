@@ -33,7 +33,7 @@ export default function ProjectsSection() {
   const additionalProjects = projects.slice(3);
 
   const renderProject = (
-    { title, status, description, tech, link, demo, playable, external, lastUpdated }: ProjectItem,
+    { title, status, description, tech, link, demo, playable }: ProjectItem,
     idx: number,
   ) => (
     <motion.li
@@ -62,7 +62,7 @@ export default function ProjectsSection() {
         )}
       >
         {title}
-        {renderStatus(status, lastUpdated, external)}
+        {renderStatus(status)}
       </h3>
       <div
         tabIndex={0}
@@ -118,27 +118,8 @@ export default function ProjectsSection() {
       </div>
     </motion.li>
   );
-  const renderStatus = (status: string, lastUpdated?: string, external?: boolean) => {
-    const isProduction = status === 'Live';
-    const isCollection = status === 'Collection';
-
-    // For external collections, show last updated instead of status
-    if (isCollection && lastUpdated) {
-      return (
-        <span
-          className={clsx(
-            TYPOGRAPHY.TEXT_XS,
-            'font-medium px-2 py-1 rounded border border-[var(--color-line)]',
-            TYPOGRAPHY.TEXT_MUTED,
-            'flex items-center gap-1',
-            'bg-[var(--color-surface)]',
-          )}
-        >
-          {external && getLinkIcon('external')}
-          Updated {lastUpdated}
-        </span>
-      );
-    }
+  const renderStatus = (status: ProjectItem['status']) => {
+    const isProduction = status === 'Production';
 
     return (
       <span

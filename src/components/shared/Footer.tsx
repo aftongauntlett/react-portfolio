@@ -13,6 +13,7 @@ export default function Footer({
   showStandaloneDivider = false,
 }: FooterProps) {
   const { lenis } = useLenisContext();
+  const portfolioRepoUrl = 'https://github.com/aftongauntlett/react-portfolio';
 
   const handleScrollToTop = () => {
     if (scrollTarget === 'top') {
@@ -50,6 +51,17 @@ export default function Footer({
           <IconArrowUp size={16} /> Top
         </button>
       </div>
+      <p className="text-center text-xs mt-3 opacity-70">
+        Built with React, TypeScript, Vite, and Framer Motion.{' '}
+        <a
+          href={portfolioRepoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-[var(--color-line)] underline-offset-2 hover:text-[var(--color-secondary)]"
+        >
+          View source
+        </a>
+      </p>
     </footer>
   );
 }

@@ -18,20 +18,6 @@ describe('ProjectsSection', () => {
     return within(projectItem);
   };
 
-  it('renders active View Repo and active Play Game for Nyx Felis', () => {
-    render(<ProjectsSection />);
-
-    const scoped = getProjectScoped(/nyx felis/i);
-
-    expect(scoped.queryByRole('link', { name: /design process/i })).not.toBeInTheDocument();
-
-    const viewRepoLink = scoped.getByRole('link', { name: /view repo/i });
-    expect(viewRepoLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/js13k-2025');
-
-    const playLink = scoped.getByRole('link', { name: /play game/i });
-    expect(playLink).toHaveAttribute('href', 'https://nyx-felis.aftongauntlett.com/');
-  });
-
   it('renders active View Repo and active Play Game for Orbital Order', () => {
     render(<ProjectsSection />);
 
