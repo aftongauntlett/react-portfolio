@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import PaintSplashText from '@/components/shared/PaintSplashEffect';
 import { FOCUS_STYLES } from '@/constants/styles';
-import { useActiveSection } from '@/hooks/useActiveSection';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type Props = {
@@ -17,11 +16,7 @@ type Props = {
 export default function PageSection({ id, title, hideTitle = false, children, className }: Props) {
   const headingId = `${id}-heading`;
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [sectionEl, setSectionEl] = useState<HTMLElement | null>(null);
-  const activeSection = useActiveSection();
   const prefersReducedMotion = usePrefersReducedMotion();
-  const isActive = activeSection === id;
-  const isActiveRef = useRef(isActive);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isInView, setIsInView] = useState(false);
   const [isUnderlineFilled, setIsUnderlineFilled] = useState(false);
@@ -30,9 +25,8 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
   const shouldRenderHiddenHeading = Boolean(title) && hideTitle;
   const titleText = title ?? '';
 
-  const debugStateRef = useRef<{ lastBucket: number; wasActive: boolean }>({
+  const debugStateRef = useRef<{ lastBucket: number }>({
     lastBucket: -1,
-    wasActive: false,
   });
 
   const shouldDebugUnderline =
@@ -45,12 +39,8 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
     id === 'experience';
 
   useEffect(() => {
-    isActiveRef.current = isActive;
-  }, [isActive]);
-
-  useEffect(() => {
     if (!shouldRenderDecorativeTitle) return;
-    const el = sectionEl;
+    const el = sectionRef.current;
     if (!el) return;
 
     // Set fallback immediately if IntersectionObserver is not supported
@@ -78,23 +68,21 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [title, sectionEl, shouldRenderDecorativeTitle]);
+  }, [shouldRenderDecorativeTitle]);
 
-  const computeProgress = useMemo(() => {
-    return () => {
-      const el = sectionRef.current;
-      if (!el) return 0;
-      if (prefersReducedMotion) return 1;
+  const computeProgress = useCallback(() => {
+    const el = sectionRef.current;
+    if (!el) return 0;
+    if (prefersReducedMotion) return 1;
 
-      const rect = el.getBoundingClientRect();
-      const viewportH = window.innerHeight || 1;
+    const rect = el.getBoundingClientRect();
+    const viewportH = window.innerHeight || 1;
 
-      // Fill the underline over a consistent scroll distance (not section length)
-      // so long sections don't feel "stuck".
-      const fillDistance = Math.max(240, Math.min(480, viewportH * 0.5));
-      const distanceIntoView = viewportH - rect.top;
-      return Math.max(0, Math.min(1, distanceIntoView / fillDistance));
-    };
+    // Fill the underline over a consistent scroll distance (not section length)
+    // so long sections don't feel "stuck".
+    const fillDistance = Math.max(240, Math.min(480, viewportH * 0.5));
+    const distanceIntoView = viewportH - rect.top;
+    return Math.max(0, Math.min(1, distanceIntoView / fillDistance));
   }, [prefersReducedMotion]);
 
   useEffect(() => {
@@ -113,7 +101,7 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
         setScrollProgress(1);
         setIsUnderlineFilled(true);
       } else {
-        setScrollProgress(nextProgress);
+        setScrollProgress((prev) => (Math.abs(prev - nextProgress) < 0.02 ? prev : nextProgress));
       }
 
       if (shouldDebugUnderline) {
@@ -121,13 +109,6 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
         const bucket = Math.min(bucketCount, Math.max(0, Math.floor(nextProgress * bucketCount)));
 
         const prev = debugStateRef.current;
-
-        const currentIsActive = isActiveRef.current;
-
-        if (prev.wasActive !== currentIsActive) {
-          prev.wasActive = currentIsActive;
-          console.debug(`[underline] ${id} active=${currentIsActive}`);
-        }
 
         if (bucket !== prev.lastBucket) {
           prev.lastBucket = bucket;
@@ -174,10 +155,7 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
     <section
       id={id}
       data-section={id}
-      ref={(node) => {
-        sectionRef.current = node;
-        setSectionEl(node);
-      }}
+      ref={sectionRef}
       className={clsx('section-content scroll-mt-20', className)}
       aria-labelledby={title ? headingId : undefined}
     >

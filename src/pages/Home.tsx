@@ -7,11 +7,19 @@ import { smoothScrollTo } from '@/utils/domScroll';
 import AboutSection from '@/components/sections/About';
 
 // Lazy load remaining sections for better code splitting
-const ContactSection = lazy(() => import('@/components/sections/Contact'));
-const ExperienceSection = lazy(() => import('@/components/sections/Experience'));
-const ProjectsSection = lazy(() => import('@/components/sections/Projects'));
-const SkillsSection = lazy(() => import('@/components/sections/Skills'));
-const EducationSection = lazy(() => import('@/components/sections/Education'));
+const loadContactSection = () => import('@/components/sections/Contact');
+const loadExperienceSection = () => import('@/components/sections/Experience');
+const loadProjectsSection = () => import('@/components/sections/Projects');
+const loadSkillsSection = () => import('@/components/sections/Skills');
+const loadEducationSection = () => import('@/components/sections/Education');
+const loadReviewsSection = () => import('@/components/sections/Reviews');
+
+const ContactSection = lazy(loadContactSection);
+const ExperienceSection = lazy(loadExperienceSection);
+const ProjectsSection = lazy(loadProjectsSection);
+const SkillsSection = lazy(loadSkillsSection);
+const EducationSection = lazy(loadEducationSection);
+const ReviewsSection = lazy(loadReviewsSection);
 
 // Loading component for sections
 function SectionLoader() {
@@ -31,6 +39,52 @@ function SectionLoader() {
 export default function Home() {
   const { lenis } = useLenisContext();
   const sectionSpacingClass = 'pt-8 sm:pt-10';
+
+  useEffect(() => {
+    let timeoutId: number | null = null;
+    let idleCallbackId: number | null = null;
+    let cancelled = false;
+
+    const preloadSectionChunks = () => {
+      if (cancelled) return;
+      void Promise.allSettled([
+        loadSkillsSection(),
+        loadExperienceSection(),
+        loadProjectsSection(),
+        loadEducationSection(),
+        loadReviewsSection(),
+        loadContactSection(),
+      ]);
+    };
+
+    const requestIdle = (
+      window as unknown as {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout?: number }) => number;
+      }
+    ).requestIdleCallback;
+
+    if (typeof requestIdle === 'function') {
+      idleCallbackId = requestIdle(preloadSectionChunks, { timeout: 2500 });
+    } else {
+      timeoutId = window.setTimeout(preloadSectionChunks, 1200);
+    }
+
+    return () => {
+      cancelled = true;
+
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
+
+      if (idleCallbackId !== null) {
+        (
+          window as unknown as {
+            cancelIdleCallback?: (id: number) => void;
+          }
+        ).cancelIdleCallback?.(idleCallbackId);
+      }
+    };
+  }, []);
 
   // Parse hash to determine what section to scroll to
   useEffect(() => {
@@ -116,6 +170,11 @@ export default function Home() {
       <PageSection id="education" title="Education" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <EducationSection />
+        </Suspense>
+      </PageSection>
+      <PageSection id="reviews" title="Reviews" className={sectionSpacingClass}>
+        <Suspense fallback={<SectionLoader />}>
+          <ReviewsSection />
         </Suspense>
       </PageSection>
       <PageSection

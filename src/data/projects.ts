@@ -24,15 +24,6 @@ export const projects: Project[] = [
     external: true,
   },
   {
-    title: 'Siren Song Shop',
-    status: 'Production',
-    description:
-      'My own curated recommendation platform — an editorial-first alternative to affiliate storefronts, where every listing is hand-vetted for trust, ethics, and practical usefulness. Includes structured content collections, admin-authenticated publishing workflows, accessible component architecture, and lightweight atmospheric motion that respects reduced-motion preferences. Built with Astro and TypeScript, with Keystatic-powered content modeling and validation via Zod.',
-    tech: ['Astro', 'TypeScript', 'Keystatic', 'Zod', 'React Islands', 'Vitest', 'Vercel'],
-    link: 'https://github.com/aftongauntlett/siren-song-shop',
-    demo: 'https://www.sirensongshop.com/',
-  },
-  {
     title: 'No Whiteboard Jobs Dashboard',
     status: 'Production',
     description:
@@ -59,26 +50,6 @@ export const projects: Project[] = [
     ],
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
-  },
-  {
-    title: 'Ghostbusters Virginia — Community Franchise Website',
-    status: 'Development',
-    description:
-      'A full redesign and rebuild of the Ghostbusters Virginia community website, replacing a legacy WordPress setup with a modern static architecture. Includes an event calendar with countdowns, photo gallery, press coverage page, appearance request flow, and a donation meter. Built with Astro, React Islands, and Markdoc, with content and layout cleanly separated so the team can update copy independently of design.',
-    tech: ['Astro', 'TypeScript', 'React Islands', 'Markdoc', 'Vitest', 'Vercel'],
-    link: 'https://github.com/ghostbustersvirginia/ghostbustersva',
-    demo: '  https://gbva-site.vercel.app/',
-    external: true,
-  },
-  {
-    title: 'Astrid Beauty Hair Salon',
-    status: 'Production',
-    description:
-      'A production website for Astrid Beauty Salon, originally hand-built for a client with real customers. Rebuilt in 2026 as a full refactor and redesign on the original foundation. Focused on clear service presentation, pricing guidance, and a low-friction path to booking. Built with Astro and Tailwind on a performance-first, mobile-responsive layout with accessible markup and SEO-friendly structure.',
-    tech: ['Astro', 'TypeScript', 'Tailwind CSS', 'Accessible UI patterns', 'SEO', 'Vercel'],
-    link: 'https://github.com/aftongauntlett/astrid-beauty',
-    demo: 'https://www.byastridbeautysalon.com/',
-    external: true,
   },
   {
     title: 'Orbital Order (Aufbau) - JS13k Games Demo',

@@ -56,18 +56,8 @@ export const skillGroups: SkillGroup[] = [
       'Vercel',
       'Docker',
       'Git',
-    ],
-  },
-  {
-    title: 'AI & Automation',
-    skills: [
-      'GitHub Copilot Pro+',
-      'Cursor',
-      'Traycer',
       'Claude / Anthropic API',
-      'OpenAI / Codex',
-      'Agent Pipeline Design',
-      'PRD Authorship',
+      'OpenAI API',
     ],
   },
 ];

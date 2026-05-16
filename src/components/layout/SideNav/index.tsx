@@ -60,7 +60,7 @@ export default function SideNav() {
         </div>
         <div className="space-y-3">
           <p className="font-semibold leading-[1.3] capitalize text-[var(--color-secondary)]">
-            Senior Frontend Developer
+            Senior Software Engineer
           </p>
           <hr className="border-[var(--color-line)]" aria-hidden="true" />
         </div>

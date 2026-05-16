@@ -35,12 +35,15 @@ describe('ProjectsSection', () => {
   it('renders an active View Live link and active View Repo when both exist', () => {
     render(<ProjectsSection />);
 
-    const scoped = getProjectScoped(/astrid beauty/i);
+    const scoped = getProjectScoped(/no whiteboard jobs dashboard/i);
 
     const liveLink = scoped.getByRole('link', { name: /view live/i });
-    expect(liveLink).toHaveAttribute('href', 'https://www.byastridbeautysalon.com/');
+    expect(liveLink).toHaveAttribute('href', 'https://no-wb.org');
 
     const repoLink = scoped.getByRole('link', { name: /view repo/i });
-    expect(repoLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/astrid-beauty');
+    expect(repoLink).toHaveAttribute(
+      'href',
+      'https://github.com/aftongauntlett/no-whiteboard-jobs-dashboard',
+    );
   });
 });

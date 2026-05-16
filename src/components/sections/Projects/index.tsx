@@ -29,8 +29,8 @@ export default function ProjectsSection() {
   const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
 
   type ProjectItem = (typeof projects)[number];
-  const primaryProjects = projects.slice(0, 3);
-  const additionalProjects = projects.slice(3);
+  const primaryProjects = projects.slice(0, 2);
+  const additionalProjects = projects.slice(2);
 
   const renderProject = (
     { title, status, description, tech, link, demo, playable }: ProjectItem,
