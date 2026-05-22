@@ -2,18 +2,18 @@
   --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-background: hsl(0, 0%, 96%);
-  --color-surface: hsl(0, 0%, 98%);
-  --color-surface-sunken: hsl(0, 0%, 96%);
-  --color-text: hsl(222, 22%, 15%);
-  --color-muted: hsl(226, 7%, 35%);
-  --color-primary: hsl(194, 62%, 42%);
-  --color-primary-rgb: 41, 143, 174;
-  --color-primary-darker: hsl(194, 62%, 36%);
-  --color-secondary: hsl(268, 32%, 46%);
-  --color-secondary-rgb: 115, 80, 155;
-  --color-secondary-darker: hsl(268, 32%, 38%);
-  --color-line: hsla(220, 10%, 85%, 0.9);
+  --color-background: hsl(36, 20%, 95%); /* warm linen */
+  --color-surface: hsl(36, 15%, 97%); /* warm near-white */
+  --color-surface-sunken: hsl(36, 18%, 93%); /* deeper cream */
+  --color-text: hsl(25, 15%, 14%); /* warm near-black */
+  --color-muted: hsl(25, 8%, 40%); /* warm grey-brown */
+  --color-primary: hsl(152, 22%, 42%); /* sage green */
+  --color-primary-rgb: 84, 131, 109;
+  --color-primary-darker: hsl(152, 22%, 34%); /* deep sage */
+  --color-secondary: hsl(22, 60%, 48%); /* burnt sienna */
+  --color-secondary-rgb: 196, 103, 49;
+  --color-secondary-darker: hsl(22, 60%, 40%); /* deep sienna */
+  --color-line: hsla(30, 12%, 72%, 0.85); /* warm grey rule */
 
   /* Award icon accents (derived from existing theme colors) */
   --color-award-accent-1: color-mix(in oklab, var(--color-primary) 75%, var(--color-secondary) 25%);
@@ -21,13 +21,13 @@
   --color-award-accent-3: color-mix(in oklab, var(--color-primary) 65%, var(--color-text) 35%);
 
   /* Education icon accents */
-  --color-education-icon-fullstack: hsl(276, 73%, 71%);
-  --color-education-icon-security: hsl(206, 100%, 67%);
-  --color-education-icon-figma: hsl(173, 66%, 56%);
+  --color-education-icon-fullstack: hsl(152, 26%, 56%);
+  --color-education-icon-security: hsl(22, 55%, 62%);
+  --color-education-icon-figma: hsl(36, 52%, 58%);
 
   /* Chip colors for light mode */
-  --color-chip-muted-bg: hsl(194, 45%, 96%);
-  --color-chip-muted-border: hsl(194, 25%, 86%);
+  --color-chip-muted-bg: hsl(152, 14%, 95%);
+  --color-chip-muted-border: hsl(152, 10%, 84%);
 
   /* Status chip colors for light mode */
   --color-status-production: hsl(152, 59%, 32%);
@@ -36,12 +36,12 @@
   --color-status-development-bg: hsl(28, 60%, 94%);
 
   /* Location chip colors for light mode  */
-  --color-status-remote: hsl(167, 32%, 38%);
-  --color-status-remote-bg: hsl(168, 38%, 95%);
-  --color-status-hybrid: hsl(217, 54%, 35%);
-  --color-status-hybrid-bg: hsl(222, 66%, 93%);
-  --color-status-onsite: hsl(20, 62%, 36%);
-  --color-status-onsite-bg: hsl(20, 45%, 95%);
+  --color-status-remote: hsl(152, 22%, 36%);
+  --color-status-remote-bg: hsl(152, 14%, 94%);
+  --color-status-hybrid: hsl(22, 55%, 36%);
+  --color-status-hybrid-bg: hsl(22, 45%, 94%);
+  --color-status-onsite: hsl(36, 55%, 38%);
+  --color-status-onsite-bg: hsl(36, 45%, 94%);
 }
 
 html.dark {
@@ -87,7 +87,30 @@ html.dark {
   --color-status-onsite-bg: hsl(28, 37%, 15%);
 }
 
+/* Disable all transitions for one paint cycle when the theme is toggled,
+   so chips and other elements with transition-colors snap instantly. */
+.no-transitions * {
+  transition: none !important;
+}
+
 /* Hello text gradient animation using theme colors */
+/* Light mode: pull gradient toward softer, higher-lightness stops so it
+   reads with the same intention as dark mode rather than shouting. */
+html:not(.dark) .hello-gradient {
+  background: linear-gradient(
+    135deg,
+    hsl(152, 26%, 50%) 0%,
+    hsl(22, 62%, 52%) 50%,
+    hsl(152, 26%, 50%) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .hello-gradient {
   background: linear-gradient(
     135deg,

@@ -19,7 +19,11 @@ function getStoredThemePreference(): ThemePreference {
   if (typeof window === 'undefined') return 'system';
 
   const storedPreference = localStorage.getItem('theme-preference') as ThemePreference | null;
-  if (storedPreference === 'light' || storedPreference === 'dark' || storedPreference === 'system') {
+  if (
+    storedPreference === 'light' ||
+    storedPreference === 'dark' ||
+    storedPreference === 'system'
+  ) {
     return storedPreference;
   }
 
@@ -59,7 +63,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+    const doc = document.documentElement;
+    doc.classList.add('no-transitions');
+    doc.classList.toggle('dark', resolvedTheme === 'dark');
+    // Remove after two frames so the new colors are painted before transitions re-enable
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => doc.classList.remove('no-transitions')),
+    );
+    return () => cancelAnimationFrame(raf);
   }, [resolvedTheme]);
 
   useEffect(() => {

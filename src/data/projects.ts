@@ -37,7 +37,7 @@ export const projects: Project[] = [
     title: 'NPC Finder',
     status: 'Development',
     description:
-      'My own private social network built around the idea of no ads, no tracking, and no monetization. Combines customizable profiles, closed friend groups with moderation tools, and a virtual town where you can visit friends\u0027 homes and share media together in real time. Privacy and security are the core constraints, with Supabase, PostgreSQL Row-Level Security, and invite-only access. Built with React 19, TypeScript, Framer Motion, and React Query. Currently in active development for a small group of friends.',
+      'A private social network built around no ads, no tracking, and no monetization. Combines customizable profiles, closed friend groups with moderation tools, and real-time media sharing. Built to explore row-level security, auth flows, and real-time subscriptions in Supabase — the backend and auth patterns here are the parts worth looking at. Built with React 19, TypeScript, Framer Motion, and Supabase.',
     tech: [
       'React 19',
       'TypeScript',

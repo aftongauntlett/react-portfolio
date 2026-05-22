@@ -7,7 +7,6 @@ import { getLinkIcon } from '@/components/shared/LinkIcons';
 import TechTag from '@/components/shared/TechTag';
 import { projects } from '@/data/projects';
 import { sortTechLabels } from '@/constants/techChips';
-import { HiChevronDown } from 'react-icons/hi2';
 import {
   TRANSITION_COLORS,
   TRANSITION_FAST,
@@ -25,12 +24,9 @@ export default function ProjectsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { projectCard: projectVariants } = createMotionVariants(prefersReducedMotion);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [showAllProjects, setShowAllProjects] = useState(false);
   const willChangeStyle = useWillChange(['transform', 'opacity'], isAnimating);
 
   type ProjectItem = (typeof projects)[number];
-  const primaryProjects = projects.slice(0, 2);
-  const additionalProjects = projects.slice(2);
 
   const renderProject = (
     { title, status, description, tech, link, demo, playable }: ProjectItem,
@@ -161,104 +157,8 @@ export default function ProjectsSection() {
           },
         }}
       >
-        {primaryProjects.map((project, idx) => renderProject(project, idx))}
+        {projects.map((project, idx) => renderProject(project, idx))}
       </motion.ul>
-
-      {additionalProjects.length > 0 ? (
-        <div aria-hidden={false}>
-          <div className="flex items-center">
-            <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
-            <motion.button
-              type="button"
-              onClick={() => setShowAllProjects((prev) => !prev)}
-              aria-controls="more-projects"
-              aria-expanded={showAllProjects}
-              className={clsx(
-                'group mx-3 inline-flex items-center gap-2 rounded-md px-3 py-2',
-                'text-sm font-semibold',
-                showAllProjects ? 'text-[var(--color-secondary)]' : 'text-[var(--color-primary)]',
-                'border border-transparent transition-[color,background-color,border-color] duration-200',
-                'bg-transparent hover:bg-[var(--color-line)]/35',
-                'hover:border-[var(--color-primary)]/35',
-                'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-              )}
-            >
-              <span className="transition-colors duration-200 font-heading">
-                {showAllProjects ? 'See less' : 'See more'}
-              </span>
-              <motion.span
-                className="grid place-items-center"
-                animate={
-                  prefersReducedMotion
-                    ? undefined
-                    : {
-                        rotate: showAllProjects ? 180 : 0,
-                      }
-                }
-                transition={
-                  prefersReducedMotion ? undefined : { type: 'spring', stiffness: 240, damping: 20 }
-                }
-              >
-                <HiChevronDown className="h-4 w-4 transition-colors duration-200" />
-              </motion.span>
-            </motion.button>
-            <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
-          </div>
-
-          <motion.div
-            id="more-projects"
-            className="mt-6"
-            initial={prefersReducedMotion ? undefined : 'closed'}
-            animate={prefersReducedMotion ? undefined : showAllProjects ? 'open' : 'closed'}
-            style={{ overflow: 'hidden', transformOrigin: 'top' }}
-            variants={
-              prefersReducedMotion
-                ? undefined
-                : {
-                    open: {
-                      opacity: 1,
-                      scaleY: 1,
-                      height: 'auto',
-                      transition: {
-                        duration: 0.25,
-                        ease: 'easeOut',
-                        when: 'beforeChildren',
-                        height: { duration: 0 },
-                      },
-                    },
-                    closed: {
-                      opacity: 0,
-                      scaleY: 0,
-                      height: 0,
-                      transition: {
-                        duration: 0.22,
-                        ease: 'easeOut',
-                        when: 'afterChildren',
-                        height: { duration: 0 },
-                      },
-                    },
-                  }
-            }
-          >
-            <motion.ul
-              className="space-y-6 list-none"
-              aria-label="Additional portfolio projects"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
-                  },
-                },
-              }}
-            >
-              {additionalProjects.map((project, idx) => renderProject(project, idx + 3))}
-            </motion.ul>
-          </motion.div>
-        </div>
-      ) : null}
     </div>
   );
 }

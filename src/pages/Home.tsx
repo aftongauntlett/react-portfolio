@@ -152,31 +152,37 @@ export default function Home() {
       <PageSection id="about" title="About" hideTitle={true} className="section-content--critical">
         <AboutSection />
       </PageSection>
+      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection id="skills" title="Skills" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <SkillsSection />
         </Suspense>
       </PageSection>
+      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection id="experience" title="Experience" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ExperienceSection />
         </Suspense>
       </PageSection>
+      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection id="projects" title="Projects" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
         </Suspense>
       </PageSection>
+      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection id="education" title="Education" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <EducationSection />
         </Suspense>
       </PageSection>
+      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection id="reviews" title="Reviews" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ReviewsSection />
         </Suspense>
       </PageSection>
+      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection
         id="contact"
         title="Get in Touch"

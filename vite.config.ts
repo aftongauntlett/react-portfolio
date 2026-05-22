@@ -40,6 +40,7 @@ const visualizerPlugin = getBundleVisualizerPlugin();
 
 export default defineConfig({
   plugins: [react(), ...(visualizerPlugin ? [visualizerPlugin] : [])],
+  envPrefix: ['VITE_', 'PUBLIC_'],
   server: {
     watch: {
       usePolling: true,
