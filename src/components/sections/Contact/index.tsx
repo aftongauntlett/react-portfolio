@@ -1,12 +1,9 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef, type FormEvent } from 'react';
-import clsx from 'clsx';
 import { Button } from '@/components/shared/Button';
-import PaintSplashText from '@/components/shared/PaintSplashEffect';
-import { COMPONENT_SPACING } from '@/constants/spacing';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
-import { LuLoaderCircle, LuSend } from 'react-icons/lu';
+import { LuLoaderCircle, LuSend, LuMessageCircle } from 'react-icons/lu';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mpwldyrq';
 const TURNSTILE_SCRIPT_ID = 'cf-turnstile-script';
@@ -222,183 +219,201 @@ export default function ContactSection() {
 
   return (
     <motion.div
-      className={clsx(
-        'group block rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)]',
-        COMPONENT_SPACING.CARD_PADDING,
-        'text-center transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)] dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]',
-      )}
+      className="w-full"
       initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEWPORT_CONFIG}
       transition={{ duration: getMotionDuration(0.5, prefersReducedMotion), ease: 'easeOut' }}
-      whileHover={prefersReducedMotion ? undefined : 'hover'}
     >
-      <div className="space-y-6">
-        <PaintSplashText
-          tag="h3"
-          className="text-3xl leading-tight text-[var(--color-text)]"
-          isActive={true}
-          scrollProgress={1}
-          prefersReducedMotion={prefersReducedMotion}
-        >
-          Get in Touch
-        </PaintSplashText>
+      <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
+        <div className="flex-1 space-y-6">
+          <p className="text-description max-w-lg">
+            Have a role, a project, or a question in mind? Send me a message below and I will get
+            back to you shortly.
+          </p>
 
-        <p className="text-description mx-auto max-w-lg transition-colors duration-300 group-hover:text-[var(--color-text)] group-focus-within:text-[var(--color-text)]">
-          Have a role, a project, or a question in mind? Send me a message below and I will get back
-          to you shortly.
-        </p>
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="w-full space-y-4 text-left"
+            noValidate
+            aria-label="Contact form"
+          >
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="group/field space-y-1.5">
+                <label
+                  htmlFor="contact-name"
+                  className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
+                >
+                  Name
+                </label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className={fieldClasses}
+                  placeholder="Your name"
+                />
+              </div>
 
-        <hr className="mx-auto w-32 border-t border-[var(--color-line)]" />
-
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="mx-auto w-full max-w-xl space-y-4 text-left"
-          noValidate
-          aria-label="Contact form"
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="group/field space-y-1.5">
-              <label
-                htmlFor="contact-name"
-                className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
-              >
-                Name
-              </label>
-              <input
-                id="contact-name"
-                name="name"
-                type="text"
-                autoComplete="name"
-                required
-                className={fieldClasses}
-                placeholder="Your name"
-              />
+              <div className="group/field space-y-1.5">
+                <label
+                  htmlFor="contact-email"
+                  className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
+                >
+                  Email
+                </label>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className={fieldClasses}
+                  placeholder="you@example.com"
+                  aria-invalid={emailValidationMessage ? true : undefined}
+                  aria-describedby={emailValidationMessage ? 'contact-email-validation' : undefined}
+                  onBlur={validateEmailField}
+                  onInput={() => {
+                    if (emailValidationMessage) {
+                      validateEmailField();
+                    }
+                  }}
+                />
+                {emailValidationMessage ? (
+                  <p
+                    id="contact-email-validation"
+                    className="text-xs text-[var(--color-secondary)]"
+                  >
+                    {emailValidationMessage}
+                  </p>
+                ) : null}
+              </div>
             </div>
 
             <div className="group/field space-y-1.5">
               <label
-                htmlFor="contact-email"
+                htmlFor="contact-message"
                 className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
               >
-                Email
+                Message
               </label>
-              <input
-                id="contact-email"
-                name="email"
-                type="email"
-                autoComplete="email"
+              <textarea
+                id="contact-message"
+                name="message"
                 required
-                className={fieldClasses}
-                placeholder="you@example.com"
-                aria-invalid={emailValidationMessage ? true : undefined}
-                aria-describedby={emailValidationMessage ? 'contact-email-validation' : undefined}
-                onBlur={validateEmailField}
-                onInput={() => {
-                  if (emailValidationMessage) {
-                    validateEmailField();
-                  }
-                }}
+                rows={5}
+                className={`${fieldClasses} resize-y`}
+                placeholder="Tell me about your project, role, or question."
               />
-              {emailValidationMessage ? (
-                <p id="contact-email-validation" className="text-xs text-[var(--color-secondary)]">
-                  {emailValidationMessage}
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Button
+                  type="submit"
+                  variant="outline"
+                  color="primary"
+                  disabled={isSubmitDisabled}
+                  className="order-1 self-start sm:order-2 sm:ml-auto"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <LuLoaderCircle className="h-4 w-4 animate-spin" aria-hidden />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <LuSend className="h-4 w-4" aria-hidden />
+                      Send message
+                    </>
+                  )}
+                </Button>
+
+                <p
+                  role={formStatus === 'error' ? 'alert' : 'status'}
+                  aria-live="polite"
+                  className={`order-2 text-xs sm:order-1 ${
+                    formStatus === 'error'
+                      ? 'text-[var(--color-secondary)]'
+                      : formStatus === 'success'
+                        ? 'text-[var(--color-primary)]'
+                        : 'text-[var(--color-muted)]'
+                  }`}
+                >
+                  {statusMessage}
+                </p>
+              </div>
+
+              {TURNSTILE_SITE_KEY && !turnstileCircuitOpen ? (
+                <div className="self-start sm:self-end">
+                  <div
+                    className="cf-turnstile"
+                    data-sitekey={TURNSTILE_SITE_KEY}
+                    data-theme="auto"
+                    data-callback="handleTurnstileSuccess"
+                    data-expired-callback="handleTurnstileExpired"
+                    data-timeout-callback="handleTurnstileTimeout"
+                    data-error-callback="handleTurnstileError"
+                    data-retry="never"
+                  />
+                </div>
+              ) : TURNSTILE_SITE_KEY && turnstileCircuitOpen ? (
+                <div className="self-start sm:self-end rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-xs text-[var(--color-muted)]">
+                  <p>Security check has been paused after repeated failures.</p>
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="mt-1 inline-block font-semibold text-[var(--color-secondary)] underline underline-offset-2"
+                  >
+                    Email me directly
+                  </a>
+                </div>
+              ) : (
+                <p className="text-xs text-[var(--color-muted)]">
+                  Security challenge is not configured yet. Add the Turnstile site key to enable
+                  spam protection.
+                </p>
+              )}
+              {requiresTurnstileToken ? (
+                <p className="text-xs text-[var(--color-muted)] sm:text-right">
+                  Complete the security check to enable Send message.
                 </p>
               ) : null}
             </div>
-          </div>
+          </form>
+        </div>
 
-          <div className="group/field space-y-1.5">
-            <label
-              htmlFor="contact-message"
-              className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
-            >
-              Message
-            </label>
-            <textarea
-              id="contact-message"
-              name="message"
-              required
-              rows={5}
-              className={`${fieldClasses} resize-y`}
-              placeholder="Tell me about your project, role, or question."
+        <div
+          className="hidden shrink-0 lg:flex lg:w-56 lg:items-center lg:justify-center"
+          aria-hidden="true"
+        >
+          <div className="relative grid h-56 w-56 place-items-center">
+            <motion.div
+              className="absolute inset-0 rounded-full blur-3xl"
+              style={{ backgroundColor: 'rgba(var(--color-contact-icon-rgb), 0.14)' }}
+              whileHover={prefersReducedMotion ? undefined : { opacity: 0.6, scale: 1.1 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
             />
+            <motion.div
+              whileHover={
+                prefersReducedMotion
+                  ? undefined
+                  : {
+                      rotate: [0, -12, 11, -8, 7, -3, 0],
+                      transition: { duration: 0.55, ease: 'easeInOut' },
+                    }
+              }
+              style={{ cursor: 'default' }}
+            >
+              <LuMessageCircle
+                className="relative h-36 w-36 text-[var(--color-contact-icon)] opacity-50"
+                aria-hidden
+              />
+            </motion.div>
           </div>
-
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button
-                type="submit"
-                variant="outline"
-                color="primary"
-                disabled={isSubmitDisabled}
-                className="order-1 self-start sm:order-2 sm:ml-auto"
-              >
-                {isSubmitting ? (
-                  <>
-                    <LuLoaderCircle className="h-4 w-4 animate-spin" aria-hidden />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <LuSend className="h-4 w-4" aria-hidden />
-                    Send message
-                  </>
-                )}
-              </Button>
-
-              <p
-                role={formStatus === 'error' ? 'alert' : 'status'}
-                aria-live="polite"
-                className={`order-2 text-xs sm:order-1 ${
-                  formStatus === 'error'
-                    ? 'text-[var(--color-secondary)]'
-                    : formStatus === 'success'
-                      ? 'text-[var(--color-primary)]'
-                      : 'text-[var(--color-muted)]'
-                }`}
-              >
-                {statusMessage}
-              </p>
-            </div>
-
-            {TURNSTILE_SITE_KEY && !turnstileCircuitOpen ? (
-              <div className="self-start sm:self-end">
-                <div
-                  className="cf-turnstile"
-                  data-sitekey={TURNSTILE_SITE_KEY}
-                  data-theme="auto"
-                  data-callback="handleTurnstileSuccess"
-                  data-expired-callback="handleTurnstileExpired"
-                  data-timeout-callback="handleTurnstileTimeout"
-                  data-error-callback="handleTurnstileError"
-                  data-retry="never"
-                />
-              </div>
-            ) : TURNSTILE_SITE_KEY && turnstileCircuitOpen ? (
-              <div className="self-start sm:self-end rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-xs text-[var(--color-muted)]">
-                <p>Security check has been paused after repeated failures.</p>
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="mt-1 inline-block font-semibold text-[var(--color-secondary)] underline underline-offset-2"
-                >
-                  Email me directly
-                </a>
-              </div>
-            ) : (
-              <p className="text-xs text-[var(--color-muted)]">
-                Security challenge is not configured yet. Add the Turnstile site key to enable spam
-                protection.
-              </p>
-            )}
-            {requiresTurnstileToken ? (
-              <p className="text-xs text-[var(--color-muted)] sm:text-right">
-                Complete the security check to enable Send message.
-              </p>
-            ) : null}
-          </div>
-        </form>
+        </div>
       </div>
     </motion.div>
   );
