@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import PaintSplashText from '@/components/shared/PaintSplashEffect';
 import { FOCUS_STYLES } from '@/constants/styles';
+import { SECTION_SPACING } from '@/constants/spacing';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 type Props = {
@@ -156,10 +157,10 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
       id={id}
       data-section={id}
       ref={sectionRef}
-      className={clsx('section-content scroll-mt-20', className)}
+      className={clsx('section-content scroll-mt-20', SECTION_SPACING.BOTTOM_PADDING, className)}
       aria-labelledby={title ? headingId : undefined}
     >
-      <div className="w-full space-y-5 sm:space-y-7">
+      <div className={clsx('w-full', SECTION_SPACING.CONTENT_STACK)}>
         {shouldRenderHiddenHeading && (
           <h2 id={headingId} tabIndex={-1} className={clsx(FOCUS_STYLES.COMPACT, 'sr-only')}>
             {titleText}

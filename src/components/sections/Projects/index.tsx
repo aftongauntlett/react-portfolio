@@ -15,6 +15,7 @@ import {
   TYPOGRAPHY,
   FOCUS_STYLES,
 } from '@/constants/styles';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
@@ -37,7 +38,7 @@ export default function ProjectsSection() {
       variants={projectVariants}
       exit="hidden"
       className={clsx(
-        'group flex flex-col py-6 md:py-8 px-3 md:px-4 rounded-md ',
+        'group flex flex-col py-5 md:py-6 px-4 md:px-5 rounded-md ',
         // Left border only on desktop
         'md:border-l-4 md:border-transparent',
         TRANSITION_COLORS,
@@ -66,7 +67,7 @@ export default function ProjectsSection() {
         role="text"
         className={clsx(
           TYPOGRAPHY.TEXT_DESCRIPTION,
-          'mt-3 mb-3',
+          'mt-3 mb-2',
           FOCUS_STYLES.COMPACT,
           'transition-colors duration-300 group-hover:text-[var(--color-text)]',
         )}
@@ -75,7 +76,7 @@ export default function ProjectsSection() {
       </div>
       <div
         className={clsx(
-          'flex flex-wrap gap-2 mb-4',
+          'flex flex-wrap gap-2 mb-3',
           TYPOGRAPHY.TEXT_SMALL,
           TEXT_MUTED_HOVER,
           TRANSITION_FAST,
@@ -88,7 +89,7 @@ export default function ProjectsSection() {
         ))}
       </div>
       <div
-        className="flex flex-wrap gap-3 justify-end mt-4"
+        className="flex flex-wrap gap-3 justify-end mt-3"
         role="group"
         aria-label="Project links"
       >
@@ -138,9 +139,9 @@ export default function ProjectsSection() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className={COMPONENT_SPACING.STACK_STANDARD}>
       <motion.ul
-        className="space-y-6 list-none"
+        className={clsx(COMPONENT_SPACING.STACK_STANDARD, 'list-none')}
         aria-label="Portfolio projects"
         initial="hidden"
         whileInView="visible"

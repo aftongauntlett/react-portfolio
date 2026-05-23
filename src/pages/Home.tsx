@@ -1,5 +1,6 @@
 import { useEffect, Suspense, lazy } from 'react';
 import PageSection from '@/components/layout/PageSection';
+import { SECTION_SPACING } from '@/constants/spacing';
 import { useLenisContext } from '@/context/LenisContext';
 import { smoothScrollTo } from '@/utils/domScroll';
 
@@ -38,7 +39,7 @@ function SectionLoader() {
 
 export default function Home() {
   const { lenis } = useLenisContext();
-  const sectionSpacingClass = 'pt-8 sm:pt-10';
+  const sectionSpacingClass = SECTION_SPACING.TOP_PADDING;
 
   useEffect(() => {
     let timeoutId: number | null = null;
@@ -186,6 +187,7 @@ export default function Home() {
       <PageSection
         id="contact"
         title="Get in Touch"
+        hideTitle={true}
         className={`${sectionSpacingClass} text-center`}
       >
         <Suspense fallback={<SectionLoader />}>

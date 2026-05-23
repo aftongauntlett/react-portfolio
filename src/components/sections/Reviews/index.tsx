@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { HiChevronDown } from 'react-icons/hi2';
 import { reviews } from '@/data/reviews';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 
@@ -29,7 +30,11 @@ export default function ReviewsSection() {
     return (
       <motion.div
         key={review.name}
-        className="rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] p-5 transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)] dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]"
+        className={clsx(
+          'rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)]',
+          COMPONENT_SPACING.CARD_PADDING,
+          'transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)] dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]',
+        )}
         initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={VIEWPORT_CONFIG}
@@ -142,7 +147,7 @@ export default function ReviewsSection() {
 
           <motion.div
             id="more-reviews"
-            className="mt-4"
+            className={COMPONENT_SPACING.EXPANDABLE_PANEL_TOP}
             initial={prefersReducedMotion ? undefined : 'closed'}
             animate={prefersReducedMotion ? undefined : showAllReviews ? 'open' : 'closed'}
             style={{ overflow: 'hidden', transformOrigin: 'top' }}

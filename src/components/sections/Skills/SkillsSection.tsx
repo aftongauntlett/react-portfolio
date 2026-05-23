@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { skillGroups } from '@/data/skills';
 import TechTag from '@/components/shared/TechTag';
 import { TYPOGRAPHY } from '@/constants/styles';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
@@ -14,7 +15,7 @@ export default function SkillsSection() {
   return (
     <div>
       <motion.ul
-        className="space-y-12"
+        className={COMPONENT_SPACING.STACK_RELAXED}
         aria-label="Technical skills by category"
         initial="hidden"
         whileInView="visible"

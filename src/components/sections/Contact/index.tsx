@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef, type FormEvent } from 'react';
+import clsx from 'clsx';
 import { Button } from '@/components/shared/Button';
+import PaintSplashText from '@/components/shared/PaintSplashEffect';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
-import { usePointerTilt } from '@/hooks/usePointerTilt';
-import { LuMessageCircle, LuLoaderCircle, LuSend } from 'react-icons/lu';
+import { LuLoaderCircle, LuSend } from 'react-icons/lu';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mpwldyrq';
 const TURNSTILE_SCRIPT_ID = 'cf-turnstile-script';
@@ -30,13 +32,12 @@ const fieldClasses =
 
 export default function ContactSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const tilt = usePointerTilt({ enabled: !prefersReducedMotion, maxTiltDeg: 12 });
   const formRef = useRef<HTMLFormElement>(null);
+  const turnstileErrorCountRef = useRef(0);
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileFallbackEnabled, setTurnstileFallbackEnabled] = useState(false);
-  const [turnstileErrorCount, setTurnstileErrorCount] = useState(0);
   const [turnstileCircuitOpen, setTurnstileCircuitOpen] = useState(false);
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
 
@@ -69,7 +70,7 @@ export default function ContactSection() {
 
     window.handleTurnstileSuccess = (token) => {
       setTurnstileToken(token);
-      setTurnstileErrorCount(0);
+      turnstileErrorCountRef.current = 0;
       setFormStatus('idle');
       setStatusMessage('');
     };
@@ -88,25 +89,26 @@ export default function ContactSection() {
 
     window.handleTurnstileError = (errorCode) => {
       const code = String(errorCode);
-      const nextErrorCount = turnstileErrorCount + 1;
 
       setTurnstileToken('');
-      setTurnstileErrorCount(nextErrorCount);
-
-      if (nextErrorCount >= MAX_TURNSTILE_ERRORS) {
-        setTurnstileCircuitOpen(true);
-        setFormStatus('error');
-        setStatusMessage(
-          'Security check failed repeatedly and has been paused. Please email me directly below.',
-        );
-        return true;
-      }
 
       if (import.meta.env.DEV && code.startsWith('110200')) {
         setTurnstileFallbackEnabled(true);
         setFormStatus('idle');
         setStatusMessage(
           'Turnstile is unavailable on localhost for this site key. Dev fallback is enabled so you can keep testing.',
+        );
+        return true;
+      }
+
+      const nextErrorCount = turnstileErrorCountRef.current + 1;
+      turnstileErrorCountRef.current = nextErrorCount;
+
+      if (nextErrorCount >= MAX_TURNSTILE_ERRORS) {
+        setTurnstileCircuitOpen(true);
+        setFormStatus('error');
+        setStatusMessage(
+          'Security check failed repeatedly and has been paused. Please email me directly below.',
         );
         return true;
       }
@@ -139,7 +141,7 @@ export default function ContactSection() {
       delete window.handleTurnstileExpired;
       delete window.handleTurnstileTimeout;
     };
-  }, [turnstileCircuitOpen, turnstileErrorCount, turnstileFallbackEnabled]);
+  }, [turnstileCircuitOpen, turnstileFallbackEnabled]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -218,21 +220,13 @@ export default function ContactSection() {
     }
   };
 
-  const iconVariants = prefersReducedMotion
-    ? undefined
-    : {
-        hover: {
-          rotateX: 10,
-          rotateY: -12,
-          rotateZ: 6,
-          y: -1,
-          transition: { type: 'spring' as const, stiffness: 190, damping: 18 },
-        },
-      };
-
   return (
     <motion.div
-      className="group block rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] p-6 text-center transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)] dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]"
+      className={clsx(
+        'group block rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)]',
+        COMPONENT_SPACING.CARD_PADDING,
+        'text-center transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)] dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]',
+      )}
       initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEWPORT_CONFIG}
@@ -240,43 +234,15 @@ export default function ContactSection() {
       whileHover={prefersReducedMotion ? undefined : 'hover'}
     >
       <div className="space-y-6">
-        {/* Icon — centered at top, same glow treatment as education cards */}
-        <div
-          className="relative mx-auto -mb-4 grid h-24 w-24 place-items-center"
-          aria-hidden="true"
+        <PaintSplashText
+          tag="h3"
+          className="text-3xl leading-tight text-[var(--color-text)]"
+          isActive={true}
+          scrollProgress={1}
+          prefersReducedMotion={prefersReducedMotion}
         >
-          <motion.div
-            className="absolute inset-0 rounded-full blur-2xl"
-            style={{ backgroundColor: 'rgba(var(--color-primary-rgb), 0.12)' }}
-            variants={prefersReducedMotion ? undefined : { hover: { opacity: 0.45, scale: 1.08 } }}
-            transition={
-              prefersReducedMotion ? undefined : { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
-            }
-          />
-          <motion.div
-            className="absolute inset-8 rounded-full"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(var(--color-primary-rgb), 0.10), transparent 70%)',
-            }}
-            variants={prefersReducedMotion ? undefined : { hover: { opacity: 0.9, scale: 1.12 } }}
-            transition={prefersReducedMotion ? undefined : { duration: 0.8, ease: 'easeOut' }}
-          />
-          <div className="relative [perspective:900px]">
-            <motion.span
-              className="inline-flex"
-              variants={iconVariants}
-              onPointerMove={tilt.onPointerMove}
-              onPointerLeave={tilt.onPointerLeave}
-              style={{ transformStyle: 'preserve-3d', ...tilt.tiltStyle }}
-            >
-              <LuMessageCircle
-                className="h-12 w-12 text-[var(--color-primary)] transition-[filter] duration-300 group-hover:drop-shadow-[0_0_18px_rgba(var(--color-primary-rgb),0.35)]"
-                aria-hidden
-              />
-            </motion.span>
-          </div>
-        </div>
+          Get in Touch
+        </PaintSplashText>
 
         <p className="text-description mx-auto max-w-lg transition-colors duration-300 group-hover:text-[var(--color-text)] group-focus-within:text-[var(--color-text)]">
           Have a role, a project, or a question in mind? Send me a message below and I will get back
@@ -293,10 +259,10 @@ export default function ContactSection() {
           aria-label="Contact form"
         >
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-1.5">
+            <div className="group/field space-y-1.5">
               <label
                 htmlFor="contact-name"
-                className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]"
+                className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
               >
                 Name
               </label>
@@ -311,10 +277,10 @@ export default function ContactSection() {
               />
             </div>
 
-            <div className="space-y-1.5">
+            <div className="group/field space-y-1.5">
               <label
                 htmlFor="contact-email"
-                className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]"
+                className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
               >
                 Email
               </label>
@@ -343,10 +309,10 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <div className="space-y-1.5">
+          <div className="group/field space-y-1.5">
             <label
               htmlFor="contact-message"
-              className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]"
+              className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
             >
               Message
             </label>

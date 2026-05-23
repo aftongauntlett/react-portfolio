@@ -90,7 +90,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <main
             id="main-content"
-            className="flex-1 pt-6 sm:pt-8 lg:pt-12 space-y-16 sm:space-y-20 lg:space-y-24"
+            className="flex-1 pt-6 sm:pt-8 lg:pt-12"
             role="main"
             aria-label="Main content"
           >

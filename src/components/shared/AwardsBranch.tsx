@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { HiChevronDown } from 'react-icons/hi2';
 import { TYPOGRAPHY } from '@/constants/styles';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import type { awards } from '@/data/education';
 
@@ -74,7 +75,7 @@ const AwardsBranch = memo(
     );
 
     return (
-      <div className="mt-3">
+      <div className={COMPONENT_SPACING.EXPANDABLE_PANEL_TOP}>
         <div className="flex items-center">
           <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
           <motion.button

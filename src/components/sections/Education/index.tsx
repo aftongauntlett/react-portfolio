@@ -1,6 +1,7 @@
 import { education, type Education } from '@/data/education';
 import clsx from 'clsx';
 import { TYPOGRAPHY } from '@/constants/styles';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { motion } from 'framer-motion';
 import { createElement } from 'react';
 import type { IconType } from 'react-icons';
@@ -67,7 +68,8 @@ function EducationCard({ item, idx }: { item: Education; idx: number }) {
           }
         : {})}
       className={clsx(
-        'group block rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] p-4',
+        'group block rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)]',
+        COMPONENT_SPACING.CARD_PADDING,
         'transition-[border-color,box-shadow] duration-300',
         'hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)]',
         'dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]',

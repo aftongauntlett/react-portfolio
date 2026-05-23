@@ -5,8 +5,8 @@ export default function AboutSection() {
   return (
     <div className="w-full">
       {/* Hero Section - Responsive spacing */}
-      <div className="relative flex flex-col justify-center items-center w-full mb-8 sm:mb-10">
-        <div className="relative w-full text-center px-4 pt-8 pb-4 sm:pt-12 sm:pb-6 md:pt-16 md:pb-8">
+      <div className="relative flex flex-col justify-center items-start w-full mb-4 sm:mb-6">
+        <div className="relative w-full text-left pt-8 pb-4 sm:pt-12 sm:pb-6 md:pt-16 md:pb-8 lg:pt-4">
           {/* Subtle backdrop for improved contrast */}
           <div
             className={clsx(
@@ -32,7 +32,7 @@ export default function AboutSection() {
           <p
             className={clsx(
               TYPOGRAPHY.TEXT_DESCRIPTION,
-              'relative mt-6 sm:mt-7 w-full text-[var(--color-text)]',
+              'relative mt-6 sm:mt-7 w-full max-w-2xl text-[var(--color-text)]',
             )}
           >
             Frontend engineer with six years of experience in design systems, accessible UI, and
