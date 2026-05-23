@@ -1,5 +1,5 @@
 import { jobs } from '@/data/jobs';
-import { awards } from '@/data/education';
+import { awards } from '@/data/credentials';
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { TYPOGRAPHY } from '@/constants/styles';

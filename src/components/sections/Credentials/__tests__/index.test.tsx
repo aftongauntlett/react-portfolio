@@ -1,19 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import EducationSection from '../index';
+import CredentialsSection from '../index';
 
-describe('EducationSection', () => {
-  it('renders education list and no awards heading', () => {
-    render(<EducationSection />);
-    expect(screen.getByRole('list', { name: /^education$/i })).toBeInTheDocument();
+describe('CredentialsSection', () => {
+  it('renders credentials list and no awards heading', () => {
+    render(<CredentialsSection />);
+    expect(screen.getByRole('list', { name: /^credentials$/i })).toBeInTheDocument();
 
     expect(
       screen.queryByRole('heading', { name: /awards\s*&\s*recognition/i }),
     ).not.toBeInTheDocument();
   });
 
-  it('renders education entries in list style with inline active status text', () => {
-    render(<EducationSection />);
+  it('renders credential entries in list style with inline active status text', () => {
+    render(<CredentialsSection />);
 
     expect(screen.getByText('Full-Stack Web Development')).toBeInTheDocument();
     expect(screen.getByText('User Experience Design')).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('EducationSection', () => {
   });
 
   it('does not render accordion toggle buttons', () => {
-    render(<EducationSection />);
-    expect(screen.queryByRole('button', { name: /^education$/i })).not.toBeInTheDocument();
+    render(<CredentialsSection />);
+    expect(screen.queryByRole('button', { name: /^credentials$/i })).not.toBeInTheDocument();
   });
 });

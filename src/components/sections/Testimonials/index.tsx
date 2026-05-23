@@ -2,7 +2,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { HiChevronDown } from 'react-icons/hi2';
-import { reviews } from '@/data/reviews';
+import { testimonials } from '@/data/testimonials';
 import { COMPONENT_SPACING } from '@/constants/spacing';
 import { Button } from '@/components/shared/Button';
 import { TYPOGRAPHY } from '@/constants/styles';
@@ -14,14 +14,14 @@ const openQuoteClass =
 const closeQuoteClass =
   'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle ml-0.5 transition-colors duration-200 group-hover:text-[var(--color-primary)]';
 
-export default function ReviewsSection() {
+export default function TestimonialsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [showAllReviews, setShowAllReviews] = useState(false);
+  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
-  const primaryReviews = reviews.slice(0, 4);
-  const additionalReviews = reviews.slice(4);
+  const primaryTestimonials = testimonials.slice(0, 4);
+  const additionalTestimonials = testimonials.slice(4);
 
-  const renderReview = (review: (typeof reviews)[number]) => (
+  const renderReview = (review: (typeof testimonials)[number]) => (
     <article className="space-y-3 py-1">
       <blockquote
         className={clsx(
@@ -61,7 +61,7 @@ export default function ReviewsSection() {
   return (
     <div className="space-y-6">
       <p className="text-xs italic tracking-wide text-[var(--color-muted)] opacity-60">
-        Some reviews are shortened &mdash;{' '}
+        Some testimonials are shortened &mdash;{' '}
         <a
           href="https://www.linkedin.com/in/afton-gauntlett/"
           target="_blank"
@@ -75,28 +75,30 @@ export default function ReviewsSection() {
         to read them in full
       </p>
       <SectionEntryList
-        items={primaryReviews}
-        ariaLabel="Primary reviews"
+        items={primaryTestimonials}
+        ariaLabel="Primary testimonials"
         listClassName="space-y-5"
         itemClassName="pb-5"
         getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
         renderItem={(review) => renderReview(review)}
       />
 
-      {additionalReviews.length > 0 ? (
+      {additionalTestimonials.length > 0 ? (
         <div>
           <div className="flex items-center">
             <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
             <Button
               type="button"
               variant="unstyled"
-              onClick={() => setShowAllReviews((prev) => !prev)}
-              aria-controls="more-reviews"
-              aria-expanded={showAllReviews}
+              onClick={() => setShowAllTestimonials((prev) => !prev)}
+              aria-controls="more-testimonials"
+              aria-expanded={showAllTestimonials}
               className={clsx(
                 'group mx-3 rounded-md',
                 'text-sm font-semibold',
-                showAllReviews ? 'text-[var(--color-secondary)]' : 'text-[var(--color-primary)]',
+                showAllTestimonials
+                  ? 'text-[var(--color-secondary)]'
+                  : 'text-[var(--color-primary)]',
                 'border border-transparent transition-[color,background-color,border-color] duration-200',
                 'bg-transparent hover:bg-[var(--color-line)]/35',
                 'hover:border-[var(--color-primary)]/35',
@@ -104,11 +106,13 @@ export default function ReviewsSection() {
               )}
             >
               <span className="transition-colors duration-200 font-heading">
-                {showAllReviews ? 'See less' : 'See more'}
+                {showAllTestimonials ? 'See less' : 'See more'}
               </span>
               <motion.span
                 className="grid place-items-center"
-                animate={prefersReducedMotion ? undefined : { rotate: showAllReviews ? 180 : 0 }}
+                animate={
+                  prefersReducedMotion ? undefined : { rotate: showAllTestimonials ? 180 : 0 }
+                }
                 transition={
                   prefersReducedMotion ? undefined : { type: 'spring', stiffness: 240, damping: 20 }
                 }
@@ -120,10 +124,10 @@ export default function ReviewsSection() {
           </div>
 
           <motion.div
-            id="more-reviews"
+            id="more-testimonials"
             className={COMPONENT_SPACING.EXPANDABLE_PANEL_TOP}
             initial={prefersReducedMotion ? undefined : 'closed'}
-            animate={prefersReducedMotion ? undefined : showAllReviews ? 'open' : 'closed'}
+            animate={prefersReducedMotion ? undefined : showAllTestimonials ? 'open' : 'closed'}
             style={{ overflow: 'hidden', transformOrigin: 'top' }}
             variants={
               prefersReducedMotion
@@ -155,8 +159,8 @@ export default function ReviewsSection() {
             }
           >
             <SectionEntryList
-              items={additionalReviews}
-              ariaLabel="Additional reviews"
+              items={additionalTestimonials}
+              ariaLabel="Additional testimonials"
               listClassName="space-y-5"
               itemClassName="pb-5"
               getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}

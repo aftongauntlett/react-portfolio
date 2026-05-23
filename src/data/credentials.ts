@@ -1,4 +1,4 @@
-export type Education = {
+export type Credential = {
   title: string;
   institution: string;
   date: string;
@@ -12,7 +12,7 @@ export type Award = {
   description: string;
 };
 
-export const education: Education[] = [
+export const credentials: Credential[] = [
   {
     title: 'Full-Stack Web Development',
     institution: 'George Washington University',

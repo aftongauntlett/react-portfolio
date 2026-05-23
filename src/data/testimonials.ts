@@ -1,4 +1,4 @@
-export interface Review {
+export interface Testimonial {
   name: string;
   title: string;
   year: string;
@@ -6,7 +6,7 @@ export interface Review {
   truncated?: boolean;
 }
 
-export const reviews: Review[] = [
+export const testimonials: Testimonial[] = [
   {
     name: 'Skye Owen Odharo',
     title: 'Software Engineer · Booz Allen Hamilton',

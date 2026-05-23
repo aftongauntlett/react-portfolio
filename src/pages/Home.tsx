@@ -12,15 +12,22 @@ const loadContactSection = () => import('@/components/sections/Contact');
 const loadExperienceSection = () => import('@/components/sections/Experience');
 const loadProjectsSection = () => import('@/components/sections/Projects');
 const loadSkillsSection = () => import('@/components/sections/Skills');
-const loadEducationSection = () => import('@/components/sections/Education');
-const loadReviewsSection = () => import('@/components/sections/Reviews');
+const loadCredentialsSection = () => import('@/components/sections/Credentials');
+const loadTestimonialsSection = () => import('@/components/sections/Testimonials');
 
 const ContactSection = lazy(loadContactSection);
 const ExperienceSection = lazy(loadExperienceSection);
 const ProjectsSection = lazy(loadProjectsSection);
 const SkillsSection = lazy(loadSkillsSection);
-const EducationSection = lazy(loadEducationSection);
-const ReviewsSection = lazy(loadReviewsSection);
+const CredentialsSection = lazy(loadCredentialsSection);
+const TestimonialsSection = lazy(loadTestimonialsSection);
+
+const SECTION_ID_ALIASES: Record<string, string> = {
+  education: 'credentials',
+  reviews: 'testimonials',
+};
+
+const normalizeSectionId = (id: string) => SECTION_ID_ALIASES[id] ?? id;
 
 // Loading component for sections
 function SectionLoader() {
@@ -52,8 +59,8 @@ export default function Home() {
         loadSkillsSection(),
         loadExperienceSection(),
         loadProjectsSection(),
-        loadEducationSection(),
-        loadReviewsSection(),
+        loadCredentialsSection(),
+        loadTestimonialsSection(),
         loadContactSection(),
       ]);
     };
@@ -90,7 +97,8 @@ export default function Home() {
   // Parse hash to determine what section to scroll to
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash.slice(1); // Remove the #
+      const rawHash = window.location.hash.slice(1); // Remove the #
+      const hash = normalizeSectionId(rawHash);
 
       // Handle scrolling to section with retry
       if (hash) {
@@ -105,6 +113,11 @@ export default function Home() {
 
           if (element) {
             smoothScrollTo({ target: hash, offset: 80 }, lenis);
+
+            if (rawHash !== hash) {
+              window.history.replaceState(null, '', `#${hash}`);
+            }
+
             // Focus the heading if it exists and is focusable
             if (headingElement && headingElement.tabIndex === -1) {
               headingElement.focus();
@@ -132,12 +145,13 @@ export default function Home() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const scrollTo = urlParams.get('scrollTo');
+    const targetSection = scrollTo ? normalizeSectionId(scrollTo) : null;
 
-    if (scrollTo) {
+    if (targetSection) {
       setTimeout(() => {
-        const element = document.getElementById(scrollTo);
+        const element = document.getElementById(targetSection);
         if (element) {
-          smoothScrollTo({ target: scrollTo, offset: 80 }, lenis);
+          smoothScrollTo({ target: targetSection, offset: 80 }, lenis);
 
           // Clean up URL
           const newUrl = new URL(window.location.href);
@@ -173,14 +187,14 @@ export default function Home() {
           <ProjectsSection />
         </Suspense>
       </PageSection>
-      <PageSection id="education" title="Education" className={sectionSpacingClass}>
+      <PageSection id="credentials" title="Credentials" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
-          <EducationSection />
+          <CredentialsSection />
         </Suspense>
       </PageSection>
-      <PageSection id="reviews" title="Reviews" className={sectionSpacingClass}>
+      <PageSection id="testimonials" title="Testimonials" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
-          <ReviewsSection />
+          <TestimonialsSection />
         </Suspense>
       </PageSection>
       <PageSection id="contact" title="Get in Touch" className={sectionSpacingClass}>

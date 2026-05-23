@@ -1,10 +1,10 @@
-import { education, type Education } from '@/data/education';
+import { credentials, type Credential } from '@/data/credentials';
 import clsx from 'clsx';
 import { TYPOGRAPHY } from '@/constants/styles';
 import SectionEntryList from '@/components/shared/SectionEntryList';
 
-function EducationGrid({ items }: { items: readonly Education[] }) {
-  const renderEducationContent = (item: Education) => {
+function CredentialsGrid({ items }: { items: readonly Credential[] }) {
+  const renderCredentialContent = (item: Credential) => {
     return (
       <article className="space-y-2.5">
         <header className="flex items-start justify-between gap-3">
@@ -30,7 +30,9 @@ function EducationGrid({ items }: { items: readonly Education[] }) {
               className={clsx(
                 TYPOGRAPHY.TEXT_SMALL,
                 'mt-1 inline-flex items-center gap-2 transition-colors duration-200',
-                item.title === 'CompTIA Security+' ? 'text-[var(--color-text)]' : 'text-[var(--color-muted)]',
+                item.title === 'CompTIA Security+'
+                  ? 'text-[var(--color-text)]'
+                  : 'text-[var(--color-muted)]',
               )}
             >
               {item.date}
@@ -55,13 +57,13 @@ function EducationGrid({ items }: { items: readonly Education[] }) {
   return (
     <SectionEntryList
       items={items}
-      ariaLabel="Education"
+      ariaLabel="Credentials"
       getItemKey={(item, idx) => `${item.title}-${idx}`}
-      renderItem={(item) => renderEducationContent(item)}
+      renderItem={(item) => renderCredentialContent(item)}
     />
   );
 }
 
-export default function EducationSection() {
-  return <EducationGrid items={education} />;
+export default function CredentialsSection() {
+  return <CredentialsGrid items={credentials} />;
 }
