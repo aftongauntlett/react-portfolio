@@ -153,21 +153,21 @@ textarea:-moz-autofill {
 
 /* Section headings */
 .heading-1 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(1.75rem, 4vw, 2.25rem);
   line-height: 1.2;
   font-weight: 700;
 }
 
 .heading-2 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 3vw, 1.875rem);
   line-height: 1.3;
   font-weight: 600;
 }
 
 .heading-3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   line-height: 1.3;
   font-weight: 600;
@@ -175,7 +175,7 @@ textarea:-moz-autofill {
 
 /* Subtitle - Used for subsections, job titles, etc */
 .subtitle {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 1.25rem;
   line-height: 1.3;
   font-weight: 600;

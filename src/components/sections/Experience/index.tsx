@@ -1,39 +1,12 @@
 import { jobs } from '@/data/jobs';
-import { motion } from 'framer-motion';
-import { createMotionVariants } from '@/utils/motionHelpers';
-import { VIEWPORT_CONFIG } from '@/constants/animations';
-import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { awards } from '@/data/education';
-import { useMemo, type CSSProperties } from 'react';
+import { useMemo } from 'react';
 import clsx from 'clsx';
 import { TYPOGRAPHY } from '@/constants/styles';
+import SectionEntryList from '@/components/shared/SectionEntryList';
 import type { Job } from '@/data/jobs';
 
 export default function ExperienceSection() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const { fadeInUp } = createMotionVariants(prefersReducedMotion);
-
-  const listStagger = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
-        delayChildren: getMotionDuration(0.05, prefersReducedMotion),
-      },
-    },
-  } as const;
-
-  const listItemFade = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: getMotionDuration(0.5, prefersReducedMotion),
-        ease: 'easeOut' as const,
-      },
-    },
-  } as const;
-
   const isLeadEngineerAwardAnchor = (title: string, company: string) =>
     title === 'Lead Engineer' && company === 'Booz Allen Hamilton';
 
@@ -65,31 +38,14 @@ export default function ExperienceSection() {
     return [];
   };
 
-  const getLocationChipProps = (
-    location: NonNullable<Job['location']>,
-  ): { className: string; style?: CSSProperties } => {
-    if (location === 'Remote') {
-      return {
-        className: clsx(
-          TYPOGRAPHY.TEXT_XS,
-          'inline-flex items-center px-2 py-1 rounded border border-[var(--color-line)]',
-          'transition-colors duration-200 group-hover:border-[var(--color-primary)]/30',
-          'text-[var(--color-status-remote)]',
-        ),
-        style: { backgroundColor: 'var(--color-status-remote-bg)' },
-      };
-    }
-
-    return {
-      className: clsx(
-        TYPOGRAPHY.TEXT_XS,
-        'inline-flex items-center px-2 py-1 rounded border border-[var(--color-line)]',
-        'transition-colors duration-200 group-hover:border-[var(--color-primary)]/30',
-        'text-[var(--color-status-onsite)]',
-      ),
-      style: { backgroundColor: 'var(--color-status-onsite-bg)' },
-    };
-  };
+  const getLocationChipClassName = (location: NonNullable<Job['location']>) =>
+    clsx(
+      TYPOGRAPHY.TEXT_XS,
+      'inline-flex items-center px-2 py-1 rounded border bg-transparent',
+      location === 'Remote'
+        ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
+        : 'border-[var(--color-secondary)] text-[var(--color-secondary)]',
+    );
 
   const renderJobContent = (job: Job) => {
     const awardsForRole = getAwardsForRole(job.title, job.company);
@@ -113,14 +69,14 @@ export default function ExperienceSection() {
             <time
               className={clsx(
                 TYPOGRAPHY.TEXT_SMALL,
-                'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
+                'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-muted)]',
               )}
             >
               {job.dates}
             </time>
           </div>
           {job.location ? (
-            <span {...getLocationChipProps(job.location)}>{job.location}</span>
+            <span className={getLocationChipClassName(job.location)}>{job.location}</span>
           ) : null}
         </header>
 
@@ -134,7 +90,7 @@ export default function ExperienceSection() {
         </p>
 
         {awardsForRole.length > 0 ? (
-          <div className="border-l-2 border-[var(--color-line)] pl-4 pt-1 transition-colors duration-200 group-hover:border-[var(--color-primary)]/35">
+          <div className="border-l-2 border-[var(--color-line)] pl-4 pt-1 transition-colors duration-200 group-hover:border-[var(--color-line)]">
             <p
               className={clsx(
                 TYPOGRAPHY.TEXT_XS,
@@ -152,7 +108,7 @@ export default function ExperienceSection() {
             >
               {awardsForRole.map((award) => (
                 <li
-                  className="list-disc marker:text-[var(--color-primary)]"
+                  className="list-disc marker:text-[var(--color-muted)]"
                   key={`${award.title}-${award.date}`}
                 >
                   <span className="font-semibold text-[var(--color-text)]">
@@ -168,42 +124,12 @@ export default function ExperienceSection() {
     );
   };
 
-  if (prefersReducedMotion) {
-    return (
-      <div className="space-y-8">
-        <ul className="space-y-8" aria-label="Professional experience">
-          {jobs.map((job, i) => (
-            <li
-              className="group rounded-lg border-b border-[var(--color-line)] px-3 pb-8 pt-3 transition-colors duration-200 [@media(hover:hover)]:hover:bg-[var(--color-primary)]/5 last:border-b-0 last:pb-0"
-              key={`${job.title}-${i}`}
-            >
-              {renderJobContent(job)}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
   return (
-    <motion.div
-      className="space-y-8"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ ...VIEWPORT_CONFIG, amount: 0.05 }}
-      variants={fadeInUp}
-    >
-      <motion.ul className="space-y-8" aria-label="Professional experience" variants={listStagger}>
-        {jobs.map((job, i) => (
-          <motion.li
-            className="group rounded-lg border-b border-[var(--color-line)] px-3 pb-8 pt-3 transition-colors duration-200 [@media(hover:hover)]:hover:bg-[var(--color-primary)]/5 last:border-b-0 last:pb-0"
-            key={`${job.title}-${i}`}
-            variants={listItemFade}
-          >
-            {renderJobContent(job)}
-          </motion.li>
-        ))}
-      </motion.ul>
-    </motion.div>
+    <SectionEntryList
+      items={jobs}
+      ariaLabel="Professional experience"
+      getItemKey={(job, idx) => `${job.title}-${idx}`}
+      renderItem={(job) => renderJobContent(job)}
+    />
   );
 }

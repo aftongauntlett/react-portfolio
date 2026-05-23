@@ -27,18 +27,14 @@ function SectionLoader() {
   return (
     <div className="flex items-center justify-center py-8">
       <div className="animate-pulse flex space-x-4">
-        <div className="rounded-full bg-gray-300 dark:bg-gray-600 h-4 w-4"></div>
+        <div className="rounded-full h-4 w-4 bg-[var(--color-skeleton)]"></div>
         <div className="flex-1 space-y-2 py-1">
-          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4"></div>
-          <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+          <div className="h-4 rounded w-3/4 bg-[var(--color-skeleton)]"></div>
+          <div className="h-4 rounded w-1/2 bg-[var(--color-skeleton)]"></div>
         </div>
       </div>
     </div>
   );
-}
-
-function SectionDivider() {
-  return <hr className="section-divider" aria-hidden="true" />;
 }
 
 export default function Home() {
@@ -167,31 +163,26 @@ export default function Home() {
           <SkillsSection />
         </Suspense>
       </PageSection>
-      <SectionDivider />
       <PageSection id="experience" title="Experience" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ExperienceSection />
         </Suspense>
       </PageSection>
-      <SectionDivider />
       <PageSection id="projects" title="Projects" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
         </Suspense>
       </PageSection>
-      <SectionDivider />
       <PageSection id="education" title="Education" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <EducationSection />
         </Suspense>
       </PageSection>
-      <SectionDivider />
       <PageSection id="reviews" title="Reviews" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ReviewsSection />
         </Suspense>
       </PageSection>
-      <SectionDivider />
       <PageSection id="contact" title="Get in Touch" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ContactSection />

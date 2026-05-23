@@ -2,9 +2,6 @@ export type Education = {
   title: string;
   institution: string;
   date: string;
-  status?: string;
-  type: 'certification' | 'certificate';
-  link?: string;
   description?: string;
 };
 
@@ -20,27 +17,22 @@ export const education: Education[] = [
     title: 'Full-Stack Web Development',
     institution: 'George Washington University',
     date: '08/2020',
-    type: 'certificate',
     description:
-      'Immersive program focused on modern JavaScript, React, Node.js, and full-stack fundamentals.',
-  },
-  {
-    title: 'CompTIA Security+ Certification',
-    institution: 'CompTIA',
-    date: '11/2022',
-    status: 'Active',
-    type: 'certification',
-    link: 'https://www.credly.com/badges/90402bb7-7fdf-4945-aea3-b20fd916f1b4',
-    description:
-      'Foundation in security principles including access control, identity management, network defense, and risk assessment.',
+      'MERN stack bootcamp covering JavaScript, React, Node.js, and full-stack fundamentals. Built end-to-end applications with API integration, authentication, and database workflows. Collaborated in sprint-style projects to practice shipping production-ready features under tight timelines.',
   },
   {
     title: 'User Experience Design',
     institution: 'General Assembly',
     date: '12/2022',
-    type: 'certificate',
     description:
-      'Hands-on UX immersion covering research, information architecture, wireframing, prototyping (including Figma), and usability testing.',
+      'Hands-on program covering research, information architecture, wireframing, and usability testing. Developed project flows from discovery through prototyping, with a strong emphasis on iterative feedback and accessibility. Conducted moderated testing sessions and translated findings into clearer interaction patterns and UI decisions.',
+  },
+  {
+    title: 'CompTIA Security+',
+    institution: 'CompTIA',
+    date: '11/2022',
+    description:
+      'Active certification. Foundation in security principles including access control, identity management, and network defense. Reinforced practical understanding of risk management, secure system design, and incident response fundamentals. Strengthened cross-functional communication around security requirements in product and engineering work.',
   },
 ];
 

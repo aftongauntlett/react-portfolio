@@ -37,9 +37,9 @@ export default function Tag({
     secondary:
       'bg-[var(--color-secondary)]/10 border border-[var(--color-secondary)]/20 text-[var(--color-secondary)] hover:bg-[var(--color-secondary)]/15 hover:border-[var(--color-secondary)]/30',
     muted:
-      'border text-[var(--color-muted)] bg-[var(--color-chip-muted-bg)] border-[var(--color-chip-muted-border)] hover:bg-[var(--color-primary)]/10 hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] dark:hover:border-[var(--color-primary)]/60 dark:hover:text-[var(--color-primary)] dark:hover:bg-transparent',
+      'border text-[var(--color-muted)] bg-[var(--color-chip-muted-bg)] border-[var(--color-chip-muted-border)] hover:bg-[var(--color-chip-muted-bg)] hover:border-[var(--color-line)] hover:text-[var(--color-text)]',
     neutral:
-      'bg-[var(--color-surface)] border border-[var(--color-line)] text-[var(--color-text)] hover:border-[var(--color-primary)]/60 hover:bg-[var(--color-primary)]/5 hover:text-[var(--color-secondary)]',
+      'bg-[var(--color-surface)] border border-[var(--color-line)] text-[var(--color-muted)] hover:bg-[var(--color-surface)] hover:border-[var(--color-line)] hover:text-[var(--color-text)]',
     active:
       'bg-[var(--color-primary)]/20 text-[var(--color-primary)] border border-[var(--color-primary)]/40 shadow-sm font-semibold',
   };

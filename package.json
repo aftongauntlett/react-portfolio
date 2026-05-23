@@ -33,9 +33,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "test": "vitest run",
+    "test:a11y": "vitest run src/components/layout/Layout/__tests__/index.test.tsx src/components/layout/MobileNav/__tests__/index.test.tsx src/components/layout/SideNav/__tests__/index.test.tsx src/components/sections/Contact/__tests__/index.test.tsx src/components/shared/__tests__/Button.test.tsx",
     "test:watch": "vitest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "ci:check": "npm run lint && npm run test && npm run test:a11y && npm run typecheck && npm run build"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

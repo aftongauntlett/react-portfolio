@@ -18,7 +18,7 @@ export default function AboutSection() {
           <h1
             className={clsx(
               TYPOGRAPHY.TITLE,
-              'hello-gradient',
+              'hero-heading',
               'relative text-balance leading-tight pb-[0.15em]',
             )}
           >

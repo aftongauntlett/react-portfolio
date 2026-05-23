@@ -14,27 +14,9 @@ vi.mock('framer-motion', async () => {
   };
 });
 
-vi.mock('@/components/shared/MotionSection', async () => {
-  const { stripMotionProps } = await import('@/test/framerMotionTestUtils');
-
-  return {
-    default: ({ children, ...props }: PropsWithChildren<Record<string, unknown>>) => (
-      <div {...stripMotionProps(props)}>{children}</div>
-    ),
-  };
-});
-
 vi.mock('@/hooks/usePrefersReducedMotion', () => ({
   usePrefersReducedMotion: () => false,
   getMotionDuration: () => 0.3,
-}));
-
-vi.mock('@/hooks/usePointerTilt', () => ({
-  usePointerTilt: () => ({
-    tiltStyle: {},
-    onPointerMove: () => {},
-    onPointerLeave: () => {},
-  }),
 }));
 
 describe('ContactSection', () => {
@@ -42,6 +24,7 @@ describe('ContactSection', () => {
 
   beforeEach(() => {
     fetchMock.mockReset();
+
     vi.stubGlobal('fetch', fetchMock);
   });
 
@@ -115,11 +98,12 @@ describe('ContactSection', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/message sent/i);
   });
 
-  it('does not render GitHub or LinkedIn social links', () => {
+  it('does not render contact details links', () => {
     render(<ContactSection />);
 
-    expect(screen.queryByRole('link', { name: /github/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: /linkedin/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /visit linkedin profile/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /visit github profile/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /download resume/i })).not.toBeInTheDocument();
   });
 
   it('stops Turnstile after repeated failures and shows email fallback', async () => {

@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['var(--font-heading)', 'sans-serif'],
-        display: ['var(--font-display)', 'Georgia', 'serif'],
+        heading: ['var(--font-display)', 'sans-serif'],
+        display: ['var(--font-display)', 'sans-serif'],
         body: ['var(--font-body)', 'sans-serif'],
       },
       fontSize: {

@@ -5,13 +5,14 @@ import { HiChevronDown } from 'react-icons/hi2';
 import { reviews } from '@/data/reviews';
 import { COMPONENT_SPACING } from '@/constants/spacing';
 import { Button } from '@/components/shared/Button';
-import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
-import { VIEWPORT_CONFIG } from '@/constants/animations';
+import { TYPOGRAPHY } from '@/constants/styles';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import SectionEntryList from '@/components/shared/SectionEntryList';
 
 const openQuoteClass =
-  'font-serif text-xl not-italic leading-none text-[var(--color-primary)] opacity-50 align-middle mr-0.5';
+  'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle mr-0.5 transition-colors duration-200 group-hover:text-[var(--color-primary)]';
 const closeQuoteClass =
-  'font-serif text-xl not-italic leading-none text-[var(--color-primary)] opacity-50 align-middle ml-0.5';
+  'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle ml-0.5 transition-colors duration-200 group-hover:text-[var(--color-primary)]';
 
 export default function ReviewsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -20,48 +21,41 @@ export default function ReviewsSection() {
   const primaryReviews = reviews.slice(0, 4);
   const additionalReviews = reviews.slice(4);
 
-  const renderReview = (review: (typeof reviews)[number], i: number) => (
-    <motion.div
-      key={review.name}
-      className={clsx(
-        'group rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)]',
-        COMPONENT_SPACING.CARD_PADDING,
-        'transition-[border-color,box-shadow] duration-300 hover:border-[var(--color-primary)]/30 hover:shadow-[0_0_40px_rgba(var(--color-primary-rgb),0.16)] dark:hover:shadow-[0_0_22px_rgba(var(--color-primary-rgb),0.10)]',
-      )}
-      initial={{ opacity: prefersReducedMotion ? 1 : 0, y: prefersReducedMotion ? 0 : 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={VIEWPORT_CONFIG}
-      transition={{
-        duration: getMotionDuration(0.4, prefersReducedMotion),
-        ease: 'easeOut',
-        delay: prefersReducedMotion ? 0 : i * 0.04,
-      }}
-    >
-      <div className="flex h-full flex-col justify-between gap-3">
-        <p className="text-small italic leading-relaxed text-[var(--color-muted)]">
-          <span className={openQuoteClass} aria-hidden="true">
-            &ldquo;
+  const renderReview = (review: (typeof reviews)[number]) => (
+    <article className="space-y-3 py-1">
+      <blockquote
+        className={clsx(
+          TYPOGRAPHY.TEXT_DESCRIPTION,
+          'border-l-2 border-[var(--color-line)] pl-4 italic leading-relaxed text-[var(--color-muted)]',
+          'transition-colors duration-200 group-hover:border-[var(--color-primary)]/45',
+        )}
+      >
+        <span className={openQuoteClass} aria-hidden="true">
+          &ldquo;
+        </span>
+        {review.quote}
+        {review.truncated ? (
+          <span className={closeQuoteClass} aria-hidden="true">
+            &hellip;&rdquo;
           </span>
-          {review.quote}
-          {review.truncated ? (
-            <span className={closeQuoteClass} aria-hidden="true">
-              &hellip;&rdquo;
-            </span>
-          ) : (
-            <span className={closeQuoteClass} aria-hidden="true">
-              &rdquo;
-            </span>
-          )}
-        </p>
-        <div className="border-t border-[var(--color-line)] pt-3 text-right">
-          <p className="text-xs font-medium text-[var(--color-text)] transition-colors duration-300 group-hover:text-[var(--color-primary)]">
-            {review.name}
-          </p>
-          <p className="text-xs text-[var(--color-muted)] opacity-70">{review.title}</p>
-          <p className="text-xs text-[var(--color-muted)] opacity-50">{review.year}</p>
-        </div>
-      </div>
-    </motion.div>
+        ) : (
+          <span className={closeQuoteClass} aria-hidden="true">
+            &rdquo;
+          </span>
+        )}
+      </blockquote>
+      <p
+        className={clsx(
+          TYPOGRAPHY.TEXT_SMALL,
+          'pl-4 font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]',
+        )}
+      >
+        {review.name}
+      </p>
+      <p className={clsx(TYPOGRAPHY.TEXT_XS, 'pl-4 text-[var(--color-muted)]')}>
+        {review.title} · {review.year}
+      </p>
+    </article>
   );
 
   return (
@@ -80,9 +74,14 @@ export default function ReviewsSection() {
         </a>{' '}
         to read them in full
       </p>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {primaryReviews.map((review, i) => renderReview(review, i))}
-      </div>
+      <SectionEntryList
+        items={primaryReviews}
+        ariaLabel="Primary reviews"
+        listClassName="space-y-5"
+        itemClassName="pb-5"
+        getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
+        renderItem={(review) => renderReview(review)}
+      />
 
       {additionalReviews.length > 0 ? (
         <div>
@@ -155,9 +154,14 @@ export default function ReviewsSection() {
                   }
             }
           >
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {additionalReviews.map((review, i) => renderReview(review, i + 4))}
-            </div>
+            <SectionEntryList
+              items={additionalReviews}
+              ariaLabel="Additional reviews"
+              listClassName="space-y-5"
+              itemClassName="pb-5"
+              getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
+              renderItem={(review) => renderReview(review)}
+            />
           </motion.div>
         </div>
       ) : null}

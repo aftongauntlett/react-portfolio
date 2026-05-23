@@ -21,9 +21,15 @@ export const TEXT_PRIMARY_HOVER =
 export const TEXT_MUTED_HOVER =
   'text-[var(--color-muted)] group-hover:text-[var(--color-secondary)]';
 
+// Reusable interactive surface styles for card-like blocks.
+export const SURFACE_CARD_BASE =
+  'rounded-lg border border-[var(--color-line)] bg-[var(--color-surface-card)]';
+export const SURFACE_CARD_HOVER_GLOW =
+  'transition-[background-color,border-color,box-shadow] duration-300 [@media(hover:hover)]:hover:bg-[var(--color-surface-card-hover)] [@media(hover:hover)]:hover:border-[var(--color-line)]';
+
 // Card & Container Base Classes
 export const CARD_BASE_CLASSES =
-  'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 transition-opacity duration-300 group';
+  'block p-4 rounded-lg border border-[var(--color-line)] bg-[var(--color-surface-card)] [@media(hover:hover)]:hover:bg-[var(--color-surface-card-hover)] [@media(hover:hover)]:hover:border-[var(--color-line)] transition-[background-color,border-color,opacity] duration-300 group';
 
 // Typography Classes (using consistent system)
 export const TITLE_HOVER_CLASSES = `${TYPOGRAPHY.SUBTITLE} transition-colors duration-300 text-[var(--color-text)] group-hover:text-[var(--color-primary)]`;

@@ -1,10 +1,12 @@
 :root {
-  --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
   --color-background: hsl(36, 20%, 95%); /* warm linen */
   --color-surface: hsl(36, 15%, 97%); /* warm near-white */
   --color-surface-sunken: hsl(36, 18%, 93%); /* deeper cream */
+  --color-surface-card: hsl(36, 17%, 98.4%); /* slightly elevated card surface */
+  --color-surface-card-hover: hsl(36, 16%, 97.2%); /* subtle draw-in on hover */
   --color-text: hsl(25, 15%, 14%); /* warm near-black */
   --color-muted: hsl(25, 8%, 40%); /* warm grey-brown */
   --color-primary: hsl(152, 22%, 42%); /* sage green */
@@ -15,6 +17,8 @@
   --color-secondary-darker: hsl(22, 60%, 40%); /* deep sienna */
   --color-theme-toggle-hover: hsl(40, 45%, 52%); /* muted warm yellow */
   --color-line: hsla(30, 12%, 72%, 0.85); /* warm grey rule */
+  --color-skeleton: hsl(25, 9%, 82%);
+  --color-backdrop-rgb: 0, 0, 0;
 
   /* Award icon accents (derived from existing theme colors) */
   --color-award-accent-1: color-mix(in oklab, var(--color-primary) 75%, var(--color-secondary) 25%);
@@ -51,6 +55,8 @@ html.dark {
   --color-background: hsl(0, 2%, 8%);
   --color-surface: hsl(0, 0%, 7%);
   --color-surface-sunken: hsl(0, 2%, 4%);
+  --color-surface-card: hsl(0, 0%, 10%);
+  --color-surface-card-hover: hsl(0, 0%, 8.5%);
   --color-text: hsl(0, 0%, 95%);
   --color-muted: hsl(198, 21%, 77%);
   --color-primary: hsl(188, 65%, 64%);
@@ -61,6 +67,8 @@ html.dark {
   --color-secondary-darker: hsl(20, 57%, 56%);
   --color-theme-toggle-hover: hsl(42, 60%, 68%); /* muted warm yellow */
   --color-line: hsla(0, 0%, 30%, 0.3);
+  --color-skeleton: hsl(0, 0%, 38%);
+  --color-backdrop-rgb: 0, 0, 0;
 
   /* Award icon accents (derived from existing theme colors) */
   --color-award-accent-1: color-mix(in oklab, var(--color-primary) 65%, var(--color-secondary) 35%);
@@ -97,6 +105,32 @@ html.dark {
    so chips and other elements with transition-colors snap instantly. */
 .no-transitions * {
   transition: none !important;
+}
+
+/* Hero heading treatment: charcoal in light mode, gradient in dark mode */
+.hero-heading {
+  color: var(--color-text);
+}
+
+@supports (color: color-mix(in oklab, black, white)) {
+  .hero-heading {
+    color: color-mix(in oklab, var(--color-text) 92%, black 8%);
+  }
+}
+
+html.dark .hero-heading {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-primary) 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* Hello text gradient animation using theme colors */
@@ -157,7 +191,8 @@ html:not(.dark) .hello-gradient {
 
 /* Reduced motion: disable animations, show static gradient */
 @media (prefers-reduced-motion: reduce) {
-  .hello-gradient {
+  .hello-gradient,
+  .hero-heading {
     animation: none;
     background-position: 50% 50%;
   }
