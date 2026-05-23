@@ -35,7 +35,7 @@ export default function PaintSplashText({
 
   return (
     <Tag
-      className={`font-heading text-4xl font-semibold leading-[1.3] ${className}`}
+      className={`font-display text-4xl font-semibold leading-[1.3] ${className}`}
       tabIndex={-1}
       {...additionalProps}
     >

@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         heading: ['var(--font-heading)', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
         body: ['var(--font-body)', 'sans-serif'],
       },
       fontSize: {

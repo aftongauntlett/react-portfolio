@@ -37,6 +37,10 @@ function SectionLoader() {
   );
 }
 
+function SectionDivider() {
+  return <hr className="section-divider" aria-hidden="true" />;
+}
+
 export default function Home() {
   const { lenis } = useLenisContext();
   const sectionSpacingClass = SECTION_SPACING.TOP_PADDING;
@@ -150,46 +154,45 @@ export default function Home() {
 
   return (
     <>
-      <PageSection id="about" title="About" hideTitle={true} className="section-content--critical">
+      <PageSection
+        id="about"
+        title="About"
+        hideTitle={true}
+        className="section-content--critical !pb-0 sm:!pb-0"
+      >
         <AboutSection />
       </PageSection>
-      <hr className="border-t border-[var(--color-line)] my-0" />
       <PageSection id="skills" title="Skills" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <SkillsSection />
         </Suspense>
       </PageSection>
-      <hr className="border-t border-[var(--color-line)] my-0" />
+      <SectionDivider />
       <PageSection id="experience" title="Experience" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ExperienceSection />
         </Suspense>
       </PageSection>
-      <hr className="border-t border-[var(--color-line)] my-0" />
+      <SectionDivider />
       <PageSection id="projects" title="Projects" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ProjectsSection />
         </Suspense>
       </PageSection>
-      <hr className="border-t border-[var(--color-line)] my-0" />
+      <SectionDivider />
       <PageSection id="education" title="Education" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <EducationSection />
         </Suspense>
       </PageSection>
-      <hr className="border-t border-[var(--color-line)] my-0" />
+      <SectionDivider />
       <PageSection id="reviews" title="Reviews" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ReviewsSection />
         </Suspense>
       </PageSection>
-      <hr className="border-t border-[var(--color-line)] my-0" />
-      <PageSection
-        id="contact"
-        title="Get in Touch"
-        hideTitle={true}
-        className={`${sectionSpacingClass} text-center`}
-      >
+      <SectionDivider />
+      <PageSection id="contact" title="Get in Touch" className={sectionSpacingClass}>
         <Suspense fallback={<SectionLoader />}>
           <ContactSection />
         </Suspense>

@@ -11,6 +11,7 @@ import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
 import { IconLinkedIn, IconSun } from '@/components/shared/InlineIcons';
 import { BsMoonFill } from 'react-icons/bs';
+import { HiOutlineDocumentText } from 'react-icons/hi2';
 
 export default function SideNav() {
   const activeSection = useActiveSection();
@@ -118,38 +119,42 @@ export default function SideNav() {
         </nav>
       </div>
 
-      <div className="flex flex-col gap-6">
-        <Button href="https://aftongauntlett.github.io/resume/" variant="outline" color="primary">
-          View Resume
-        </Button>
+      <div className="flex flex-col gap-4">
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
-        <div className="flex items-center justify-between">
-          <div className="flex gap-4" aria-label="Social media links">
-            <LinkButton
-              type="github"
-              href="https://github.com/aftongauntlett"
-              aria-label="Visit GitHub profile"
-              variant="link"
-              color="muted"
-            />
-            <Button
-              href="https://www.linkedin.com/in/afton-gauntlett/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit LinkedIn profile (opens in new tab)"
-              variant="link"
-              color="muted"
-              icon={<IconLinkedIn size={20} />}
-            />
-          </div>
-
+        <div className="flex items-center gap-4" aria-label="Sidebar quick actions">
+          <LinkButton
+            type="github"
+            href="https://github.com/aftongauntlett"
+            aria-label="Visit GitHub profile"
+            variant="link"
+            color="muted"
+          />
+          <Button
+            href="https://www.linkedin.com/in/afton-gauntlett/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit LinkedIn profile (opens in new tab)"
+            variant="link"
+            color="muted"
+            icon={<IconLinkedIn size={20} />}
+          />
+          <Button
+            href="https://aftongauntlett.github.io/resume/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View resume (opens in new tab)"
+            variant="link"
+            color="muted"
+            icon={<HiOutlineDocumentText size={20} />}
+          />
           <Button
             onClick={toggleTheme}
             icon={theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            variant="link"
+            variant="outline"
             color="muted"
+            className="!h-9 !w-9 !p-0 !rounded-full !border-[var(--color-line)] !bg-[var(--color-surface)]/80 hover:!bg-[var(--color-surface)] hover:!text-[var(--color-theme-toggle-hover)] hover:!opacity-100"
           />
         </div>
       </div>

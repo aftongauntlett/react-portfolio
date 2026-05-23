@@ -145,8 +145,8 @@ textarea:-moz-autofill {
 /* === TYPOGRAPHY SYSTEM === */
 /* Main title - Used for page/section titles */
 .title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4rem);
   line-height: 1.1;
   font-weight: 700;
 }
@@ -243,7 +243,7 @@ textarea:-moz-autofill {
 }
 
 .section-content {
-  @apply px-4 sm:px-6 md:px-8 lg:px-10 max-w-4xl mx-auto w-full;
+  @apply px-4 sm:px-6 md:px-8 lg:px-6 xl:px-8 max-w-4xl mx-auto lg:mx-0 lg:max-w-none w-full;
   content-visibility: visible;
   contain-intrinsic-size: auto;
 }
@@ -252,6 +252,25 @@ textarea:-moz-autofill {
 .section-content--critical {
   content-visibility: visible;
   contain-intrinsic-size: auto;
+}
+
+.section-divider {
+  @apply my-0 mx-auto lg:mx-0 px-4 sm:px-6 md:px-8 lg:px-6 xl:px-8 max-w-4xl lg:max-w-none;
+  border: 0;
+}
+
+.section-divider::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-line) 10%,
+    var(--color-line) 90%,
+    transparent 100%
+  );
+  opacity: 0.85;
 }
 
 /* Ensure sticky navigation works properly */
@@ -336,7 +355,7 @@ div[role='button']:focus-visible {
 
 /* Button Variants */
 .btn {
-  @apply inline-flex items-center justify-center gap-2 rounded px-3 sm:px-4 py-2;
+  @apply inline-flex items-center justify-center gap-2 rounded px-3 sm:px-4 py-1.5;
   @apply font-medium text-sm sm:text-base shrink-0;
   @apply focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2;
   @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
@@ -474,8 +493,18 @@ html.dark .btn--outline.btn--primary {
 /* Link Variants */
 .btn--link {
   @apply bg-transparent border-0 border-b border-transparent;
-  padding: 0.25rem 0.5rem !important;
+  padding: 0.125rem 0.5rem !important;
   border-radius: 0 !important;
+}
+
+.btn--unstyled {
+  background: transparent;
+  border: 0;
+  color: inherit;
+}
+
+.btn--unstyled::before {
+  display: none;
 }
 
 .btn--link.btn--primary {

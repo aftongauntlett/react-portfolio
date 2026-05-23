@@ -13,6 +13,7 @@
   --color-secondary: hsl(22, 60%, 48%); /* burnt sienna */
   --color-secondary-rgb: 196, 103, 49;
   --color-secondary-darker: hsl(22, 60%, 40%); /* deep sienna */
+  --color-theme-toggle-hover: hsl(40, 45%, 52%); /* muted warm yellow */
   --color-line: hsla(30, 12%, 72%, 0.85); /* warm grey rule */
 
   /* Award icon accents (derived from existing theme colors) */
@@ -25,6 +26,10 @@
   --color-education-icon-security: hsl(22, 55%, 62%);
   --color-education-icon-figma: hsl(36, 52%, 58%);
 
+  /* Contact section icon */
+  --color-contact-icon: hsl(188, 50%, 36%);
+  --color-contact-icon-rgb: 46, 125, 138;
+
   /* Chip colors for light mode */
   --color-chip-muted-bg: hsl(152, 14%, 95%);
   --color-chip-muted-border: hsl(152, 10%, 84%);
@@ -36,12 +41,10 @@
   --color-status-development-bg: hsl(28, 60%, 94%);
 
   /* Location chip colors for light mode  */
-  --color-status-remote: hsl(152, 22%, 36%);
+  --color-status-remote: hsl(152, 22%, 36%); /* primary family */
   --color-status-remote-bg: hsl(152, 14%, 94%);
-  --color-status-hybrid: hsl(22, 55%, 36%);
-  --color-status-hybrid-bg: hsl(22, 45%, 94%);
-  --color-status-onsite: hsl(36, 55%, 38%);
-  --color-status-onsite-bg: hsl(36, 45%, 94%);
+  --color-status-onsite: hsl(22, 60%, 40%); /* secondary family */
+  --color-status-onsite-bg: hsl(22, 45%, 94%);
 }
 
 html.dark {
@@ -56,6 +59,7 @@ html.dark {
   --color-secondary: hsl(20, 73%, 73%);
   --color-secondary-rgb: 215, 140, 94;
   --color-secondary-darker: hsl(20, 57%, 56%);
+  --color-theme-toggle-hover: hsl(42, 60%, 68%); /* muted warm yellow */
   --color-line: hsla(0, 0%, 30%, 0.3);
 
   /* Award icon accents (derived from existing theme colors) */
@@ -68,6 +72,10 @@ html.dark {
   --color-education-icon-security: var(--color-award-accent-2);
   --color-education-icon-figma: var(--color-award-accent-3);
 
+  /* Contact section icon */
+  --color-contact-icon: hsl(188, 72%, 70%);
+  --color-contact-icon-rgb: 123, 219, 234;
+
   /* Chip colors for dark mode */
   --color-chip-muted-bg: hsla(220, 15%, 45%, 0.1);
   --color-chip-muted-border: hsla(220, 7%, 84%, 0.2);
@@ -79,12 +87,10 @@ html.dark {
   --color-status-development-bg: hsl(25, 50%, 12%);
 
   /* Location chip colors for dark mode  */
-  --color-status-remote: hsl(152, 71%, 68%);
-  --color-status-remote-bg: hsl(152, 37%, 12%);
-  --color-status-hybrid: hsl(196, 71%, 68%);
-  --color-status-hybrid-bg: hsl(219, 37%, 15%);
-  --color-status-onsite: hsl(36, 71%, 68%);
-  --color-status-onsite-bg: hsl(28, 37%, 15%);
+  --color-status-remote: hsl(188, 65%, 64%); /* matches --color-primary */
+  --color-status-remote-bg: hsl(188, 37%, 12%);
+  --color-status-onsite: hsl(20, 73%, 73%); /* matches --color-secondary */
+  --color-status-onsite-bg: hsl(20, 37%, 12%);
 }
 
 /* Disable all transitions for one paint cycle when the theme is toggled,

@@ -19,12 +19,8 @@ export default function AboutSection() {
             className={clsx(
               TYPOGRAPHY.TITLE,
               'hello-gradient',
-              'relative text-balance leading-tight',
+              'relative text-balance leading-tight pb-[0.15em]',
             )}
-            style={{
-              textShadow:
-                '0 2px 10px rgba(0, 0, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.12), 0 8px 32px rgba(0, 0, 0, 0.08)',
-            }}
           >
             <span className="block">Engineering precision.</span>
             <span className="block">Design sensibility.</span>
@@ -44,6 +40,11 @@ export default function AboutSection() {
         {/* Gradient border below opener */}
         <div className="hello-gradient h-1 rounded-full w-[min(60%,300px)]" aria-hidden="true" />
       </div>
+      <hr
+        aria-hidden="true"
+        className="w-full"
+        style={{ border: 'none', borderTop: '1px solid var(--color-line)', opacity: 0.5 }}
+      />
     </div>
   );
 }

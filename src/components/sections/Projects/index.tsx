@@ -94,21 +94,21 @@ export default function ProjectsSection() {
         aria-label="Project links"
       >
         {link ? (
-          <LinkButton type="github" href={link} variant="outline" color="primary">
+          <LinkButton type="github" href={link} variant="link" color="primary">
             View Repo
           </LinkButton>
         ) : (
-          <Button disabled variant="outline" color="muted" icon={getLinkIcon('github')}>
+          <Button disabled variant="link" color="muted" icon={getLinkIcon('github')}>
             Private
           </Button>
         )}
 
         {demo ? (
-          <LinkButton type="external" href={demo} variant="outline" color="secondary">
+          <LinkButton type="external" href={demo} variant="link" color="secondary">
             {playable ? 'Play Game' : 'View Live'}
           </LinkButton>
         ) : (
-          <Button disabled variant="outline" color="secondary">
+          <Button disabled variant="link" color="muted">
             Coming Soon
           </Button>
         )}

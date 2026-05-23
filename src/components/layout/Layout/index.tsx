@@ -82,15 +82,15 @@ export default function Layout({ children }: LayoutProps) {
 
       <MobileHeader />
       <div className="flex justify-center px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:gap-x-6 w-full max-w-7xl lg:min-h-screen">
-          <div className="hidden lg:block w-72 flex-shrink-0">
+        <div className="flex flex-col lg:flex-row lg:gap-x-4 w-full max-w-7xl lg:min-h-screen">
+          <div className="hidden lg:block w-64 2xl:w-72 flex-shrink-0">
             <div className="sticky-sidebar">
               <SideNav />
             </div>
           </div>
           <main
             id="main-content"
-            className="flex-1 pt-6 sm:pt-8 lg:pt-12"
+            className="min-w-0 flex-1 pt-6 sm:pt-8 lg:pt-12"
             role="main"
             aria-label="Main content"
           >
