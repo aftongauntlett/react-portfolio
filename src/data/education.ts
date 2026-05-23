@@ -50,20 +50,20 @@ export const awards: Award[] = [
     organization: 'Booz Allen Hamilton',
     date: '2024',
     description:
-      'Built and shipped a custom registration and scheduling platform for a large multi-day convention with 100+ attendees. The platform centralized session sign-ups, reduced manual coordination, and was actively used throughout the event.',
+      'Built and launched a convention registration and scheduling platform on a compressed timeline while supporting other projects; user feedback consistently praised its ease and convenience.',
   },
   {
     title: 'Gold Award',
     organization: 'Booz Allen Hamilton',
     date: '2023',
     description:
-      'Produced multiple design iterations for stakeholder review, incorporating leadership feedback at each stage. The final direction was selected over a competing proposal and directly influenced a multi-year contract decision.',
+      'Rapidly iterated a prototype through heavy stakeholder feedback as the sole designer, balancing speed and precision to deliver the direction that helped win the contract.',
   },
   {
     title: 'Gold Award',
     organization: 'Booz Allen Hamilton',
     date: '2022',
     description:
-      'Led the redesign and rebuild of a high-visibility enterprise application used across multiple client teams. The improved usability and visual clarity drove adoption and earned recognition from Amazon Developers for design quality.',
+      'Led a full UI redesign during a complex Angular-to-React migration, translating approved wireframes into production workflows and supporting a broader platform modernization effort.',
   },
 ];

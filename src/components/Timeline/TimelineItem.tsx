@@ -6,7 +6,7 @@ export interface TimelineItemProps {
   title: string;
   company?: string;
   dates?: string;
-  location?: 'Remote' | 'Hybrid' | 'On-site';
+  location?: 'Remote' | 'On-site';
   isFirst?: boolean;
   isActive?: boolean;
   href?: string;
@@ -29,17 +29,6 @@ export default function TimelineItem({
   const getLocationChipProps = (
     locationValue: NonNullable<TimelineItemProps['location']>,
   ): { className: string; style?: React.CSSProperties } => {
-    if (locationValue === 'Hybrid') {
-      return {
-        className: clsx(
-          TYPOGRAPHY.TEXT_XS,
-          'font-medium px-2 py-1 rounded border border-[var(--color-line)]',
-          'text-[var(--color-status-hybrid)]',
-        ),
-        style: { backgroundColor: 'var(--color-status-hybrid-bg)' },
-      };
-    }
-
     if (locationValue === 'Remote') {
       return {
         className: clsx(
@@ -78,22 +67,22 @@ export default function TimelineItem({
         'md:grid md:grid-cols-[2.5rem_1fr] md:gap-x-4',
         'block space-y-2',
         FOCUS_STYLES.BUTTON,
-          'hover:bg-[var(--color-primary)]/5',
+        'hover:bg-[var(--color-primary)]/5',
         'active:bg-[var(--color-primary)]/5 [@media(hover:hover)]:active:bg-transparent',
       )}
     >
       {/* Timeline dot - only show on desktop */}
       <div className="relative hidden md:flex justify-center z-10 pt-3">
-          <span
-            className={clsx(
-              'block rounded-full transition-all duration-300 relative z-10',
-              'w-3 h-3',
-              isActive
-                ? 'bg-[var(--color-secondary)] border-2 border-[var(--color-background)] shadow-[0_0_8px_var(--color-secondary)] scale-125'
-                : 'bg-[var(--color-muted)] border-2 border-[var(--color-background)] group-hover:bg-[var(--color-primary)] group-hover:shadow-[0_0_8px_var(--color-primary)]',
-            )}
-            aria-hidden="true"
-          />
+        <span
+          className={clsx(
+            'block rounded-full transition-all duration-300 relative z-10',
+            'w-3 h-3',
+            isActive
+              ? 'bg-[var(--color-secondary)] border-2 border-[var(--color-background)] shadow-[0_0_8px_var(--color-secondary)] scale-125'
+              : 'bg-[var(--color-muted)] border-2 border-[var(--color-background)] group-hover:bg-[var(--color-primary)] group-hover:shadow-[0_0_8px_var(--color-primary)]',
+          )}
+          aria-hidden="true"
+        />
       </div>
 
       {/* Content area */}
@@ -106,9 +95,7 @@ export default function TimelineItem({
                   TYPOGRAPHY.SUBTITLE,
                   'transition-colors duration-300',
                   FOCUS_STYLES.COMPACT,
-                  isActive
-                    ? 'text-[var(--color-primary)]'
-                    : 'text-[var(--color-text)]',
+                  isActive ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]',
                 )}
                 tabIndex={0}
               >
@@ -127,8 +114,8 @@ export default function TimelineItem({
                 )}
               </h3>
             </div>
-            {(badge || location) && (
-              badge ? (
+            {(badge || location) &&
+              (badge ? (
                 <span
                   className={clsx(
                     'inline-flex items-center font-medium transition-colors duration-300 flex-shrink-0',
@@ -142,8 +129,7 @@ export default function TimelineItem({
                 </span>
               ) : location ? (
                 <span {...getLocationChipProps(location)}>{location}</span>
-              ) : null
-            )}
+              ) : null)}
           </div>
           {dates && (
             <div className="flex mb-2">

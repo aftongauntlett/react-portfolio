@@ -4,8 +4,8 @@ export type Job = {
   title: string;
   company: string;
   dates: string;
-  location?: 'Remote' | 'Hybrid' | 'On-site';
-  description: ReactNode[];
+  location?: 'Remote' | 'On-site';
+  description: ReactNode;
 };
 
 export const jobs: Job[] = [
@@ -13,57 +13,40 @@ export const jobs: Job[] = [
     title: 'Lead Engineer',
     company: 'Booz Allen Hamilton',
     dates: '03/2023 – 05/2025',
-    location: 'Hybrid',
-    description: [
-      'Mentored junior developers through code reviews and pair programming, reducing review cycles and improving code quality across the team.',
-      'Built interactive Figma prototypes that won client confidence over competing bids, securing the contract and setting a clear direction that reduced implementation rework.',
-      'Partnered with MLOps to deploy an air-gapped LLM environment under compliance constraints and led the chatbot interface redesign for a more trustworthy, usable experience.',
-      'Delivered an accessible stepper-driven data portal replacing a manual Excel/email workflow, reducing support tickets and showing measurable user and business value.',
-    ],
+    location: 'Remote',
+    description:
+      'I led frontend architecture across a suite of mission-critical production applications, maintaining a shared React component library and Storybook design system as the portfolio scaled. I championed a guided intake flow that replaced a painful Excel-and-email process - the design direction won a contract and earned a Booz Allen award.',
   },
   {
     title: 'Software Engineer',
     company: 'Booz Allen Hamilton',
     dates: '03/2022 – 03/2023',
-    location: 'Hybrid',
-    description: [
-      'Led the full revamp of a core government platform, driving the shift from Angular/Node to React with TypeScript for cleaner code and future-proof features.',
-      'Introduced shared frontend standards and tooling (Prettier, ESLint, Husky) and led a shift from class-based to functional components, adopting TanStack Query to make data and state handling more consistent and predictable across the UI.',
-      'Authored comprehensive onboarding guides and accessibility docs, making it easier for new hires to get up to speed while embedding WCAG/508 compliance.',
-    ],
+    location: 'Remote',
+    description:
+      'Promoted to Lead Engineer within a year. I modernized the frontend toolchain - introducing TanStack Query, enforcing functional components over class-based patterns, and setting up Prettier and ESLint to reduce noisy PRs and keep reviews focused on logic. I contributed to onboarding docs, mentored junior developers, and consistently pushed for tighter ticket scope and better code practices across the team.',
   },
   {
     title: 'Founder',
     company: 'Gauntlet Designs',
     dates: '07/2020 – Present (Freelance)',
-    location: 'Hybrid',
-    description: [
-      'Founded and ran a small web studio through 2025, now continuing as independent freelance and volunteer work for nonprofits, small businesses, and community organizations.',
-      'Design accessible, mobile-friendly, and visually engaging sites — matching the stack to the audience, performance needs, and long-term maintainability rather than defaulting to one approach.',
-      'Built and maintained an employee portal and scheduling platform for a multi-location restaurant group, still in active daily use years after launch.',
-    ],
+    location: 'Remote',
+    description:
+      'Ran an independent web studio from 2020 to 2025, delivering accessible, production-ready sites for small businesses and larger clients - leading every project from scope through deployment. In 2025 I sunset the business and shifted to volunteer and sliding-scale work exclusively with nonprofits and underserved communities.',
   },
   {
     title: 'UI Developer',
-    company: 'IronClad Technology Services',
+    company: 'IronClad',
     dates: '12/2021 – 03/2022',
     location: 'Remote',
-    description: [
-      'Evaluated and recommended frontend frameworks used to modernize scalable web applications for the Defense Intelligence Agency.',
-      'Designed and delivered detailed Figma wireframes, laying the foundation for modern, accessible UI architecture.',
-      'Authored documentation and design standards that set clear expectations for accessibility, usability, and consistency across teams.',
-    ],
+    description:
+      'Delivered wireframes and interaction specs that defined the React component architecture for Defense Intelligence Agency web applications. Authored accessibility and UI standards adopted as the shared reference across design and engineering.',
   },
   {
     title: 'Frontend Developer',
     company: 'Global Dimensions',
     dates: '08/2021 – 12/2021',
     location: 'On-site',
-    description: [
-      "Built a custom interactive scroll-driven timeline for the National Geospatial-Intelligence Agency, extending Vuetify with CSS and GSAP to match a motion-heavy design spec - praised by the team and used as a reference for the project's visual standard.",
-      'Facilitated alignment between design and development, translating design vision into practical, developer-friendly guidelines. ',
-      'Drove accessibility improvements by partnering with design and compliance experts, delivering interfaces ready for 508/WCAG audits.',
-      'Prototyped motion-driven UI concepts in Adobe XD and After Effects, making complex geospatial data more intuitive for users.',
-    ],
+    description:
+      "My first exposure to a fully structured design and accessibility practice - working alongside dedicated design teams and accessibility auditors on NGA analyst platforms. I built a scroll-driven animated timeline in Vue and GSAP that became the visual standard for the project, and spent significant time doing user research, observing real users, and learning JAWS, keyboard navigation, contrast requirements, and semantic structure. It's where my commitment to accessibility started.",
   },
 ];

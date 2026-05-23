@@ -1,22 +1,19 @@
 import { jobs } from '@/data/jobs';
-import TimelineItem from '@/components/Timeline/TimelineItem';
-import { BulletItem, BulletList } from '@/components/shared/BulletList';
 import { motion } from 'framer-motion';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { awards } from '@/data/education';
-import { useState, useMemo, useCallback } from 'react';
+import { useMemo, type CSSProperties } from 'react';
 import clsx from 'clsx';
-import AwardsBranch from '@/components/shared/AwardsBranch';
+import { TYPOGRAPHY } from '@/constants/styles';
+import type { Job } from '@/data/jobs';
 
 export default function ExperienceSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { fadeInUp } = createMotionVariants(prefersReducedMotion);
-  const [leadAwardsOpen, setLeadAwardsOpen] = useState(false);
-  const [softwareAwardsOpen, setSoftwareAwardsOpen] = useState(false);
 
-  const timelineListStagger = {
+  const listStagger = {
     hidden: {},
     visible: {
       transition: {
@@ -26,9 +23,7 @@ export default function ExperienceSection() {
     },
   } as const;
 
-  // Important for the timeline: avoid y-translation on reveal.
-  // Translating list items causes the dots to temporarily misalign with the static rail.
-  const timelineStaggerItem = {
+  const listItemFade = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -38,9 +33,6 @@ export default function ExperienceSection() {
       },
     },
   } as const;
-
-  const LEAD_AWARDS_REGION_ID = 'experience-awards-lead-engineer';
-  const SOFTWARE_AWARDS_REGION_ID = 'experience-awards-software-engineer';
 
   const isLeadEngineerAwardAnchor = (title: string, company: string) =>
     title === 'Lead Engineer' && company === 'Booz Allen Hamilton';
@@ -61,68 +53,135 @@ export default function ExperienceSection() {
     [boozAllenAwards],
   );
 
-  const setLeadAwardsOpenCallback = useCallback(() => setLeadAwardsOpen((prev) => !prev), []);
-  const setSoftwareAwardsOpenCallback = useCallback(
-    () => setSoftwareAwardsOpen((prev) => !prev),
-    [],
-  );
+  const getAwardsForRole = (title: string, company: string) => {
+    if (isLeadEngineerAwardAnchor(title, company)) {
+      return leadEngineerAwards;
+    }
+
+    if (isSoftwareEngineerAwardAnchor(title, company)) {
+      return softwareEngineerAwards;
+    }
+
+    return [];
+  };
+
+  const getLocationChipProps = (
+    location: NonNullable<Job['location']>,
+  ): { className: string; style?: CSSProperties } => {
+    if (location === 'Remote') {
+      return {
+        className: clsx(
+          TYPOGRAPHY.TEXT_XS,
+          'inline-flex items-center px-2 py-1 rounded border border-[var(--color-line)]',
+          'transition-colors duration-200 group-hover:border-[var(--color-primary)]/30',
+          'text-[var(--color-status-remote)]',
+        ),
+        style: { backgroundColor: 'var(--color-status-remote-bg)' },
+      };
+    }
+
+    return {
+      className: clsx(
+        TYPOGRAPHY.TEXT_XS,
+        'inline-flex items-center px-2 py-1 rounded border border-[var(--color-line)]',
+        'transition-colors duration-200 group-hover:border-[var(--color-primary)]/30',
+        'text-[var(--color-status-onsite)]',
+      ),
+      style: { backgroundColor: 'var(--color-status-onsite-bg)' },
+    };
+  };
+
+  const renderJobContent = (job: Job) => {
+    const awardsForRole = getAwardsForRole(job.title, job.company);
+
+    return (
+      <article className="space-y-3">
+        <header className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3
+              className={clsx(
+                TYPOGRAPHY.SUBTITLE,
+                'text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]',
+              )}
+            >
+              <span>{job.title}</span>
+              <span className="block sm:inline">
+                <span className="text-[var(--color-text)]"> @ </span>
+                {job.company}
+              </span>
+            </h3>
+            <time
+              className={clsx(
+                TYPOGRAPHY.TEXT_SMALL,
+                'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
+              )}
+              dateTime={job.dates}
+            >
+              {job.dates}
+            </time>
+          </div>
+          {job.location ? (
+            <span {...getLocationChipProps(job.location)}>{job.location}</span>
+          ) : null}
+        </header>
+
+        <p
+          className={clsx(
+            TYPOGRAPHY.TEXT_DESCRIPTION,
+            'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]',
+          )}
+        >
+          {job.description}
+        </p>
+
+        {awardsForRole.length > 0 ? (
+          <div className="border-l-2 border-[var(--color-line)] pl-4 pt-1 transition-colors duration-200 group-hover:border-[var(--color-primary)]/35">
+            <p
+              className={clsx(
+                TYPOGRAPHY.TEXT_XS,
+                'font-semibold uppercase tracking-[0.16em] text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
+              )}
+            >
+              Recognitions
+            </p>
+            <ul
+              className={clsx(
+                TYPOGRAPHY.TEXT_DESCRIPTION,
+                'mt-2 space-y-2 pl-5 text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]',
+              )}
+              aria-label={`Recognitions for ${job.title}`}
+            >
+              {awardsForRole.map((award) => (
+                <li
+                  className="list-disc marker:text-[var(--color-primary)]"
+                  key={`${award.title}-${award.date}`}
+                >
+                  <span className="font-semibold text-[var(--color-text)]">
+                    {award.date} {award.title}:
+                  </span>{' '}
+                  {award.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </article>
+    );
+  };
 
   if (prefersReducedMotion) {
     return (
       <div className="space-y-8">
-        <div className="relative">
-          <div
-            className="absolute left-[1.25rem] top-4 bottom-0 w-px bg-[var(--color-line)] hidden md:block"
-            style={{ zIndex: 1 }}
-            aria-hidden="true"
-          />
-          <ul className="space-y-6 md:space-y-8" aria-label="Professional experience timeline">
-            {jobs.map((job, i) => (
-              <li key={`${job.title}-${i}`}>
-                <TimelineItem
-                  title={job.title}
-                  company={job.company}
-                  dates={job.dates}
-                  location={job.location}
-                  isFirst={i === 0}
-                  isActive={false}
-                >
-                  <BulletList
-                    className={clsx(
-                      isLeadEngineerAwardAnchor(job.title, job.company) && leadAwardsOpen
-                        ? '!text-[var(--color-text)]'
-                        : undefined,
-                    )}
-                  >
-                    {job.description.map((line, idx) => (
-                      <BulletItem key={idx}>{line}</BulletItem>
-                    ))}
-                  </BulletList>
-
-                  {isLeadEngineerAwardAnchor(job.title, job.company) ? (
-                    <AwardsBranch
-                      prefersReducedMotion={prefersReducedMotion}
-                      awardsForRole={leadEngineerAwards}
-                      isOpen={leadAwardsOpen}
-                      onToggle={setLeadAwardsOpenCallback}
-                      controlsId={LEAD_AWARDS_REGION_ID}
-                    />
-                  ) : null}
-
-                  {isSoftwareEngineerAwardAnchor(job.title, job.company) ? (
-                    <AwardsBranch
-                      prefersReducedMotion={prefersReducedMotion}
-                      awardsForRole={softwareEngineerAwards}
-                      isOpen={softwareAwardsOpen}
-                      onToggle={setSoftwareAwardsOpenCallback}
-                      controlsId={SOFTWARE_AWARDS_REGION_ID}
-                    />
-                  ) : null}
-                </TimelineItem>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="space-y-8" aria-label="Professional experience">
+          {jobs.map((job, i) => (
+            <li
+              className="group rounded-lg border-b border-[var(--color-line)] px-3 pb-8 pt-3 transition-colors duration-200 [@media(hover:hover)]:hover:bg-[var(--color-primary)]/5 last:border-b-0 last:pb-0"
+              key={`${job.title}-${i}`}
+            >
+              {renderJobContent(job)}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
@@ -135,63 +194,17 @@ export default function ExperienceSection() {
       viewport={{ ...VIEWPORT_CONFIG, amount: 0.05 }}
       variants={fadeInUp}
     >
-      <div className="relative">
-        <div
-          className="absolute left-[1.25rem] top-4 bottom-0 w-px bg-[var(--color-line)] hidden md:block"
-          style={{ zIndex: 1 }}
-          aria-hidden="true"
-        />
-        <motion.ul
-          className="space-y-6 md:space-y-8"
-          aria-label="Professional experience timeline"
-          variants={timelineListStagger}
-        >
-          {jobs.map((job, i) => (
-            <motion.li key={`${job.title}-${i}`} variants={timelineStaggerItem}>
-              <TimelineItem
-                title={job.title}
-                company={job.company}
-                dates={job.dates}
-                location={job.location}
-                isFirst={i === 0}
-                isActive={false}
-              >
-                <BulletList
-                  className={clsx(
-                    isLeadEngineerAwardAnchor(job.title, job.company) && leadAwardsOpen
-                      ? '!text-[var(--color-text)]'
-                      : undefined,
-                  )}
-                >
-                  {job.description.map((line, idx) => (
-                    <BulletItem key={idx}>{line}</BulletItem>
-                  ))}
-                </BulletList>
-
-                {isLeadEngineerAwardAnchor(job.title, job.company) ? (
-                  <AwardsBranch
-                    prefersReducedMotion={prefersReducedMotion}
-                    awardsForRole={leadEngineerAwards}
-                    isOpen={leadAwardsOpen}
-                    onToggle={setLeadAwardsOpenCallback}
-                    controlsId={LEAD_AWARDS_REGION_ID}
-                  />
-                ) : null}
-
-                {isSoftwareEngineerAwardAnchor(job.title, job.company) ? (
-                  <AwardsBranch
-                    prefersReducedMotion={prefersReducedMotion}
-                    awardsForRole={softwareEngineerAwards}
-                    isOpen={softwareAwardsOpen}
-                    onToggle={setSoftwareAwardsOpenCallback}
-                    controlsId={SOFTWARE_AWARDS_REGION_ID}
-                  />
-                ) : null}
-              </TimelineItem>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
+      <motion.ul className="space-y-8" aria-label="Professional experience" variants={listStagger}>
+        {jobs.map((job, i) => (
+          <motion.li
+            className="group rounded-lg border-b border-[var(--color-line)] px-3 pb-8 pt-3 transition-colors duration-200 [@media(hover:hover)]:hover:bg-[var(--color-primary)]/5 last:border-b-0 last:pb-0"
+            key={`${job.title}-${i}`}
+            variants={listItemFade}
+          >
+            {renderJobContent(job)}
+          </motion.li>
+        ))}
+      </motion.ul>
     </motion.div>
   );
 }

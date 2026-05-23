@@ -1,37 +1,42 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import ExperienceSection from '../index';
 
-describe('ExperienceSection - Awards branch', () => {
-  it('toggles awards under Lead Engineer role', async () => {
-    const user = userEvent.setup();
+describe('ExperienceSection - recognitions', () => {
+  it('renders recognitions under Booz Allen roles without a toggle control', () => {
     render(<ExperienceSection />);
 
-    const toggle = screen.getAllByRole('button', { name: /see awards/i })[0];
-    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('button', { name: /see awards/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /hide awards/i })).not.toBeInTheDocument();
 
-    await user.click(toggle);
-
-    expect(screen.getAllByRole('button', { name: /hide awards/i })[0]).toBeInTheDocument();
-    expect(screen.getByText('Platinum Award')).toBeInTheDocument();
-
-    await user.click(screen.getAllByRole('button', { name: /hide awards/i })[0]);
-
-    expect(screen.getAllByRole('button', { name: /see awards/i })[0]).toBeInTheDocument();
-    expect(screen.getByText('Platinum Award')).toBeInTheDocument();
+    expect(screen.getByLabelText('Recognitions for Lead Engineer')).toBeInTheDocument();
+    expect(screen.getByLabelText('Recognitions for Software Engineer')).toBeInTheDocument();
+    expect(screen.getByText(/Platinum Award:/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Gold Award:/)).toHaveLength(2);
   });
 
-  it('shows the 2022 award under Software Engineer role', async () => {
-    const user = userEvent.setup();
+  it('keeps the updated job paragraph copy visible', () => {
     render(<ExperienceSection />);
 
-    const toggles = screen.getAllByRole('button', { name: /see awards/i });
-    expect(toggles).toHaveLength(2);
+    expect(
+      screen.getByText(
+        /I led frontend architecture across a suite of mission-critical production applications/i,
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Promoted to Lead Engineer within a year\./i)).toBeInTheDocument();
+  });
 
-    // Second toggle corresponds to Software Engineer
-    await user.click(toggles[1]);
+  it('shows the software engineer 2022 recognition by default', () => {
+    render(<ExperienceSection />);
 
-    expect(screen.getByText('2022')).toBeInTheDocument();
+    expect(screen.getByText(/2022 Gold Award:/)).toBeInTheDocument();
+  });
+
+  it('renders only remote and on-site location chips', () => {
+    render(<ExperienceSection />);
+
+    expect(screen.getAllByText('Remote')).toHaveLength(4);
+    expect(screen.getByText('On-site')).toBeInTheDocument();
+    expect(screen.queryByText('Hybrid')).not.toBeInTheDocument();
   });
 });
