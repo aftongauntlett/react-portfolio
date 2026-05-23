@@ -14,15 +14,23 @@ import {
   siGit,
   siGithubcopilot,
 } from 'simple-icons';
+import type { IconType } from 'react-icons';
+import { FaAws } from 'react-icons/fa';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 
-interface Skill {
-  name: string;
-  iconPath?: string;
-  abbr?: string;
-}
+type Skill =
+  | {
+      name: string;
+      iconPath: string;
+      Icon?: never;
+    }
+  | {
+      name: string;
+      Icon: IconType;
+      iconPath?: never;
+    };
 
 const SKILLS: Skill[] = [
   { name: 'TypeScript', iconPath: siTypescript.path },
@@ -38,36 +46,20 @@ const SKILLS: Skill[] = [
   { name: 'Vercel', iconPath: siVercel.path },
   { name: 'Git', iconPath: siGit.path },
   { name: 'GitHub Copilot', iconPath: siGithubcopilot.path },
-  { name: 'WCAG 2.2 AA', abbr: 'WCAG' },
-  { name: 'Section 508', abbr: '508' },
-  { name: 'CSS Animations', abbr: 'CSS' },
-  { name: 'Canvas', abbr: 'cnvs' },
-  { name: 'Interaction Design', abbr: 'IxD' },
-  { name: 'AWS', abbr: 'AWS' },
+  { name: 'AWS', Icon: FaAws },
 ];
 
-// ── Shared icon/abbr renderer ─────────────────────────────────────────────────
+function SkillIcon({ iconPath, Icon, size }: { iconPath?: string; Icon?: IconType; size: string }) {
+  const iconClassName = `${size} text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-primary)]`;
 
-function SkillIcon({ iconPath, abbr, size }: { iconPath?: string; abbr?: string; size: string }) {
-  if (iconPath) {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className={`${size} text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-primary)]`}
-        aria-hidden="true"
-      >
-        <path d={iconPath} />
-      </svg>
-    );
+  if (Icon) {
+    return <Icon className={iconClassName} aria-hidden="true" />;
   }
+
   return (
-    <span
-      className={`flex items-center justify-center font-mono font-bold text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-primary)] ${size}`}
-      aria-hidden="true"
-    >
-      {abbr}
-    </span>
+    <svg viewBox="0 0 24 24" fill="currentColor" className={iconClassName} aria-hidden="true">
+      <path d={iconPath} />
+    </svg>
   );
 }
 
@@ -77,7 +69,7 @@ export default function SkillsSection() {
 
   return (
     <motion.div
-      className="flex flex-wrap justify-start gap-x-8 gap-y-8 pt-4"
+      className="grid grid-cols-3 gap-x-8 gap-y-8 pt-4 sm:grid-cols-4 md:grid-cols-8"
       initial="hidden"
       whileInView="visible"
       viewport={VIEWPORT_CONFIG}
@@ -91,7 +83,7 @@ export default function SkillsSection() {
         },
       }}
     >
-      {SKILLS.map(({ name, iconPath, abbr }) => (
+      {SKILLS.map(({ name, iconPath, Icon }) => (
         <motion.div
           key={name}
           variants={fadeInUp}
@@ -99,7 +91,7 @@ export default function SkillsSection() {
           transition={{ type: 'spring', stiffness: 400, damping: 15 }}
           className="group flex w-20 flex-col items-center gap-2"
         >
-          <SkillIcon iconPath={iconPath} abbr={abbr} size="h-8 w-8" />
+          <SkillIcon iconPath={iconPath} Icon={Icon} size="h-8 w-8" />
           <span className="text-center text-[11px] leading-tight text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]">
             {name}
           </span>

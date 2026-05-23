@@ -103,6 +103,7 @@ describe('Layout - Accessibility', () => {
 
     const mainContent = screen.getByRole('main');
     expect(mainContent).toHaveAttribute('id', 'main-content');
+    expect(mainContent).toHaveAttribute('tabindex', '-1');
   });
 
   it('main content area has proper ARIA label', () => {

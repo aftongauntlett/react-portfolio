@@ -13,7 +13,6 @@ import {
   TEXT_PRIMARY_HOVER,
   TEXT_MUTED_HOVER,
   TYPOGRAPHY,
-  FOCUS_STYLES,
 } from '@/constants/styles';
 import { COMPONENT_SPACING } from '@/constants/spacing';
 import { createMotionVariants } from '@/utils/motionHelpers';
@@ -50,11 +49,9 @@ export default function ProjectsSection() {
     >
       <h3
         id={`project-title-${idx}`}
-        tabIndex={0}
         className={clsx(
           TYPOGRAPHY.SUBTITLE,
           TEXT_PRIMARY_HOVER,
-          FOCUS_STYLES.COMPACT,
           'flex items-center gap-3 flex-wrap',
         )}
       >
@@ -62,13 +59,10 @@ export default function ProjectsSection() {
         {renderStatus(status)}
       </h3>
       <div
-        tabIndex={0}
         aria-label={`Project description: ${description}`}
-        role="text"
         className={clsx(
           TYPOGRAPHY.TEXT_DESCRIPTION,
           'mt-3 mb-2',
-          FOCUS_STYLES.COMPACT,
           'transition-colors duration-300 group-hover:text-[var(--color-text)]',
         )}
       >

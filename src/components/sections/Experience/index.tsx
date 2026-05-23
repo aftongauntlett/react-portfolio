@@ -115,7 +115,6 @@ export default function ExperienceSection() {
                 TYPOGRAPHY.TEXT_SMALL,
                 'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
               )}
-              dateTime={job.dates}
             >
               {job.dates}
             </time>

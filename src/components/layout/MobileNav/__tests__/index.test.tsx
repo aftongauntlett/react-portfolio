@@ -222,6 +222,7 @@ describe('MobileNav - Accessibility', () => {
     render(<MobileNav isOpen={true} onClose={onCloseMock} openerRef={openerRef} />);
 
     const dialog = screen.getByRole('dialog');
+    expect(dialog).toHaveAttribute('id', 'mobile-nav-dialog');
     expect(dialog).toHaveAttribute('aria-modal', 'true');
     expect(dialog).toHaveAttribute('aria-label', 'Mobile navigation menu');
   });

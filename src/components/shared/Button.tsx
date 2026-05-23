@@ -133,6 +133,15 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
       const isExternal = href.startsWith('http');
       const defaultTarget = isExternal ? '_blank' : undefined;
       const defaultRel = isExternal ? 'noopener noreferrer' : undefined;
+      const effectiveTarget = target || defaultTarget;
+      const opensInNewTab = effectiveTarget === '_blank';
+      const newTabHint = ' (opens in new tab)';
+      const hasNewTabHint = Boolean(effectiveAriaLabel?.toLowerCase().includes('opens in new tab'));
+      const ariaLabelWithHint =
+        opensInNewTab && effectiveAriaLabel && !hasNewTabHint
+          ? `${effectiveAriaLabel}${newTabHint}`
+          : effectiveAriaLabel;
+      const shouldRenderHiddenHint = opensInNewTab && !isIconOnly && !effectiveAriaLabel;
 
       // Extract any conflicting drag props (unused but needed to exclude them)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -142,14 +151,20 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}
           href={href}
-          target={target || defaultTarget}
+          target={effectiveTarget}
           rel={rel || defaultRel}
           className={[buttonClasses, motionLikeClasses].filter(Boolean).join(' ')}
-          aria-label={effectiveAriaLabel}
+          aria-label={ariaLabelWithHint}
           {...safeProps}
         >
           {icon && <span aria-hidden="true">{icon}</span>}
           {children}
+          {shouldRenderHiddenHint ? (
+            <>
+              {' '}
+              <span className="sr-only">(opens in new tab)</span>
+            </>
+          ) : null}
         </a>
       );
     }

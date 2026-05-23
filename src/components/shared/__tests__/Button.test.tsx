@@ -12,6 +12,9 @@ describe('Button Component', () => {
   it('renders as link when href is provided', () => {
     render(<Button href="https://example.com">Visit site</Button>);
     expect(screen.getByRole('link', { name: /visit site/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /visit site/i })).toHaveAccessibleName(
+      'Visit site (opens in new tab)',
+    );
   });
 
   it('applies primary variant by default', () => {
@@ -81,6 +84,7 @@ describe('Button Component', () => {
       const link = screen.getByRole('link');
       expect(link).toHaveAttribute('rel', 'noopener noreferrer');
       expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAccessibleName('External link (opens in new tab)');
     });
 
     it('should not add rel/target for internal links', () => {

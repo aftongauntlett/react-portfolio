@@ -124,6 +124,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
           {/* Slide-over Menu */}
           <motion.div
             ref={menuRef}
+            id="mobile-nav-dialog"
             initial={{ x: prefersReducedMotion ? 0 : 300 }}
             animate={{ x: 0 }}
             exit={{ x: prefersReducedMotion ? 0 : 300 }}

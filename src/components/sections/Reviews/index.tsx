@@ -72,9 +72,11 @@ export default function ReviewsSection() {
           href="https://www.linkedin.com/in/afton-gauntlett/"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Visit my LinkedIn (opens in new tab)"
           className="underline underline-offset-2 hover:text-[var(--color-secondary)] transition-colors"
         >
           visit my LinkedIn
+          <span className="sr-only"> (opens in new tab)</span>
         </a>{' '}
         to read them in full
       </p>

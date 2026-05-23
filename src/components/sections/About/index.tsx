@@ -32,8 +32,8 @@ export default function AboutSection() {
             )}
           >
             Frontend engineer with six years of experience in design systems, accessible UI, and
-            component architecture. I've led migrations, built from scratch, and shipped at scale on
-            federal and commercial contracts.
+            component architecture. I have led migrations, built from scratch, and shipped at scale
+            on federal and commercial contracts.
           </p>
         </div>
 

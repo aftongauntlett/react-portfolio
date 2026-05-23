@@ -24,11 +24,7 @@ export const BulletList = ({
 
 export const BulletItem = ({ children }: { children: ReactNode }) => (
   <li
-    className={clsx(
-      'bullet-item relative pl-5 flex items-start rounded-sm',
-      FOCUS_STYLES.PRIMARY,
-    )}
-    tabIndex={0}
+    className={clsx('bullet-item relative pl-5 flex items-start rounded-sm', FOCUS_STYLES.PRIMARY)}
   >
     <span
       className={clsx(

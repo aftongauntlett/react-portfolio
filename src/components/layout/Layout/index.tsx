@@ -90,6 +90,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <main
             id="main-content"
+            tabIndex={-1}
             className="min-w-0 flex-1 pt-6 sm:pt-8 lg:pt-12"
             role="main"
             aria-label="Main content"

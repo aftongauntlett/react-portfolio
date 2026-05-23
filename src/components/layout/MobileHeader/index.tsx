@@ -21,6 +21,7 @@ export default function MobileHeader() {
           icon={<IconBars3 size={20} />}
           aria-label="Open navigation menu"
           aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav-dialog"
           variant="link"
           color="muted"
         />
