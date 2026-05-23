@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { HiChevronDown } from 'react-icons/hi2';
 import { TRANSITION_FAST } from '@/constants/styles';
 import clsx from 'clsx';
+import { Button } from '@/components/shared/Button';
 
 interface AccordionProps {
   title: string;
@@ -34,10 +35,12 @@ export default function Accordion({
       )}
     >
       <h3>
-        <button
+        <Button
+          type="button"
+          variant="unstyled"
           onClick={() => setIsOpen(!isOpen)}
           className={clsx(
-            'w-full text-left py-4 flex items-center justify-between gap-4',
+            'w-full justify-between gap-4 text-left',
             'text-[var(--color-text)]',
             TRANSITION_FAST,
             'focus:outline-none focus:text-[var(--color-primary)]',
@@ -70,15 +73,9 @@ export default function Accordion({
             )}
             size={20}
           />
-        </button>
+        </Button>
         {subtitle && isOpen && (
-          <p
-            className={clsx(
-              'text-sm text-[var(--color-muted)] mt-1 mb-2',
-            )}
-          >
-            {subtitle}
-          </p>
+          <p className={clsx('text-sm text-[var(--color-muted)] mt-1 mb-2')}>{subtitle}</p>
         )}
       </h3>
 

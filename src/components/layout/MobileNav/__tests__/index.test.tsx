@@ -27,17 +27,16 @@ vi.mock('react-icons/hi2', () => ({
   HiXMark: () => <span>Close Icon</span>,
 }));
 
-// Mock Button component
-vi.mock('@/components/shared/Button', () => ({
-  Button: ({ children, href, ...props }: PropsWithChildren<Record<string, unknown>>) =>
-    href ? (
-      <a href={href as string} {...props}>
-        {children}
-      </a>
-    ) : (
-      <button {...props}>{children}</button>
-    ),
-}));
+// Use real shared Button implementation
+vi.mock('@/components/shared/Button', async () => {
+  const actual = await vi.importActual<typeof import('@/components/shared/Button')>(
+    '@/components/shared/Button',
+  );
+
+  return {
+    Button: actual.Button,
+  };
+});
 
 describe('MobileNav - Accessibility', () => {
   let mockLenis: Lenis;

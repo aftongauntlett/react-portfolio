@@ -2,7 +2,7 @@ import type * as React from 'react';
 import { forwardRef } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
-type ButtonVariant = 'solid' | 'outline' | 'link';
+type ButtonVariant = 'solid' | 'outline' | 'link' | 'unstyled';
 type ButtonColor = 'primary' | 'secondary' | 'muted';
 type TextColor = 'dark' | 'light';
 

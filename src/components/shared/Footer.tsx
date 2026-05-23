@@ -2,6 +2,7 @@ import { TYPOGRAPHY } from '@/constants/typography';
 import { useLenisContext } from '@/context/LenisContext';
 import { smoothScrollTo, scrollToTop } from '@/utils/domScroll';
 import { IconArrowUp } from '@/components/shared/InlineIcons';
+import { Button } from '@/components/shared/Button';
 
 interface FooterProps {
   scrollTarget?: string;
@@ -13,7 +14,6 @@ export default function Footer({
   showStandaloneDivider = false,
 }: FooterProps) {
   const { lenis } = useLenisContext();
-  const portfolioRepoUrl = 'https://github.com/aftongauntlett/react-portfolio';
 
   const handleScrollToTop = () => {
     if (scrollTarget === 'top') {
@@ -43,25 +43,16 @@ export default function Footer({
         <p className="text-center flex-1">
           © {new Date().getFullYear()} Afton Gauntlett. All rights reserved.
         </p>
-        <button
+        <Button
           onClick={handleScrollToTop}
-          className="hover:text-[var(--color-secondary)] transition flex items-center gap-1"
+          variant="unstyled"
+          icon={<IconArrowUp size={16} />}
+          className="hover:text-[var(--color-secondary)] transition"
           aria-label="Scroll to top"
         >
-          <IconArrowUp size={16} /> Top
-        </button>
+          Top
+        </Button>
       </div>
-      <p className="text-center text-xs mt-3 opacity-70">
-        Built with React, TypeScript, Vite, and Framer Motion.{' '}
-        <a
-          href={portfolioRepoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline decoration-[var(--color-line)] underline-offset-2 hover:text-[var(--color-secondary)]"
-        >
-          View source
-        </a>
-      </p>
     </footer>
   );
 }

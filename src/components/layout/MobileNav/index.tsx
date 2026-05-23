@@ -139,20 +139,20 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
             <div className="flex flex-col h-full p-6">
               {/* Close Button */}
               <div className="flex justify-end mb-8">
-                <button
+                <Button
                   ref={closeButtonRef}
                   onClick={handleClose}
+                  variant="unstyled"
+                  icon={<HiXMark size={24} />}
                   className={clsx(
-                    'p-2 rounded-lg',
+                    'rounded-lg',
                     'text-[var(--color-muted)] hover:text-[var(--color-text)]',
                     'hover:bg-[var(--color-surface)]',
                     'transition-colors duration-200',
                     'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
                   )}
                   aria-label="Close navigation menu"
-                >
-                  <HiXMark size={24} />
-                </button>
+                />
               </div>
 
               {/* Navigation Links */}
@@ -194,14 +194,16 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
                   href="https://aftongauntlett.github.io/resume/"
                   variant="outline"
                   color="primary"
-                  className="w-full"
+                  className="w-full rounded-full"
                 >
                   Resume
                 </Button>
-                <button
+                <Button
                   onClick={toggleTheme}
+                  variant="unstyled"
+                  icon={theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
                   className={clsx(
-                    'w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg',
+                    'w-full rounded-lg',
                     'text-base font-medium',
                     'text-[var(--color-muted)] hover:text-[var(--color-text)]',
                     'hover:bg-[var(--color-surface)]',
@@ -210,9 +212,8 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
                   )}
                   aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 >
-                  {theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
                   <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-                </button>
+                </Button>
               </div>
             </div>
           </motion.div>

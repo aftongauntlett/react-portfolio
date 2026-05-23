@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { TYPOGRAPHY } from '@/constants/typography';
+import { Button } from '@/components/shared/Button';
 
 interface Props {
   children: ReactNode;
@@ -45,12 +46,13 @@ export default class ErrorBoundary extends Component<Props, State> {
                 directly if the problem persists.
               </p>
               <div className="space-y-2">
-                <button
+                <Button
                   onClick={() => window.location.reload()}
-                  className="inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 border border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300"
+                  variant="unstyled"
+                  className="rounded-md border border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300"
                 >
                   Refresh Page
-                </button>
+                </Button>
                 <div className={TYPOGRAPHY.TEXT_SMALL}>
                   <a
                     href="mailto:hello@aftongauntlett.com"
