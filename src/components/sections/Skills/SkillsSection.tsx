@@ -1,57 +1,110 @@
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { skillGroups } from '@/data/skills';
-import TechTag from '@/components/shared/TechTag';
-import { TYPOGRAPHY } from '@/constants/styles';
-import { COMPONENT_SPACING } from '@/constants/spacing';
+import {
+  siTypescript,
+  siReact,
+  siAstro,
+  siTailwindcss,
+  siStorybook,
+  siFramer,
+  siGreensock,
+  siThreedotjs,
+  siSupabase,
+  siPostgresql,
+  siVercel,
+  siGit,
+  siGithubcopilot,
+} from 'simple-icons';
 import { createMotionVariants } from '@/utils/motionHelpers';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
+
+interface Skill {
+  name: string;
+  iconPath?: string;
+  abbr?: string;
+}
+
+const SKILLS: Skill[] = [
+  { name: 'TypeScript', iconPath: siTypescript.path },
+  { name: 'React', iconPath: siReact.path },
+  { name: 'Astro', iconPath: siAstro.path },
+  { name: 'Tailwind CSS', iconPath: siTailwindcss.path },
+  { name: 'Framer Motion', iconPath: siFramer.path },
+  { name: 'GSAP', iconPath: siGreensock.path },
+  { name: 'Three.js', iconPath: siThreedotjs.path },
+  { name: 'Storybook', iconPath: siStorybook.path },
+  { name: 'Supabase', iconPath: siSupabase.path },
+  { name: 'PostgreSQL', iconPath: siPostgresql.path },
+  { name: 'Vercel', iconPath: siVercel.path },
+  { name: 'Git', iconPath: siGit.path },
+  { name: 'GitHub Copilot', iconPath: siGithubcopilot.path },
+  { name: 'WCAG 2.2 AA', abbr: 'WCAG' },
+  { name: 'Section 508', abbr: '508' },
+  { name: 'CSS Animations', abbr: 'CSS' },
+  { name: 'Canvas', abbr: 'cnvs' },
+  { name: 'Interaction Design', abbr: 'IxD' },
+  { name: 'AWS', abbr: 'AWS' },
+];
+
+// ── Shared icon/abbr renderer ─────────────────────────────────────────────────
+
+function SkillIcon({ iconPath, abbr, size }: { iconPath?: string; abbr?: string; size: string }) {
+  if (iconPath) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={`${size} text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-primary)]`}
+        aria-hidden="true"
+      >
+        <path d={iconPath} />
+      </svg>
+    );
+  }
+  return (
+    <span
+      className={`flex items-center justify-center font-mono font-bold text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-primary)] ${size}`}
+      aria-hidden="true"
+    >
+      {abbr}
+    </span>
+  );
+}
 
 export default function SkillsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const { fadeInUp } = createMotionVariants(prefersReducedMotion);
 
   return (
-    <div>
-      <motion.ul
-        className={COMPONENT_SPACING.STACK_RELAXED}
-        aria-label="Technical skills by category"
-        initial="hidden"
-        whileInView="visible"
-        viewport={VIEWPORT_CONFIG}
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: getMotionDuration(0.08, prefersReducedMotion),
-              delayChildren: getMotionDuration(0.05, prefersReducedMotion),
-            },
+    <motion.div
+      className="flex flex-wrap justify-start gap-x-8 gap-y-8 pt-4"
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT_CONFIG}
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: getMotionDuration(0.04, prefersReducedMotion),
+            delayChildren: getMotionDuration(0.05, prefersReducedMotion),
           },
-        }}
-      >
-        {skillGroups.map(({ title, skills }) => (
-          <motion.li key={title} variants={fadeInUp}>
-            <div className="mb-3">
-              <h3
-                className={clsx(
-                  TYPOGRAPHY.SUBTITLE,
-                  'mb-1 text-[var(--color-text)]',
-                  'transition-colors duration-300 hover:text-[var(--color-secondary)]',
-                )}
-              >
-                {title}
-              </h3>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <TechTag key={skill} tech={skill} size="small" useBrandStyles={false} />
-              ))}
-            </div>
-          </motion.li>
-        ))}
-      </motion.ul>
-    </div>
+        },
+      }}
+    >
+      {SKILLS.map(({ name, iconPath, abbr }) => (
+        <motion.div
+          key={name}
+          variants={fadeInUp}
+          whileHover={prefersReducedMotion ? undefined : { scale: 1.12 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+          className="group flex w-20 flex-col items-center gap-2"
+        >
+          <SkillIcon iconPath={iconPath} abbr={abbr} size="h-8 w-8" />
+          <span className="text-center text-[11px] leading-tight text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]">
+            {name}
+          </span>
+        </motion.div>
+      ))}
+    </motion.div>
   );
 }
