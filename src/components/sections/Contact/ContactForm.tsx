@@ -10,6 +10,9 @@ import {
 const fieldClasses =
   'w-full rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] transition-[border-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20';
 
+const labelClasses =
+  'font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]';
+
 type ContactFormProps = {
   formRef: RefObject<HTMLFormElement | null>;
   formStatus: FormStatus;
@@ -47,10 +50,7 @@ export default function ContactForm({
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="group/field space-y-1.5">
-          <label
-            htmlFor="contact-name"
-            className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
-          >
+          <label htmlFor="contact-name" className={labelClasses}>
             Name
           </label>
           <input
@@ -65,10 +65,7 @@ export default function ContactForm({
         </div>
 
         <div className="group/field space-y-1.5">
-          <label
-            htmlFor="contact-email"
-            className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
-          >
+          <label htmlFor="contact-email" className={labelClasses}>
             Email
           </label>
           <input
@@ -97,10 +94,7 @@ export default function ContactForm({
       </div>
 
       <div className="group/field space-y-1.5">
-        <label
-          htmlFor="contact-message"
-          className="font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[rgba(var(--color-primary-rgb),0.74)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]"
-        >
+        <label htmlFor="contact-message" className={labelClasses}>
           Message
         </label>
         <textarea

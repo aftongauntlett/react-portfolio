@@ -9,13 +9,13 @@
   --color-surface-card-hover: hsl(36, 16%, 97.2%); /* subtle draw-in on hover */
   --color-text: hsl(25, 15%, 14%); /* warm near-black */
   --color-muted: hsl(25, 8%, 40%); /* warm grey-brown */
-  --color-primary: hsl(152, 22%, 42%); /* sage green */
-  --color-primary-rgb: 84, 131, 109;
-  --color-primary-darker: hsl(152, 22%, 34%); /* deep sage */
-  --color-secondary: hsl(22, 60%, 48%); /* burnt sienna */
-  --color-secondary-rgb: 196, 103, 49;
-  --color-secondary-darker: hsl(22, 60%, 40%); /* deep sienna */
-  --color-theme-toggle-hover: hsl(40, 45%, 52%); /* muted warm yellow */
+  --color-primary: hsl(152, 22%, 32%); /* accessible sage green */
+  --color-primary-rgb: 64, 100, 83;
+  --color-primary-darker: hsl(152, 22%, 26%); /* deep sage */
+  --color-secondary: hsl(22, 60%, 34%); /* accessible burnt sienna */
+  --color-secondary-rgb: 139, 73, 35;
+  --color-secondary-darker: hsl(22, 60%, 28%); /* deep sienna */
+  --color-theme-toggle-hover: hsl(40, 45%, 47%); /* muted warm yellow */
   --color-line: hsla(30, 12%, 72%, 0.85); /* warm grey rule */
   --color-skeleton: hsl(25, 9%, 82%);
   --color-backdrop-rgb: 0, 0, 0;
@@ -39,9 +39,9 @@
   --color-chip-muted-border: hsl(152, 10%, 84%);
 
   /* Status chip colors for light mode */
-  --color-status-production: hsl(152, 59%, 32%);
+  --color-status-production: hsl(152, 59%, 30.5%);
   --color-status-production-bg: hsl(149, 45%, 93%);
-  --color-status-development: hsl(25, 71%, 42%);
+  --color-status-development: hsl(25, 71%, 38.5%);
   --color-status-development-bg: hsl(28, 60%, 94%);
 
   /* Location chip colors for light mode  */
