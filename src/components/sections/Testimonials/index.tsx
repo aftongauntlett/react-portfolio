@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { HiChevronDown } from 'react-icons/hi2';
 import { testimonials } from '@/data/testimonials';
+import { DURATION, EASING } from '@/constants/animations';
 import { COMPONENT_SPACING } from '@/constants/spacing';
 import { Button } from '@/components/shared/Button';
 import { TYPOGRAPHY } from '@/constants/styles';
@@ -59,7 +60,7 @@ export default function TestimonialsSection() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className={COMPONENT_SPACING.STACK_STANDARD}>
       <p className="text-xs italic tracking-wide text-[var(--color-muted)] opacity-60">
         Some testimonials are shortened &mdash;{' '}
         <a
@@ -67,7 +68,7 @@ export default function TestimonialsSection() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Visit my LinkedIn (opens in new tab)"
-          className="underline underline-offset-2 hover:text-[var(--color-secondary)] transition-colors"
+          className="underline underline-offset-2 transition-colors hover:text-[var(--color-secondary)] focus-visible:text-[var(--color-secondary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2"
         >
           visit my LinkedIn
           <span className="sr-only"> (opens in new tab)</span>
@@ -102,6 +103,7 @@ export default function TestimonialsSection() {
                 'border border-transparent transition-[color,background-color,border-color] duration-200',
                 'bg-transparent hover:bg-[var(--color-line)]/35',
                 'hover:border-[var(--color-primary)]/35',
+                'focus-visible:bg-[var(--color-line)]/35 focus-visible:border-[var(--color-primary)]/35',
                 'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
               )}
             >
@@ -123,50 +125,61 @@ export default function TestimonialsSection() {
             <div className="h-px flex-1 bg-[var(--color-line)]" aria-hidden="true" />
           </div>
 
-          <motion.div
-            id="more-testimonials"
-            className={COMPONENT_SPACING.EXPANDABLE_PANEL_TOP}
-            initial={prefersReducedMotion ? undefined : 'closed'}
-            animate={prefersReducedMotion ? undefined : showAllTestimonials ? 'open' : 'closed'}
-            style={{ overflow: 'hidden', transformOrigin: 'top' }}
-            variants={
-              prefersReducedMotion
-                ? undefined
-                : {
-                    open: {
-                      opacity: 1,
-                      scaleY: 1,
-                      height: 'auto',
-                      transition: {
-                        duration: 0.25,
-                        ease: 'easeOut',
-                        when: 'beforeChildren',
-                        height: { duration: 0 },
-                      },
-                    },
-                    closed: {
-                      opacity: 0,
-                      scaleY: 0,
-                      height: 0,
-                      transition: {
-                        duration: 0.22,
-                        ease: 'easeOut',
-                        when: 'afterChildren',
-                        height: { duration: 0 },
-                      },
-                    },
-                  }
-            }
-          >
-            <SectionEntryList
-              items={additionalTestimonials}
-              ariaLabel="Additional testimonials"
-              listClassName="space-y-5"
-              itemClassName="pb-5"
-              getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
-              renderItem={(review) => renderReview(review)}
-            />
-          </motion.div>
+          {prefersReducedMotion ? (
+            showAllTestimonials ? (
+              <div id="more-testimonials" className={COMPONENT_SPACING.EXPANDABLE_PANEL_TOP}>
+                <SectionEntryList
+                  items={additionalTestimonials}
+                  ariaLabel="Additional testimonials"
+                  listClassName="space-y-5"
+                  itemClassName="pb-5"
+                  getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
+                  renderItem={(review) => renderReview(review)}
+                />
+              </div>
+            ) : null
+          ) : (
+            <motion.div
+              id="more-testimonials"
+              className={COMPONENT_SPACING.EXPANDABLE_PANEL_TOP}
+              initial="closed"
+              animate={showAllTestimonials ? 'open' : 'closed'}
+              style={{ overflow: 'hidden', transformOrigin: 'top' }}
+              variants={{
+                open: {
+                  opacity: 1,
+                  scaleY: 1,
+                  height: 'auto',
+                  transition: {
+                    duration: DURATION.fast,
+                    ease: EASING.easeOut,
+                    when: 'beforeChildren',
+                    height: { duration: 0 },
+                  },
+                },
+                closed: {
+                  opacity: 0,
+                  scaleY: 0,
+                  height: 0,
+                  transition: {
+                    duration: DURATION.fast,
+                    ease: EASING.easeOut,
+                    when: 'afterChildren',
+                    height: { duration: 0 },
+                  },
+                },
+              }}
+            >
+              <SectionEntryList
+                items={additionalTestimonials}
+                ariaLabel="Additional testimonials"
+                listClassName="space-y-5"
+                itemClassName="pb-5"
+                getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
+                renderItem={(review) => renderReview(review)}
+              />
+            </motion.div>
+          )}
         </div>
       ) : null}
     </div>

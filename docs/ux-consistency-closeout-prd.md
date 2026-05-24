@@ -8,7 +8,7 @@ Use this prompt to continue implementation later:
 
 ## Document Control
 
-- Status: Draft (Consolidated closeout plan)
+- Status: Completed (Closeout Passed)
 - Date: 2026-05-23
 - Product: React Portfolio
 - Source: Consolidates remaining work from prior interaction/motion and section spacing PRDs.
@@ -27,6 +27,68 @@ Most foundational work is done. This document captures only what is still open s
    - `src/components/sections/Contact/useContactForm.ts`
 4. CI quality gates are active (`lint`, `test`, `test:a11y`, `typecheck`, `build`).
 5. Design direction for current colors and hover tone is intentionally approved and should be preserved.
+
+## Completed (2026-05-23)
+
+### RW1: Resolve Outstanding Dead-Code Candidates
+
+1. Deleted unreferenced `src/components/shared/MotionSection.tsx`.
+2. Deleted test-only `src/components/shared/Card.tsx`.
+3. Deleted orphaned test `src/components/shared/__tests__/Card.test.tsx`.
+
+### RW2: Close Over-200 LOC Rule
+
+1. `src/components/layout/MobileNav/index.tsx` decomposed to 175 LOC (from 225 LOC).
+2. Accessibility/focus-trap side effects extracted to:
+   - `src/components/layout/MobileNav/useMobileNavA11y.ts`
+3. `src/components/shared/Card.tsx` removed (no longer a production-file LOC exception).
+
+### RW3: Finish Spacing Rhythm Normalization
+
+1. Removed non-purpose divider line from `src/components/sections/About/index.tsx` (bottom `<hr>` removed).
+2. Expanded spacing token adoption:
+   - `src/components/shared/SectionEntryList.tsx` now uses `COMPONENT_SPACING.STACK_STANDARD`.
+   - `src/components/sections/Contact/index.tsx` now uses `COMPONENT_SPACING.STACK_STANDARD`.
+   - `src/components/sections/Testimonials/index.tsx` now uses `COMPONENT_SPACING.STACK_STANDARD`.
+
+### RW4: Complete Interaction/Motion Consistency Hardening
+
+1. Standardized motion timing/easing usage in touched components:
+   - `src/components/layout/MobileNav/index.tsx` now uses shared `DURATION` and `EASING` tokens.
+   - `src/components/sections/Testimonials/index.tsx` now uses shared `DURATION` and `EASING` tokens.
+2. Reduced-motion behavior hardened:
+   - Testimonials “See more” panel now toggles content without transform animation in reduced-motion mode.
+3. Hover/focus-visible parity improved for touched surfaces:
+   - Testimonials LinkedIn link now has explicit `focus-visible` styling parity with hover state.
+   - Testimonials toggle button now mirrors hover background/border in focus-visible state.
+
+### RW5: Performance and Scroll Evidence (Closeout Artifacts)
+
+Profiling run date: 2026-05-23 (local run on `http://127.0.0.1:4173/`)
+
+1. Full-home scroll flow:
+   - Approx FPS: 60.0
+   - Duration sampled: 1999.9 ms
+2. Section navigation jumps:
+   - Approx FPS: 59.6
+   - Duration sampled: 989.6 ms
+3. Interaction-heavy flow (Testimonials toggle + MobileNav open/close):
+   - Approx FPS: 59.6
+   - Duration sampled: 1073.5 ms
+4. Long-task summary:
+   - Long tasks observed: 0
+   - Long tasks over 50 ms: 0
+   - Longest long task: 0 ms
+
+### RW6: Documentation Closeout
+
+1. This PRD updated with completed status and RW1-RW5 implementation evidence.
+2. Screenshot artifacts captured for target breakpoints:
+   - Mobile (375x812): `docs/artifacts/ux-closeout-mobile-375x812.png`
+   - Tablet (768x1024): `docs/artifacts/ux-closeout-tablet-768x1024.png`
+   - Desktop (1280x800): `docs/artifacts/ux-closeout-desktop-1280x800.png`
+3. Final quality gate validated:
+   - `npm run ci:check` passed.
 
 ## Remaining Work
 
@@ -83,7 +145,7 @@ Most foundational work is done. This document captures only what is still open s
 
 Use this section only when a candidate is intentionally retained.
 
-- (empty)
+- No dead-code candidates retained. Both candidate files were removed.
 
 ## Implementation Plan (Remaining-Only)
 

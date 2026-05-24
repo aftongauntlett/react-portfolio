@@ -1,18 +1,20 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import clsx from 'clsx';
+import { HiXMark } from 'react-icons/hi2';
+import { BsMoonFill } from 'react-icons/bs';
 import { navItems } from '@/constants/navigation';
+import { DURATION, EASING } from '@/constants/animations';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useLenisContext } from '@/context/LenisContext';
 import { useTheme } from '@/context/ThemeContext';
 import { smoothScrollTo } from '@/utils/domScroll';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import clsx from 'clsx';
-import { HiXMark } from 'react-icons/hi2';
 import { IconSun } from '@/components/shared/InlineIcons';
-import { BsMoonFill } from 'react-icons/bs';
 import { Button } from '@/components/shared/Button';
 import { useWillChange } from '@/hooks/useWillChange';
+import { useMobileNavA11y } from './useMobileNavA11y';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -35,32 +37,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
     openerRef.current?.focus();
   }, [onClose, openerRef]);
 
-  // Focus trap: Focus close button when menu opens
-  useEffect(() => {
-    if (isOpen && closeButtonRef.current) {
-      closeButtonRef.current.focus();
-    }
-  }, [isOpen]);
-
-  // ESC key handler
-  useEffect(() => {
-    const handleEscape = (e: globalThis.KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
-        handleClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
-    };
-  }, [isOpen, handleClose]);
+  useMobileNavA11y({ isOpen, handleClose, menuRef, closeButtonRef });
 
   const handleNavClick = (targetId: string) => {
     smoothScrollTo({ target: targetId, offset: 80 }, lenis);
@@ -75,36 +52,6 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
     handleClose();
   };
 
-  // Focus trap within menu
-  const handleMenuKeyDown = (e: globalThis.KeyboardEvent) => {
-    if (!menuRef.current) return;
-
-    const focusableElements = menuRef.current.querySelectorAll<HTMLElement>(
-      'button, a, [tabindex]:not([tabindex="-1"])',
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    if (e.key === 'Tab') {
-      if (e.shiftKey && document.activeElement === firstElement) {
-        e.preventDefault();
-        lastElement?.focus();
-      } else if (!e.shiftKey && document.activeElement === lastElement) {
-        e.preventDefault();
-        firstElement?.focus();
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleMenuKeyDown);
-    }
-    return () => {
-      document.removeEventListener('keydown', handleMenuKeyDown);
-    };
-  }, [isOpen]);
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -114,7 +61,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+            transition={{ duration: prefersReducedMotion ? 0 : DURATION.fast }}
             className="fixed inset-0 z-40 lg:hidden"
             style={{ background: 'rgba(var(--color-backdrop-rgb), 0.5)', backdropFilter: 'none' }}
             onClick={handleClose}
@@ -128,7 +75,10 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
             initial={{ x: prefersReducedMotion ? 0 : 300 }}
             animate={{ x: 0 }}
             exit={{ x: prefersReducedMotion ? 0 : 300 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.3, ease: 'easeInOut' }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : DURATION.normal,
+              ease: EASING.easeInOut,
+            }}
             className="fixed top-0 right-0 bottom-0 w-[280px] bg-[var(--color-background)] border-l border-[var(--color-line)] z-50 lg:hidden overflow-y-auto gpu-accelerate"
             style={{ ...willChangeStyle, contain: 'layout style paint' }}
             onAnimationStart={() => setIsAnimating(true)}

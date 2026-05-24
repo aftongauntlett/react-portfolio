@@ -1,11 +1,17 @@
 import { TYPOGRAPHY } from '@/constants/styles';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import clsx from 'clsx';
 
 export default function AboutSection() {
   return (
     <div className="w-full">
       {/* Hero Section - Responsive spacing */}
-      <div className="relative flex flex-col justify-center items-start w-full mb-4 sm:mb-6">
+      <div
+        className={clsx(
+          'relative flex flex-col justify-center items-start w-full',
+          COMPONENT_SPACING.STACK_STANDARD,
+        )}
+      >
         <div className="relative w-full text-left pt-8 pb-4 sm:pt-12 sm:pb-6 md:pt-16 md:pb-8 lg:pt-4">
           {/* Subtle backdrop for improved contrast */}
           <div
@@ -40,11 +46,6 @@ export default function AboutSection() {
         {/* Gradient border below opener */}
         <div className="hello-gradient h-1 rounded-full w-[min(60%,300px)]" aria-hidden="true" />
       </div>
-      <hr
-        aria-hidden="true"
-        className="w-full"
-        style={{ border: 'none', borderTop: '1px solid var(--color-line)', opacity: 0.5 }}
-      />
     </div>
   );
 }

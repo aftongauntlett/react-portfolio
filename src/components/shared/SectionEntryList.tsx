@@ -2,9 +2,10 @@ import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import { getMotionDuration, usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
-export const SECTION_ENTRY_LIST_CLASS = 'space-y-6';
+export const SECTION_ENTRY_LIST_CLASS = COMPONENT_SPACING.STACK_STANDARD;
 export const SECTION_ENTRY_ITEM_BASE_CLASS =
   'group border-b border-[var(--color-line)] px-3 pb-6 pt-2 transition-colors duration-200 last:border-b-0 last:pb-0';
 
@@ -73,7 +74,11 @@ export default function SectionEntryList<T>({
       variants={listStagger}
     >
       {items.map((item, idx) => (
-        <motion.li className={combinedItemClassName} key={getItemKey(item, idx)} variants={listItemFade}>
+        <motion.li
+          className={combinedItemClassName}
+          key={getItemKey(item, idx)}
+          variants={listItemFade}
+        >
           {renderItem(item, idx)}
         </motion.li>
       ))}

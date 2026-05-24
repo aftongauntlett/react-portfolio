@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
+import { COMPONENT_SPACING } from '@/constants/spacing';
 import ContactForm from './ContactForm';
 import { useContactForm } from './useContactForm';
 
@@ -27,7 +28,7 @@ export default function ContactSection() {
       viewport={VIEWPORT_CONFIG}
       transition={{ duration: getMotionDuration(0.5, prefersReducedMotion), ease: 'easeOut' }}
     >
-      <div className="space-y-6">
+      <div className={COMPONENT_SPACING.STACK_STANDARD}>
         <p className="text-description max-w-lg">
           Have a role, a project, or a question in mind? Send me a message below and I will get back
           to you shortly.
