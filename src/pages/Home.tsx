@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy } from 'react';
+import { useCallback, useEffect, Suspense, lazy, useState } from 'react';
 import PageSection from '@/components/layout/PageSection';
 import { SECTION_SPACING } from '@/constants/spacing';
 import { useLenisContext } from '@/context/LenisContext';
@@ -22,6 +22,17 @@ const SkillsSection = lazy(loadSkillsSection);
 const CredentialsSection = lazy(loadCredentialsSection);
 const TestimonialsSection = lazy(loadTestimonialsSection);
 
+const LAZY_SECTION_IDS = [
+  'skills',
+  'experience',
+  'projects',
+  'credentials',
+  'testimonials',
+  'contact',
+] as const;
+
+type LazySectionId = (typeof LAZY_SECTION_IDS)[number];
+
 const SECTION_ID_ALIASES: Record<string, string> = {
   education: 'credentials',
   reviews: 'testimonials',
@@ -29,11 +40,42 @@ const SECTION_ID_ALIASES: Record<string, string> = {
 
 const normalizeSectionId = (id: string) => SECTION_ID_ALIASES[id] ?? id;
 
+const isLazySectionId = (id: string): id is LazySectionId =>
+  LAZY_SECTION_IDS.includes(id as LazySectionId);
+
+const createInitialLoadedSections = (): Record<LazySectionId, boolean> => {
+  const initialState: Record<LazySectionId, boolean> = {
+    skills: false,
+    experience: false,
+    projects: false,
+    credentials: false,
+    testimonials: false,
+    contact: false,
+  };
+
+  if (typeof window === 'undefined') {
+    return initialState;
+  }
+
+  const initialHash = normalizeSectionId(window.location.hash.replace('#', ''));
+  if (isLazySectionId(initialHash)) {
+    initialState[initialHash] = true;
+  }
+
+  const scrollToParam = new URLSearchParams(window.location.search).get('scrollTo');
+  const normalizedScrollTo = scrollToParam ? normalizeSectionId(scrollToParam) : '';
+  if (isLazySectionId(normalizedScrollTo)) {
+    initialState[normalizedScrollTo] = true;
+  }
+
+  return initialState;
+};
+
 // Loading component for sections
 function SectionLoader() {
   return (
     <div className="flex items-center justify-center py-8">
-      <div className="animate-pulse flex space-x-4">
+      <div className="flex space-x-4" aria-hidden="true">
         <div className="rounded-full h-4 w-4 bg-[var(--color-skeleton)]"></div>
         <div className="flex-1 space-y-2 py-1">
           <div className="h-4 rounded w-3/4 bg-[var(--color-skeleton)]"></div>
@@ -47,52 +89,69 @@ function SectionLoader() {
 export default function Home() {
   const { lenis } = useLenisContext();
   const sectionSpacingClass = SECTION_SPACING.TOP_PADDING;
+  const [loadedSections, setLoadedSections] = useState<Record<LazySectionId, boolean>>(
+    createInitialLoadedSections,
+  );
 
-  useEffect(() => {
-    let timeoutId: number | null = null;
-    let idleCallbackId: number | null = null;
-    let cancelled = false;
-
-    const preloadSectionChunks = () => {
-      if (cancelled) return;
-      void Promise.allSettled([
-        loadSkillsSection(),
-        loadExperienceSection(),
-        loadProjectsSection(),
-        loadCredentialsSection(),
-        loadTestimonialsSection(),
-        loadContactSection(),
-      ]);
-    };
-
-    const requestIdle = (
-      window as unknown as {
-        requestIdleCallback?: (cb: () => void, opts?: { timeout?: number }) => number;
-      }
-    ).requestIdleCallback;
-
-    if (typeof requestIdle === 'function') {
-      idleCallbackId = requestIdle(preloadSectionChunks, { timeout: 2500 });
-    } else {
-      timeoutId = window.setTimeout(preloadSectionChunks, 1200);
+  const markSectionLoaded = useCallback((id: string) => {
+    if (!isLazySectionId(id)) {
+      return;
     }
 
-    return () => {
-      cancelled = true;
-
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
+    setLoadedSections((prev) => {
+      if (prev[id]) {
+        return prev;
       }
 
-      if (idleCallbackId !== null) {
-        (
-          window as unknown as {
-            cancelIdleCallback?: (id: number) => void;
-          }
-        ).cancelIdleCallback?.(idleCallbackId);
-      }
-    };
+      return {
+        ...prev,
+        [id]: true,
+      };
+    });
   }, []);
+
+  useEffect(() => {
+    const hasIntersectionObserver = 'IntersectionObserver' in window;
+
+    if (!hasIntersectionObserver) {
+      setLoadedSections({
+        skills: true,
+        experience: true,
+        projects: true,
+        credentials: true,
+        testimonials: true,
+        contact: true,
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          markSectionLoaded(entry.target.id);
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: '480px 0px',
+        threshold: 0.01,
+      },
+    );
+
+    LAZY_SECTION_IDS.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [markSectionLoaded]);
 
   // Parse hash to determine what section to scroll to
   useEffect(() => {
@@ -102,6 +161,8 @@ export default function Home() {
 
       // Handle scrolling to section with retry
       if (hash) {
+        markSectionLoaded(hash);
+
         let attempts = 0;
         const maxAttempts = 20; // 20 attempts * 50ms = 1 second
 
@@ -139,7 +200,7 @@ export default function Home() {
     window.addEventListener('hashchange', handleHashChange);
 
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [lenis]);
+  }, [lenis, markSectionLoaded]);
 
   // Handle scrolling to section when page loads with query parameter (legacy support)
   useEffect(() => {
@@ -148,6 +209,8 @@ export default function Home() {
     const targetSection = scrollTo ? normalizeSectionId(scrollTo) : null;
 
     if (targetSection) {
+      markSectionLoaded(targetSection);
+
       setTimeout(() => {
         const element = document.getElementById(targetSection);
         if (element) {
@@ -160,7 +223,7 @@ export default function Home() {
         }
       }, 100);
     }
-  }, [lenis]);
+  }, [lenis, markSectionLoaded]);
 
   return (
     <>
@@ -173,34 +236,58 @@ export default function Home() {
         <AboutSection />
       </PageSection>
       <PageSection id="skills" title="Skills" className={sectionSpacingClass}>
-        <Suspense fallback={<SectionLoader />}>
-          <SkillsSection />
-        </Suspense>
+        {loadedSections.skills ? (
+          <Suspense fallback={<SectionLoader />}>
+            <SkillsSection />
+          </Suspense>
+        ) : (
+          <SectionLoader />
+        )}
       </PageSection>
       <PageSection id="experience" title="Experience" className={sectionSpacingClass}>
-        <Suspense fallback={<SectionLoader />}>
-          <ExperienceSection />
-        </Suspense>
+        {loadedSections.experience ? (
+          <Suspense fallback={<SectionLoader />}>
+            <ExperienceSection />
+          </Suspense>
+        ) : (
+          <SectionLoader />
+        )}
       </PageSection>
       <PageSection id="projects" title="Projects" className={sectionSpacingClass}>
-        <Suspense fallback={<SectionLoader />}>
-          <ProjectsSection />
-        </Suspense>
+        {loadedSections.projects ? (
+          <Suspense fallback={<SectionLoader />}>
+            <ProjectsSection />
+          </Suspense>
+        ) : (
+          <SectionLoader />
+        )}
       </PageSection>
       <PageSection id="credentials" title="Credentials" className={sectionSpacingClass}>
-        <Suspense fallback={<SectionLoader />}>
-          <CredentialsSection />
-        </Suspense>
+        {loadedSections.credentials ? (
+          <Suspense fallback={<SectionLoader />}>
+            <CredentialsSection />
+          </Suspense>
+        ) : (
+          <SectionLoader />
+        )}
       </PageSection>
       <PageSection id="testimonials" title="Testimonials" className={sectionSpacingClass}>
-        <Suspense fallback={<SectionLoader />}>
-          <TestimonialsSection />
-        </Suspense>
+        {loadedSections.testimonials ? (
+          <Suspense fallback={<SectionLoader />}>
+            <TestimonialsSection />
+          </Suspense>
+        ) : (
+          <SectionLoader />
+        )}
       </PageSection>
       <PageSection id="contact" title="Get in Touch" className={sectionSpacingClass}>
-        <Suspense fallback={<SectionLoader />}>
-          <ContactSection />
-        </Suspense>
+        {loadedSections.contact ? (
+          <Suspense fallback={<SectionLoader />}>
+            <ContactSection />
+          </Suspense>
+        ) : (
+          <SectionLoader />
+        )}
       </PageSection>
     </>
   );

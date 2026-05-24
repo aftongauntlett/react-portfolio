@@ -12,6 +12,7 @@ export default function ContactSection() {
     formStatus,
     statusMessage,
     turnstileCircuitOpen,
+    isTurnstileEnabled,
     emailValidationMessage,
     isSubmitting,
     isSubmitDisabled,
@@ -39,6 +40,7 @@ export default function ContactSection() {
           formStatus={formStatus}
           statusMessage={statusMessage}
           turnstileCircuitOpen={turnstileCircuitOpen}
+          isTurnstileEnabled={isTurnstileEnabled}
           emailValidationMessage={emailValidationMessage}
           isSubmitting={isSubmitting}
           isSubmitDisabled={isSubmitDisabled}

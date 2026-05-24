@@ -21,7 +21,7 @@ function CredentialsGrid({ items }: { items: readonly Credential[] }) {
             <p
               className={clsx(
                 TYPOGRAPHY.TEXT_SMALL,
-                'mt-1 text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-muted)]',
+                'mt-1 text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
               )}
             >
               {item.institution}
@@ -29,7 +29,7 @@ function CredentialsGrid({ items }: { items: readonly Credential[] }) {
             <time
               className={clsx(
                 TYPOGRAPHY.TEXT_SMALL,
-                'mt-1 inline-flex items-center gap-2 transition-colors duration-200',
+                'mt-1 inline-flex items-center gap-2',
                 item.title === 'CompTIA Security+'
                   ? 'text-[var(--color-text)]'
                   : 'text-[var(--color-muted)]',

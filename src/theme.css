@@ -126,7 +126,7 @@ html.dark .hero-heading {
     var(--color-primary) 100%
   );
   background-size: 300% 300%;
-  animation: gradientShift 8s ease-in-out infinite;
+  animation: gradientShift 8s ease-in-out 1;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -144,7 +144,7 @@ html:not(.dark) .hello-gradient {
     hsl(152, 26%, 50%) 100%
   );
   background-size: 300% 300%;
-  animation: gradientShift 8s ease-in-out infinite;
+  animation: gradientShift 8s ease-in-out 1;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -159,7 +159,7 @@ html:not(.dark) .hello-gradient {
     var(--color-primary) 100%
   );
   background-size: 300% 300%;
-  animation: gradientShift 8s ease-in-out infinite;
+  animation: gradientShift 8s ease-in-out 1;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -57,21 +57,15 @@ export default function ExperienceSection() {
             <h3
               className={clsx(
                 TYPOGRAPHY.SUBTITLE,
-                'text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]',
+                'text-[1.15rem] sm:text-[1.25rem] text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]',
               )}
             >
-              <span>{job.title}</span>
-              <span className="block sm:inline">
-                <span className="text-[var(--color-text)]"> @ </span>
-                {job.company}
-              </span>
+              {job.title}
             </h3>
-            <time
-              className={clsx(
-                TYPOGRAPHY.TEXT_SMALL,
-                'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-muted)]',
-              )}
-            >
+            <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-0.5 text-[var(--color-secondary)]')}>
+              {job.company}
+            </p>
+            <time className={clsx(TYPOGRAPHY.TEXT_SMALL, 'text-[var(--color-muted)]')}>
               {job.dates}
             </time>
           </div>

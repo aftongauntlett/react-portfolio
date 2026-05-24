@@ -99,15 +99,12 @@ export default function SideNav() {
                   onClick={handleClick}
                   aria-current={isActive ? 'location' : undefined}
                   className={clsx(
-                    'relative group block pl-4 text-base',
+                    'group block text-base',
                     TRANSITION_FAST,
-                    // ::before indicator
-                    'before:content-[""] before:absolute before:left-0 before:top-1 before:bottom-1 before:w-1 before:bg-[var(--color-secondary)]',
-                    'before:opacity-0 before:transition-all before:duration-200',
                     isActive
-                      ? 'text-[var(--color-primary)] before:opacity-100 font-semibold'
-                      : 'text-[var(--color-text)] before:opacity-0',
-                    'md:hover:text-[var(--color-primary)] md:hover:before:opacity-100',
+                      ? 'text-[var(--color-primary)] font-semibold'
+                      : 'text-[var(--color-text)]',
+                    'md:hover:text-[var(--color-primary)]',
                     'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
                   )}
                 >
@@ -150,11 +147,11 @@ export default function SideNav() {
           />
           <Button
             onClick={toggleTheme}
-            icon={theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
+            icon={theme === 'dark' ? <IconSun size={18} /> : <BsMoonFill size={15} />}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             variant="outline"
             color="muted"
-            className="!h-9 !w-9 !p-0 !rounded-full !border-[var(--color-line)] !bg-[var(--color-surface)]/80 hover:!bg-[var(--color-surface)] hover:!text-[var(--color-theme-toggle-hover)] hover:!opacity-100"
+            className="!h-8 !w-8 !p-0 !rounded-full !border-[var(--color-line)] !bg-[var(--color-surface)]/80 hover:!bg-[var(--color-surface)] hover:!text-[var(--color-theme-toggle-hover)] hover:!opacity-100"
           />
         </div>
       </div>

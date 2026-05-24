@@ -16,6 +16,7 @@ type SectionEntryListProps<T> = {
   renderItem: (item: T, idx: number) => ReactNode;
   listClassName?: string;
   itemClassName?: string;
+  animateOnView?: boolean;
 };
 
 export default function SectionEntryList<T>({
@@ -25,6 +26,7 @@ export default function SectionEntryList<T>({
   renderItem,
   listClassName,
   itemClassName,
+  animateOnView = true,
 }: SectionEntryListProps<T>) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -52,7 +54,7 @@ export default function SectionEntryList<T>({
   const combinedListClassName = clsx(SECTION_ENTRY_LIST_CLASS, listClassName);
   const combinedItemClassName = clsx(SECTION_ENTRY_ITEM_BASE_CLASS, itemClassName);
 
-  if (prefersReducedMotion) {
+  if (prefersReducedMotion || !animateOnView) {
     return (
       <ul className={combinedListClassName} aria-label={ariaLabel}>
         {items.map((item, idx) => (

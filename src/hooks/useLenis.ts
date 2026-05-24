@@ -14,6 +14,10 @@ export function useLenis() {
   const idleCallbackIdRef = useRef<number | null>(null);
   const initTimeoutIdRef = useRef<number | null>(null);
   const initInFlightRef = useRef<boolean>(false);
+  const lenisRafIdRef = useRef<number | null>(null);
+  const lenisIdleStopTimeoutIdRef = useRef<number | null>(null);
+  const lenisActivityCleanupRef = useRef<null | (() => void)>(null);
+  const lenisScrollHandlerRef = useRef<null | (() => void)>(null);
 
   useEffect(() => {
     // Guard against SSR - Lenis requires window/DOM
@@ -24,7 +28,87 @@ export function useLenis() {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     reducedMotionRef.current = mediaQuery.matches;
 
+    // Calm mode: keep smooth scrolling desktop-first to avoid touch-scroll floatiness.
+    const isCoarsePointerDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (isCoarsePointerDevice) {
+      return;
+    }
+
+    const stopLenisRaf = () => {
+      if (lenisRafIdRef.current !== null) {
+        window.cancelAnimationFrame(lenisRafIdRef.current);
+        lenisRafIdRef.current = null;
+      }
+
+      if (lenisIdleStopTimeoutIdRef.current !== null) {
+        window.clearTimeout(lenisIdleStopTimeoutIdRef.current);
+        lenisIdleStopTimeoutIdRef.current = null;
+      }
+    };
+
+    const runLenisRaf = (time: number) => {
+      const lenis = lenisRef.current;
+
+      if (!lenis || reducedMotionRef.current) {
+        stopLenisRaf();
+        return;
+      }
+
+      lenis.raf(time);
+      lenisRafIdRef.current = window.requestAnimationFrame(runLenisRaf);
+    };
+
+    const scheduleLenisIdleStop = () => {
+      if (lenisIdleStopTimeoutIdRef.current !== null) {
+        window.clearTimeout(lenisIdleStopTimeoutIdRef.current);
+      }
+
+      lenisIdleStopTimeoutIdRef.current = window.setTimeout(() => {
+        stopLenisRaf();
+      }, 180);
+    };
+
+    const markLenisActivity = () => {
+      if (reducedMotionRef.current || !lenisRef.current) {
+        return;
+      }
+
+      if (lenisRafIdRef.current === null) {
+        lenisRafIdRef.current = window.requestAnimationFrame(runLenisRaf);
+      }
+
+      scheduleLenisIdleStop();
+    };
+
+    const bindLenisActivityListeners = () => {
+      if (lenisActivityCleanupRef.current) {
+        lenisActivityCleanupRef.current();
+      }
+
+      const activityHandler = () => {
+        markLenisActivity();
+      };
+
+      const passiveOptions = { passive: true } as const;
+
+      window.addEventListener('wheel', activityHandler, passiveOptions);
+      window.addEventListener('touchstart', activityHandler, passiveOptions);
+      window.addEventListener('touchmove', activityHandler, passiveOptions);
+      window.addEventListener('pointerdown', activityHandler, passiveOptions);
+      window.addEventListener('keydown', activityHandler);
+
+      lenisActivityCleanupRef.current = () => {
+        window.removeEventListener('wheel', activityHandler);
+        window.removeEventListener('touchstart', activityHandler);
+        window.removeEventListener('touchmove', activityHandler);
+        window.removeEventListener('pointerdown', activityHandler);
+        window.removeEventListener('keydown', activityHandler);
+      };
+    };
+
     const stopAndDestroy = () => {
+      stopLenisRaf();
+
       if (idleCallbackIdRef.current !== null) {
         try {
           // requestIdleCallback is not in TS DOM libs by default.
@@ -43,9 +127,21 @@ export function useLenis() {
       }
 
       if (lenisRef.current) {
+        if (
+          lenisScrollHandlerRef.current &&
+          typeof (lenisRef.current as Lenis & { off?: (event: 'scroll', cb: () => void) => void })
+            .off === 'function'
+        ) {
+          lenisRef.current.off('scroll', lenisScrollHandlerRef.current);
+          lenisScrollHandlerRef.current = null;
+        }
+
         lenisRef.current.destroy();
         lenisRef.current = null;
       }
+
+      lenisActivityCleanupRef.current?.();
+      lenisActivityCleanupRef.current = null;
 
       initInFlightRef.current = false;
 
@@ -75,8 +171,23 @@ export function useLenis() {
           touchMultiplier: isTouchDevice ? 1 : 2,
           syncTouch: !isTouchDevice,
           infinite: false,
-          autoRaf: true,
+          autoRaf: false,
         });
+
+        const onLenisScroll = () => {
+          markLenisActivity();
+        };
+
+        const lenisWithEvents = lenis as Lenis & {
+          on?: (event: 'scroll', cb: () => void) => void;
+        };
+
+        if (typeof lenisWithEvents.on === 'function') {
+          lenisWithEvents.on('scroll', onLenisScroll);
+          lenisScrollHandlerRef.current = onLenisScroll;
+        }
+
+        bindLenisActivityListeners();
 
         lenisRef.current = lenis;
         queueMicrotask(() => setLenisInstance(lenis));

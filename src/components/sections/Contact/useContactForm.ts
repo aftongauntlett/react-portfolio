@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
-import { ensureTurnstileScriptLoaded, registerTurnstileHandlers } from './contactTurnstile';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mpwldyrq';
 export const CONTACT_EMAIL = 'hello@aftongauntlett.com';
@@ -8,6 +7,21 @@ export type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 export const TURNSTILE_SITE_KEY =
   import.meta.env.VITE_TURNSTILE_SITE_KEY ?? import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
+const DEFAULT_SPAM_PROTECTION_PROVIDER = TURNSTILE_SITE_KEY ? 'turnstile' : 'honeypot';
+
+const SPAM_PROTECTION_PROVIDER =
+  import.meta.env.VITE_SPAM_PROTECTION_PROVIDER ??
+  import.meta.env.PUBLIC_SPAM_PROTECTION_PROVIDER ??
+  DEFAULT_SPAM_PROTECTION_PROVIDER;
+
+const TURNSTILE_LOCAL_MODE =
+  import.meta.env.VITE_TURNSTILE_LOCAL_MODE ??
+  import.meta.env.PUBLIC_TURNSTILE_LOCAL_MODE ??
+  'fallback';
+
+const TURNSTILE_ENABLED =
+  SPAM_PROTECTION_PROVIDER.toLowerCase() === 'turnstile' && Boolean(TURNSTILE_SITE_KEY);
 
 export function useContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -19,9 +33,21 @@ export function useContactForm() {
   const [turnstileCircuitOpen, setTurnstileCircuitOpen] = useState(false);
   const [emailValidationMessage, setEmailValidationMessage] = useState('');
 
+  const isLocalHost =
+    typeof window !== 'undefined' &&
+    ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+
+  const shouldForceLocalFallback =
+    import.meta.env.DEV &&
+    isLocalHost &&
+    TURNSTILE_ENABLED &&
+    TURNSTILE_LOCAL_MODE.toLowerCase() !== 'widget';
+
+  const showTurnstileWidget =
+    TURNSTILE_ENABLED && !shouldForceLocalFallback && !turnstileFallbackEnabled;
+
   const isSubmitting = formStatus === 'submitting';
-  const requiresTurnstileToken =
-    Boolean(TURNSTILE_SITE_KEY) && !turnstileFallbackEnabled && !turnstileCircuitOpen;
+  const requiresTurnstileToken = showTurnstileWidget && !turnstileCircuitOpen;
   const isSubmitDisabled =
     isSubmitting ||
     turnstileCircuitOpen ||
@@ -44,21 +70,45 @@ export function useContactForm() {
   }, []);
 
   useEffect(() => {
-    if (!TURNSTILE_SITE_KEY || turnstileFallbackEnabled || turnstileCircuitOpen) return;
+    if (shouldForceLocalFallback) {
+      setTurnstileFallbackEnabled(true);
+      setFormStatus('idle');
+      setStatusMessage(
+        'Localhost mode: Turnstile is bypassed with honeypot fallback. Set VITE_TURNSTILE_LOCAL_MODE=widget to test the real challenge locally.',
+      );
+      return;
+    }
 
-    const unregisterTurnstileHandlers = registerTurnstileHandlers({
-      setTurnstileToken,
-      turnstileErrorCountRef,
-      setFormStatus,
-      setStatusMessage,
-      setTurnstileFallbackEnabled,
-      setTurnstileCircuitOpen,
-    });
+    if (!TURNSTILE_ENABLED || turnstileFallbackEnabled || turnstileCircuitOpen) return;
 
-    ensureTurnstileScriptLoaded();
+    let cancelled = false;
+    let unregisterTurnstileHandlers: undefined | (() => void);
 
-    return unregisterTurnstileHandlers;
-  }, [turnstileCircuitOpen, turnstileFallbackEnabled]);
+    const setupTurnstile = async () => {
+      const { ensureTurnstileScriptLoaded, registerTurnstileHandlers } =
+        await import('./contactTurnstile');
+
+      if (cancelled) return;
+
+      unregisterTurnstileHandlers = registerTurnstileHandlers({
+        setTurnstileToken,
+        turnstileErrorCountRef,
+        setFormStatus,
+        setStatusMessage,
+        setTurnstileFallbackEnabled,
+        setTurnstileCircuitOpen,
+      });
+
+      ensureTurnstileScriptLoaded();
+    };
+
+    void setupTurnstile();
+
+    return () => {
+      cancelled = true;
+      unregisterTurnstileHandlers?.();
+    };
+  }, [shouldForceLocalFallback, turnstileCircuitOpen, turnstileFallbackEnabled]);
 
   const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
@@ -83,6 +133,17 @@ export function useContactForm() {
       }
 
       const formData = new FormData(formRef.current);
+
+      const honeypotValue = formData.get('_gotcha');
+      if (honeypotValue && String(honeypotValue).trim().length > 0) {
+        formRef.current.reset();
+        setTurnstileToken('');
+        setEmailValidationMessage('');
+        setFormStatus('success');
+        setStatusMessage('Message sent. Thanks for reaching out - I will reply soon.');
+        return;
+      }
+
       if (turnstileToken) {
         formData.set('cf-turnstile-response', turnstileToken);
       }
@@ -149,6 +210,7 @@ export function useContactForm() {
     isSubmitting,
     isSubmitDisabled,
     requiresTurnstileToken,
+    isTurnstileEnabled: showTurnstileWidget,
     validateEmailField,
     handleSubmit,
   };

@@ -106,22 +106,46 @@ describe('ContactSection', () => {
     expect(screen.queryByRole('link', { name: /download resume/i })).not.toBeInTheDocument();
   });
 
-  it('stops Turnstile after repeated failures and shows email fallback', async () => {
+  it('uses honeypot protection by default', () => {
     render(<ContactSection />);
 
-    const win = window as Window & {
-      handleTurnstileError?: (errorCode: string | number) => boolean;
-    };
+    expect(screen.getByText(/non-interactive honeypot filter/i)).toBeInTheDocument();
 
-    await act(async () => {
-      win.handleTurnstileError?.('300001');
-      win.handleTurnstileError?.('300001');
-      win.handleTurnstileError?.('300001');
+    const honeypotInput = document.querySelector('input[name="_gotcha"]');
+    expect(honeypotInput).toBeInTheDocument();
+  });
+
+  it('suppresses bot-like honeypot submissions', async () => {
+    fetchMock.mockResolvedValue({
+      ok: true,
+      json: async () => ({ ok: true }),
+    } as Response);
+
+    render(<ContactSection />);
+
+    fireEvent.change(screen.getByRole('textbox', { name: /name/i }), {
+      target: { value: 'Afton' },
+    });
+    fireEvent.change(screen.getByRole('textbox', { name: /email/i }), {
+      target: { value: 'hello@example.com' },
+    });
+    fireEvent.change(screen.getByRole('textbox', { name: /message/i }), {
+      target: { value: 'Hello from tests.' },
     });
 
-    const emailFallback = screen.getByRole('link', { name: /email me directly/i });
-    expect(emailFallback).toBeInTheDocument();
-    expect(emailFallback).toHaveAttribute('href', 'mailto:hello@aftongauntlett.com');
-    expect(screen.getByRole('button', { name: /send message/i })).toBeDisabled();
+    const honeypotInput = document.querySelector('input[name="_gotcha"]');
+    expect(honeypotInput).toBeInstanceOf(HTMLInputElement);
+
+    fireEvent.change(honeypotInput as HTMLInputElement, {
+      target: { value: 'https://spam.invalid' },
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /send message/i }));
+
+    await waitFor(() => {
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    expect(screen.getByRole('status')).toHaveTextContent(/message sent/i);
   });
 });

@@ -152,7 +152,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
                 <Button
                   onClick={toggleTheme}
                   variant="unstyled"
-                  icon={theme === 'dark' ? <IconSun size={20} /> : <BsMoonFill size={20} />}
+                  icon={theme === 'dark' ? <IconSun size={18} /> : <BsMoonFill size={15} />}
                   className={clsx(
                     'w-full rounded-lg',
                     'text-base font-medium',

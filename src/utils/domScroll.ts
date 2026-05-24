@@ -102,6 +102,7 @@ export function scrollToTop(lenis?: Lenis | null) {
 
   if (lenis && !prefersReducedMotion) {
     lenis.scrollTo(0);
+    runLenisForProgrammaticScroll(lenis);
   } else {
     window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   }

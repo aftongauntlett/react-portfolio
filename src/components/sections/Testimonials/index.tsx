@@ -48,7 +48,7 @@ export default function TestimonialsSection() {
       <p
         className={clsx(
           TYPOGRAPHY.TEXT_SMALL,
-          'pl-4 font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]',
+          'pl-4 font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
         )}
       >
         {review.name}
@@ -78,6 +78,7 @@ export default function TestimonialsSection() {
       <SectionEntryList
         items={primaryTestimonials}
         ariaLabel="Primary testimonials"
+        animateOnView={false}
         listClassName="space-y-5"
         itemClassName="pb-5"
         getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
@@ -131,6 +132,7 @@ export default function TestimonialsSection() {
                 <SectionEntryList
                   items={additionalTestimonials}
                   ariaLabel="Additional testimonials"
+                  animateOnView={false}
                   listClassName="space-y-5"
                   itemClassName="pb-5"
                   getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
@@ -173,6 +175,7 @@ export default function TestimonialsSection() {
               <SectionEntryList
                 items={additionalTestimonials}
                 ariaLabel="Additional testimonials"
+                animateOnView={false}
                 listClassName="space-y-5"
                 itemClassName="pb-5"
                 getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}

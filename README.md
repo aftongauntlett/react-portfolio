@@ -8,6 +8,7 @@
 Modern portfolio site showcasing clean React architecture and accessibility-first development.
 
 **[View Live Site →](https://aftongauntlett.com)**
+
 ## Key Features
 
 - **Type-Safe Architecture** — Strict TypeScript with no `any` types in production code
@@ -34,7 +35,35 @@ Clean separation of concerns with reusable components, custom hooks, and utility
 - [src/utils/](src/utils/) — Helper functions for dates, scrolling, and formatting
 - [src/data/](src/data/) — Centralized content configuration
 
+## Contact Form Spam Protection
 
+The contact form supports two anti-spam modes:
+
+- `turnstile` (Cloudflare Turnstile token sent to Formspree)
+- `honeypot` (non-interactive hidden field)
+
+Behavior defaults:
+
+- If `VITE_TURNSTILE_SITE_KEY` is present, Turnstile is enabled by default.
+- If no Turnstile key is present, honeypot mode is used.
+
+Optional environment variables:
+
+```bash
+# Turnstile site key (public)
+VITE_TURNSTILE_SITE_KEY=...
+
+# Optional: force provider
+VITE_SPAM_PROTECTION_PROVIDER=turnstile
+# VITE_SPAM_PROTECTION_PROVIDER=honeypot
+
+# Localhost behavior when Turnstile is enabled:
+# fallback (default): bypass challenge and use honeypot locally
+# widget: render real Turnstile widget on localhost
+VITE_TURNSTILE_LOCAL_MODE=fallback
+```
+
+For local widget testing (`VITE_TURNSTILE_LOCAL_MODE=widget`), ensure `localhost` and `127.0.0.1` are allowed in your Turnstile hostname settings.
 
 ## License
 

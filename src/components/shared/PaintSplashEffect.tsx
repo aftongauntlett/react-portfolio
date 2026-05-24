@@ -7,9 +7,6 @@ interface PaintSplashTextProps {
   tag?: AllowedTags;
   className?: string;
   id?: string;
-  isActive?: boolean;
-  scrollProgress?: number;
-  prefersReducedMotion?: boolean;
   'aria-labelledby'?: string;
   'aria-describedby'?: string;
 }
@@ -21,17 +18,9 @@ export default function PaintSplashText({
   children,
   tag = 'span',
   className = '',
-  isActive = false,
-  scrollProgress = 0,
-  prefersReducedMotion = false,
   ...additionalProps
 }: PaintSplashTextProps) {
   const Tag = tag as ElementType;
-
-  const clampedProgress = Math.max(0, Math.min(1, scrollProgress));
-  const activeProgress = isActive ? (prefersReducedMotion ? 1 : clampedProgress) : 0;
-
-  const underlineTransition = prefersReducedMotion ? 'none' : 'transform 250ms ease-out';
 
   return (
     <Tag
@@ -46,11 +35,6 @@ export default function PaintSplashText({
         <span
           aria-hidden="true"
           className="pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full rounded bg-[var(--color-primary)]"
-          style={{
-            transformOrigin: 'left',
-            transform: `scaleX(${activeProgress})`,
-            transition: underlineTransition,
-          }}
         />
       </span>
     </Tag>

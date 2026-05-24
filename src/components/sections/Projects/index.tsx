@@ -15,7 +15,10 @@ export default function ProjectsSection() {
     { title, status, description, link, demo, playable }: ProjectItem,
     idx: number,
   ) => (
-    <article aria-labelledby={`project-title-${idx}`} className="flex flex-col py-3 md:py-4 px-1 md:px-2">
+    <article
+      aria-labelledby={`project-title-${idx}`}
+      className="flex flex-col py-3 md:py-4 px-1 md:px-2"
+    >
       <header className="flex items-start justify-between gap-3">
         <h3
           id={`project-title-${idx}`}
@@ -104,7 +107,6 @@ export default function ProjectsSection() {
         items={projects}
         ariaLabel="Portfolio projects"
         listClassName="list-none"
-        itemClassName="md:border-l-4 md:border-l-transparent md:hover:border-l-[var(--color-primary)]"
         getItemKey={(project) => project.title}
         renderItem={(project, idx) => renderProject(project, idx)}
       />

@@ -18,8 +18,6 @@ export const TRANSITION_CARD_HOVER = `transition-[colors,box-shadow] ${DURATION_
 // Common Color Patterns
 export const TEXT_PRIMARY_HOVER =
   'text-[var(--color-text)] group-hover:text-[var(--color-primary)]';
-export const TEXT_MUTED_HOVER =
-  'text-[var(--color-muted)] group-hover:text-[var(--color-secondary)]';
 
 // Reusable interactive surface styles for card-like blocks.
 export const SURFACE_CARD_BASE =
@@ -33,7 +31,6 @@ export const CARD_BASE_CLASSES =
 
 // Typography Classes (using consistent system)
 export const TITLE_HOVER_CLASSES = `${TYPOGRAPHY.SUBTITLE} transition-colors duration-300 text-[var(--color-text)] group-hover:text-[var(--color-primary)]`;
-export const DATE_CLASSES = `${TYPOGRAPHY.TEXT_SMALL} transition-colors duration-300 text-[var(--color-muted)] group-hover:text-[var(--color-secondary)] ml-2 shrink-0`;
 export const TEXT_SM_CLASSES = `${TYPOGRAPHY.TEXT_SMALL} transition-colors duration-300`;
 
 // Re-export typography constants for easy access

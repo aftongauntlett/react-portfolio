@@ -15,6 +15,7 @@ type ContactFormProps = {
   formStatus: FormStatus;
   statusMessage: string;
   turnstileCircuitOpen: boolean;
+  isTurnstileEnabled: boolean;
   emailValidationMessage: string;
   isSubmitting: boolean;
   isSubmitDisabled: boolean;
@@ -28,6 +29,7 @@ export default function ContactForm({
   formStatus,
   statusMessage,
   turnstileCircuitOpen,
+  isTurnstileEnabled,
   emailValidationMessage,
   isSubmitting,
   isSubmitDisabled,
@@ -118,7 +120,7 @@ export default function ContactForm({
             variant="outline"
             color="primary"
             disabled={isSubmitDisabled}
-            className="order-1 self-start sm:order-2 sm:ml-auto"
+            className="order-1 self-end sm:order-2 sm:ml-auto"
           >
             {isSubmitting ? (
               <>
@@ -148,7 +150,7 @@ export default function ContactForm({
           </p>
         </div>
 
-        {TURNSTILE_SITE_KEY && !turnstileCircuitOpen ? (
+        {isTurnstileEnabled && TURNSTILE_SITE_KEY && !turnstileCircuitOpen ? (
           <div className="self-start sm:self-end">
             <div
               className="cf-turnstile"
@@ -161,7 +163,7 @@ export default function ContactForm({
               data-retry="never"
             />
           </div>
-        ) : TURNSTILE_SITE_KEY && turnstileCircuitOpen ? (
+        ) : isTurnstileEnabled && TURNSTILE_SITE_KEY && turnstileCircuitOpen ? (
           <div className="self-start sm:self-end rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-xs text-[var(--color-muted)]">
             <p>Security check has been paused after repeated failures.</p>
             <a
@@ -173,10 +175,21 @@ export default function ContactForm({
           </div>
         ) : (
           <p className="text-xs text-[var(--color-muted)]">
-            Security challenge is not configured yet. Add the Turnstile site key to enable spam
-            protection.
+            Spam protection is enabled with a non-interactive honeypot filter.
           </p>
         )}
+
+        <div className="sr-only" aria-hidden="true">
+          <label htmlFor="contact-company">Company website</label>
+          <input
+            id="contact-company"
+            name="_gotcha"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </div>
 
         {requiresTurnstileToken ? (
           <p className="text-xs text-[var(--color-muted)] sm:text-right">
