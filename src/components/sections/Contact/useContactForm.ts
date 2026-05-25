@@ -22,6 +22,7 @@ const TURNSTILE_LOCAL_MODE =
 
 const TURNSTILE_ENABLED =
   SPAM_PROTECTION_PROVIDER.toLowerCase() === 'turnstile' && Boolean(TURNSTILE_SITE_KEY);
+const TURNSTILE_RESPONSE_FIELD_SELECTOR = 'input[name="cf-turnstile-response"]';
 
 export function useContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -109,6 +110,43 @@ export function useContactForm() {
       unregisterTurnstileHandlers?.();
     };
   }, [shouldForceLocalFallback, turnstileCircuitOpen, turnstileFallbackEnabled]);
+
+  useEffect(() => {
+    if (!showTurnstileWidget || turnstileCircuitOpen) {
+      return;
+    }
+
+    const form = formRef.current;
+    if (!form) {
+      return;
+    }
+
+    const syncTokenFromResponseField = () => {
+      const responseField = form.querySelector<HTMLInputElement>(TURNSTILE_RESPONSE_FIELD_SELECTOR);
+      const tokenFromField = responseField?.value.trim() ?? '';
+
+      if (tokenFromField.length > 0 && tokenFromField !== turnstileToken) {
+        setTurnstileToken(tokenFromField);
+      }
+    };
+
+    syncTokenFromResponseField();
+
+    const observer = new MutationObserver(syncTokenFromResponseField);
+    observer.observe(form, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['value'],
+    });
+
+    const pollId = window.setInterval(syncTokenFromResponseField, 250);
+
+    return () => {
+      observer.disconnect();
+      window.clearInterval(pollId);
+    };
+  }, [showTurnstileWidget, turnstileCircuitOpen, turnstileToken]);
 
   const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {

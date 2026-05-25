@@ -148,4 +148,30 @@ describe('ContactSection', () => {
 
     expect(screen.getByRole('status')).toHaveTextContent(/message sent/i);
   });
+
+  it('enables submit when Turnstile response field receives a token', async () => {
+    render(<ContactSection />);
+
+    const sendButton = screen.getByRole('button', { name: /send message/i });
+    const win = window as Window & {
+      handleTurnstileSuccess?: (token: string) => void;
+    };
+
+    if (!win.handleTurnstileSuccess) {
+      return;
+    }
+
+    expect(sendButton).toBeDisabled();
+
+    const form = screen.getByRole('form', { name: /contact form/i });
+    const tokenField = document.createElement('input');
+    tokenField.type = 'hidden';
+    tokenField.name = 'cf-turnstile-response';
+    tokenField.setAttribute('value', 'token-from-response-field');
+    form.appendChild(tokenField);
+
+    await waitFor(() => {
+      expect(sendButton).toBeEnabled();
+    });
+  });
 });

@@ -4,32 +4,23 @@ import { SECTION_SPACING } from '@/constants/spacing';
 import { useLenisContext } from '@/context/LenisContext';
 import { smoothScrollTo } from '@/utils/domScroll';
 
-// Eager load About section - it's above the fold and critical for LCP
+// Eager load above-the-fold sections to avoid placeholder reflow (CLS).
 import AboutSection from '@/components/sections/About';
+import SkillsSection from '@/components/sections/Skills';
+import ExperienceSection from '@/components/sections/Experience';
 
-// Lazy load remaining sections for better code splitting
+// Lazy load below-the-fold sections for better code splitting.
 const loadContactSection = () => import('@/components/sections/Contact');
-const loadExperienceSection = () => import('@/components/sections/Experience');
 const loadProjectsSection = () => import('@/components/sections/Projects');
-const loadSkillsSection = () => import('@/components/sections/Skills');
 const loadCredentialsSection = () => import('@/components/sections/Credentials');
 const loadTestimonialsSection = () => import('@/components/sections/Testimonials');
 
 const ContactSection = lazy(loadContactSection);
-const ExperienceSection = lazy(loadExperienceSection);
 const ProjectsSection = lazy(loadProjectsSection);
-const SkillsSection = lazy(loadSkillsSection);
 const CredentialsSection = lazy(loadCredentialsSection);
 const TestimonialsSection = lazy(loadTestimonialsSection);
 
-const LAZY_SECTION_IDS = [
-  'skills',
-  'experience',
-  'projects',
-  'credentials',
-  'testimonials',
-  'contact',
-] as const;
+const LAZY_SECTION_IDS = ['projects', 'credentials', 'testimonials', 'contact'] as const;
 
 type LazySectionId = (typeof LAZY_SECTION_IDS)[number];
 
@@ -45,8 +36,6 @@ const isLazySectionId = (id: string): id is LazySectionId =>
 
 const createInitialLoadedSections = (): Record<LazySectionId, boolean> => {
   const initialState: Record<LazySectionId, boolean> = {
-    skills: false,
-    experience: false,
     projects: false,
     credentials: false,
     testimonials: false,
@@ -74,7 +63,7 @@ const createInitialLoadedSections = (): Record<LazySectionId, boolean> => {
 // Loading component for sections
 function SectionLoader() {
   return (
-    <div className="flex items-center justify-center py-8">
+    <div className="flex min-h-[16rem] items-center justify-center py-8">
       <div className="flex space-x-4" aria-hidden="true">
         <div className="rounded-full h-4 w-4 bg-[var(--color-skeleton)]"></div>
         <div className="flex-1 space-y-2 py-1">
@@ -115,8 +104,6 @@ export default function Home() {
 
     if (!hasIntersectionObserver) {
       setLoadedSections({
-        skills: true,
-        experience: true,
         projects: true,
         credentials: true,
         testimonials: true,
@@ -236,22 +223,10 @@ export default function Home() {
         <AboutSection />
       </PageSection>
       <PageSection id="skills" title="Skills" className={sectionSpacingClass}>
-        {loadedSections.skills ? (
-          <Suspense fallback={<SectionLoader />}>
-            <SkillsSection />
-          </Suspense>
-        ) : (
-          <SectionLoader />
-        )}
+        <SkillsSection />
       </PageSection>
       <PageSection id="experience" title="Experience" className={sectionSpacingClass}>
-        {loadedSections.experience ? (
-          <Suspense fallback={<SectionLoader />}>
-            <ExperienceSection />
-          </Suspense>
-        ) : (
-          <SectionLoader />
-        )}
+        <ExperienceSection />
       </PageSection>
       <PageSection id="projects" title="Projects" className={sectionSpacingClass}>
         {loadedSections.projects ? (

@@ -1,4 +1,3 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import ErrorBoundary from './components/shared/ErrorBoundary';
 import { LenisProvider } from './context/LenisContext';
@@ -19,23 +18,11 @@ export default function App() {
           <DevPerformanceOverlay />
         </Suspense>
       )}
-      <BrowserRouter>
-        <LenisProvider>
-          <Routes>
-            {/* Main portfolio route with full layout */}
-            <Route
-              path="/"
-              element={
-                <Layout>
-                  <Home />
-                </Layout>
-              }
-            />
-            {/* All main navigation handled via hash routes in Home page */}
-            {/* /#about, /#projects, etc. */}
-          </Routes>
-        </LenisProvider>
-      </BrowserRouter>
+      <LenisProvider>
+        <Layout>
+          <Home />
+        </Layout>
+      </LenisProvider>
     </ErrorBoundary>
   );
 }
