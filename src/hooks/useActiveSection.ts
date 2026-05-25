@@ -4,13 +4,17 @@ let globalObserver: IntersectionObserver | null = null;
 let globalMutationObserver: MutationObserver | null = null;
 let activeCallbacks = new Set<(id: string) => void>();
 let observedSections = new Set<Element>();
-let isPaused = false;
-let debounceTimeout: number | null = null;
+let activeSectionId: string | null = null;
+let mutationRafId: number | null = null;
+
+function getObservedRoot() {
+  return document.getElementById('main-content') ?? document.body;
+}
 
 function observeSections() {
   if (!globalObserver) return;
 
-  const sections = document.querySelectorAll('section[data-section]');
+  const sections = getObservedRoot().querySelectorAll('section[data-section]');
   sections.forEach((section) => {
     if (!observedSections.has(section)) {
       globalObserver!.observe(section);
@@ -26,55 +30,41 @@ function initializeGlobalObserver() {
     return globalObserver;
   }
 
+  const visibleRatios = new Map<Element, number>();
+
   globalObserver = new IntersectionObserver(
     (entries) => {
-      // Don't update if paused (detail view is open)
-      if (isPaused) return;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          visibleRatios.set(entry.target, entry.intersectionRatio);
+        } else {
+          visibleRatios.delete(entry.target);
+        }
+      });
 
-      if (debounceTimeout !== null) {
-        window.clearTimeout(debounceTimeout);
-        debounceTimeout = null;
+      if (visibleRatios.size === 0) {
+        return;
       }
 
-      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+      let mostVisibleId: string | null = null;
+      let highestRatio = -1;
 
-      const computeNextActive = () => {
-        if (visibleEntries.length > 0) {
-          const mostVisible = visibleEntries.reduce((prev, current) =>
-            current.intersectionRatio > prev.intersectionRatio ? current : prev,
-          );
-          return mostVisible.target.getAttribute('data-section');
+      visibleRatios.forEach((ratio, element) => {
+        if (ratio > highestRatio) {
+          highestRatio = ratio;
+          mostVisibleId = element.getAttribute('data-section');
         }
+      });
 
-        const sections = Array.from(document.querySelectorAll('section[data-section]'));
-        if (sections.length === 0) return null;
-
-        let closestSection = sections[0];
-        let smallestDistance = Math.abs(sections[0].getBoundingClientRect().top);
-
-        sections.forEach((section) => {
-          const rect = section.getBoundingClientRect();
-          const distance = Math.abs(rect.top);
-
-          if (distance < smallestDistance) {
-            closestSection = section;
-            smallestDistance = distance;
-          }
-        });
-
-        return closestSection.getAttribute('data-section');
-      };
-
-      debounceTimeout = window.setTimeout(() => {
-        const id = computeNextActive();
-        if (id) {
-          activeCallbacks.forEach((callback) => callback(id));
-        }
-      }, 50);
+      const nextActiveId = mostVisibleId;
+      if (nextActiveId && nextActiveId !== activeSectionId) {
+        activeSectionId = nextActiveId;
+        activeCallbacks.forEach((callback) => callback(nextActiveId));
+      }
     },
     {
       rootMargin: '-80px 0px -80px 0px',
-      threshold: [0.2],
+      threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
     },
   );
 
@@ -83,8 +73,25 @@ function initializeGlobalObserver() {
 
   // Observe DOM changes so lazily mounted sections get picked up without polling.
   if (!globalMutationObserver) {
-    globalMutationObserver = new MutationObserver(() => observeSections());
-    globalMutationObserver.observe(document.body, { childList: true, subtree: true });
+    const scheduleObserveSections = () => {
+      if (mutationRafId !== null) {
+        return;
+      }
+
+      mutationRafId = window.requestAnimationFrame(() => {
+        mutationRafId = null;
+        observeSections();
+      });
+    };
+
+    globalMutationObserver = new MutationObserver((mutations) => {
+      if (
+        mutations.some((mutation) => mutation.type === 'childList' && mutation.addedNodes.length)
+      ) {
+        scheduleObserveSections();
+      }
+    });
+    globalMutationObserver.observe(getObservedRoot(), { childList: true, subtree: true });
   }
 
   return globalObserver;
@@ -103,13 +110,14 @@ export function useActiveSection() {
         globalObserver.disconnect();
         globalObserver = null;
         observedSections.clear();
+        activeSectionId = null;
 
         globalMutationObserver?.disconnect();
         globalMutationObserver = null;
 
-        if (debounceTimeout !== null) {
-          window.clearTimeout(debounceTimeout);
-          debounceTimeout = null;
+        if (mutationRafId !== null) {
+          window.cancelAnimationFrame(mutationRafId);
+          mutationRafId = null;
         }
       }
     };

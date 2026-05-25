@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import {
   siTypescript,
+  siJavascript,
   siReact,
   siAstro,
   siTailwindcss,
@@ -13,6 +14,7 @@ import {
   siVercel,
   siGit,
   siGithubcopilot,
+  siClaude,
 } from 'simple-icons';
 import type { IconType } from 'react-icons';
 import { FaAws } from 'react-icons/fa';
@@ -34,6 +36,7 @@ type Skill =
 
 const SKILLS: Skill[] = [
   { name: 'TypeScript', iconPath: siTypescript.path },
+  { name: 'JavaScript', iconPath: siJavascript.path },
   { name: 'React', iconPath: siReact.path },
   { name: 'Astro', iconPath: siAstro.path },
   { name: 'Tailwind CSS', iconPath: siTailwindcss.path },
@@ -46,11 +49,12 @@ const SKILLS: Skill[] = [
   { name: 'Vercel', iconPath: siVercel.path },
   { name: 'Git', iconPath: siGit.path },
   { name: 'GitHub Copilot', iconPath: siGithubcopilot.path },
+  { name: 'Claude', iconPath: siClaude.path },
   { name: 'AWS', Icon: FaAws },
 ];
 
 function SkillIcon({ iconPath, Icon, size }: { iconPath?: string; Icon?: IconType; size: string }) {
-  const iconClassName = `${size} text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-primary)]`;
+  const iconClassName = `${size} text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)] dark:group-hover:text-[var(--color-primary)]`;
 
   if (Icon) {
     return <Icon className={iconClassName} aria-hidden="true" />;

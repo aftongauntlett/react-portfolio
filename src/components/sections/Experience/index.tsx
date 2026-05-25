@@ -96,15 +96,12 @@ export default function ExperienceSection() {
             <ul
               className={clsx(
                 TYPOGRAPHY.TEXT_DESCRIPTION,
-                'mt-2 space-y-2 pl-5 text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]',
+                'mt-2 space-y-2 pl-0 text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]',
               )}
               aria-label={`Recognitions for ${job.title}`}
             >
               {awardsForRole.map((award) => (
-                <li
-                  className="list-disc marker:text-[var(--color-muted)]"
-                  key={`${award.title}-${award.date}`}
-                >
+                <li key={`${award.title}-${award.date}`}>
                   <span className="font-semibold text-[var(--color-text)]">
                     {award.date} {award.title}:
                   </span>{' '}

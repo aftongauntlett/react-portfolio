@@ -15,9 +15,6 @@ export function useLenis() {
   const initTimeoutIdRef = useRef<number | null>(null);
   const initInFlightRef = useRef<boolean>(false);
   const lenisRafIdRef = useRef<number | null>(null);
-  const lenisIdleStopTimeoutIdRef = useRef<number | null>(null);
-  const lenisActivityCleanupRef = useRef<null | (() => void)>(null);
-  const lenisScrollHandlerRef = useRef<null | (() => void)>(null);
 
   useEffect(() => {
     // Guard against SSR - Lenis requires window/DOM
@@ -39,11 +36,6 @@ export function useLenis() {
         window.cancelAnimationFrame(lenisRafIdRef.current);
         lenisRafIdRef.current = null;
       }
-
-      if (lenisIdleStopTimeoutIdRef.current !== null) {
-        window.clearTimeout(lenisIdleStopTimeoutIdRef.current);
-        lenisIdleStopTimeoutIdRef.current = null;
-      }
     };
 
     const runLenisRaf = (time: number) => {
@@ -58,52 +50,12 @@ export function useLenis() {
       lenisRafIdRef.current = window.requestAnimationFrame(runLenisRaf);
     };
 
-    const scheduleLenisIdleStop = () => {
-      if (lenisIdleStopTimeoutIdRef.current !== null) {
-        window.clearTimeout(lenisIdleStopTimeoutIdRef.current);
-      }
-
-      lenisIdleStopTimeoutIdRef.current = window.setTimeout(() => {
-        stopLenisRaf();
-      }, 180);
-    };
-
-    const markLenisActivity = () => {
-      if (reducedMotionRef.current || !lenisRef.current) {
+    const startLenisRaf = () => {
+      if (reducedMotionRef.current || !lenisRef.current || lenisRafIdRef.current !== null) {
         return;
       }
 
-      if (lenisRafIdRef.current === null) {
-        lenisRafIdRef.current = window.requestAnimationFrame(runLenisRaf);
-      }
-
-      scheduleLenisIdleStop();
-    };
-
-    const bindLenisActivityListeners = () => {
-      if (lenisActivityCleanupRef.current) {
-        lenisActivityCleanupRef.current();
-      }
-
-      const activityHandler = () => {
-        markLenisActivity();
-      };
-
-      const passiveOptions = { passive: true } as const;
-
-      window.addEventListener('wheel', activityHandler, passiveOptions);
-      window.addEventListener('touchstart', activityHandler, passiveOptions);
-      window.addEventListener('touchmove', activityHandler, passiveOptions);
-      window.addEventListener('pointerdown', activityHandler, passiveOptions);
-      window.addEventListener('keydown', activityHandler);
-
-      lenisActivityCleanupRef.current = () => {
-        window.removeEventListener('wheel', activityHandler);
-        window.removeEventListener('touchstart', activityHandler);
-        window.removeEventListener('touchmove', activityHandler);
-        window.removeEventListener('pointerdown', activityHandler);
-        window.removeEventListener('keydown', activityHandler);
-      };
+      lenisRafIdRef.current = window.requestAnimationFrame(runLenisRaf);
     };
 
     const stopAndDestroy = () => {
@@ -127,21 +79,9 @@ export function useLenis() {
       }
 
       if (lenisRef.current) {
-        if (
-          lenisScrollHandlerRef.current &&
-          typeof (lenisRef.current as Lenis & { off?: (event: 'scroll', cb: () => void) => void })
-            .off === 'function'
-        ) {
-          lenisRef.current.off('scroll', lenisScrollHandlerRef.current);
-          lenisScrollHandlerRef.current = null;
-        }
-
         lenisRef.current.destroy();
         lenisRef.current = null;
       }
-
-      lenisActivityCleanupRef.current?.();
-      lenisActivityCleanupRef.current = null;
 
       initInFlightRef.current = false;
 
@@ -174,22 +114,8 @@ export function useLenis() {
           autoRaf: false,
         });
 
-        const onLenisScroll = () => {
-          markLenisActivity();
-        };
-
-        const lenisWithEvents = lenis as Lenis & {
-          on?: (event: 'scroll', cb: () => void) => void;
-        };
-
-        if (typeof lenisWithEvents.on === 'function') {
-          lenisWithEvents.on('scroll', onLenisScroll);
-          lenisScrollHandlerRef.current = onLenisScroll;
-        }
-
-        bindLenisActivityListeners();
-
         lenisRef.current = lenis;
+        startLenisRaf();
         queueMicrotask(() => setLenisInstance(lenis));
       } finally {
         initInFlightRef.current = false;
