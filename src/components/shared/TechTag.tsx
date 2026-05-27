@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Tag from '@/components/shared/Tag';
-import { getTechChipClassName } from '@/constants/techChips';
+import { getTechChipClassName, getTechChipHoverClassName } from '@/constants/techChips';
 
 type TechTagSize = 'xs' | 'small' | 'medium';
 
@@ -9,6 +9,7 @@ interface TechTagProps {
   size?: TechTagSize;
   className?: string;
   useBrandStyles?: boolean;
+  monochromeUntilHover?: boolean;
 }
 
 export default function TechTag({
@@ -16,6 +17,7 @@ export default function TechTag({
   size = 'small',
   className,
   useBrandStyles = true,
+  monochromeUntilHover = false,
 }: TechTagProps) {
   if (!useBrandStyles) {
     return (
@@ -26,10 +28,28 @@ export default function TechTag({
   }
 
   const techClasses = getTechChipClassName(tech);
+  const hoverAccentClasses = getTechChipHoverClassName(tech);
 
   if (!techClasses) {
     return (
       <Tag variant="muted" size={size} className={className}>
+        {tech}
+      </Tag>
+    );
+  }
+
+  if (monochromeUntilHover) {
+    return (
+      <Tag
+        variant="muted"
+        size={size}
+        className={clsx(
+          hoverAccentClasses,
+          'transform-gpu hover:-translate-y-px',
+          'transition-[background-color,border-color,color,transform] duration-200',
+          className,
+        )}
+      >
         {tech}
       </Tag>
     );

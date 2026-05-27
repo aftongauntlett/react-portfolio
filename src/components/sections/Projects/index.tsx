@@ -6,20 +6,21 @@ import { projects } from '@/data/projects';
 import { TYPOGRAPHY } from '@/constants/styles';
 import { COMPONENT_SPACING } from '@/constants/spacing';
 import SectionEntryList from '@/components/shared/SectionEntryList';
+import TechTag from '@/components/shared/TechTag';
 
 export default function ProjectsSection() {
   type ProjectItem = (typeof projects)[number];
   const projectLinkBaseClass = '!border-b-0 hover:!border-b-0 !text-[var(--color-muted)]';
 
   const renderProject = (
-    { title, status, description, link, demo, playable }: ProjectItem,
+    { title, description, tech, link, demo, playable }: ProjectItem,
     idx: number,
   ) => (
     <article
       aria-labelledby={`project-title-${idx}`}
       className="flex flex-col py-3 md:py-4 px-1 md:px-2"
     >
-      <header className="flex items-start justify-between gap-3">
+      <header className="flex flex-col items-start gap-2">
         <h3
           id={`project-title-${idx}`}
           className={clsx(
@@ -29,7 +30,13 @@ export default function ProjectsSection() {
         >
           {title}
         </h3>
-        <div className="shrink-0">{renderStatus(status)}</div>
+        <ul className="flex flex-wrap gap-2" aria-label={`${title} technologies`}>
+          {tech.map((techItem) => (
+            <li key={`${title}-${techItem}`}>
+              <TechTag tech={techItem} size="xs" monochromeUntilHover />
+            </li>
+          ))}
+        </ul>
       </header>
       <div
         aria-label={`Project description: ${description}`}
@@ -38,7 +45,7 @@ export default function ProjectsSection() {
         {description}
       </div>
       <div
-        className="flex flex-wrap gap-3 justify-start mt-3"
+        className="mt-4 flex flex-wrap items-center justify-start gap-3 md:justify-end"
         role="group"
         aria-label="Project links"
       >
@@ -82,24 +89,6 @@ export default function ProjectsSection() {
       </div>
     </article>
   );
-  const renderStatus = (status: ProjectItem['status']) => {
-    const statusColorClass =
-      status === 'Production'
-        ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
-        : 'border-[var(--color-secondary)] text-[var(--color-secondary)]';
-
-    return (
-      <span
-        className={clsx(
-          TYPOGRAPHY.TEXT_XS,
-          'font-medium px-2 py-1 rounded border bg-transparent',
-          statusColorClass,
-        )}
-      >
-        {status}
-      </span>
-    );
-  };
 
   return (
     <div className={COMPONENT_SPACING.STACK_STANDARD}>

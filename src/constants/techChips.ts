@@ -24,6 +24,9 @@ const TECH_CHIP_KEY_ALIASES: Record<TechChipKey, TechChipKey> = {
   node: 'node',
   nodejs: 'node',
   vercel: 'vercel',
+  upstashredis: 'upstashredis',
+  cloudflareturnstile: 'cloudflareturnstile',
+  turnstile: 'cloudflareturnstile',
 
   supabase: 'supabase',
   postgresql: 'postgresql',
@@ -78,6 +81,10 @@ const TECH_CHIP_CLASSES: Record<TechChipKey, string> = {
   node: 'border-green-500/35 bg-green-500/15 hover:bg-green-500/20 hover:border-green-500/55 dark:border-green-300/35 dark:bg-green-400/10',
   vercel:
     'border-zinc-500/35 bg-zinc-500/10 hover:bg-zinc-500/15 hover:border-zinc-500/55 dark:border-zinc-300/30 dark:bg-zinc-400/10',
+  upstashredis:
+    'border-amber-600/35 bg-amber-600/10 hover:bg-amber-600/15 hover:border-amber-600/55 dark:border-amber-300/30 dark:bg-amber-400/10',
+  cloudflareturnstile:
+    'border-orange-500/35 bg-orange-500/10 hover:bg-orange-500/15 hover:border-orange-500/55 dark:border-orange-300/30 dark:bg-orange-400/10',
 
   supabase:
     'border-lime-500/35 bg-lime-500/15 hover:bg-lime-500/20 hover:border-lime-500/55 dark:border-lime-300/35 dark:bg-lime-400/10',
@@ -136,6 +143,18 @@ export const getTechChipClassName = (label: string): string | undefined => {
   return TECH_CHIP_CLASSES[key];
 };
 
+export const getTechChipHoverClassName = (label: string): string | undefined => {
+  const className = getTechChipClassName(label);
+  if (!className) return undefined;
+
+  const hoverClasses = className
+    .split(/\s+/)
+    .filter((token) => token.startsWith('hover:') || token.startsWith('dark:hover:'))
+    .join(' ');
+
+  return hoverClasses || undefined;
+};
+
 const TECH_CHIP_PRIORITY: Readonly<Record<TechChipKey, number>> = {
   react: 10,
   reactnative: 10,
@@ -153,9 +172,11 @@ const TECH_CHIP_PRIORITY: Readonly<Record<TechChipKey, number>> = {
 
   vite: 50,
   node: 52,
+  upstashredis: 53,
   supabase: 54,
   postgresql: 56,
   vercel: 58,
+  cloudflareturnstile: 59,
 
   framermotion: 70,
 

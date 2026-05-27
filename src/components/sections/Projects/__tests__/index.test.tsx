@@ -46,4 +46,17 @@ describe('ProjectsSection', () => {
       'https://github.com/aftongauntlett/no-whiteboard-jobs-dashboard',
     );
   });
+
+  it('renders tech chips before project action links', () => {
+    render(<ProjectsSection />);
+
+    const scoped = getProjectScoped(/npc finder/i);
+
+    const reactChip = scoped.getByText('React 19');
+    const repoLink = scoped.getByRole('link', { name: /view repo/i });
+
+    expect(
+      reactChip.compareDocumentPosition(repoLink) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
 });
