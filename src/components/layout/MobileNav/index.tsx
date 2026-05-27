@@ -9,7 +9,7 @@ import { DURATION, EASING } from '@/constants/animations';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useLenisContext } from '@/context/LenisContext';
 import { useTheme } from '@/context/ThemeContext';
-import { smoothScrollTo } from '@/utils/domScroll';
+import { navigateToSection } from '@/utils/sectionNavigation';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { IconSun } from '@/components/shared/InlineIcons';
 import { Button } from '@/components/shared/Button';
@@ -40,15 +40,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
   useMobileNavA11y({ isOpen, handleClose, menuRef, closeButtonRef });
 
   const handleNavClick = (targetId: string) => {
-    smoothScrollTo({ target: targetId, offset: 80 }, lenis);
-    window.history.replaceState(null, '', `#${targetId}`);
-
-    // Focus heading for keyboard navigation
-    const heading = document.querySelector(`#${targetId}-heading`);
-    if (heading instanceof HTMLElement && heading.tabIndex === -1) {
-      heading.focus({ preventScroll: true });
-    }
-
+    navigateToSection(targetId, lenis);
     handleClose();
   };
 

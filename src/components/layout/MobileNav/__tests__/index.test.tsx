@@ -42,6 +42,7 @@ describe('MobileNav - Accessibility', () => {
   let mockLenis: Lenis;
   let onCloseMock: () => void;
   let smoothScrollToSpy: ReturnType<typeof vi.spyOn>;
+  let dispatchEventSpy: ReturnType<typeof vi.spyOn>;
   let openerRef: RefObject<HTMLButtonElement | null>;
 
   beforeEach(() => {
@@ -77,6 +78,9 @@ describe('MobileNav - Accessibility', () => {
 
     // Mock history.replaceState
     vi.spyOn(window.history, 'replaceState').mockImplementation(() => {});
+
+    // Spy on hashchange dispatching
+    dispatchEventSpy = vi.spyOn(window, 'dispatchEvent').mockImplementation(() => true);
   });
 
   afterEach(() => {
@@ -195,6 +199,8 @@ describe('MobileNav - Accessibility', () => {
     fireEvent.click(aboutLink);
 
     expect(smoothScrollToSpy).toHaveBeenCalledWith({ target: 'about', offset: 80 }, mockLenis);
+    expect(dispatchEventSpy).toHaveBeenCalled();
+    expect(dispatchEventSpy).toHaveBeenCalledWith(expect.objectContaining({ type: 'hashchange' }));
   });
 
   it('closes menu after navigation link is clicked', () => {

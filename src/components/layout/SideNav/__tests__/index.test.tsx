@@ -23,6 +23,7 @@ describe('SideNav', () => {
   let mockLenis: Lenis;
   let smoothScrollToSpy: ReturnType<typeof vi.spyOn>;
   let historyReplaceStateSpy: ReturnType<typeof vi.spyOn>;
+  let dispatchEventSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     // Mock Lenis instance
@@ -35,6 +36,9 @@ describe('SideNav', () => {
 
     // Spy on history.replaceState
     historyReplaceStateSpy = vi.spyOn(window.history, 'replaceState').mockImplementation(() => {});
+
+    // Spy on window.dispatchEvent
+    dispatchEventSpy = vi.spyOn(window, 'dispatchEvent').mockImplementation(() => true);
 
     // Mock context hooks
     vi.spyOn(LenisContext, 'useLenisContext').mockReturnValue({ lenis: mockLenis });
@@ -87,6 +91,8 @@ describe('SideNav', () => {
     fireEvent.click(projectsLink!);
 
     expect(historyReplaceStateSpy).toHaveBeenCalledWith(null, '', '#projects');
+    expect(dispatchEventSpy).toHaveBeenCalled();
+    expect(dispatchEventSpy).toHaveBeenCalledWith(expect.objectContaining({ type: 'hashchange' }));
   });
 
   it('handles keyboard navigation', () => {

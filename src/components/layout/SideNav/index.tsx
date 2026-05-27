@@ -3,9 +3,9 @@ import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@/context/ThemeContext';
 import { useLenisContext } from '@/context/LenisContext';
-import { navItems } from '../../../constants/navigation';
+import { navItems } from '@/constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import { smoothScrollTo } from '@/utils/domScroll';
+import { navigateToSection } from '@/utils/sectionNavigation';
 import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
 import { TRANSITION_FAST } from '@/constants/styles';
@@ -72,19 +72,7 @@ export default function SideNav() {
 
             // Helper function for navigation
             const navigateTo = (targetId: string) => {
-              // Smooth scroll to target
-              smoothScrollTo({ target: targetId, offset: 80 }, lenis);
-
-              // Focus heading if it exists and is focusable
-              const headingElement = document.querySelector(
-                `#${targetId}-heading`,
-              ) as HTMLElement | null;
-              if (headingElement && headingElement.tabIndex === -1) {
-                headingElement.focus({ preventScroll: true });
-              }
-
-              // Update URL without triggering jump
-              window.history.replaceState(null, '', `#${targetId}`);
+              navigateToSection(targetId, lenis);
             };
 
             const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {

@@ -2,7 +2,7 @@ import { useCallback, useEffect, Suspense, lazy, useState } from 'react';
 import PageSection from '@/components/layout/PageSection';
 import { SECTION_SPACING } from '@/constants/spacing';
 import { useLenisContext } from '@/context/LenisContext';
-import { smoothScrollTo } from '@/utils/domScroll';
+import { useHashSectionNavigation } from '@/hooks/useHashSectionNavigation';
 
 // Eager load above-the-fold sections to avoid placeholder reflow (CLS).
 import AboutSection from '@/components/sections/About';
@@ -34,6 +34,24 @@ const normalizeSectionId = (id: string) => SECTION_ID_ALIASES[id] ?? id;
 const isLazySectionId = (id: string): id is LazySectionId =>
   LAZY_SECTION_IDS.includes(id as LazySectionId);
 
+const markLazySectionsThroughTarget = (
+  state: Record<LazySectionId, boolean>,
+  id: string,
+): Record<LazySectionId, boolean> => {
+  if (!isLazySectionId(id)) {
+    return state;
+  }
+
+  const targetIndex = LAZY_SECTION_IDS.indexOf(id);
+  const nextState = { ...state };
+
+  for (let index = 0; index <= targetIndex; index++) {
+    nextState[LAZY_SECTION_IDS[index]] = true;
+  }
+
+  return nextState;
+};
+
 const createInitialLoadedSections = (): Record<LazySectionId, boolean> => {
   const initialState: Record<LazySectionId, boolean> = {
     projects: false,
@@ -46,18 +64,26 @@ const createInitialLoadedSections = (): Record<LazySectionId, boolean> => {
     return initialState;
   }
 
-  const initialHash = normalizeSectionId(window.location.hash.replace('#', ''));
-  if (isLazySectionId(initialHash)) {
-    initialState[initialHash] = true;
+  if (!('IntersectionObserver' in window)) {
+    return {
+      projects: true,
+      credentials: true,
+      testimonials: true,
+      contact: true,
+    };
   }
+
+  const initialHash = normalizeSectionId(window.location.hash.replace('#', ''));
+  const hashInitializedState = markLazySectionsThroughTarget(initialState, initialHash);
 
   const scrollToParam = new URLSearchParams(window.location.search).get('scrollTo');
   const normalizedScrollTo = scrollToParam ? normalizeSectionId(scrollToParam) : '';
-  if (isLazySectionId(normalizedScrollTo)) {
-    initialState[normalizedScrollTo] = true;
-  }
+  const queryInitializedState = markLazySectionsThroughTarget(
+    hashInitializedState,
+    normalizedScrollTo,
+  );
 
-  return initialState;
+  return queryInitializedState;
 };
 
 // Loading component for sections
@@ -99,16 +125,14 @@ export default function Home() {
     });
   }, []);
 
+  const markSectionsLoadedThrough = useCallback((id: string) => {
+    setLoadedSections((prev) => markLazySectionsThroughTarget(prev, id));
+  }, []);
+
   useEffect(() => {
     const hasIntersectionObserver = 'IntersectionObserver' in window;
 
     if (!hasIntersectionObserver) {
-      setLoadedSections({
-        projects: true,
-        credentials: true,
-        testimonials: true,
-        contact: true,
-      });
       return;
     }
 
@@ -140,77 +164,12 @@ export default function Home() {
     };
   }, [markSectionLoaded]);
 
-  // Parse hash to determine what section to scroll to
-  useEffect(() => {
-    const handleHashChange = () => {
-      const rawHash = window.location.hash.slice(1); // Remove the #
-      const hash = normalizeSectionId(rawHash);
-
-      // Handle scrolling to section with retry
-      if (hash) {
-        markSectionLoaded(hash);
-
-        let attempts = 0;
-        const maxAttempts = 20; // 20 attempts * 50ms = 1 second
-
-        const tryScroll = () => {
-          // Try to find the heading first, fallback to section
-          const headingElement = document.getElementById(`${hash}-heading`);
-          const sectionElement = document.getElementById(hash);
-          const element = headingElement || sectionElement;
-
-          if (element) {
-            smoothScrollTo({ target: hash, offset: 80 }, lenis);
-
-            if (rawHash !== hash) {
-              window.history.replaceState(null, '', `#${hash}`);
-            }
-
-            // Focus the heading if it exists and is focusable
-            if (headingElement && headingElement.tabIndex === -1) {
-              headingElement.focus();
-            } else if (element) {
-              element.focus();
-            }
-          } else if (attempts < maxAttempts) {
-            attempts++;
-            setTimeout(tryScroll, 50);
-          }
-        };
-
-        tryScroll();
-      }
-    };
-
-    // Run on mount and when hash changes
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [lenis, markSectionLoaded]);
-
-  // Handle scrolling to section when page loads with query parameter (legacy support)
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const scrollTo = urlParams.get('scrollTo');
-    const targetSection = scrollTo ? normalizeSectionId(scrollTo) : null;
-
-    if (targetSection) {
-      markSectionLoaded(targetSection);
-
-      setTimeout(() => {
-        const element = document.getElementById(targetSection);
-        if (element) {
-          smoothScrollTo({ target: targetSection, offset: 80 }, lenis);
-
-          // Clean up URL
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.delete('scrollTo');
-          window.history.replaceState({}, '', newUrl.pathname + newUrl.hash);
-        }
-      }, 100);
-    }
-  }, [lenis, markSectionLoaded]);
+  useHashSectionNavigation({
+    lenis,
+    normalizeSectionId,
+    markSectionsLoadedThrough,
+    isLazySectionId,
+  });
 
   return (
     <>
