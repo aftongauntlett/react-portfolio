@@ -31,11 +31,10 @@ export const projects: Project[] = [
   {
     title: 'NPC Finder',
     description:
-      'A private media tracker and collaborative playlist app across Movies & TV, Books, Music, and Games. It combines a personal diary with status history, notes, and ratings alongside mixed-media playlists that are private by default and shareable with invited users. Open source and in active development, with Supabase Auth and PostgreSQL RLS for invite-only, role-safe sharing workflows.',
+      'An invite-only media tracker and collaborative playlist app for Movies & TV, Books, Music, and Games. Combines a personal log with status history, notes, and ratings alongside mixed-media playlists that are private by default and shareable with invited users. Includes social profiles, friend tags, recommendations, and media import. Built with Supabase Auth and PostgreSQL RLS for role-safe, invite-only sharing workflows.',
     tech: [
       'React 19',
       'TypeScript',
-      'Vite',
       'Tailwind CSS',
       'Framer Motion',
       'React Router',
@@ -43,6 +42,8 @@ export const projects: Project[] = [
       'Supabase',
       'PostgreSQL',
       'Vercel',
+      'Zustand',
+      'Zod',
     ],
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
