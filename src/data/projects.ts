@@ -43,7 +43,6 @@ export const projects: Project[] = [
       'PostgreSQL',
       'Vercel',
       'Zustand',
-      'Zod',
     ],
     link: 'https://github.com/aftongauntlett/npcfinder',
     demo: 'https://npcfinder.com',
