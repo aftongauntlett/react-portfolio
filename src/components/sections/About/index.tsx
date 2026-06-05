@@ -1,17 +1,11 @@
 import { TYPOGRAPHY } from '@/constants/styles';
-import { COMPONENT_SPACING } from '@/constants/spacing';
 import clsx from 'clsx';
 
 export default function AboutSection() {
   return (
     <div className="w-full">
       {/* Hero Section - Responsive spacing */}
-      <div
-        className={clsx(
-          'relative flex flex-col justify-center items-start w-full',
-          COMPONENT_SPACING.STACK_STANDARD,
-        )}
-      >
+      <div className="relative flex flex-col justify-center items-start w-full mb-4 sm:mb-6">
         <div className="relative w-full text-left pt-8 pb-4 sm:pt-12 sm:pb-6 md:pt-16 md:pb-8 lg:pt-4">
           {/* Subtle backdrop for improved contrast */}
           <div
@@ -25,7 +19,7 @@ export default function AboutSection() {
             className={clsx(
               TYPOGRAPHY.TITLE,
               'hero-heading',
-              'relative text-balance leading-tight pb-[0.15em]',
+              'relative leading-tight pb-[0.15em]',
             )}
           >
             <span className="block">Engineering precision.</span>

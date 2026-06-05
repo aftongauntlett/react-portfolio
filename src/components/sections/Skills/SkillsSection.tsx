@@ -73,7 +73,7 @@ export default function SkillsSection() {
 
   return (
     <motion.div
-      className="flex flex-wrap justify-start gap-x-6 gap-y-8 pt-4 sm:gap-x-8"
+      className="grid grid-cols-4 gap-y-8 pt-4 sm:grid-cols-6 lg:grid-cols-8"
       initial="hidden"
       whileInView="visible"
       viewport={VIEWPORT_CONFIG}
@@ -93,10 +93,10 @@ export default function SkillsSection() {
           variants={fadeInUp}
           whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
           transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="group flex min-w-20 flex-col items-center gap-2"
+          className="group flex flex-col items-center gap-2"
         >
           <SkillIcon iconPath={iconPath} Icon={Icon} size="h-8 w-8" />
-          <span className="whitespace-nowrap text-center text-[11px] leading-tight text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]">
+          <span className="whitespace-nowrap text-center text-[11px] leading-tight text-[var(--color-text)]">
             {name}
           </span>
         </motion.div>

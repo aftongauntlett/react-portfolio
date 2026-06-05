@@ -7,6 +7,10 @@ vi.mock('@/hooks/usePrefersReducedMotion', () => ({
   getMotionDuration: () => 0,
 }));
 
+vi.mock('@/context/ThemeContext', () => ({
+  useTheme: () => ({ theme: 'light' }),
+}));
+
 describe('ProjectsSection', () => {
   const getProjectScoped = (name: RegExp) => {
     const heading = screen.getByRole('heading', { name });
@@ -18,45 +22,41 @@ describe('ProjectsSection', () => {
     return within(projectItem);
   };
 
-  it('renders active View Repo and active Play Game for Orbital Order', () => {
+  it('renders Play Game and Source links for Orbital Order', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/orbital order/i);
 
-    expect(scoped.queryByRole('link', { name: /design process/i })).not.toBeInTheDocument();
-
-    const viewRepoLink = scoped.getByRole('link', { name: /view repo/i });
-    expect(viewRepoLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/js13k-demo');
-
-    const playLink = scoped.getByRole('link', { name: /play game/i });
+    const playLink = scoped.getByRole('link', { name: /play orbital order/i });
     expect(playLink).toHaveAttribute('href', 'https://orbital-order.aftongauntlett.com/');
+
+    const sourceLink = scoped.getByRole('link', { name: /orbital order.*source code/i });
+    expect(sourceLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/js13k-demo');
   });
 
-  it('renders an active View Live link and active View Repo when both exist', () => {
+  it('renders View Live and Source links for No Whiteboard Jobs Dashboard', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/no whiteboard jobs dashboard/i);
 
-    const liveLink = scoped.getByRole('link', { name: /view live/i });
+    const liveLink = scoped.getByRole('link', { name: /no whiteboard.*live site/i });
     expect(liveLink).toHaveAttribute('href', 'https://no-wb.org');
 
-    const repoLink = scoped.getByRole('link', { name: /view repo/i });
-    expect(repoLink).toHaveAttribute(
+    const sourceLink = scoped.getByRole('link', { name: /no whiteboard.*source code/i });
+    expect(sourceLink).toHaveAttribute(
       'href',
       'https://github.com/aftongauntlett/no-whiteboard-jobs-dashboard',
     );
   });
 
-  it('renders tech chips before project action links', () => {
+  it('renders NPC Finder with a Source link and no tech chips', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/npc finder/i);
 
-    const reactChip = scoped.getByText('React 19');
-    const repoLink = scoped.getByRole('link', { name: /view repo/i });
+    const sourceLink = scoped.getByRole('link', { name: /npc finder.*source code/i });
+    expect(sourceLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/npcfinder');
 
-    expect(
-      reactChip.compareDocumentPosition(repoLink) & Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
+    expect(scoped.queryByText('React')).not.toBeInTheDocument();
   });
 });

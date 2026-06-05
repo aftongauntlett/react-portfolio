@@ -11,9 +11,9 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import SectionEntryList from '@/components/shared/SectionEntryList';
 
 const openQuoteClass =
-  'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle mr-0.5 transition-colors duration-200 group-hover:text-[var(--color-primary)]';
+  'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle mr-0.5';
 const closeQuoteClass =
-  'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle ml-0.5 transition-colors duration-200 group-hover:text-[var(--color-primary)]';
+  'font-serif text-xl not-italic leading-none text-[var(--color-muted)] opacity-50 align-middle ml-0.5';
 
 export default function TestimonialsSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -27,8 +27,7 @@ export default function TestimonialsSection() {
       <blockquote
         className={clsx(
           TYPOGRAPHY.TEXT_DESCRIPTION,
-          'border-l-2 border-[var(--color-line)] pl-4 italic leading-relaxed text-[var(--color-muted)]',
-          'transition-colors duration-200 group-hover:border-[var(--color-primary)]/45',
+          'border-l-2 border-[var(--color-line)] group-hover:border-[var(--color-primary)] pl-4 italic leading-relaxed transition-colors duration-300',
         )}
       >
         <span className={openQuoteClass} aria-hidden="true">
@@ -45,23 +44,20 @@ export default function TestimonialsSection() {
           </span>
         )}
       </blockquote>
-      <p
-        className={clsx(
-          TYPOGRAPHY.TEXT_SMALL,
-          'pl-4 font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
-        )}
-      >
-        {review.name}
-      </p>
-      <p className={clsx(TYPOGRAPHY.TEXT_XS, 'pl-4 text-[var(--color-muted)]')}>
-        {review.title} · {review.year}
-      </p>
+      <div className="text-right">
+        <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'font-semibold text-[var(--color-primary)]')}>
+          {review.name}
+        </p>
+        <p className={clsx(TYPOGRAPHY.TEXT_XS, 'text-[var(--color-secondary)]')}>
+          {review.title} · {review.year}
+        </p>
+      </div>
     </article>
   );
 
   return (
     <div className={COMPONENT_SPACING.STACK_STANDARD}>
-      <p className="text-xs italic tracking-wide text-[var(--color-muted)] opacity-60">
+      <p className="text-xs italic tracking-wide text-[var(--color-muted)]">
         Some testimonials are shortened &mdash;{' '}
         <a
           href="https://www.linkedin.com/in/afton-gauntlett/"
@@ -79,6 +75,7 @@ export default function TestimonialsSection() {
         items={primaryTestimonials}
         ariaLabel="Primary testimonials"
         animateOnView={false}
+        showHoverBorder={false}
         listClassName="space-y-5"
         itemClassName="pb-5"
         getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
@@ -133,6 +130,7 @@ export default function TestimonialsSection() {
                   items={additionalTestimonials}
                   ariaLabel="Additional testimonials"
                   animateOnView={false}
+                  showHoverBorder={false}
                   listClassName="space-y-5"
                   itemClassName="pb-5"
                   getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
@@ -176,6 +174,7 @@ export default function TestimonialsSection() {
                 items={additionalTestimonials}
                 ariaLabel="Additional testimonials"
                 animateOnView={false}
+                showHoverBorder={false}
                 listClassName="space-y-5"
                 itemClassName="pb-5"
                 getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}

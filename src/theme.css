@@ -8,7 +8,7 @@
   --color-surface-card: hsl(36, 17%, 98.4%); /* slightly elevated card surface */
   --color-surface-card-hover: hsl(36, 16%, 97.2%); /* subtle draw-in on hover */
   --color-text: hsl(25, 15%, 14%); /* warm near-black */
-  --color-muted: hsl(25, 8%, 40%); /* warm grey-brown */
+  --color-muted: hsl(25, 8%, 37%); /* warm grey-brown — darkened to pass WCAG 4.5:1 on linen bg */
   --color-primary: hsl(152, 22%, 32%); /* accessible sage green */
   --color-primary-rgb: 64, 100, 83;
   --color-primary-darker: hsl(152, 22%, 26%); /* deep sage */

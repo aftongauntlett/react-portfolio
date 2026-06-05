@@ -119,7 +119,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
                             'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
                             isActive
                               ? 'text-[var(--color-primary)] bg-[var(--color-primary)]/10'
-                              : 'text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)]',
+                              : 'text-[var(--color-text)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface)]',
                           )}
                           aria-current={isActive ? 'location' : undefined}
                         >
@@ -148,7 +148,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
                   className={clsx(
                     'w-full rounded-lg',
                     'text-base font-medium',
-                    'text-[var(--color-muted)] hover:text-[var(--color-text)]',
+                    'text-[var(--color-text)] hover:text-[var(--color-primary)]',
                     'hover:bg-[var(--color-surface)]',
                     'transition-colors duration-200',
                     'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',

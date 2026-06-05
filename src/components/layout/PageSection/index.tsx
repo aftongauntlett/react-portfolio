@@ -38,7 +38,7 @@ export default function PageSection({ id, title, hideTitle = false, children, cl
             id={headingId}
             className={clsx(
               FOCUS_STYLES.COMPACT,
-              'px-0 text-[clamp(1.5rem,2.8vw,1.875rem)] leading-[1.2] tracking-[-0.012em] text-[var(--color-nameplate)] dark:text-[var(--color-text)]',
+              'px-0 text-[clamp(1.5rem,2.8vw,1.875rem)] leading-[1.2] tracking-[-0.012em] text-[var(--color-text)]',
             )}
           >
             {titleText}

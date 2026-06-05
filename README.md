@@ -13,7 +13,7 @@ Modern portfolio site showcasing clean React architecture and accessibility-firs
 
 - **Type-Safe Architecture** — Strict TypeScript with no `any` types in production code
 - **Accessibility First** — ARIA labels, keyboard navigation, reduced motion support, and semantic HTML
-- **Tested** — 85 passing tests covering components, hooks, and utilities with Vitest + React Testing Library
+- **Tested** — 75 passing tests covering components, hooks, and utilities with Vitest + React Testing Library
 - **Performance** — Lazy loading, code splitting, smooth scrolling with Lenis
 - **Responsive Design** — Mobile-first approach with Tailwind CSS utilities
 

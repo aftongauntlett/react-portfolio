@@ -22,8 +22,3 @@ Disallow: /api/
 Disallow: /.well-known/
 Disallow: /temp/
 Disallow: /tmp/
-
-# Allow blog and game development content
-Allow: /blog/
-Allow: /gamedev/
-Allow: /games/

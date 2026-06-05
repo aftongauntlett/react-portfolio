@@ -13,42 +13,30 @@ function CredentialsGrid({ items }: { items: readonly Credential[] }) {
               className={clsx(
                 TYPOGRAPHY.SUBTITLE,
                 'font-bold',
-                'text-[var(--color-text)] transition-colors duration-200 group-hover:text-[var(--color-primary)]',
+                'text-[var(--color-primary)]',
               )}
             >
               {item.title}
             </h3>
-            <p
-              className={clsx(
-                TYPOGRAPHY.TEXT_SMALL,
-                'mt-1 text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-secondary)]',
-              )}
-            >
+            <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-1 text-[var(--color-secondary)]')}>
               {item.institution}
             </p>
-            <time
-              className={clsx(
-                TYPOGRAPHY.TEXT_SMALL,
-                'mt-1 inline-flex items-center gap-2',
-                item.title === 'CompTIA Security+'
-                  ? 'text-[var(--color-text)]'
-                  : 'text-[var(--color-muted)]',
-              )}
-            >
-              {item.date}
-            </time>
           </div>
+          <time
+            className={clsx(
+              TYPOGRAPHY.TEXT_XS,
+              'shrink-0',
+              item.title === 'CompTIA Security+'
+                ? 'text-[var(--color-text)]'
+                : 'text-[var(--color-muted)]',
+            )}
+          >
+            {item.date}
+          </time>
         </header>
 
         {item.description ? (
-          <p
-            className={clsx(
-              TYPOGRAPHY.TEXT_DESCRIPTION,
-              'text-[var(--color-muted)] transition-colors duration-200 group-hover:text-[var(--color-text)]',
-            )}
-          >
-            {item.description}
-          </p>
+          <p className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION)}>{item.description}</p>
         ) : null}
       </article>
     );

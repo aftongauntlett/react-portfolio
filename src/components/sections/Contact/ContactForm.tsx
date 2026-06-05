@@ -11,7 +11,7 @@ const fieldClasses =
   'w-full rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] transition-[border-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:border-[var(--color-primary)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]/20';
 
 const labelClasses =
-  'font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]';
+  'font-heading text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-text)] transition-colors duration-200 group-focus-within/field:text-[var(--color-primary)]';
 
 type ContactFormProps = {
   formRef: RefObject<HTMLFormElement | null>;

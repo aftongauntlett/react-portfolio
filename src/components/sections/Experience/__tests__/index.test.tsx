@@ -2,41 +2,31 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ExperienceSection from '../index';
 
-describe('ExperienceSection - recognitions', () => {
-  it('renders recognitions under Booz Allen roles without a toggle control', () => {
+describe('ExperienceSection', () => {
+  it('renders job entries in the professional experience list', () => {
     render(<ExperienceSection />);
 
-    expect(screen.queryByRole('button', { name: /see awards/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /hide awards/i })).not.toBeInTheDocument();
-
-    expect(screen.getByLabelText('Recognitions for Lead Engineer')).toBeInTheDocument();
-    expect(screen.getByLabelText('Recognitions for Software Engineer')).toBeInTheDocument();
-    expect(screen.getByText(/Platinum Award:/)).toBeInTheDocument();
-    expect(screen.getAllByText(/Gold Award:/)).toHaveLength(2);
+    expect(screen.getByRole('list', { name: 'Professional experience' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Lead Engineer' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Software Engineer' })).toBeInTheDocument();
   });
 
-  it('keeps the updated job paragraph copy visible', () => {
+  it('renders the current Lead Engineer description', () => {
     render(<ExperienceSection />);
 
-    expect(
-      screen.getByText(
-        /I led frontend architecture across a suite of mission-critical production applications/i,
-      ),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Promoted to Lead Engineer within a year\./i)).toBeInTheDocument();
+    expect(screen.getByText(/Promoted to lead within a year/i)).toBeInTheDocument();
   });
 
-  it('shows the software engineer 2022 recognition by default', () => {
+  it('renders the Software Engineer description', () => {
     render(<ExperienceSection />);
 
-    expect(screen.getByText(/2022 Gold Award:/)).toBeInTheDocument();
+    expect(screen.getByText(/Modernized the frontend toolchain/i)).toBeInTheDocument();
   });
 
-  it('renders only remote and on-site location chips', () => {
+  it('renders a clickable link for jobs with a company URL', () => {
     render(<ExperienceSection />);
 
-    expect(screen.getAllByText('Remote')).toHaveLength(4);
-    expect(screen.getByText('On-site')).toBeInTheDocument();
-    expect(screen.queryByText('Hybrid')).not.toBeInTheDocument();
+    const link = screen.getByRole('link', { name: /pretty pretty pretty good/i });
+    expect(link).toHaveAttribute('href', 'https://www.prettyprettyprettygood.org/');
   });
 });
