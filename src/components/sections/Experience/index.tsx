@@ -13,12 +13,12 @@ export default function ExperienceSection() {
           <h3
             className={clsx(
               TYPOGRAPHY.SUBTITLE,
-              'text-[1.15rem] sm:text-[1.25rem] text-[var(--color-primary)]',
+              'text-[1.15rem] sm:text-[1.25rem] text-[var(--color-text)]',
             )}
           >
             {job.title}
           </h3>
-          <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-0.5 text-[var(--color-secondary)]')}>
+          <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-0.5 text-[var(--color-muted)]')}>
             {job.url ? (
               <a
                 href={job.url}
@@ -39,7 +39,16 @@ export default function ExperienceSection() {
         </time>
       </header>
 
-      <p className={clsx(TYPOGRAPHY.TEXT_DESCRIPTION)}>{job.description}</p>
+      <ul
+        className={clsx(
+          TYPOGRAPHY.TEXT_DESCRIPTION,
+          'space-y-2 pl-5 list-disc marker:text-[var(--color-primary)]',
+        )}
+      >
+        {job.bullets.map((bullet) => (
+          <li key={bullet}>{bullet}</li>
+        ))}
+      </ul>
     </article>
   );
 

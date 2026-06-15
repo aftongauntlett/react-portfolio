@@ -13,12 +13,12 @@ function CredentialsGrid({ items }: { items: readonly Credential[] }) {
               className={clsx(
                 TYPOGRAPHY.SUBTITLE,
                 'font-bold',
-                'text-[var(--color-primary)]',
+                'text-[var(--color-text)]',
               )}
             >
               {item.title}
             </h3>
-            <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-1 text-[var(--color-secondary)]')}>
+            <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-1 text-[var(--color-muted)]')}>
               {item.institution}
             </p>
           </div>

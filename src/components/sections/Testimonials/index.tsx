@@ -45,10 +45,10 @@ export default function TestimonialsSection() {
         )}
       </blockquote>
       <div className="text-right">
-        <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'font-semibold text-[var(--color-primary)]')}>
+        <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'font-semibold text-[var(--color-text)]')}>
           {review.name}
         </p>
-        <p className={clsx(TYPOGRAPHY.TEXT_XS, 'text-[var(--color-secondary)]')}>
+        <p className={clsx(TYPOGRAPHY.TEXT_XS, 'text-[var(--color-muted)]')}>
           {review.title} · {review.year}
         </p>
       </div>
@@ -75,7 +75,6 @@ export default function TestimonialsSection() {
         items={primaryTestimonials}
         ariaLabel="Primary testimonials"
         animateOnView={false}
-        showHoverBorder={false}
         listClassName="space-y-5"
         itemClassName="pb-5"
         getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
@@ -130,7 +129,6 @@ export default function TestimonialsSection() {
                   items={additionalTestimonials}
                   ariaLabel="Additional testimonials"
                   animateOnView={false}
-                  showHoverBorder={false}
                   listClassName="space-y-5"
                   itemClassName="pb-5"
                   getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}
@@ -174,7 +172,6 @@ export default function TestimonialsSection() {
                 items={additionalTestimonials}
                 ariaLabel="Additional testimonials"
                 animateOnView={false}
-                showHoverBorder={false}
                 listClassName="space-y-5"
                 itemClassName="pb-5"
                 getItemKey={(review, idx) => `${review.name}-${review.year}-${idx}`}

@@ -7,14 +7,7 @@ import { getMotionDuration, usePrefersReducedMotion } from '@/hooks/usePrefersRe
 
 export const SECTION_ENTRY_LIST_CLASS = COMPONENT_SPACING.STACK_STANDARD;
 export const SECTION_ENTRY_ITEM_BASE_CLASS =
-  'group relative border-b border-[var(--color-line)] pl-4 pr-3 pb-6 pt-2 transition-colors duration-200 last:border-b-0 last:pb-0';
-
-const HoverBorder = () => (
-  <span
-    aria-hidden="true"
-    className="absolute left-0 top-0 h-full w-0.5 origin-top scale-y-0 bg-[var(--color-primary)] transition-transform duration-300 ease-out group-hover:scale-y-100"
-  />
-);
+  'group border-b border-[var(--color-line)] pr-3 pb-6 pt-2 transition-colors duration-200 last:border-b-0 last:pb-0';
 
 type SectionEntryListProps<T> = {
   items: readonly T[];
@@ -24,7 +17,6 @@ type SectionEntryListProps<T> = {
   listClassName?: string;
   itemClassName?: string;
   animateOnView?: boolean;
-  showHoverBorder?: boolean;
 };
 
 export default function SectionEntryList<T>({
@@ -35,7 +27,6 @@ export default function SectionEntryList<T>({
   listClassName,
   itemClassName,
   animateOnView = true,
-  showHoverBorder = true,
 }: SectionEntryListProps<T>) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -68,7 +59,6 @@ export default function SectionEntryList<T>({
       <ul className={combinedListClassName} aria-label={ariaLabel}>
         {items.map((item, idx) => (
           <li className={combinedItemClassName} key={getItemKey(item, idx)}>
-            {showHoverBorder && <HoverBorder />}
             {renderItem(item, idx)}
           </li>
         ))}
@@ -91,7 +81,6 @@ export default function SectionEntryList<T>({
           key={getItemKey(item, idx)}
           variants={listItemFade}
         >
-          {showHoverBorder && <HoverBorder />}
           {renderItem(item, idx)}
         </motion.li>
       ))}

@@ -11,16 +11,20 @@ describe('ExperienceSection', () => {
     expect(screen.getByRole('heading', { name: 'Software Engineer' })).toBeInTheDocument();
   });
 
-  it('renders the current Lead Engineer description', () => {
+  it('renders the Lead Engineer bullet points', () => {
     render(<ExperienceSection />);
 
     expect(screen.getByText(/Promoted to lead within a year/i)).toBeInTheDocument();
+    expect(screen.getByText(/Built the design practice from scratch/i)).toBeInTheDocument();
+    expect(screen.getByText(/Booz Allen Platinum Award/i)).toBeInTheDocument();
   });
 
-  it('renders the Software Engineer description', () => {
+  it('renders the Software Engineer bullet points', () => {
     render(<ExperienceSection />);
 
     expect(screen.getByText(/Modernized the frontend toolchain/i)).toBeInTheDocument();
+    expect(screen.getByText(/accessibility standards/i)).toBeInTheDocument();
+    expect(screen.getByText(/AWS re:Invent/i)).toBeInTheDocument();
   });
 
   it('renders a clickable link for jobs with a company URL', () => {

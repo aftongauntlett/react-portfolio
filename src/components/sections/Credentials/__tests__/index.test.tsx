@@ -19,9 +19,11 @@ describe('CredentialsSection', () => {
     expect(screen.getByText('User Experience Design')).toBeInTheDocument();
     expect(screen.getByText('CompTIA Security+')).toBeInTheDocument();
 
+    expect(screen.getByText(/11\/2022 - Active/i)).toBeInTheDocument();
+
     expect(
       screen.getByText(
-        /Active certification\. Foundation in security principles including access control, identity management, and network defense\./i,
+        /Foundation in security principles including access control, identity management, and network defense\./i,
       ),
     ).toBeInTheDocument();
 

@@ -30,9 +30,9 @@ export const credentials: Credential[] = [
   {
     title: 'CompTIA Security+',
     institution: 'CompTIA',
-    date: '11/2022',
+    date: '11/2022 - Active',
     description:
-      'Active certification. Foundation in security principles including access control, identity management, and network defense. Reinforced practical understanding of risk management, secure system design, and incident response fundamentals. Strengthened cross-functional communication around security requirements in product and engineering work.',
+      'Foundation in security principles including access control, identity management, and network defense. Reinforced practical understanding of risk management, secure system design, and incident response fundamentals. Strengthened cross-functional communication around security requirements in product and engineering work.',
   },
 ];
 

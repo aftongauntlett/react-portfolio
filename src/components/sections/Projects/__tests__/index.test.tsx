@@ -49,7 +49,7 @@ describe('ProjectsSection', () => {
     );
   });
 
-  it('renders NPC Finder with a Source link and no tech chips', () => {
+  it('renders NPC Finder with a Source link and tech chips', () => {
     render(<ProjectsSection />);
 
     const scoped = getProjectScoped(/npc finder/i);
@@ -57,6 +57,8 @@ describe('ProjectsSection', () => {
     const sourceLink = scoped.getByRole('link', { name: /npc finder.*source code/i });
     expect(sourceLink).toHaveAttribute('href', 'https://github.com/aftongauntlett/npcfinder');
 
-    expect(scoped.queryByText('React')).not.toBeInTheDocument();
+    expect(scoped.getByText('React')).toBeInTheDocument();
+    expect(scoped.getByText('Supabase Auth')).toBeInTheDocument();
+    expect(scoped.getByText('PostgreSQL RLS')).toBeInTheDocument();
   });
 });
