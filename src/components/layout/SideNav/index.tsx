@@ -56,17 +56,7 @@ export default function SideNav() {
       />
 
       <div>
-        <div className="text-xl font-bold leading-[1.3] capitalize text-[var(--color-text)]">
-          Afton Gauntlett
-        </div>
-        <div className="space-y-3">
-          <p className="font-semibold leading-[1.3] capitalize text-[var(--color-secondary)]">
-            Frontend Engineer
-          </p>
-          <hr className="border-[var(--color-line)]" aria-hidden="true" />
-        </div>
-
-        <nav aria-label="Main navigation" className="mt-8 space-y-5">
+        <nav aria-label="Main navigation" className="space-y-5">
           {navItems.map(({ id, label }) => {
             const isActive = activeSection === id;
 

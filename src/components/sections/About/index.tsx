@@ -1,5 +1,8 @@
 import { TYPOGRAPHY } from '@/constants/styles';
 import clsx from 'clsx';
+import Tag from '@/components/shared/Tag';
+
+const HIGHLIGHTS = ['6 years experience', 'Design systems', 'Accessible UI', 'Federal & commercial'];
 
 export default function AboutSection() {
   return (
@@ -22,19 +25,36 @@ export default function AboutSection() {
               'relative leading-tight pb-[0.15em]',
             )}
           >
-            <span className="block">Engineering precision.</span>
-            <span className="block">Design sensibility.</span>
+            Afton Gauntlett
           </h1>
           <p
             className={clsx(
-              TYPOGRAPHY.TEXT_DESCRIPTION,
-              'relative mt-6 sm:mt-7 w-full max-w-2xl text-[var(--color-text)]',
+              TYPOGRAPHY.HEADING_3,
+              'relative mt-1 text-[var(--color-secondary)]',
             )}
           >
-            Frontend engineer with six years of experience in design systems, accessible UI, and
-            component architecture. I have led migrations, built from scratch, and shipped at scale
-            on federal and commercial contracts.
+            Frontend Engineer
           </p>
+          <p
+            className={clsx(
+              TYPOGRAPHY.TEXT_DESCRIPTION,
+              'relative mt-4 max-w-2xl text-[var(--color-text)]',
+            )}
+          >
+            I&apos;ve led frontend migrations, built design systems from scratch, and mentored
+            engineers on accessible component architecture. I bring both technical leadership and
+            hands-on execution to a team.
+          </p>
+          <div
+            className="relative mt-6 flex flex-wrap gap-2 sm:mt-7"
+            aria-label="Career highlights"
+          >
+            {HIGHLIGHTS.map((highlight) => (
+              <Tag key={highlight} variant="neutral" size="small">
+                {highlight}
+              </Tag>
+            ))}
+          </div>
         </div>
 
         {/* Gradient border below opener */}

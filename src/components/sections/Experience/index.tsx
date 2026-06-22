@@ -1,7 +1,7 @@
 import { jobs } from '@/data/jobs';
 import { LuExternalLink } from 'react-icons/lu';
 import clsx from 'clsx';
-import { TYPOGRAPHY } from '@/constants/styles';
+import { TYPOGRAPHY, TITLE_HOVER_CLASSES } from '@/constants/styles';
 import SectionEntryList from '@/components/shared/SectionEntryList';
 import type { Job } from '@/data/jobs';
 
@@ -10,12 +10,7 @@ export default function ExperienceSection() {
     <article className="space-y-3">
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3
-            className={clsx(
-              TYPOGRAPHY.SUBTITLE,
-              'text-[1.15rem] sm:text-[1.25rem] text-[var(--color-text)]',
-            )}
-          >
+          <h3 className={clsx(TITLE_HOVER_CLASSES, 'text-[1.15rem] sm:text-[1.25rem]')}>
             {job.title}
           </h3>
           <p className={clsx(TYPOGRAPHY.TEXT_SMALL, 'mt-0.5 text-[var(--color-muted)]')}>

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { LuExternalLink, LuGithub, LuX, LuZoomIn } from 'react-icons/lu';
 import { useTheme } from '@/context/ThemeContext';
 import { projects } from '@/data/projects';
-import { TYPOGRAPHY } from '@/constants/styles';
+import { TYPOGRAPHY, TITLE_HOVER_CLASSES } from '@/constants/styles';
 import { COMPONENT_SPACING } from '@/constants/spacing';
 import SectionEntryList from '@/components/shared/SectionEntryList';
 import Button from '@/components/shared/Button';
@@ -67,10 +67,7 @@ export default function ProjectsSection() {
         aria-labelledby={`project-title-${idx}`}
         className="grid grid-cols-1 gap-y-3 md:grid-cols-[minmax(0,1fr)_20rem] md:gap-x-5 py-3 md:py-4"
       >
-        <h3
-          id={`project-title-${idx}`}
-          className={clsx(TYPOGRAPHY.SUBTITLE, 'text-[var(--color-text)] md:col-start-1')}
-        >
+        <h3 id={`project-title-${idx}`} className={clsx(TITLE_HOVER_CLASSES, 'md:col-start-1')}>
           {title}
         </h3>
         <div className="flex flex-wrap gap-2 md:col-start-1" aria-label={`${title} technologies`}>

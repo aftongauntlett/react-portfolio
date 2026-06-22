@@ -11,6 +11,8 @@ import {
   siThreedotjs,
   siSupabase,
   siPostgresql,
+  siGraphql,
+  siReactquery,
   siVercel,
   siGit,
   siGithubcopilot,
@@ -34,23 +36,55 @@ type Skill =
       iconPath?: never;
     };
 
-const SKILLS: Skill[] = [
-  { name: 'TypeScript', iconPath: siTypescript.path },
-  { name: 'JavaScript', iconPath: siJavascript.path },
-  { name: 'React', iconPath: siReact.path },
-  { name: 'Astro', iconPath: siAstro.path },
-  { name: 'Tailwind CSS', iconPath: siTailwindcss.path },
-  { name: 'Framer Motion', iconPath: siFramer.path },
-  { name: 'GSAP', iconPath: siGreensock.path },
-  { name: 'Three.js', iconPath: siThreedotjs.path },
-  { name: 'Storybook', iconPath: siStorybook.path },
-  { name: 'Supabase', iconPath: siSupabase.path },
-  { name: 'PostgreSQL', iconPath: siPostgresql.path },
-  { name: 'Vercel', iconPath: siVercel.path },
-  { name: 'Git', iconPath: siGit.path },
-  { name: 'GitHub Copilot', iconPath: siGithubcopilot.path },
-  { name: 'Claude', iconPath: siClaude.path },
-  { name: 'AWS', Icon: FaAws },
+type SkillGroup = {
+  category: string;
+  skills: Skill[];
+};
+
+const SKILL_GROUPS: SkillGroup[] = [
+  {
+    category: 'Languages & Frameworks',
+    skills: [
+      { name: 'TypeScript', iconPath: siTypescript.path },
+      { name: 'JavaScript', iconPath: siJavascript.path },
+      { name: 'React', iconPath: siReact.path },
+      { name: 'Astro', iconPath: siAstro.path },
+    ],
+  },
+  {
+    category: 'Styling & Animation',
+    skills: [
+      { name: 'Tailwind CSS', iconPath: siTailwindcss.path },
+      { name: 'Framer Motion', iconPath: siFramer.path },
+      { name: 'GSAP', iconPath: siGreensock.path },
+      { name: 'Three.js', iconPath: siThreedotjs.path },
+    ],
+  },
+  {
+    category: 'Data & Backend',
+    skills: [
+      { name: 'Supabase', iconPath: siSupabase.path },
+      { name: 'PostgreSQL', iconPath: siPostgresql.path },
+      { name: 'GraphQL', iconPath: siGraphql.path },
+      { name: 'TanStack Query', iconPath: siReactquery.path },
+    ],
+  },
+  {
+    category: 'Tooling & Infrastructure',
+    skills: [
+      { name: 'Storybook', iconPath: siStorybook.path },
+      { name: 'Git', iconPath: siGit.path },
+      { name: 'Vercel', iconPath: siVercel.path },
+      { name: 'AWS', Icon: FaAws },
+    ],
+  },
+  {
+    category: 'AI-Assisted Workflow',
+    skills: [
+      { name: 'GitHub Copilot', iconPath: siGithubcopilot.path },
+      { name: 'Claude', iconPath: siClaude.path },
+    ],
+  },
 ];
 
 function SkillIcon({ iconPath, Icon, size }: { iconPath?: string; Icon?: IconType; size: string }) {
@@ -73,7 +107,7 @@ export default function SkillsSection() {
 
   return (
     <motion.div
-      className="grid grid-cols-4 gap-y-8 pt-4 sm:grid-cols-6 lg:grid-cols-8"
+      className="space-y-6"
       initial="hidden"
       whileInView="visible"
       viewport={VIEWPORT_CONFIG}
@@ -87,19 +121,33 @@ export default function SkillsSection() {
         },
       }}
     >
-      {SKILLS.map(({ name, iconPath, Icon }) => (
-        <motion.div
-          key={name}
-          variants={fadeInUp}
-          whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="group flex flex-col items-center gap-2"
+      {SKILL_GROUPS.map(({ category, skills }) => (
+        <div
+          key={category}
+          role="group"
+          aria-label={category}
+          className="grid grid-cols-1 gap-y-3 border-b border-[var(--color-line)]/45 pb-6 last:border-b-0 last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-x-6"
         >
-          <SkillIcon iconPath={iconPath} Icon={Icon} size="h-8 w-8" />
-          <span className="whitespace-nowrap text-center text-[11px] leading-tight text-[var(--color-text)]">
-            {name}
-          </span>
-        </motion.div>
+          <h3 className="text-[13px] font-semibold leading-tight text-[var(--color-muted)] sm:pt-2">
+            {category}
+          </h3>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(2.5rem,1fr))] gap-x-2 gap-y-6 sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-5">
+            {skills.map(({ name, iconPath, Icon }) => (
+              <motion.div
+                key={name}
+                variants={fadeInUp}
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+                className="group flex items-center justify-center gap-2.5 sm:justify-start"
+              >
+                <SkillIcon iconPath={iconPath} Icon={Icon} size="h-9 w-9 sm:h-6 sm:w-6" />
+                <span className="sr-only whitespace-nowrap text-sm text-[var(--color-text)] sm:not-sr-only">
+                  {name}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       ))}
     </motion.div>
   );
