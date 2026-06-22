@@ -126,7 +126,7 @@ export default function SkillsSection() {
           key={category}
           role="group"
           aria-label={category}
-          className="grid grid-cols-1 gap-y-3 border-b border-[var(--color-line)]/45 pb-6 last:border-b-0 last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-x-6"
+          className="grid grid-cols-1 gap-y-3 border-b border-[var(--color-line)] pb-6 last:border-b-0 last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-x-6"
         >
           <h3 className="text-[13px] font-semibold leading-tight text-[var(--color-muted)] sm:pt-2">
             {category}

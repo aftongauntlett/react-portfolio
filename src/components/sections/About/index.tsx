@@ -50,7 +50,12 @@ export default function AboutSection() {
             aria-label="Career highlights"
           >
             {HIGHLIGHTS.map((highlight) => (
-              <Tag key={highlight} variant="neutral" size="small">
+              <Tag
+                key={highlight}
+                variant="neutral"
+                size="small"
+                className="dark:!border-[color-mix(in_srgb,var(--color-muted)_45%,transparent)]"
+              >
                 {highlight}
               </Tag>
             ))}
