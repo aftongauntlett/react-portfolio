@@ -15,7 +15,7 @@ export const projects: Project[] = [
     description:
       'A marketing site for a gaming event, built with Astro and React islands — static-first, with hydration limited to interactive pieces like the gallery, FAQ, and a hero mini-game. That hero banner hides a real Canvas2D/Matter.js platformer with gravity, collision, and sprite animation, plus a day/night scene that shifts in real time. Fully keyboard-navigable, with reduced-motion fallbacks, an accessible alternative to the canvas game, and axe-core/Playwright test coverage.',
     link: 'https://github.com/prettyprettyprettygood-org/gamfest',
-    demo: 'https://gamfest-demo.vercel.app/',
+    demo: 'https://gamfest.vercel.app/',
     tech: ['Astro', 'React', 'Matter.js', 'Framer Motion', 'Web Audio API', 'Canvas 2D'],
     imageLight: '/gamfest-light.png',
     imageDark: '/gamfest.png',
