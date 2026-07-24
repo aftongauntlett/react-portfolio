@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { usePrefersReducedMotion, getMotionDuration } from '@/hooks/usePrefersReducedMotion';
 import { VIEWPORT_CONFIG } from '@/constants/animations';
 import { COMPONENT_SPACING } from '@/constants/spacing';
+import { SocialLinks } from '@/components/shared/SocialLinks';
 import ContactForm from './ContactForm';
 import { useContactForm } from './useContactForm';
 
@@ -48,6 +49,11 @@ export default function ContactSection() {
           validateEmailField={validateEmailField}
           handleSubmit={handleSubmit}
         />
+
+        <div className="flex items-center gap-3 pt-2 lg:hidden">
+          <p className="text-sm text-[var(--color-muted)]">Or find me here:</p>
+          <SocialLinks className="flex items-center gap-4" />
+        </div>
       </div>
     </motion.div>
   );

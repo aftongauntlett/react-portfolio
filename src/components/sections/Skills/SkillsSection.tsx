@@ -4,15 +4,20 @@ import {
   siJavascript,
   siReact,
   siAstro,
+  siVuedotjs,
+  siAngular,
   siTailwindcss,
   siStorybook,
   siFramer,
   siGreensock,
   siThreedotjs,
+  siFigma,
   siSupabase,
   siPostgresql,
   siGraphql,
-  siReactquery,
+  siTanstack,
+  siNodedotjs,
+  siPython,
   siVercel,
   siGit,
   siGithubcopilot,
@@ -49,6 +54,8 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: 'JavaScript', iconPath: siJavascript.path },
       { name: 'React', iconPath: siReact.path },
       { name: 'Astro', iconPath: siAstro.path },
+      { name: 'Vue', iconPath: siVuedotjs.path },
+      { name: 'Angular', iconPath: siAngular.path },
     ],
   },
   {
@@ -58,15 +65,18 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: 'Framer Motion', iconPath: siFramer.path },
       { name: 'GSAP', iconPath: siGreensock.path },
       { name: 'Three.js', iconPath: siThreedotjs.path },
+      { name: 'Figma', iconPath: siFigma.path },
     ],
   },
   {
-    category: 'Data & Backend',
+    category: 'Backend & Data',
     skills: [
+      { name: 'Node.js', iconPath: siNodedotjs.path },
+      { name: 'Python', iconPath: siPython.path },
       { name: 'Supabase', iconPath: siSupabase.path },
       { name: 'PostgreSQL', iconPath: siPostgresql.path },
       { name: 'GraphQL', iconPath: siGraphql.path },
-      { name: 'TanStack Query', iconPath: siReactquery.path },
+      { name: 'TanStack', iconPath: siTanstack.path },
     ],
   },
   {
@@ -76,11 +86,6 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: 'Git', iconPath: siGit.path },
       { name: 'Vercel', iconPath: siVercel.path },
       { name: 'AWS', Icon: FaAws },
-    ],
-  },
-  {
-    category: 'AI-Assisted Workflow',
-    skills: [
       { name: 'GitHub Copilot', iconPath: siGithubcopilot.path },
       { name: 'Claude', iconPath: siClaude.path },
     ],
@@ -126,24 +131,22 @@ export default function SkillsSection() {
           key={category}
           role="group"
           aria-label={category}
-          className="grid grid-cols-1 gap-y-3 border-b border-[var(--color-line)] pb-6 last:border-b-0 last:pb-0 sm:grid-cols-[9rem_1fr] sm:gap-x-6"
+          className="group/row grid grid-cols-1 gap-y-3 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-card)] p-4 sm:grid-cols-[7rem_1fr] sm:items-center sm:gap-x-4 sm:p-5"
         >
-          <h3 className="text-[13px] font-semibold leading-tight text-[var(--color-muted)] sm:pt-2">
+          <h3 className="text-[13px] font-semibold leading-tight text-[var(--color-muted)] transition-colors duration-300 group-hover/row:text-[var(--color-primary)]">
             {category}
           </h3>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(2.5rem,1fr))] gap-x-2 gap-y-6 sm:flex sm:flex-wrap sm:gap-x-6 sm:gap-y-5">
+          <div className="flex flex-wrap gap-x-4 gap-y-4 sm:gap-x-6 sm:gap-y-5">
             {skills.map(({ name, iconPath, Icon }) => (
               <motion.div
                 key={name}
                 variants={fadeInUp}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-                className="group flex items-center justify-center gap-2.5 sm:justify-start"
+                className="group flex items-center gap-2 sm:gap-2.5"
               >
-                <SkillIcon iconPath={iconPath} Icon={Icon} size="h-9 w-9 sm:h-6 sm:w-6" />
-                <span className="sr-only whitespace-nowrap text-sm text-[var(--color-text)] sm:not-sr-only">
-                  {name}
-                </span>
+                <SkillIcon iconPath={iconPath} Icon={Icon} size="h-6 w-6" />
+                <span className="whitespace-nowrap text-sm text-[var(--color-text)]">{name}</span>
               </motion.div>
             ))}
           </div>

@@ -6,10 +6,10 @@ import { useLenisContext } from '@/context/LenisContext';
 import { navItems } from '@/constants/navigation';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { navigateToSection } from '@/utils/sectionNavigation';
-import { LinkButton } from '@/components/shared/LinkButton';
 import { Button } from '@/components/shared/Button';
+import { SocialLinks } from '@/components/shared/SocialLinks';
 import { TRANSITION_FAST } from '@/constants/styles';
-import { IconLinkedIn, IconSun } from '@/components/shared/InlineIcons';
+import { IconSun } from '@/components/shared/InlineIcons';
 import { BsMoonFill } from 'react-icons/bs';
 import { HiOutlineDocumentText } from 'react-icons/hi2';
 
@@ -98,22 +98,7 @@ export default function SideNav() {
         <hr className="border-[var(--color-line)]" aria-hidden="true" />
 
         <div className="flex items-center gap-4" aria-label="Sidebar quick actions">
-          <LinkButton
-            type="github"
-            href="https://github.com/aftongauntlett"
-            aria-label="Visit GitHub profile"
-            variant="link"
-            color="muted"
-          />
-          <Button
-            href="https://www.linkedin.com/in/afton-gauntlett/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit LinkedIn profile (opens in new tab)"
-            variant="link"
-            color="muted"
-            icon={<IconLinkedIn size={20} />}
-          />
+          <SocialLinks className="flex items-center gap-4" />
           <Button
             href="https://aftongauntlett.github.io/resume/"
             target="_blank"

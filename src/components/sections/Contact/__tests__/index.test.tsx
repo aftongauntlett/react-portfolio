@@ -98,11 +98,11 @@ describe('ContactSection', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/message sent/i);
   });
 
-  it('does not render contact details links', () => {
+  it('renders social links but not a resume link', () => {
     render(<ContactSection />);
 
-    expect(screen.queryByRole('link', { name: /visit linkedin profile/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: /visit github profile/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /visit linkedin profile/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /visit github profile/i })).toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /download resume/i })).not.toBeInTheDocument();
   });
 

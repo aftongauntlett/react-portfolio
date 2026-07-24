@@ -13,6 +13,7 @@ import { navigateToSection } from '@/utils/sectionNavigation';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { IconSun } from '@/components/shared/InlineIcons';
 import { Button } from '@/components/shared/Button';
+import { SocialLinks } from '@/components/shared/SocialLinks';
 import { useWillChange } from '@/hooks/useWillChange';
 import { useMobileNavA11y } from './useMobileNavA11y';
 
@@ -132,31 +133,35 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
               </nav>
 
               {/* Bottom Actions */}
-              <div className="border-t border-[var(--color-line)] pt-4 space-y-2">
-                <Button
-                  href="https://aftongauntlett.github.io/resume/"
-                  variant="outline"
-                  color="primary"
-                  className="w-full rounded-full"
-                >
-                  Resume
-                </Button>
-                <Button
-                  onClick={toggleTheme}
-                  variant="unstyled"
-                  icon={theme === 'dark' ? <IconSun size={18} /> : <BsMoonFill size={15} />}
-                  className={clsx(
-                    'w-full rounded-lg',
-                    'text-base font-medium',
-                    'text-[var(--color-text)] hover:text-[var(--color-primary)]',
-                    'hover:bg-[var(--color-surface)]',
-                    'transition-colors duration-200',
-                    'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
-                  )}
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                >
-                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-                </Button>
+              <div className="border-t border-[var(--color-line)] pt-4 space-y-4">
+                <SocialLinks className="flex items-center justify-center gap-6" />
+
+                <div className="space-y-2">
+                  <Button
+                    href="https://aftongauntlett.github.io/resume/"
+                    variant="outline"
+                    color="primary"
+                    className="w-full rounded-full"
+                  >
+                    Resume
+                  </Button>
+                  <Button
+                    onClick={toggleTheme}
+                    variant="unstyled"
+                    icon={theme === 'dark' ? <IconSun size={18} /> : <BsMoonFill size={15} />}
+                    className={clsx(
+                      'w-full rounded-lg',
+                      'text-base font-medium',
+                      'text-[var(--color-text)] hover:text-[var(--color-primary)]',
+                      'hover:bg-[var(--color-surface)]',
+                      'transition-colors duration-200',
+                      'focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] focus-visible:outline-offset-2',
+                    )}
+                    aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                  >
+                    <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>
