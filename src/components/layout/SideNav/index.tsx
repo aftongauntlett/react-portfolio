@@ -9,6 +9,7 @@ import { navigateToSection } from '@/utils/sectionNavigation';
 import { Button } from '@/components/shared/Button';
 import { SocialLinks } from '@/components/shared/SocialLinks';
 import { TRANSITION_FAST } from '@/constants/styles';
+import { RESUME_URL } from '@/constants/socialLinks';
 import { IconSun } from '@/components/shared/InlineIcons';
 import { BsMoonFill } from 'react-icons/bs';
 import { HiOutlineDocumentText } from 'react-icons/hi2';
@@ -100,7 +101,7 @@ export default function SideNav() {
         <div className="flex items-center gap-4" aria-label="Sidebar quick actions">
           <SocialLinks className="flex items-center gap-4" />
           <Button
-            href="https://aftongauntlett.github.io/resume/"
+            href={RESUME_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View resume (opens in new tab)"

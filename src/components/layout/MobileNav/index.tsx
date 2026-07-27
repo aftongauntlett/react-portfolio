@@ -14,6 +14,7 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { IconSun } from '@/components/shared/InlineIcons';
 import { Button } from '@/components/shared/Button';
 import { SocialLinks } from '@/components/shared/SocialLinks';
+import { RESUME_URL } from '@/constants/socialLinks';
 import { useWillChange } from '@/hooks/useWillChange';
 import { useMobileNavA11y } from './useMobileNavA11y';
 
@@ -138,7 +139,7 @@ export default function MobileNav({ isOpen, onClose, openerRef }: MobileNavProps
 
                 <div className="space-y-2">
                   <Button
-                    href="https://aftongauntlett.github.io/resume/"
+                    href={RESUME_URL}
                     variant="outline"
                     color="primary"
                     className="w-full rounded-full"

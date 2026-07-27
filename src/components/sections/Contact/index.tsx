@@ -50,9 +50,13 @@ export default function ContactSection() {
           handleSubmit={handleSubmit}
         />
 
-        <div className="flex items-center gap-3 pt-2 lg:hidden">
-          <p className="text-sm text-[var(--color-muted)]">Or find me here:</p>
-          <SocialLinks className="flex items-center gap-4" />
+        <div className="space-y-4 pt-2">
+          <hr className="border-[var(--color-line)]" aria-hidden="true" />
+
+          <div className="space-y-3">
+            <h3 className="subtitle text-[var(--color-text)]">Learn More</h3>
+            <SocialLinks variant="button" includeResume className="flex flex-wrap gap-3" />
+          </div>
         </div>
       </div>
     </motion.div>

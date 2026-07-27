@@ -98,12 +98,13 @@ describe('ContactSection', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/message sent/i);
   });
 
-  it('renders social links but not a resume link', () => {
+  it('renders GitHub, LinkedIn, and Resume links under Learn More', () => {
     render(<ContactSection />);
 
-    expect(screen.getByRole('link', { name: /visit linkedin profile/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /visit github profile/i })).toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: /download resume/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /learn more/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /github/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /linkedin/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
   });
 
   it('uses honeypot protection by default', () => {

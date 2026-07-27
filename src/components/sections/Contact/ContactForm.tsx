@@ -145,7 +145,7 @@ export default function ContactForm({
         </div>
 
         {isTurnstileEnabled && TURNSTILE_SITE_KEY && !turnstileCircuitOpen ? (
-          <div className="self-start sm:self-end">
+          <div className="self-end">
             <div
               className="cf-turnstile"
               data-sitekey={TURNSTILE_SITE_KEY}
@@ -158,7 +158,7 @@ export default function ContactForm({
             />
           </div>
         ) : isTurnstileEnabled && TURNSTILE_SITE_KEY && turnstileCircuitOpen ? (
-          <div className="self-start sm:self-end rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-xs text-[var(--color-muted)]">
+          <div className="self-end rounded-md border border-[var(--color-line)] bg-[var(--color-background)] px-3 py-2 text-xs text-[var(--color-muted)]">
             <p>Security check has been paused after repeated failures.</p>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
