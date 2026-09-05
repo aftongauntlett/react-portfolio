@@ -23,7 +23,7 @@ export const projects: Project[] = [
   {
     title: 'No Whiteboard Jobs Dashboard',
     description:
-      'A frontend dashboard I built on the open-source Hiring Without Whiteboards dataset, turning a large markdown company list into a fast, searchable web experience. Includes full-text search, multi-filtering, card and list view modes, pagination, dark and light themes, and mobile-first navigation.',
+      'A frontend dashboard I built on the open-source Hiring Without Whiteboards dataset, turning a large markdown company list into a fast, searchable web experience. A weekly GitHub Actions workflow syncs the upstream data, detecting additions, removals, and field-level changes, then runs test/build validation gates before auto-committing. Includes full-text search, multi-filtering, card and list views, pagination, and dark/light themes.',
     link: 'https://github.com/aftongauntlett/no-whiteboard-jobs-dashboard',
     demo: 'https://no-wb.org',
     tech: ['Astro', 'TypeScript', 'Tailwind CSS'],
