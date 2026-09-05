@@ -24,25 +24,34 @@ const TURNSTILE_ENABLED =
   SPAM_PROTECTION_PROVIDER.toLowerCase() === 'turnstile' && Boolean(TURNSTILE_SITE_KEY);
 const TURNSTILE_RESPONSE_FIELD_SELECTOR = 'input[name="cf-turnstile-response"]';
 
-export function useContactForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const turnstileErrorCountRef = useRef(0);
-  const [formStatus, setFormStatus] = useState<FormStatus>('idle');
-  const [statusMessage, setStatusMessage] = useState('');
-  const [turnstileToken, setTurnstileToken] = useState('');
-  const [turnstileFallbackEnabled, setTurnstileFallbackEnabled] = useState(false);
-  const [turnstileCircuitOpen, setTurnstileCircuitOpen] = useState(false);
-  const [emailValidationMessage, setEmailValidationMessage] = useState('');
+const LOCALHOST_FALLBACK_MESSAGE =
+  'Localhost mode: Turnstile is bypassed with honeypot fallback. Set VITE_TURNSTILE_LOCAL_MODE=widget to test the real challenge locally.';
 
+function getShouldForceLocalFallback() {
   const isLocalHost =
     typeof window !== 'undefined' &&
     ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 
-  const shouldForceLocalFallback =
+  return (
     import.meta.env.DEV &&
     isLocalHost &&
     TURNSTILE_ENABLED &&
-    TURNSTILE_LOCAL_MODE.toLowerCase() !== 'widget';
+    TURNSTILE_LOCAL_MODE.toLowerCase() !== 'widget'
+  );
+}
+
+export function useContactForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const turnstileErrorCountRef = useRef(0);
+  const [shouldForceLocalFallback] = useState(getShouldForceLocalFallback);
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle');
+  const [statusMessage, setStatusMessage] = useState(() =>
+    shouldForceLocalFallback ? LOCALHOST_FALLBACK_MESSAGE : '',
+  );
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileFallbackEnabled, setTurnstileFallbackEnabled] = useState(shouldForceLocalFallback);
+  const [turnstileCircuitOpen, setTurnstileCircuitOpen] = useState(false);
+  const [emailValidationMessage, setEmailValidationMessage] = useState('');
 
   const showTurnstileWidget =
     TURNSTILE_ENABLED && !shouldForceLocalFallback && !turnstileFallbackEnabled;
@@ -71,15 +80,7 @@ export function useContactForm() {
   }, []);
 
   useEffect(() => {
-    if (shouldForceLocalFallback) {
-      setTurnstileFallbackEnabled(true);
-      setFormStatus('idle');
-      setStatusMessage(
-        'Localhost mode: Turnstile is bypassed with honeypot fallback. Set VITE_TURNSTILE_LOCAL_MODE=widget to test the real challenge locally.',
-      );
-      return;
-    }
-
+    if (shouldForceLocalFallback) return;
     if (!TURNSTILE_ENABLED || turnstileFallbackEnabled || turnstileCircuitOpen) return;
 
     let cancelled = false;

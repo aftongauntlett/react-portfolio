@@ -18,9 +18,19 @@ updates:
     labels:
       - 'dependencies'
       - 'automated'
-    # Group related dependencies to reduce PR noise
+    # Only open PRs for dependencies declared directly in package.json —
+    # transitive-only bumps (e.g. a sub-dependency's sub-dependency) get
+    # pulled in automatically whenever a direct dependency updates instead
+    # of spawning their own PRs.
+    allow:
+      - dependency-type: 'direct'
+    # Group related dependencies to reduce PR noise. update-types is set
+    # explicitly on every group because the top-level `ignore` below does
+    # NOT reliably apply to grouped updates (a known Dependabot gap) —
+    # this is what let the vite 7->8 major bump through as its own PR.
     groups:
       development-dependencies:
+        update-types: ['minor', 'patch']
         patterns:
           - '@types/*'
           - '@typescript-eslint/*'
@@ -33,14 +43,17 @@ updates:
           - 'postcss'
           - 'autoprefixer'
       react-ecosystem:
+        update-types: ['minor', 'patch']
         patterns:
           - 'react*'
           - '@testing-library/*'
       build-tools:
+        update-types: ['minor', 'patch']
         patterns:
           - 'typescript'
           - 'rollup*'
       production-dependencies:
+        update-types: ['minor', 'patch']
         patterns:
           - '*'
         exclude-patterns:
@@ -58,7 +71,8 @@ updates:
           - '@testing-library/*'
           - 'typescript'
           - 'rollup*'
-    # Only allow patch and minor updates (safer)
+    # Belt-and-suspenders: block major bumps for anything that somehow
+    # falls outside every group above.
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-major']
