@@ -11,14 +11,14 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'GAM[fest]',
+    title: 'Meowdrate',
     description:
-      'A marketing site for a gaming event, built with Astro and React islands — static-first, with hydration limited to interactive pieces like the gallery, FAQ, and a hero mini-game. That hero banner hides a real Canvas2D/Matter.js platformer with gravity, collision, and sprite animation, plus a day/night scene that shifts in real time. Fully keyboard-navigable, with reduced-motion fallbacks, an accessible alternative to the canvas game, and axe-core/Playwright test coverage.',
-    link: 'https://github.com/prettyprettyprettygood-org/gamfest',
-    demo: 'https://gamfest.vercel.app/',
-    tech: ['Astro', 'React', 'Matter.js', 'Framer Motion', 'Web Audio API', 'Canvas 2D'],
-    imageLight: '/gamfest-light.png',
-    imageDark: '/gamfest.png',
+      'A hydration app for Android (in closed testing on Google Play) that starts full instead of empty: a flood scene recedes as you log drinks, slowly rescuing a trapped cat, with a sky that shifts with the real time of day and a sarcastic narrator along for the ride. No streaks, no locked content, no accounts — everything is stored locally with no backend, ads, or tracking.',
+    link: 'https://github.com/aftongauntlett/Meowdrate',
+    demo: 'https://meowdrate.com/',
+    tech: ['Flutter', 'Dart', 'Riverpod', 'flutter_local_notifications'],
+    imageLight: '/meowdrate-light.png',
+    imageDark: '/meowdrate-dark.png',
   },
   {
     title: 'No Whiteboard Jobs Dashboard',

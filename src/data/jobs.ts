@@ -8,9 +8,20 @@ export type Job = {
 
 export const jobs: Job[] = [
   {
+    title: 'Mid-Level Everything Engineer',
+    company: 'Redhorse Corporation',
+    dates: '08/2026 – Present',
+    bullets: [
+      'Joined as an "Everything Engineer" modernizing a mission-critical legacy system managing billions of dollars in U.S. international security cooperation, working primarily on the frontend within an Agentic AI SDLC alongside tools like Cursor and Codex.',
+      'Own the user experience for complex, policy-laden workflows, building and maintaining a React/TypeScript component library with Section 508/WCAG accessibility and plain-language labeling built in by default.',
+      'Build vertical slices of capability spanning React frontends, Node services, and Prisma schemas, holding a high bar for production software through TDD, automated CI, and Playwright end-to-end testing.',
+      'Ship small, reviewable changes in an always-green main branch environment while replacing a decades-old fat-client system with a modern, humane web platform.',
+    ],
+  },
+  {
     title: 'Founder',
     company: 'Pretty Pretty Pretty Good',
-    dates: '01/2025 – Present',
+    dates: '07/2020 – Present',
     url: 'https://www.prettyprettyprettygood.org/',
     bullets: [
       'Founded a sliding-scale web studio for nonprofits and small businesses, serving as sole point of contact from scope through deployment.',
@@ -22,32 +33,13 @@ export const jobs: Job[] = [
   {
     title: 'Lead Engineer',
     company: 'Booz Allen Hamilton',
-    dates: '03/2023 – 05/2025',
+    dates: '03/2022 – 05/2025',
     bullets: [
+      'Modernized the frontend toolchain, led an Angular-to-React migration, and owned Section 508 compliance across the application experience.',
       'Promoted to lead within a year and owned frontend architecture across a portfolio of production applications where reliability and security were non-negotiable.',
       'Built the design practice from scratch when the project lacked a designer, including Figma training, team licenses, and production-ready design workflows.',
       'Designed a prototype as sole designer that won a competitive stakeholder review and directly influenced a multi-year contract award.',
-      'Built and launched a convention registration platform on a compressed timeline that earned a Booz Allen Platinum Award.',
-    ],
-  },
-  {
-    title: 'Software Engineer',
-    company: 'Booz Allen Hamilton',
-    dates: '03/2022 – 03/2023',
-    bullets: [
-      'Modernized the frontend toolchain, led an Angular-to-React migration, and owned Section 508 compliance across the application experience.',
-      'Contributed onboarding documentation and accessibility standards that reduced ramp-up time for new developers.',
-      'Shipped a SageMaker interface redesign that caught Amazon team attention, influenced their own product, and led to my selection to represent the team at AWS re:Invent.',
-    ],
-  },
-  {
-    title: 'Founder',
-    company: 'Gauntlet Designs',
-    dates: '07/2020 – 01/2025',
-    bullets: [
-      'Ran an independent web studio delivering accessible, production-ready sites for small businesses and larger clients.',
-      'Designed and built a multi-state employee portal and fundraiser scheduler for a restaurant franchise, migrating disorganized legacy data onto a platform still running the original code five years later.',
-      'Sunset the business in 2025 and shifted to volunteer and sliding-scale work exclusively with nonprofits and underserved communities.',
+      'Earned three Booz Allen awards over my tenure and was selected to represent the team at AWS re:Invent.',
     ],
   },
   {
