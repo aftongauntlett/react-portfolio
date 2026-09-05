@@ -8,7 +8,7 @@ describe('ExperienceSection', () => {
 
     expect(screen.getByRole('list', { name: 'Professional experience' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Lead Engineer' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Software Engineer' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'UI Developer' })).toBeInTheDocument();
   });
 
   it('renders the Lead Engineer bullet points', () => {
@@ -16,15 +16,15 @@ describe('ExperienceSection', () => {
 
     expect(screen.getByText(/Promoted to lead within a year/i)).toBeInTheDocument();
     expect(screen.getByText(/Built the design practice from scratch/i)).toBeInTheDocument();
-    expect(screen.getByText(/Booz Allen Platinum Award/i)).toBeInTheDocument();
+    expect(screen.getByText(/AWS re:Invent/i)).toBeInTheDocument();
   });
 
-  it('renders the Software Engineer bullet points', () => {
+  it('renders the Mid-Level Everything Engineer bullet points', () => {
     render(<ExperienceSection />);
 
-    expect(screen.getByText(/Modernized the frontend toolchain/i)).toBeInTheDocument();
-    expect(screen.getByText(/accessibility standards/i)).toBeInTheDocument();
-    expect(screen.getByText(/AWS re:Invent/i)).toBeInTheDocument();
+    expect(screen.getByText(/modernizing a mission-critical legacy system/i)).toBeInTheDocument();
+    expect(screen.getByText(/React\/TypeScript component library/i)).toBeInTheDocument();
+    expect(screen.getByText(/Playwright end-to-end testing/i)).toBeInTheDocument();
   });
 
   it('renders a clickable link for jobs with a company URL', () => {
