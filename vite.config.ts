@@ -3,127 +3,101 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { createRequire } from 'node:module';
-import type { PluginOption } from 'vite';
+import type { PluginOption, UserConfig } from 'vite';
 
-type VisualizerOptions = {
-  filename: string;
-  open: boolean;
-  gzipSize: boolean;
-  brotliSize: boolean;
-};
-
-type VisualizerFactory = (options: VisualizerOptions) => PluginOption;
-
-function getBundleVisualizerPlugin(): PluginOption | undefined {
+async function getBundleVisualizerPlugin(): Promise<PluginOption | undefined> {
   if (!process.env.ANALYZE) return undefined;
 
-  try {
-    const require = createRequire(import.meta.url);
-    const mod = require('rollup-plugin-visualizer') as { visualizer?: VisualizerFactory };
-    const visualizer = mod.visualizer;
+  const { visualizer } = await import('rollup-plugin-visualizer');
 
-    if (!visualizer) return undefined;
-
-    return visualizer({
-      filename: 'dist/stats.html',
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-    });
-  } catch {
-    return undefined;
-  }
+  return visualizer({
+    filename: 'dist/stats.html',
+    open: true,
+    gzipSize: true,
+    brotliSize: true,
+  });
 }
 
-const visualizerPlugin = getBundleVisualizerPlugin();
+export default defineConfig(async (): Promise<UserConfig> => {
+  const visualizerPlugin = await getBundleVisualizerPlugin();
 
-export default defineConfig({
-  plugins: [react(), ...(visualizerPlugin ? [visualizerPlugin] : [])],
-  envPrefix: ['VITE_', 'PUBLIC_'],
-  server: {
-    watch: {
-      usePolling: true,
-    },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-  build: {
-    sourcemap: true,
-    cssCodeSplit: true,
-    modulePreload: {
-      // Keep modulepreload generally enabled, but avoid preloading non-critical chunks.
-      // In particular, we don't want to fetch/parse animation/scroll/icon chunks on initial load.
-      resolveDependencies: (_filename: string, deps: readonly string[]) =>
-        deps.filter(
-          (dep) =>
-            !dep.includes('motion-') &&
-            !dep.includes('scroll-') &&
-            !dep.includes('icons-') &&
-            !dep.includes('useWillChange-') &&
-            !dep.includes('motionHelpers-') &&
-            !dep.includes('animations-'),
-        ),
-    },
-    rollupOptions: {
-      output: {
-        manualChunks: (id: string) => {
-          if (!id.includes('node_modules')) return;
-
-          // Keep React + its JSX runtime together.
-          if (
-            id.includes('/node_modules/react/') ||
-            id.includes('/node_modules/react-dom/') ||
-            id.includes('/node_modules/scheduler/')
-          ) {
-            return 'vendor';
-          }
-
-          // Bundle router packages into vendor to avoid circular chunk imports.
-          if (
-            id.includes('/node_modules/react-router-dom/') ||
-            id.includes('/node_modules/react-router/') ||
-            id.includes('/node_modules/@remix-run/router/') ||
-            id.includes('/node_modules/history/')
-          ) {
-            return 'vendor';
-          }
-
-          // Keep framer-motion isolated so it's only fetched when needed.
-          if (id.includes('/node_modules/framer-motion/')) {
-            return 'motion';
-          }
-
-          if (id.includes('/node_modules/lenis/')) {
-            return 'scroll';
-          }
-
-          if (
-            id.includes('/node_modules/react-icons/hi/') ||
-            id.includes('/node_modules/react-icons/hi2/') ||
-            id.includes('/node_modules/react-icons/fa/')
-          ) {
-            return 'icons';
-          }
-        },
+  return {
+    plugins: [react(), ...(visualizerPlugin ? [visualizerPlugin] : [])],
+    envPrefix: ['VITE_', 'PUBLIC_'],
+    server: {
+      watch: {
+        usePolling: true,
       },
     },
-    chunkSizeWarningLimit: 1000,
-    minify: 'esbuild',
-  },
-  optimizeDeps: {
-    include: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
-    esbuildOptions: {
-      target: 'es2020',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
     },
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts',
-    css: true,
-  },
+    build: {
+      sourcemap: true,
+      cssCodeSplit: true,
+      modulePreload: {
+        // Keep modulepreload generally enabled, but avoid preloading non-critical chunks.
+        // In particular, we don't want to fetch/parse animation/scroll/icon chunks on initial load.
+        resolveDependencies: (_filename: string, deps: readonly string[]) =>
+          deps.filter(
+            (dep) =>
+              !dep.includes('motion-') &&
+              !dep.includes('scroll-') &&
+              !dep.includes('icons-') &&
+              !dep.includes('useWillChange-') &&
+              !dep.includes('motionHelpers-') &&
+              !dep.includes('animations-'),
+          ),
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: (id: string) => {
+            if (!id.includes('node_modules')) return;
+
+            // Keep React + its JSX runtime together.
+            if (
+              id.includes('/node_modules/react/') ||
+              id.includes('/node_modules/react-dom/') ||
+              id.includes('/node_modules/scheduler/')
+            ) {
+              return 'vendor';
+            }
+
+            // Keep framer-motion isolated so it's only fetched when needed.
+            if (id.includes('/node_modules/framer-motion/')) {
+              return 'motion';
+            }
+
+            if (id.includes('/node_modules/lenis/')) {
+              return 'scroll';
+            }
+
+            if (
+              id.includes('/node_modules/react-icons/hi/') ||
+              id.includes('/node_modules/react-icons/hi2/') ||
+              id.includes('/node_modules/react-icons/fa/')
+            ) {
+              return 'icons';
+            }
+          },
+        },
+      },
+      chunkSizeWarningLimit: 1000,
+      minify: 'esbuild',
+    },
+    optimizeDeps: {
+      include: ['react-icons/hi', 'react-icons/hi2', 'react-icons/fa'],
+      esbuildOptions: {
+        target: 'es2020',
+      },
+    },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test/setup.ts',
+      css: true,
+    },
+  };
 });

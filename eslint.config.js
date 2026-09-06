@@ -5,6 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   { ignores: ['dist', 'node_modules'] },
@@ -13,9 +14,9 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-      sourceType: 'module',
-      ecmaVersion: 'latest',
-      ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
       },
       globals: {
         ...globals.browser,
@@ -40,6 +41,7 @@ export default [
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      ...eslintConfigPrettier.rules,
     },
     settings: {
       react: { version: 'detect' },
@@ -110,6 +112,7 @@ export default [
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      ...eslintConfigPrettier.rules,
     },
     settings: {
       react: { version: 'detect' },
