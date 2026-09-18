@@ -13,7 +13,7 @@ export const projects: Project[] = [
   {
     title: 'Meowdrate',
     description:
-      'A hydration app for Android (in closed testing on Google Play) that starts full instead of empty: a flood scene recedes as you log drinks, slowly rescuing a trapped cat, with a sky that shifts with the real time of day and a sarcastic narrator along for the ride. No streaks, no locked content, no accounts — everything is stored locally with no backend, ads, or tracking.',
+      'A hydration app for Android (live on Google Play) that starts full instead of empty: a flood scene recedes as you log drinks, slowly rescuing a trapped cat, with a sky that shifts with the real time of day and a sarcastic narrator along for the ride. No streaks, no locked content, no accounts — everything is stored locally with no backend, ads, or tracking.',
     link: 'https://github.com/aftongauntlett/Meowdrate',
     demo: 'https://meowdrate.com/',
     tech: ['Flutter', 'Dart', 'Riverpod', 'flutter_local_notifications'],
